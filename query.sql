@@ -4,7 +4,7 @@ create table member (
     memPass varchar2(20),
     memEmail varchar2(30),
     memPhone number(11),
-    memLevel varchar2(10),
+    memLevel varchar2(10) default 'member',
     memBank varchar2(30),
     memAccount number,
     constraint member_pk primary key(memnum)
