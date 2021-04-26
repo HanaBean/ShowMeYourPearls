@@ -18,4 +18,18 @@ public class NoticeController {
 		
 		return mv;
 	}
+	
+	@RequestMapping("/write")
+	public ModelAndView write() {
+		ModelAndView mv = new ModelAndView("notice/write");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/read")
+	public ModelAndView read() {
+		ModelAndView mv = new ModelAndView("notice/read");
+		
+		return mv;
+	}
 }

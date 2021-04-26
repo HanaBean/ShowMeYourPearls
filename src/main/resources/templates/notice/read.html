@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Show me your pearl</title>
+<meta charset="utf-8">
+</head>
+<body>
+	<header th:replace="fragments/header :: header"> </header>
+
+	<section class="hero-wrap hero-wrap-2" style="display: inline-block;">
+		<div class="row no-gutters">
+			<div class="col-md-7" style="margin: auto;">
+				<div class="contact-wrap w-100 p-md-5 p-4">
+					<h3 class="mb-4">공지 사항</h3>
+					<hr>
+					<div class="blog-entry align-self-stretch">
+						<div class="text p-4">
+							<h2 class="mb-4">제목입니다.</h2>
+							<div class="meta mb-2">
+								<div style="float: right">2021-04-26</div>
+							</div>
+							<hr>
+							<br>
+							<h3 class="heading">
+								<p>Even the all-powerful Pointing has no control about the
+									blind texts 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!
+									세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!
+									세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!
+									세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!
+									세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!
+									세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!
+									세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!
+									세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!</p>
+							</h3>
+						</div>
+					</div>
+					<div>
+					<a href="/notice/list"
+						class="btn-custom d-flex" style="margin-left: 0px"><span
+						class="fa fa-chevron-left"></span><i class="sr-only">Read more</i></a>
+						<input type="submit" value="수정하기" id="editBtn" class="btn btn-secondary">
+						<input type="submit" value="삭제하기" id="removeBtn" class="btn btn-primary">
+						</div>
+				</div>
+			</div>
+		</div>
+		<footer th:replace="fragments/footer :: footer"> </footer>
+	</section>
+</body>
+<script>
+	$(document).ready(function() {
+	});
+</script>
+
+</html>
