@@ -5,9 +5,8 @@
 <meta charset="utf-8">
 </head>
 <body>
-	<header th:replace="fragments/header :: header"> 
-	</header>
-	
+	<header th:replace="fragments/header :: header"> </header>
+
 	<section class="hero-wrap hero-wrap-2"
 		th:style="'background-image: url(' + @{/images/bg_2.jpg} + ');'"
 		data-stellar-background-ratio="0.5">
@@ -31,17 +30,21 @@
 			<h1 class="mb-4" align="center">Notice</h1>
 			<hr>
 			<div class="d-block services text-center" th:each="b : ${list }">
-				<div class="media-body p-4" >
-					<h3 class="heading">[[${b.bTitle }]]</h3>
+				<div class="media-body p-4">
+					<h3 class="heading">[[${b.boardTitle }]]</h3>
+					<div class="meta mb-2" >
+						<div style="float: right;">[[${b.boardDate }]]</div>
+						<br>
+					</div>
 					<hr>
-					<p>[[${b.bContent }]]</p>
+					<p>[[${b.boardContent }]]</p>
 					<a href="#"
 						class="btn-custom d-flex align-items-center justify-content-center"><span
 						class="fa fa-chevron-right"></span><i class="sr-only">Read
 							more</i></a>
 				</div>
 			</div>
-<!-- 			<div>
+			<!-- 			<div>
 				<div class="d-block services text-center">
 					<div class="media-body p-4">
 						<h3 class="heading">공지사항 2에욥!</h3>
@@ -94,8 +97,7 @@
 				stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
 	</div> -->
 
-	<footer th:replace="fragments/footer :: footer"> 
-	</footer>
+	<footer th:replace="fragments/footer :: footer"> </footer>
 
 </body>
 </html>

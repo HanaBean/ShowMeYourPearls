@@ -7,10 +7,10 @@ import lombok.Data;
 
 @Data
 public class BoardVO {
-	private int bNum;
-	private int mNum;
-	private String bTitle;
-	private String bContent;
-	private Date bDate;
-	private String bType;
+	private Long boardNum;
+	private Long memNum;
+	private String boardTitle;
+	private String boardContent;
+	private Date boardDate;
+	private String boardType;
 }
