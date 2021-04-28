@@ -12,9 +12,30 @@ import lombok.Setter;
 @RequestMapping("/gallery/*")
 public class GalleryController {
 	
-	@RequestMapping("/gallery")
+	@RequestMapping("/list")
 	public ModelAndView list() {
 		ModelAndView mv = new ModelAndView("gallery/gallery");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/get")
+	public ModelAndView get() {
+		ModelAndView mv = new ModelAndView("gallery/get");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/write")
+	public ModelAndView write() {
+		ModelAndView mv = new ModelAndView("gallery/write");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/modify")
+	public ModelAndView modify() {
+		ModelAndView mv = new ModelAndView("gallery/modify");
 		
 		return mv;
 	}

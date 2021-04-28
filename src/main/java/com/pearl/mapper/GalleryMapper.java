@@ -7,11 +7,11 @@ import org.apache.ibatis.annotations.Mapper;
 import com.pearl.domain.MemberVO;
 
 @Mapper
-public interface MemberMapper {
+public interface GalleryMapper {
 	List<MemberVO> list();
-	MemberVO get(Long memNum);
-	Long insert(MemberVO vo);
+	MemberVO get(int memNum);
+	int insert(MemberVO vo);
 	int update(MemberVO vo);
 	int updateLevel(MemberVO vo);
-	int delete(Long memNum);
+	int delete(int memNum);
 }

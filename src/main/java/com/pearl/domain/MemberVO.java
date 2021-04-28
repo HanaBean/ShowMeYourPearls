@@ -1,14 +1,12 @@
 package com.pearl.domain;
 
-import java.util.Date;
-
 import lombok.Data;
 
 @Data
 public class MemberVO {
-	private int memNum;
+	private Long memNum;
 	private String memName, memPass, memEmail;
-	private int memPhone;
+	private Long memPhone;
 	private String memLevel,memBank;
-	private int memAccount;
+	private Long memAccount;
 }

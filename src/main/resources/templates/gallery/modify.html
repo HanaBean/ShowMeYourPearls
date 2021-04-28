@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head th:insert="/fragments/head.html::head">
+  </head>
+  <body>
+
+    <header th:replace="/fragments/header.html::header"></header>
+    <section class="hero-wrap hero-wrap-2" style="'background-image: url('+@{/images/bg_2.jpg}+');'" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-end">
+          <div class="col-md-9 ftco-animate pb-5">
+          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="blog.html">Gallery <i class="ion-ios-arrow-forward"></i></a></span> <span>Write <i class="ion-ios-arrow-forward"></i></span></p>
+            <h1 class="mb-0 bread">Write</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="ftco-section ftco-no-pt ftco-no-pb">
+			<div class="overlay"></div>
+    	<div class="container">
+    	<div class="row no-gutters">
+	    						<div class="col-md-5 d-flex align-items-stretch">
+										<div class="info-wrap w-100 p-5 img" th:style="'background-image: url('+@{/images/img.jpg}+');'">
+	    							<input type="button" class="btn btn-primary" value="사진올리기"/>
+					          </div>
+									</div>
+								<div class="col-md-7">
+									<div class="contact-wrap w-100 p-md-5 p-4">
+										<h3 class="mb-4">업로드 된 사진 수정</h3>
+										<form method="POST" id="contactForm" name="contactForm" class="contactForm">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<input type="text" class="form-control" name="name" id="name" placeholder="제목을 입력하세요">
+													</div>
+												</div>
+												<div class="col-md-12">
+													<div class="form-group">
+														<textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="내용을 입력하세요"></textarea>
+													</div>
+												</div>
+												<div class="col-md-12">
+													<div class="form-group">
+														<input type="submit" value="업로드" class="btn btn-primary">
+														<div class="submitting"></div>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+
+							</div>
+    			</div>
+    </section> <!-- .section -->
+
+    <footer th:replace="fragments/footer :: footer"></footer>
+  
+  </body>
+</html>
