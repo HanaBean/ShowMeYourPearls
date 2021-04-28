@@ -11,7 +11,11 @@
 		<div class="row no-gutters">
 			<div class="col-md-7" style="margin: auto;">
 				<div class="contact-wrap w-100 p-md-5 p-4">
-					<h3 class="mb-4">공지 사항</h3>
+					<div>
+						<h3 class="mb-4" style="display:inline-block;">공지 사항</h3>
+						<input type="submit" value="수정하기" id="editBtn"
+							class="btn btn-secondary" style="float: right;">
+					</div>
 					<hr>
 					<div class="blog-entry align-self-stretch">
 						<div class="text p-4">
@@ -27,13 +31,10 @@
 						</div>
 					</div>
 					<div>
-						<a th:href="@{/notice/modify(boardNum=${notice.boardNum})}" class="btn-custom d-flex"
-							style="margin-left: 0px"><span class="fa fa-chevron-left">
-								<div style="margin-right: 0px; display:inline-block">
-									<input type="submit" value="수정하기" id="editBtn"
-										class="btn btn-secondary"> 
-								</div>
-						</span><i class="sr-only">Read more</i></a>
+						<a th:href="@{/notice/modify(boardNum=${notice.boardNum})}"
+							class="btn-custom d-flex" style="margin-left: 0px"><span
+							class="fa fa-chevron-left"> </span><i class="sr-only">Read
+								more</i></a>
 
 					</div>
 				</div>
