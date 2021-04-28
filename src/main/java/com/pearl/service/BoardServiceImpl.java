@@ -26,11 +26,6 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int insert(BoardVO vo) {
-		return mapper.insert(vo);
-	}
-
-	@Override
 	public int update(BoardVO vo) {
 		return mapper.update(vo);
 	}
@@ -38,6 +33,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int delete(int bNum) {
 		return mapper.delete(bNum);
+	}
+
+	@Override
+	public int insertNotice(BoardVO vo) {
+			return mapper.insertNotice(vo);
 	}
 
 	

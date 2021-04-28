@@ -32,59 +32,18 @@
 			<div class="d-block services text-center" th:each="b : ${list }">
 				<div class="media-body p-4">
 					<h3 class="heading">[[${b.boardTitle }]]</h3>
-					<div class="meta mb-2" >
+					<div class="meta mb-2">
 						<div style="float: right;">[[${b.boardDate }]]</div>
-						<br>
 					</div>
+					<br>
 					<hr>
-					<p>[[${b.boardContent }]]</p>
-					<a href="#"
+					<p align="left">[[${b.boardContent }]]</p>
+					<a th:href="@{/notice/read(boardNum=${b.boardNum })}"
 						class="btn-custom d-flex align-items-center justify-content-center"><span
 						class="fa fa-chevron-right"></span><i class="sr-only">Read
 							more</i></a>
 				</div>
 			</div>
-			<!-- 			<div>
-				<div class="d-block services text-center">
-					<div class="media-body p-4">
-						<h3 class="heading">공지사항 2에욥!</h3>
-						<p>세미가 전화기를 찾고 있다. 이게 바로 뉴트로 감성인가 싶기도 하다. 핸드폰을 바꾸고 싶다는 생각이
-							들었다. 너무 무겁다. 손목이 아작날 것 같다 !</p>
-						<a href="#"
-							class="btn-custom d-flex align-items-center justify-content-center"><span
-							class="fa fa-chevron-right"></span><i class="sr-only">Read
-								more</i></a>
-					</div>
-				</div>
-			</div>
-			<div>
-				<div class="d-block services text-center">
-					<div class="media-body p-4">
-						<h3 class="heading">공지 3이다.</h3>
-						<p>세미가 신나게 카톡에다가 블라블라 쓰고 있다. 내 눈이 안좋아서 내용은 안보이지만 한 10줄 정도 적은
-							것같다. 궁금해 죽겠다. 나는 궁금하면 죽어버리는 병에 걸렸다. 5분뒤에 죽고 말 것이다 ㅠ</p>
-						<a href="#"
-							class="btn-custom d-flex align-items-center justify-content-center"><span
-							class="fa fa-chevron-right"></span><i class="sr-only">Read
-								more</i></a>
-					</div>
-				</div>
-			</div>
-			<div>
-				<div class="d-block services text-center">
-					<div class="media-body p-4">
-						<h3 class="heading">공지사항4 (세미의 카톡 훔쳐보기)</h3>
-						<p>장수현은 왜 장수현일까. 정말 무서운 아이다. 지금도 나의 모니터를 훔쳐보면서 감시하고 있다. 너무
-							무서워서 오줌이 지릴 것 같아서 화장실을 다녀왔다. 왜 이렇게 나를 감시하는 걸까. 이번엔 또 무엇을 적을려고 저러는
-							걸까. 너무 무섭다. 다행히도 장수현은눈이 안좋아서 무슨 내용인지 안보인다고 한다. 궁금해 죽겠다고 하니 내가
-							보내줘야 곘다</p>
-						<a href="#"
-							class="btn-custom d-flex align-items-center justify-content-center"><span
-							class="fa fa-chevron-right"></span><i class="sr-only">Read
-								more</i></a>
-					</div>
-				</div>
-			</div> -->
 		</div>
 	</section>
 

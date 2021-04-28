@@ -15,32 +15,23 @@
 					<hr>
 					<div class="blog-entry align-self-stretch">
 						<div class="text p-4">
-							<h2 class="mb-4">제목입니다.</h2>
+							<h2 class="mb-4">[[${notice.boardTitle}]]</h2>
 							<div class="meta mb-2">
-								<div style="float: right">2021-04-26</div>
+								<div style="float: right">[[${notice.boardDate}]]</div>
 							</div>
 							<hr>
 							<br>
 							<h3 class="heading">
-								<p>Even the all-powerful Pointing has no control about the
-									blind texts 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!
-									세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!
-									세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!
-									세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!
-									세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!
-									세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!
-									세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!
-									세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야! 세미야!</p>
+								<p>[[${notice.boardContent}]]</p>
 							</h3>
 						</div>
 					</div>
 					<div>
-						<a href="/notice/list" class="btn-custom d-flex"
+						<a th:href="@{/notice/modify(boardNum=${notice.boardNum})}" class="btn-custom d-flex"
 							style="margin-left: 0px"><span class="fa fa-chevron-left">
 								<div style="margin-right: 0px; display:inline-block">
 									<input type="submit" value="수정하기" id="editBtn"
-										class="btn btn-secondary"> <input type="submit"
-										value="삭제하기" id="removeBtn" class="btn btn-primary">
+										class="btn btn-secondary"> 
 								</div>
 						</span><i class="sr-only">Read more</i></a>
 

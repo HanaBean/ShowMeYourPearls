@@ -7,7 +7,7 @@ import com.pearl.domain.BoardVO;
 public interface BoardService {
 	List<BoardVO> list(); 
 	BoardVO read(int bNum); 
-	int insert(BoardVO vo); 
+	int insertNotice(BoardVO vo); 
 	int update(BoardVO vo); 
 	int delete(int bNum); 
 }
