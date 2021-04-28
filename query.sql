@@ -21,7 +21,7 @@ create table board (
     CONSTRAINT board_fk foreign key(memnum) references member(memnum)
 );
 
-create table funding (
+create table fund (
 	fundNum number,
 	memNum number,
 	fundstartdate date,
