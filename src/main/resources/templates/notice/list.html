@@ -30,18 +30,18 @@
 		<div class="container">
 			<h1 class="mb-4" align="center">Notice</h1>
 			<hr>
-			<div class="d-block services text-center">
-				<div class="media-body p-4">
-					<h3 class="heading">공지 1이다.</h3>
-					<p>오늘은 세미랑 한솥을 먹기로 했다. 10분 뒤에 가지러 갈 것이다. 몹시 배고프다. 나는 돈치 마요를 먹고
-						세미는 내몫까지 먹는다면서 3개를 시켰다. 알 수 없는 여성이다.</p>
+			<div class="d-block services text-center" th:each="b : ${list }">
+				<div class="media-body p-4" >
+					<h3 class="heading">[[${b.bTitle }]]</h3>
+					<hr>
+					<p>[[${b.bContent }]]</p>
 					<a href="#"
 						class="btn-custom d-flex align-items-center justify-content-center"><span
 						class="fa fa-chevron-right"></span><i class="sr-only">Read
 							more</i></a>
 				</div>
 			</div>
-			<div>
+<!-- 			<div>
 				<div class="d-block services text-center">
 					<div class="media-body p-4">
 						<h3 class="heading">공지사항 2에욥!</h3>
@@ -81,7 +81,7 @@
 								more</i></a>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</section>
 

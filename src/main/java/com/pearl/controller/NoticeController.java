@@ -6,15 +6,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pearl.service.BoardService;
+
 import lombok.Setter;
 
 @Controller
 @RequestMapping("/notice/*")
 public class NoticeController {
 	
+	@Setter(onMethod_ = @Autowired)
+	private BoardService service;
+	
 	@RequestMapping("/list")
-	public ModelAndView list() {
+	public ModelAndView list(Model model) {
 		ModelAndView mv = new ModelAndView("notice/list");
+		mv.addObject("list", service.list());
 		
 		return mv;
 	}
