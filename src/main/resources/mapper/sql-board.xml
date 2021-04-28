@@ -27,7 +27,7 @@
 	
 	<update id="update">
 		update Board  
-		set bTitle=#{boardTitle}, bContent=#{boardContent}  
+		set boardTitle=#{boardTitle}, boardContent=#{boardContent}  
 		where boardNum = #{boardNum}
 	</update>
 	

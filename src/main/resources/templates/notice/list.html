@@ -27,7 +27,12 @@
 
 	<section class="ftco-section bg-light">
 		<div class="container">
-			<h1 class="mb-4" align="center">Notice</h1>
+			<div>
+				<h1 class="mb-4" align="center" style="display:inline-block; text-align:center;">공지사항</h1>
+				<input type="button" value="공지 작성" id="writeBtn" style="float: right;"
+					class="btn btn-primary"
+					onclick="location.href='/notice/write'">
+			</div>
 			<hr>
 			<div class="d-block services text-center" th:each="b : ${list }">
 				<div class="media-body p-4">

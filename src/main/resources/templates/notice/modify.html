@@ -13,8 +13,10 @@
 				<div class="contact-wrap w-100 p-md-5 p-4">
 					<h3 class="mb-4">공지 수정</h3>
 					<hr>
-					<form action="/notice/list" method="POST" id="writeForm"
-						name="writeForm" class="contactForm">
+					<form action="/notice/modify" method="POST" id="modifyForm"
+						name="modifyForm" class="contactForm">
+						<input type="hidden" id="boardNum" name="boardNum"
+						th:value="${notice.boardNum}">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
