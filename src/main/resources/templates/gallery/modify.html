@@ -11,7 +11,7 @@
         <div class="row no-gutters slider-text align-items-end">
           <div class="col-md-9 ftco-animate pb-5">
           	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="blog.html">Gallery <i class="ion-ios-arrow-forward"></i></a></span> <span>Write <i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">Write</h1>
+            <h1 class="mb-0 bread">Gallery</h1>
           </div>
         </div>
       </div>
@@ -29,21 +29,23 @@
 								<div class="col-md-7">
 									<div class="contact-wrap w-100 p-md-5 p-4">
 										<h3 class="mb-4">업로드 된 사진 수정</h3>
-										<form method="POST" id="contactForm" name="contactForm" class="contactForm">
+										<form method="POST" action="/gallery/modify" id="contactForm" name="contactForm" class="contactForm">
 											<div class="row">
 												<div class="col-md-6">
 													<div class="form-group">
-														<input type="text" class="form-control" name="name" id="name" placeholder="제목을 입력하세요">
+														<input type="hidden" th:value="${gallery.boardNum}" name="boardNum">
+														<input type="text" th:value="${gallery.boardTitle}" class="form-control" name="boardTitle" id="boardTitle" placeholder="제목을 입력하세요">
 													</div>
 												</div>
 												<div class="col-md-12">
 													<div class="form-group">
-														<textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="내용을 입력하세요"></textarea>
+														<textarea name="boardContent" th:text="${gallery.boardContent}" class="form-control" id="boardContent" cols="30" rows="10" placeholder="내용을 입력하세요"></textarea>
 													</div>
 												</div>
 												<div class="col-md-12">
 													<div class="form-group">
 														<input type="submit" value="업로드" class="btn btn-primary">
+														<input type="button" value="취소" class="btn btn-danger">
 														<div class="submitting"></div>
 													</div>
 												</div>

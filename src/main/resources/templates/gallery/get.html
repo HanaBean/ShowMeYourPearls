@@ -11,8 +11,8 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-end">
           <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="blog.html">Blog <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog Single <i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">Blog</h1>
+          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="#">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a th:href="@{/gallery/list}">Gallery<i class="ion-ios-arrow-forward"></i></a></span> <span>Gallery Single<i class="ion-ios-arrow-forward"></i></span></p>
+            <h1 class="mb-0 bread">Gallery</h1>
           </div>
         </div>
       </div>
@@ -22,9 +22,9 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 ftco-animate">
-          <h2>장수풍뎅이 잡으러 가는 날</h2>
+          <h2 th:text="${gallery.boardTitle}">글 제목</h2>
           	<p>
-              <img th:src="@{/images/image_1.jpg}" alt="" class="img-fluid">
+              <img th:src="@{/images/jangsupungdeng2.jpg}" alt="" class="img-fluid">
             </p>
             <div>
             	<div style="display:inline-block; margin:30px; text-align:center;">
@@ -176,20 +176,21 @@
             </div>
             <div class="about-author d-flex p-1 bg-light">
               <div class="bio">
-                <img th:src="@{/images/person_1.jpg}" alt="Image placeholder" class="img-fluid" style="width: 40px;	height:40px; border-radius: 20px;">
+                <a href="#"><img th:src="@{/images/jangsupungdeng2.jpg}" alt="Image placeholder" class="img-fluid" style="width: 40px;	height:40px; border-radius: 20px;"></a>
               </div>
               <div class="desc">
-                <span>George Washington</span>
+                <a href="#"><span th:text="${writer.memName}">작성자명</span></a>
                 <span class="tagcloud">
 									<a href="#" class="tag-cloud-link" style="background-color:#19a2b8; color:white;">Proceeding</a>
 								</span>
-                <p>2021년 4월 27일</p>
+                <p th:text="${gallery.boardDate}">작성일자</p>
               </div>
             </div>
-            <span style="margin-bottom:300px;">
-            	서울로 상경하는 장수풍뎅이
+            <span style="margin-bottom:300px;" th:text="${gallery.boardContent}">
+            	작성내용
             </span><br>
-            <input type="button" value="수정" class="btn py-3 px-4 btn-primary" style="margin-top:100px;"/>
+            <input type="button" value="수정" th:onclick="location.href='/gallery/modify?boardNum=[[${gallery.boardNum}]]'" class="btn py-3 px-4 btn-primary" style="margin-top:100px;"/>
+			<input type="button" value="삭제" th:onclick="location.href='/gallery/delete?boardNum=[[${gallery.boardNum}]]'" class="btn py-3 px-4 btn-danger" style="margin-top:100px;"/>
 <!--             <input type="button" value="삭제" class="btn py-3 px-4 btn-danger"/> -->
           </div>
           
@@ -201,4 +202,4 @@
     <footer th:replace="fragments/footer :: footer"></footer>
   
   </body>
-</html>
+</html> f

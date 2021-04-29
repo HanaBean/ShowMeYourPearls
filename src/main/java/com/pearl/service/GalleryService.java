@@ -1,16 +1,14 @@
-package com.pearl.mapper;
+package com.pearl.service;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 
 import com.pearl.domain.BoardVO;
 import com.pearl.domain.MemberVO;
 
-@Mapper
-public interface GalleryMapper {
+
+public interface GalleryService {
 	List<BoardVO> list(); 
-	BoardVO read(int boardNum);
+	BoardVO read(int boardNum); 
 	MemberVO readWriter(Long memNum);
 	int insert(BoardVO vo); 
 	int update(BoardVO vo); 

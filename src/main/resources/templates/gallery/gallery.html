@@ -11,20 +11,12 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-end">
           <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Gallery <i class="ion-ios-arrow-forward"></i></span></p>
+          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="#">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Gallery <i class="ion-ios-arrow-forward"></i></span></p>
             <h1 class="mb-0 bread">Gallery</h1>
           </div>
         </div>
       </div>
     </section>
-	<section>
-		<div class="container">
-			
-					
-				
-		</div>
-	</section>
-	
 	<section class="ftco-section bg-light">
 			<div class="container">
 			<div style="margin-bottom:200px">
@@ -47,7 +39,7 @@
 							<input type="hidden" name="type" value="">
 							<input type="hidden" name="pageNum" value="">
 							<input type="hidden" name="amount" value="">
-							<div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton" style="z-index:auto;">
+							<div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
 								<span class="dropdown-item" onclick="searchType(this)" data-srch="">전체 보기</span>
 								<span class="dropdown-item" onclick="searchType(this)" data-srch="T">제목</span> 
 								<span class="dropdown-item" onclick="searchType(this)" data-srch="C">내용</span>
@@ -64,87 +56,22 @@
     		</div>
     		</div>
     		<div class="row d-flex">
-          <div class="col-md-4 d-flex ftco-animate">
+          <div class="col-md-4 d-flex ftco-animate" th:each="gallery : ${gallery}">
             <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20 rounded" th:style="'background-image: url('+@{/images/jangsupungdeng2.jpg}+');'">
+              <a th:href="@{/gallery/get(boardNum=${gallery.boardNum})}" class="block-20 rounded" th:style="'background-image: url('+@{/images/jangsupungdeng2.jpg}+');'">
               </a>
               <div class="text p-4">
               	<div class="meta mb-2">
-                  <div><a href="#">장수풍뎅이 잡으러 가는 날</a></div>
+                  <div><a href="#" th:text="${gallery.boardTitle}"></a></div>
                   <div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div><br>
-                  <div><a href="#">장수풍뎅이</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20 rounded" th:style="'background-image: url('+@{/images/image_2.jpg}+');'">
-              </a>
-              <div class="text p-4">
-              	<div class="meta mb-2">
-                  <div><a href="#">April 07, 2020</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20 rounded" th:style="'background-image: url('+@{/images/image_3.jpg}+');'">
-              </a>
-              <div class="text p-4">
-              	<div class="meta mb-2">
-                  <div><a href="#">April 07, 2020</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20 rounded" th:style="'background-image: url('+@{/images/image_4.jpg}+');'">
-              </a>
-              <div class="text p-4">
-              	<div class="meta mb-2">
-                  <div><a href="#">April 07, 2020</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20 rounded" th:style="'background-image: url('+@{/images/image_5.jpg}+');'">
-              </a>
-              <div class="text p-4">
-              	<div class="meta mb-2">
-                  <div><a href="#">April 07, 2020</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20 rounded" th:style="'background-image: url('+@{/images/image_6.jpg}+');'">
-              </a>
-              <div class="text p-4">
-              	<div class="meta mb-2">
-                  <div><a href="#">April 07, 2020</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
+                  <div><a href="#" th:text="${gallery.boardContent}"></a></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="row mt-5">
+          <input type="button" class="btn btn-primary" onclick="location.href='/gallery/write'" style="float:right;" value="사진올리기">
           <div class="col text-center">
             <div class="block-27">
               <ul>
