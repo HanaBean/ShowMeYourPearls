@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.pearl.domain.BoardVO;
+import com.pearl.domain.EmotionVO;
 import com.pearl.domain.MemberVO;
 
 @Mapper
@@ -15,4 +16,5 @@ public interface GalleryMapper {
 	int insert(BoardVO vo); 
 	int update(BoardVO vo); 
 	int delete(int boardNum); 
+	String emotionInsert(EmotionVO vo);
 }

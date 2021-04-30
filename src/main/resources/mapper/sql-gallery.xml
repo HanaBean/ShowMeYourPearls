@@ -36,4 +36,11 @@
 		where boardNum = #{boardNum}
 	</update>
 	
+	<insert id="emotionInsert">
+		insert into emotion values(emotion_seq.nextval, #{boardNum}, #{memNum},#{emoExpress})
+		<selectKey keyProperty="emoExpress" resultType="String" order="AFTER">
+			select emoExpress from emotion where boardNum = #{boardNum} and memnum = #{memNum}
+	</selectKey>
+	</insert>
+	
 </mapper>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pearl.domain.BoardVO;
+import com.pearl.domain.EmotionVO;
 import com.pearl.domain.MemberVO;
 import com.pearl.mapper.GalleryMapper;
 
@@ -46,5 +47,9 @@ public class GalleryServiceImpl implements GalleryService{
 		return mapper.delete(boardNum);
 	}
 
+	@Override
+	public String emotionInsert(EmotionVO vo) {
+		return mapper.emotionInsert(vo); 
+	}
 	
 }

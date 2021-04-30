@@ -3,6 +3,7 @@ package com.pearl.service;
 import java.util.List;
 
 import com.pearl.domain.BoardVO;
+import com.pearl.domain.EmotionVO;
 import com.pearl.domain.MemberVO;
 
 
@@ -13,4 +14,5 @@ public interface GalleryService {
 	int insert(BoardVO vo); 
 	int update(BoardVO vo); 
 	int delete(int boardNum); 
+	String emotionInsert(EmotionVO vo);
 }
