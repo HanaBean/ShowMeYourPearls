@@ -28,25 +28,25 @@
             </p>
             <div>
             	<div style="display:inline-block; margin:30px; text-align:center;">
-            		<span>10</span>
+            		<span th:text="${a}==null?0:${a}">좋아요수</span>
 	            	<div style="background-color:blue; text-align:center; width:100px; border-radius: 10px;">
 	            		<a href="javascript:emotion('a')" class="emotion" style="color:white">좋아요</a>
 	            	</div>
             	</div>
             	<div style="display:inline-block; margin:30px; text-align:center;">
-            	<span>10</span>
+            	<span th:text="${b}==null?0:${b}">슬퍼요수</span>
             	<div style="background-color:gray; text-align:center; width:100px; border-radius: 10px;">
             		<a href="javascript:emotion('b')" class="emotion" style="color:white">슬퍼요</a>
             	</div>
             	</div>
             	<div style="display:inline-block; margin:30px; text-align:center;">
-            	<span>10</span>
+            	<span th:text="${c}==null?0:${c}">화나요수</span>
             	<div style="background-color:red; text-align:center; width:100px; border-radius: 10px;">
             		<a href="javascript:emotion('c')" class="emotion" style="color:white">화나요</a>
             	</div>
             	</div>
             	<div style="display:inline-block; margin:30px; text-align:center;">
-            	<span>10</span>
+            	<span th:text="${d}==null?0:${d}">즐거워요수</span>
             	<div style="background-color:green; text-align:center; width:100px; border-radius: 10px;">
             		<a href="javascript:emotion('d')" class="emotion" style="color:white">즐거워요</a>
             	</div>
@@ -198,21 +198,18 @@
         </div>
       </div>
     </section> <!-- .section -->
-<script>
+<script th:inline="javascript">
+  var boardNum = [[${gallery.boardNum}]];
+  var memNum = [[${gallery.memNum}]];
 
 function emotion(emo){
-	
-	var boardNum = [[${gallery.boardNum}]];
-  var memNum = [[${gallery.memNum}]];
-  var emoExpress = emo;
-	
-  var param = {"boardNum":boardNum, "memNum":memNum, "emoExpress":emoExpress}
+  var param = {"boardNum":boardNum, "memNum":memNum, "emoExpress":emo}
   
     $.ajax({
     		method : 'POST',
         url:'/gallery/emotion',
         data: JSON.stringify(param),
-        dataType:'json',
+        dataType:'text',
         contentType:'application/json; charset=utf-8',
         success:function(emo){
         	alert(emo+"가 선택되었습니다");
@@ -230,4 +227,4 @@ $(function(){
     <footer th:replace="fragments/footer :: footer"></footer>
   
   </body>
-</html> f
+</html>
