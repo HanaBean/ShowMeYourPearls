@@ -2,7 +2,7 @@ HELP.md
 .gradle
 build/
 build.gradle
-src/main/resources/static/
+settings.gradle
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
