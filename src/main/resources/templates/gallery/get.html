@@ -6,12 +6,12 @@
 
     <header th:replace="/fragments/header.html::header"></header>
     
-    <section class="hero-wrap hero-wrap-2" style="'background-image: url('+@{/images/bg_2.jpg}+');'" data-stellar-background-ratio="0.5">
+    <section class="hero-wrap hero-wrap-2" th:style="'background-image: url('+@{/images/bg_2.jpg}+');'" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-end">
           <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="#">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a th:href="@{/gallery/list}">Gallery<i class="ion-ios-arrow-forward"></i></a></span> <span>Gallery Single<i class="ion-ios-arrow-forward"></i></span></p>
+          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="/main/home">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a th:href="@{/gallery/list}">Gallery<i class="ion-ios-arrow-forward"></i></a></span> <span>Gallery Single<i class="ion-ios-arrow-forward"></i></span></p>
             <h1 class="mb-0 bread">Gallery</h1>
           </div>
         </div>
@@ -24,7 +24,7 @@
           <div class="col-lg-8 ftco-animate">
           <h2 th:text="${gallery.boardTitle}">글 제목</h2>
           	<p>
-              <img th:src="@{/images/jangsupungdeng2.jpg}" alt="" class="img-fluid">
+              <img th:src="@{/images/pricing-2.jpg}" alt="" class="img-fluid">
             </p>
             <div>
             	<div style="display:inline-block; margin:30px; text-align:center;">
@@ -176,7 +176,7 @@
             </div>
             <div class="about-author d-flex p-1 bg-light">
               <div class="bio">
-                <a href="#"><img th:src="@{/images/jangsupungdeng2.jpg}" alt="Image placeholder" class="img-fluid" style="width: 40px;	height:40px; border-radius: 20px;"></a>
+                <a href="#"><img th:src="@{/images/person_1.jpg}" alt="Image placeholder" class="img-fluid" style="width: 40px;	height:40px; border-radius: 20px;"></a>
               </div>
               <div class="desc">
                 <a href="#"><span th:text="${writer.memName}">작성자명</span></a>
