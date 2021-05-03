@@ -9,9 +9,16 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/mypage/*")
 public class MypageController {
 	
+	
 	@RequestMapping("/my")
-	public ModelAndView list(Model model) {
+	public ModelAndView my() {
 		ModelAndView mv = new ModelAndView("mypage/my");
+		return mv;
+	}
+	
+	@RequestMapping("/edit")
+	public ModelAndView edit() {
+		ModelAndView mv = new ModelAndView("mypage/edit");
 		return mv;
 	}
 
