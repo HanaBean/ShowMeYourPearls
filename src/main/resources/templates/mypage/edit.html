@@ -1,253 +1,148 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Show me your pearl</title>
-<meta charset="utf-8">
-
+<head th:insert="/fragments/head.html::head">
 </head>
   <body>
 
    <header th:replace="fragments/header :: header"> </header>
-   	<link rel="stylesheet" th:href="@{../../css/animate.css}">
-
-	<link rel="stylesheet" th:href="@{../../css/owl.carousel.min.css}">
-	<link rel="stylesheet" th:href="@{../../css/owl.theme.default.min.css}">
-	<link rel="stylesheet" th:href="@{../../css/magnific-popup.css}">
-
-
-	<link rel="stylesheet" th:href="@{../../css/bootstrap-datepicker.css}">
-	<link rel="stylesheet" th:href="@{../../css/jquery.timepicker.css}">
-
-	<link rel="stylesheet" th:href="@{../../css/flaticon.css}">
-	<link rel="stylesheet" th:href="@{../../css/style.css}">
-	   	<link rel="stylesheet" th:href="@{../../css/style2.css}">
+   
+	<style>
+	.pic2{
+		margin-left:33em;
+	}
 	
+	.nickname2{
+		position:absolute;
+		margin-left:1em;
+		font-size: 3em;
+		font-weight: bold;
+		top:70%;
+	}
 	
+	.check2{
+		position:absolute;
+		margin-left:1em;
+		font-size: 1.5em;
+		top:90%;
+		color: red;
+		text-decoration:underline;
+	}
+	
+	#appointment2{
+		left:50%
+	}
+	
+	.panel-left{
+		position:absolute;
+		font-size:3em;
+		top:70%;
+	}
+	
+	</style>
    
     <section class="hero-wrap hero-wrap-2"  data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
+        <div class="row no-gutters slider-text align-items-end justify-content-center">
           <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>My Page <i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">My Page</h1>
+          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home 
+          	<i class="ion-ios-arrow-forward"></i></a></span> 
+          	<span>My Page <i class="ion-ios-arrow-forward"></i></span></p>
+            <h1 class="mb-0 bread">Edit</h1>
           </div>
         </div>
       </div>
     </section>
+    <div class="panel-left">
+		<ul>
+			<li class="menu-label"><a href="#">프로필 수정</a></li>
+			<li class="menu-label"><a href="#">펀딩 정보</a></li>
+			<li class="menu-label"><a href="#">구독 정보</a></li>
+		</ul>
+    </div>
     
     <div>
-    <img th:src="@{/images/profile.jpg}" width="300" height="300" class="pic">
-    	
-    		<span class="nickname">미세</span>
-    		<input type="button" value="Edit" class="edit">
-    		<span class="num1">0</span><span class="num3">Photo</span>
-    		<span class="num2">0</span><span class="num4">Subscribers</span>
-    		<input type="button" value="Donation" class="Donation" id="donation">
-    		<input type="button" value="Subscribe" class="Subscribe">
-    </div>
+				    <img th:src="@{/images/profile.jpg}" width="300" height="300" class="pic2">
+				    	<span class="nickname2" >미세</span>
+			    		<span class="check2">프로필 사진 변경하기</span> 
+			    </div>
+    
+    <section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb " >
+			<div class="overlay"></div>
+    	<div class="container">
+    		<div class="row ">
+    			<div class="row d-md-flex justify-content-center">
+    				<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ">
+    			 
+    				<form action="#" class="appointment" id="appointment2">
+    					<div class="row">
+    						
+								<div class="col-md-6">
+									<div class="form-group">
+			              <input type="text" class="form-control" placeholder="E-mail">
+			            </div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+			              <input type="text" class="form-control" placeholder="Name">
+			            </div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+			              <input type="text" class="form-control" placeholder="NickName">
+			            </div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+			              <input type="text" class="form-control" placeholder="Password">
+			            </div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+			              <input type="text" class="form-control" placeholder="RePassword">
+			            </div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+			              <input type="text" class="form-control" placeholder="PhoneNumber">
+			            </div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+			    					<div class="form-field">
+	          					<div class="select-wrap">
+	                      <div class="icon"><span class="fa fa-chevron-down"></span></div>
+	                      <select name="" id="" class="form-control">
+	                      	<option value="">국민은행</option>
+	                        <option value="">신한은행</option>
+	                        <option value="">농협은행</option>
+	                        <option value="">우리은행</option>
+	                        <option value="">하나은행</option>
+	                        <option value="">카카오뱅크</option>
+	                      </select>
+	                    </div>
+			              </div>
+			    				</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+			              <input type="text" class="form-control" placeholder="Bank Account">
+			            </div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<input type="submit" id="join_btn" value="변경하기"
+											class="btn btn-primary py-3 px-4">
+									</div>
+								</div>
+    					</div>
+	          </form>
+    			</div>
+    		</div>
+    	</div>
+    </section>
 
-	
-    <section class="ftco-section bg-light">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-lg-3 ftco-animate">
-						<div class="staff">
-							<div class="img-wrap d-flex align-items-stretch">
-								<div class="img align-self-stretch" th:style="'background-image: url('+@{/images/staff-1.jpg}+');'"></div>
-							</div>
-							<div class="text pt-3 px-3 pb-4 text-center">
-								<h3>Lloyd Wilson</h3>
-								<span class="position mb-2">Health Coach</span>
-								<div class="faded">
-									<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-									<ul class="ftco-social text-center">
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-google"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"></span></a></li>
-		              </ul>
-	              </div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-3 ftco-animate">
-						<div class="staff">
-							<div class="img-wrap d-flex align-items-stretch">
-								<div class="img align-self-stretch" th:style="'background-image: url('+@{/images/staff-2.jpg}+');'"></div>
-							</div>
-							<div class="text pt-3 px-3 pb-4 text-center">
-								<h3>Rachel Parker</h3>
-								<span class="position mb-2">Life &amp; Business Coach</span>
-								<div class="faded">
-									<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-									<ul class="ftco-social text-center">
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-google"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"></span></a></li>
-		              </ul>
-	              </div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-3 ftco-animate">
-						<div class="staff">
-							<div class="img-wrap d-flex align-items-stretch">
-								<div class="img align-self-stretch" th:style="'background-image: url('+@{/images/staff-3.jpg}+');'"></div>
-							</div>
-							<div class="text pt-3 px-3 pb-4 text-center">
-								<h3>Ian Smith</h3>
-								<span class="position mb-2">Executive Coach</span>
-								<div class="faded">
-									<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-									<ul class="ftco-social text-center">
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-google"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"></span></a></li>
-		              </ul>
-	              </div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-3 ftco-animate">
-						<div class="staff">
-							<div class="img-wrap d-flex align-items-stretch">
-								<div class="img align-self-stretch" th:style="'background-image: url('+@{/images/staff-4.jpg}+');'"></div>
-							</div>
-							<div class="text pt-3 px-3 pb-4 text-center">
-								<h3>Alicia Henderson</h3>
-								<span class="position mb-2">Health Coach</span>
-								<div class="faded">
-									<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-									<ul class="ftco-social text-center">
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-google"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"></span></a></li>
-		              </ul>
-	              </div>
-							</div>
-						</div>
-					</div>
 
-					<div class="col-md-6 col-lg-3 ftco-animate">
-						<div class="staff">
-							<div class="img-wrap d-flex align-items-stretch">
-								<div class="img align-self-stretch" th:style="'background-image: url('+@{/images/staff-5.jpg}+');'"></div>
-							</div>
-							<div class="text pt-3 px-3 pb-4 text-center">
-								<h3>Lloyd Wilson</h3>
-								<span class="position mb-2">Executive Coach</span>
-								<div class="faded">
-									<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-									<ul class="ftco-social text-center">
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-google"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"></span></a></li>
-		              </ul>
-	              </div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-3 ftco-animate">
-						<div class="staff">
-							<div class="img-wrap d-flex align-items-stretch">
-								<div class="img align-self-stretch" th:style="'background-image: url('+@{/images/staff-6.jpg}+');'"></div>
-							</div>
-							<div class="text pt-3 px-3 pb-4 text-center">
-								<h3>Rachel Parker</h3>
-								<span class="position mb-2">Health Coach</span>
-								<div class="faded">
-									<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-									<ul class="ftco-social text-center">
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-google"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"></span></a></li>
-		              </ul>
-	              </div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-3 ftco-animate">
-						<div class="staff">
-							<div class="img-wrap d-flex align-items-stretch">
-								<div class="img align-self-stretch" th:style="'background-image: url('+@{images/staff-7.jpg}+');'"></div>
-							</div>
-							<div class="text pt-3 px-3 pb-4 text-center">
-								<h3>Ian Smith</h3>
-								<span class="position mb-2">Health Coach</span>
-								<div class="faded">
-									<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-									<ul class="ftco-social text-center">
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-google"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"></span></a></li>
-		              </ul>
-	              </div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-3 ftco-animate">
-						<div class="staff">
-							<div class="img-wrap d-flex align-items-stretch">
-								<div class="img align-self-stretch" th:style="'background-image: url('+@{/images/staff-8.jpg}+');'"></div>
-							</div>
-							<div class="text pt-3 px-3 pb-4 text-center">
-								<h3>Fred Henderson</h3>
-								<span class="position mb-2">Executive Coach</span>
-								<div class="faded">
-									<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-									<ul class="ftco-social text-center">
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-google"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"></span></a></li>
-		              </ul>
-	              </div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- <div class="black_bg" id="black_bg"></div>
-			<div class="modal" id="modal">
-				<div class="modal_close"><a href="#close">Close</a></div>
-				<div>
-				어쩌구 저쩌구 
-				</div>
-			</div> -->			
-		</section>
-		<script th:inline="javascript">
-		/*  $( document ).ready( function() {
-			 
-			 window.onload = function() {
-		 
-			function onClick() {
-				
-			document.querySelector('#block_kg').style.display='block';
-			document.querySelector('#modal').style.display='block';
-			}
-			
-			function offClick() {
-			document.querySelector('#block_kg').style.display='none';
-			document.querySelector('#modal').style.display='none';
-				
-			}
-				
-			document.getElementById("#donation").addEventListener('click',onClick);
-			document.getElementById(".modal_close").addEventListener('click',offClick);
-
-			 }
-		    		
-		    }); */
-		
-		
-		</script>
 <footer th:replace="fragments/footer :: footer"> </footer>
     
   </body>
