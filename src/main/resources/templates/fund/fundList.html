@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Show me your pearl</title>
+<meta charset="utf-8">
+</head>
+<body>
+	<header th:replace="fragments/header :: header"> </header>
+
+	<section class="hero-wrap hero-wrap-2"
+		style="background-image: url(images/bg_2.jpg});"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-end">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs mb-2">
+						<span class="mr-2"><a href="index.html">Funding <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>List <i
+							class="ion-ios-arrow-forward"></i></span>
+					</p>
+					<h1 class="mb-0 bread">Funding in progress</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section bg-light">
+		<div class="container">
+			<div class="row justify-content-center pb-5 mb-3">
+
+				<div class="col-md-7 heading-section text-center ftco-animate">
+					<span style="font-size: 22px;"><a href="#">종료된 펀딩</a></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					<span style="font-size: 22px;"><a href="#">진행중 펀딩</a></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					<span style="font-size: 22px;"><a href="#">예정된 펀딩</a></span>
+				</div>
+
+				<div style="float: right;">
+				<input type="button" value="Start Funding" id="writeBtn" style="float: right;"
+					class="btn btn-info"
+					onclick="location.href='/fund/write'">
+				</div>
+			</div>
+
+<!-- -----------------------검색창 ---------------------------------->
+			<div style="margin: 0 0 40px 0; float: center;">
+				<center>
+					<form>
+						<select style="width: 170px; height: 40px;">
+							<option value="none">==== 전체 검색 ====</option>
+							<option value="">작가 이름</option>
+							<option value="">펀딩 제목</option>
+						</select>
+						<input type="text" placeholder="Search"
+							style="width: 400px; height: 40px;">
+
+						<button
+							style="width: 100px; height: 40px; 
+							background-color: #007bff; color: white; 
+							border-radius: 4px">
+							<span><b>SEARCH</b></span>
+						</button>
+					</form>
+				</center>
+			</div>
+
+<!-- -----------------------펀드 게시물 ---------------------------------->
+			<div class="row">
+				<div class="col-md-4 ftco-animate" th:each="f : ${list}">
+					<div class="block-7">
+						<div class="img"
+							style="background-image: url(http://placehold.it/200x100);"></div>
+						<div class="text-center p-4">
+							<span class="excerpt d-block" th:text="${f.fundTitle}" style="font-size:28px;"></span>
+							<span class="price">
+								<span class="number" th:text="${f.memNum}" style="font-size:24px;"></span> <sub>won</sub></span>
+
+							<ul class="pricing-text mb-5">
+								<li><label>모금 시작일  : </label><span th:text="${#dates.format(f.fundStartDate,'yyyy-MM-dd')}"></span></li>
+								<li><label>모금 마감일  : </label><span th:text="${#dates.format(f.fundEndDate,'yyyy-MM-dd')}"></span></li>
+								<li><label>전시일  : </label><span th:text="${#dates.format(f.fundDday,'yyyy-MM-dd')}">전시일</span></li>
+								
+							</ul>
+
+							<a th:href="@{get(fundNum=${f.fundNum})}" 
+							class="btn btn-primary d-block px-2 py-3">Join
+								Funding</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

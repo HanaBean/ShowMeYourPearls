@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>Show me your pearl</title>
+<meta charset="utf-8">
+
+</head>
+<body>
+
+	<header th:replace="fragments/header :: header"> </header>
+	<section class="hero-wrap hero-wrap-2"
+		style="background-image: url('images/bg_2.jpg');"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-end">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs mb-2">
+						<span class="mr-2"><a href="index.html">Home <i
+								class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a
+							href="blog.html">Funding <i class="ion-ios-arrow-forward"></i></a></span>
+						<span>Proceed<i class="ion-ios-arrow-forward"></i></span>
+					</p>
+					<h1 class="mb-0 bread">Proceeding Funding</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section ftco-degree-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 ftco-animate">
+					<div class="form-group">
+						<span th:text="${detail.fundTitle}" class="form-control"></span>
+					</div>
+					<p>
+						<img src="http://placehold.it/760x570" alt="" class="img-fluid">
+					</p>
+					<div class="sidebar-box ftco-animate">
+						<h3>Introduce</h3>
+						<p th:text="${detail.fundIntro}">
+							</p>
+					</div>
+				</div>
+				<!-- .col-md-8 -->
+
+
+
+				<div class="col-lg-4 sidebar pl-lg-5 ftco-animate">
+					<div class="sidebar-box">
+						<div style="margin: 0px 7px 7px 0px;">
+							<img src="images/person_1.jpg" alt="Image placeholder"
+								style="width: 40px; height: 40px; border-radius: 20px;"> <span>정원빈</span><span>&nbsp;&nbsp;작가님
+								펀딩 </span> <span class="tagcloud"> <span> <a href="#"
+									class="tag-cloud-link"
+									style="background-color: #19a2b8; color: white;">Proceeding</a>
+							</span>
+							</span>
+
+
+						</div>
+
+						<div class="form-group">
+							<label>목표 금액</label>
+							<div>
+								<div th:text="${detail.fundMoney}" class="form-control"></div>
+							</div>
+						</div>
+						<div>
+							<label>달성률</label>
+							<div text="100%" class="form-control"></div>
+						</div>
+						<div>
+							<label>현재 모금액</label>
+							<div text="100000" class="form-control"></div>
+						</div>
+						<div>
+							<label>참여인원</label>
+							<div text class="form-control"></div>
+						</div>
+						<div>
+							<label>전시일자</label> <span
+								th:text="${#dates.format(detail.fundDday,'yyyy-MM-dd')}"
+								class="form-control"> </span>
+						</div>
+					</div>
+					<div class="sidebar-box ftco-animate">
+						<div class="categories">
+							<li><div>펀딩 기간</div>
+								<div class="row">
+									<div th:text="${#dates.format(detail.fundStartDate,'yyyy-MM-dd')}"
+										style="width: 160px; position: relative; left: 15px;"></div>
+									<div th:text="${#dates.format(detail.fundEndDate,'yyyy-MM-dd')}"
+										style="width: 160px; position: relative; right: 0px;"></div>
+								</div></li>
+							<li>
+								<form>
+									<select class="cb-select-product">
+										<option value="none">========= 상품 선택 =========</option>
+										<option value="">개냥이 굿즈
+											<가격></option>
+										<option value="">개냥이 부채 <5000원></option>
+										<option value="">개냥이 간식 <20000원></option>
+										<option value="">개냥이 장난감 <32000원></option>
+									</select>
+								</form>
+
+							</li>
+							<li>
+								<div>선택한 상품</div>
+								<div class="row" style="position: relative; left: 20px">
+									<span>장수풍뎅이 수세미</span><span>&nbsp;&nbsp;&nbsp;</span><span>5000</span>
+									<span>&nbsp;</span><span>원</span><span>&nbsp;&nbsp;&nbsp;</span>
+									<div class="tagcloud">
+										<a href="#" class="tag-cloud-link">-</a>
+									</div>
+									<div style="text-size: 15px;">&nbsp;1&nbsp;&nbsp;</div>
+									<div class="tagcloud">
+										<a href="#" class="tag-cloud-link">+</a>
+									</div>
+								</div>
+
+							</li>
+
+							<div style="margin: 0 0 15px 0;">
+								결제 금액 <input type="text" class="form-control"
+									placeholder="Total">
+							</div>
+
+							<div class="row">
+								<span style="margin: 0 10px 2px 15px;"><a
+									href="blog-single.html" class="btn btn-info d-block px-2 py-3">Attend
+										Funding</a></span>
+							</div>
+
+
+						</div>
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!-- .section -->
+	<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
