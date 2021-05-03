@@ -16,5 +16,7 @@ public interface GalleryMapper {
 	int insert(BoardVO vo); 
 	int update(BoardVO vo); 
 	int delete(int boardNum); 
-	String emotionInsert(EmotionVO vo);
+	int emotionInsert(EmotionVO vo);
+	EmotionVO getEmo(EmotionVO vo);
+	int updateEmo(EmotionVO vo);
 }

@@ -1,5 +1,7 @@
 package com.pearl.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pearl.domain.BoardVO;
 import com.pearl.domain.EmotionVO;
+import com.pearl.service.EmotionService;
 import com.pearl.service.GalleryService;
 
 import lombok.Setter;
@@ -25,10 +28,15 @@ public class GalleryController {
 	@Setter(onMethod_ = @Autowired)
 	private GalleryService service;
 	
+	@Setter(onMethod_ = @Autowired)
+	private EmotionService emotion;
+	
 	@RequestMapping("/list")
 	public ModelAndView list() {
 		ModelAndView mv = new ModelAndView("gallery/gallery");
-		mv.addObject("gallery", service.list());
+		List<BoardVO> list = service.list();
+		
+		mv.addObject("gallery", list);
 		return mv;
 	}
 	
@@ -38,6 +46,12 @@ public class GalleryController {
 		BoardVO board = service.read(boardNum);
 		mv.addObject("gallery", board);
 		mv.addObject("writer", service.readWriter(board.getMemNum()));
+		List<EmotionVO> emo = emotion.emoCount(boardNum);
+		for(int i=0;i<emo.size();i++) {
+			EmotionVO vo = emo.get(i);
+			mv.addObject(vo.getEmoExpress(), vo.getEmoCount());
+		}
+		//mv.addObject("emotion", emotion.emoCount(boardNum));
 		return mv;
 	}
 	
@@ -49,8 +63,6 @@ public class GalleryController {
 	@PostMapping("/register")
 	public ModelAndView register(BoardVO vo) {
 		ModelAndView mv = new ModelAndView("redirect:/gallery/list");
-		vo.setMemNum(1L);
-		vo.setBoardType("c");
 		service.insert(vo);
 		return mv;
 	}
@@ -82,8 +94,13 @@ public class GalleryController {
 	        produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> emotion(@RequestBody EmotionVO vo) throws Exception{
 		System.out.println("vo : "+vo.getBoardNum()+","+vo.getMemNum()+","+vo.getEmoExpress());
-		String emo = service.emotionInsert(vo);
-		return new ResponseEntity<String>(emo, HttpStatus.OK);
+		EmotionVO emo = emotion.getEmo(vo);
+		if(emo==null) {
+			emotion.emotionInsert(vo);
+		} else {
+			emotion.updateEmo(vo);
+		}
+		return new ResponseEntity<String>(vo.getEmoExpress(), HttpStatus.OK);
 	}
 	
 }

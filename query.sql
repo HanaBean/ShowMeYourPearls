@@ -40,7 +40,7 @@ create table reward (
     fundNum number,
     rwrdPrice number,
     CONSTRAINT reward_pk primary key(rwrdnum),
-    CONSTRAINT reward_fk foreign key(fundnum) references funding(fundnum)
+    CONSTRAINT reward_fk foreign key(fundnum) references fund(fundnum)
 );
 
 create table Payment (
@@ -55,7 +55,7 @@ create table Payment (
     payTotal number,
     payAdress varchar2(300),
     constraint payment_pk PRIMARY KEY(paynum),
-    constraint payfnum_fk foreign key(fundnum) references funding(fundnum),
+    constraint payfnum_fk foreign key(fundnum) references fund(fundnum),
     constraint paymnum_fk foreign key(memnum) references member(memnum)
 );
 
@@ -108,7 +108,7 @@ create table subscribe (
 
 create sequence member_seq;
 create sequence board_seq;
-create sequence funding_seq;
+create sequence fund_seq;
 create sequence reply_seq;
 create sequence emotion_seq;
 create sequence reward_seq;
@@ -134,15 +134,15 @@ COMMENT ON COLUMN BOARD.BOARDCONTENT IS '게시글 내용';
 COMMENT ON COLUMN BOARD.BOARDDATE IS '등록 날짜';
 COMMENT ON COLUMN BOARD.BOARDTYPE IS '게시글 분류';
 
-COMMENT ON TABLE FUNDING IS '펀딩';
-COMMENT ON COLUMN FUNDING.FUNDNUM IS '펀딩 번호';
-COMMENT ON COLUMN FUNDING.MEMNUM IS '작가 번호';
-COMMENT ON COLUMN FUNDING.FUNDSTARTDATE IS '펀딩 시작일';
-COMMENT ON COLUMN FUNDING.FUNDENDDATE IS '펀딩 종료일';
-COMMENT ON COLUMN FUNDING.FUNDMONEY IS '목표 금액';
-COMMENT ON COLUMN FUNDING.FUNDDDAY IS '전시일자';
-COMMENT ON COLUMN FUNDING.FUNDTITLE IS '펀딩 제목';
-COMMENT ON COLUMN FUNDING.FUNDINTRO IS '펀딩 소개글';
+COMMENT ON TABLE fund IS '펀딩';
+COMMENT ON COLUMN fund.FUNDNUM IS '펀딩 번호';
+COMMENT ON COLUMN fund.MEMNUM IS '작가 번호';
+COMMENT ON COLUMN fund.FUNDSTARTDATE IS '펀딩 시작일';
+COMMENT ON COLUMN fund.FUNDENDDATE IS '펀딩 종료일';
+COMMENT ON COLUMN fund.FUNDMONEY IS '목표 금액';
+COMMENT ON COLUMN fund.FUNDDDAY IS '전시일자';
+COMMENT ON COLUMN fund.FUNDTITLE IS '펀딩 제목';
+COMMENT ON COLUMN fund.FUNDINTRO IS '펀딩 소개글';
 
 COMMENT ON TABLE REWARD IS '리워드';
 COMMENT ON COLUMN REWARD.RWRDNUM IS '리워드 번호';

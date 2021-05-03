@@ -48,8 +48,20 @@ public class GalleryServiceImpl implements GalleryService{
 	}
 
 	@Override
-	public String emotionInsert(EmotionVO vo) {
+	public int emotionInsert(EmotionVO vo) {
 		return mapper.emotionInsert(vo); 
 	}
+
+	@Override
+	public EmotionVO getEmo(EmotionVO vo) {
+		return mapper.getEmo(vo);
+	}
+	
+	@Override
+	public int updateEmo(EmotionVO vo) {
+		return mapper.updateEmo(vo);
+	}
+	
+	
 	
 }
