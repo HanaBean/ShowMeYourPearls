@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pearl.mapper.BoardMapper">
+<mapper namespace="com.pearl.mapper.NoticeMapper">
 
 	<select id="list" resultType="com.pearl.domain.BoardVO">
 	<![CDATA[  
@@ -17,7 +17,7 @@
 	
 	<insert id="insert">
 		insert into Board(boardNum, memNum, boardTitle, boardContent, boardDate, boardType)
-		values(BOARD_SEQ.nextval, #{memNum}, #{boardTitle}, #{boardContent}, sysdate, #{boardType})
+		values(BOARD_SEQ.nextval, 21, #{boardTitle}, #{boardContent}, sysdate, #{boardType})
 	</insert>
 	
 	<delete id="delete">
