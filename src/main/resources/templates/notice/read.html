@@ -12,7 +12,8 @@
 					<div>
 						<h3 class="mb-4" style="display: inline-block;">공지 사항</h3>
 						<input type="submit" value="수정하기" id="editBtn"
-							class="btn btn-secondary" style="float: right;">
+							class="btn btn-secondary" style="float: right;"
+							th:onclick="location.href='/notice/modify?boardNum=[[${notice.boardNum}]]'">
 					</div>
 					<hr>
 					<div class="blog-entry align-self-stretch">
