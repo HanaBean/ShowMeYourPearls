@@ -3,7 +3,7 @@ create table member (
     memName varchar2(30),
     memPass varchar2(20),
     memEmail varchar2(30),
-    memPhone number(11),
+    memPhone varchar2(20),
     memLevel varchar2(10) default 'member',
     memBank varchar2(30),
     memAccount number,
@@ -18,7 +18,6 @@ create table board (
     boardDate date,
     boardType char(1),
     CONSTRAINT board_pk primary key(boardnum),
-    CONSTRAINT board_fk foreign key(memnum) references member(memnum)
 );
 
 create table fund (
@@ -31,7 +30,6 @@ create table fund (
 	fundtitle varchar2(100),
     fundintro varchar2(500),
     constraint fund_pk primary key(fundnum),
-    constraint fund_fk foreign key(memnum) references member(memnum)
 );
 
 create table reward (
@@ -56,7 +54,6 @@ create table Payment (
     payAdress varchar2(300),
     constraint payment_pk PRIMARY KEY(paynum),
     constraint payfnum_fk foreign key(fundnum) references fund(fundnum),
-    constraint paymnum_fk foreign key(memnum) references member(memnum)
 );
 
 create table item (
@@ -75,7 +72,6 @@ create table reply(
     replyDate date,
     boardNum number,
     constraint reply_pk primary key(replynum),
-    constraint rpl_mem_fk foreign key(memnum) references member(memnum),
     constraint rpl_board_fk foreign key(boardnum) references board(boardnum)
 );
 
@@ -85,7 +81,6 @@ create table emotion(
 	memnum number,
 	emoexpress char(1),
     constraint emo_pk primary key(emonum),
-    constraint emo_member_fk foreign key(memnum) references member(memnum),
     constraint emo_board_fk foreign key(boardnum) references board(boardnum)
 );
 
