@@ -6,13 +6,14 @@
 
 	<select id="list" resultType="com.pearl.domain.BoardVO">
 	<![CDATA[  
-		select /*+INDEX(board board_pk)*/ * from Board where boardnum > 0
+		select /*+INDEX(board board_pk)*/ * from Board 
+		where boardnum > 0 and boardType = 'N' 
 		]]>
 	</select>
 	
 	<select id="read" resultType="com.pearl.domain.BoardVO">
 		select * from Board 
-		where boardnum = #{boardNum}
+		where boardnum = #{boardNum} 
 	</select>
 	
 	<insert id="insert">
