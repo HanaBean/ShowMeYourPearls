@@ -62,9 +62,9 @@
               </a>
               <div class="text p-4">
               	<div class="meta mb-2">
-                  <div><a href="#" th:text="${gallery.boardTitle}"></a></div>
+                  <div><a th:href="@{/gallery/get(boardNum=${gallery.boardNum})}" th:text="${gallery.boardTitle}"></a></div>
                   <div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div><br>
-                  <div><a href="#" th:text="${gallery.boardContent}"></a></div>
+                  <div th:inline="text"><a href="#" th:text="${gallery.memName}"></a></div>
                 </div>
               </div>
             </div>

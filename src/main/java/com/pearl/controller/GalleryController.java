@@ -1,5 +1,6 @@
 package com.pearl.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +13,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pearl.domain.BoardVO;
 import com.pearl.domain.EmotionVO;
+import com.pearl.domain.GalleryVO;
 import com.pearl.service.EmotionService;
 import com.pearl.service.GalleryService;
 
 import lombok.Setter;
+import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequestMapping("/gallery/*")
+@Log4j
 public class GalleryController {
 	
 	@Setter(onMethod_ = @Autowired)
@@ -34,9 +39,13 @@ public class GalleryController {
 	@RequestMapping("/list")
 	public ModelAndView list() {
 		ModelAndView mv = new ModelAndView("gallery/gallery");
-		List<BoardVO> list = service.list();
-		
+		List<GalleryVO> list = service.list();
 		mv.addObject("gallery", list);
+//		HashMap<Integer,String> nameList = service.readWriters();
+//		for(int i=0; i<list.size();i++) {
+//			BoardVO vo = list.get(i);
+//			mv.addObject(vo.getBoardTitle(), nameList.get(vo.getMemNum().intValue()));
+//		}
 		return mv;
 	}
 	
@@ -92,15 +101,20 @@ public class GalleryController {
 	
 	@RequestMapping(value="/emotion", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
 	        produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> emotion(@RequestBody EmotionVO vo) throws Exception{
-		System.out.println("vo : "+vo.getBoardNum()+","+vo.getMemNum()+","+vo.getEmoExpress());
+	@ResponseBody 
+	public ResponseEntity<List<EmotionVO>> emotion(@RequestBody EmotionVO vo) throws Exception{
+		log.info("vo : "+vo.getBoardNum()+","+vo.getMemNum()+","+vo.getEmoExpress());
+		
 		EmotionVO emo = emotion.getEmo(vo);
 		if(emo==null) {
 			emotion.emotionInsert(vo);
 		} else {
 			emotion.updateEmo(vo);
 		}
-		return new ResponseEntity<String>(vo.getEmoExpress(), HttpStatus.OK);
+		
+		List<EmotionVO> emoCnt = emotion.emoCount(vo.getBoardNum().intValue());
+		
+		return new ResponseEntity<List<EmotionVO>>(emoCnt,HttpStatus.OK);
 	}
 	
 }
