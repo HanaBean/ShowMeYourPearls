@@ -32,8 +32,8 @@
 	
 	<update id="update">
 		update Fund set 
-		memname=#{memName},startdate=#{startDate},enddate=#{endDate},
-		fundmoney=#{fundMoney},fundday=#{fundDay},title=#{title} ,fundintro=#{fundIntro} 
+		memname=#{memName},fundstartdate=#{fundStartDate},fundenddate=#{fundEndDate},
+		fundmoney=#{fundMoney},funddday=#{fundDday},fundtitle=#{fundTitle} ,fundintro=#{fundIntro} 
 		where FundNum=#{fundNum}
 	</update>
 	
