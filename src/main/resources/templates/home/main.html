@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Show me your pearl</title>
-<meta charset="utf-8">
+<head th:insert="/fragments/head.html::head">
 </head>
 <body>
 	<header th:replace="fragments/header :: header"> </header>
-		<link rel="stylesheet" th:href="@{../../css/style2.css}">
 	
  <div class="hero-wrap js-fullheight" >
       <div class="overlay"></div>
@@ -24,32 +21,7 @@
       </div>
     </div>
 	</div>
-   <section class="ftco-section ftco-no-pt ftco-no-pb">
-    	<div class="container">
-    		<div class="row d-flex no-gutters">
-    			<div class="col-md-5 d-flex" >
-					<img th:src="@{/images/aboutpearl.jpg}" class="img img-video d-flex align-self-stretch align-items-center justify-content-center justify-content-md-center mb-4 mb-sm-0" >
-    				</div>
-    			
-    			<div class="col-md-7 pl-md-5 py-md-5">
-    				<div class="heading-section pt-md-5">
-	            <h2 class="mb-4">About</h2>
-    				</div>
-    				<div class="row">
-	    				<div class="col-md-6 services-2 w-100 d-flex">
-							
-	    					<div class="text pl-3">
-	    						<p>"그 안을 들여다 보지 않으면 지나쳐 버릴, 우리는 모두 각자의 진주를 가지고 있다." 
-									감춰진 우리들의 진주를 통해 사람들과 소통하고 펀딩을 통해 소정의 금액으로 자신만의 전시회까지, 
-									Show Me Your Pearl			
-								</p>
-	    					</div>	    				  		
-	    			</div>
-	        </div>
-        </div>
-		</div>
-		</div>  
-    </section>
+   
     
     <section class="ftco-section bg-light">  
     	<div class="container">
@@ -153,6 +125,33 @@
 		   <a href="#" class="btn btn-primary d-block px-2 py-3" >More</a>
       </div>
     </section>
+    <section class="ftco-section ftco-no-pt ftco-no-pb">
+    	<div class="container">
+    		<div class="row d-flex no-gutters">
+    			<div class="col-md-5 d-flex" >
+					<img th:src="@{/images/aboutpearl.jpg}" class="img img-video d-flex align-self-stretch align-items-center justify-content-center justify-content-md-center mb-4 mb-sm-0" >
+    				</div>
+    			
+    			<div class="col-md-7 pl-md-5 py-md-5">
+    				<div class="heading-section pt-md-5">
+	            <h2 class="mb-4">About</h2>
+    				</div>
+    				<div class="row">
+	    				<div class="col-md-6 services-2 w-100 d-flex">
+							
+	    					<div class="text pl-3">
+	    						<p>"그 안을 들여다 보지 않으면 지나쳐 버릴, 우리는 모두 각자의 진주를 가지고 있다." 
+									감춰진 우리들의 진주를 통해 사람들과 소통하고 펀딩을 통해 소정의 금액으로 자신만의 전시회까지, 
+									Show Me Your Pearl			
+								</p>
+	    					</div>	    				  		
+	    			</div>
+	        </div>
+        </div>
+		</div>
+		</div>  
+    </section>
+    
     <section class="ftco-section bg-light">
 			<div class="container">
 				<div class="row justify-content-center">

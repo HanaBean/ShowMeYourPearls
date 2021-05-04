@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Show me your pearl</title>
-<meta charset="utf-8">
-
+<head th:insert="/fragments/head.html::head">
 </head>
 <body>
 	<header th:replace="fragments/header :: header"> </header>
@@ -57,8 +54,8 @@
 							<div class="search">
 								<a href=#>아이디/비밀번호를 잃어버리셨습니까?</a>
 							</div>
-							<div class="check" id="check" >
-								<p>아이디/비밀번호를 확인해주세요</p>
+							<div>
+								<p style="display:none" id="check" class="check" >아이디/비밀번호를 확인해주세요</p>
 							</div>
 						</form>
 					</div>
@@ -181,13 +178,17 @@
     	            alert("비밀번호는 숫자, 영문, 특수문자(!@$%^&*?_~ 만 허용) 조합으로 8~20자리를 사용해야 합니다.")	
     	            return false; 
     			} */
-    		};
+    		
+    	 	alert("회원가입이 완료되었습니다");
+    		return false;
+    	 };
 
     	
-    
+
     	if($('.alert').html()=='alert'){
-    		$('#check').val().show();
-    	} 
+    		alert("로그인 실패");
+    		
+    	};
    });	
 
     	
