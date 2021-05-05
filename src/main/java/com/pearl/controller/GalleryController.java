@@ -1,8 +1,9 @@
 package com.pearl.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,12 +24,12 @@ import com.pearl.service.EmotionService;
 import com.pearl.service.GalleryService;
 
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequestMapping("/gallery/*")
-@Log4j
 public class GalleryController {
+	
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Setter(onMethod_ = @Autowired)
 	private GalleryService service;
@@ -108,7 +109,7 @@ public class GalleryController {
 		EmotionVO emo = emotion.getEmo(vo);
 		if(emo==null) {
 			emotion.emotionInsert(vo);
-		} else {
+		} else if(!vo.getEmoExpress().equals(emo.getEmoExpress())){
 			emotion.updateEmo(vo);
 		}
 		
