@@ -42,8 +42,8 @@
 					<li class="nav-item" id="navGallery"><a href="/gallery/list" class="nav-link">Gallery</a></li>
 					<li class="nav-item" id="navFunding"><a href="/fund/fundList" class="nav-link">Funding</a></li>
 					<li class="nav-item" id="navNotice"><a href="/notice/list"	class="nav-link">Notice</a></li>
-					<li class="nav-item" id="navAbout"><a href="#" class="nav-link">About</a></li>
-					<li class="nav-item" id="navContact"><a href="#" class="nav-link">Contact</a></li>
+					<li class="nav-item" id="navAbout"><a href="/home/main" class="nav-link">About</a></li>
+					<li class="nav-item" id="navContact"><a href="/home/main" class="nav-link">Contact</a></li>
 				</ul>
 			</div>
 		</div>
@@ -56,7 +56,14 @@
 		});
 		
 		$(document).ready(function() {
-		    SetClass();
+			var url = document.location.href.split('/');
+			if(url[3]=='home'){
+				if(sessionStorage.getItem('nav')=='navContact'){
+					$('html,body').animate({scrollTop:$('#contactForm').offset().top}, 500);
+				}
+			} else if(url[3]!='log'){
+			    SetClass();
+			}
 		});
 
 		function SetClass() {
