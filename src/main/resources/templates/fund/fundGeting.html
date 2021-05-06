@@ -134,8 +134,9 @@
 								</span>
 								
 								<span>
-								<input type="button" id="delete" th:onclick="location.href='/fund/delete'" value="Delete" class="btn btn-danger d-block px-2 py-3">
+								<input type="button" id="delete" th:onclick="location.href='/fund/delete?fundNum=[[${detail.fundNum}]]'" value="Delete" class="btn btn-danger d-block px-2 py-3">
 								</span>
+								
 
 							</div>
 							<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

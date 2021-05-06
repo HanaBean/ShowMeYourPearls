@@ -37,8 +37,6 @@ public class FundController {
 		mv.addObject("update", update);
 		return mv;
 	}
-
-	
 	
 	@GetMapping("/get")
 	public ModelAndView get(int fundNum) {
@@ -48,18 +46,16 @@ public class FundController {
 		return mv;
 	}
 	
-	
-	
 	@PostMapping("/modify")
 	public String modify(FundVO vo) {
 		service.update(vo);
-		return "redirect:/fund/fundlist";
+		return "redirect:/fund/fundList";
 	}
 	
 	@GetMapping("/delete")
-	public String delete(int mno) {
-		service.delete(mno);
-		return "redirect:/fund/fundlist";
+	public String delete(int fundNum) {
+		service.delete(fundNum);
+		return "redirect:/fund/fundList";
 	}
 	
 	@RequestMapping("/write")

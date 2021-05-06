@@ -67,10 +67,11 @@
 			<div class="row">
 				<div class="col-md-4 ftco-animate" th:each="f : ${list}">
 					<div class="block-7">
-						<div class="img"
-							style="background-image: url(http://placehold.it/200x100);"></div>
+						<a th:href="@{get(fundNum=${f.fundNum})}"><div class="img" 
+							style="background-image: url(http://placehold.it/200x100);"></div></a>
 						<div class="text-center p-4">
-							<span class="excerpt d-block" th:text="${f.fundTitle}" style="font-size:28px;"></span>
+						<a th:href="@{get(fundNum=${f.fundNum})}">
+							<span class="excerpt d-block" th:text="${f.fundTitle}" style="font-size:28px;"></span></a>
 							<span class="price">
 								<span th:text="${f.fundMoney}" style="font-size:24px;"></span> <sub>won</sub></span>
 
