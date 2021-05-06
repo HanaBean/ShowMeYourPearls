@@ -1,13 +1,11 @@
-package com.pearl.mapper;
+package com.pearl.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import com.pearl.domain.ReplyVO;
 
-@Mapper
-public interface ReplyMapper {
+
+public interface ReplyService {
 	List<ReplyVO> list(int boardNum);
 	ReplyVO get(int memNum);
 	int getCount(int boardNum);
