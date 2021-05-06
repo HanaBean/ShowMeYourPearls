@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/fragments/head.html::head">
+</head>
+<body>
+	<header th:replace="fragments/header :: header"> </header>
+	
+ <div class="hero-wrap js-fullheight" >
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+		<div class="main"> 
+			<div class="smyp">
+				<span class="smyp-1">Show Me Your Pearl</span><br>
+				<span class="smyp-2">Show Everyone Your Pearl</span>
+			</div>
+			<div class="homejogae">
+				<img th:src="@{/images/homejogae.jpg}" width="530px" >
+			</div>
+		</div>
+      </div>
+    </div>
+	</div>
+   
+    
+    <section class="ftco-section bg-light">  
+    	<div class="container">
+    		<div class="row justify-content-center pb-5 mb-3">
+          <div class="col-md-7 heading-section text-center">
+        <h2>Funding</h2>
+          </div>
+        </div>
+    		<div class="row">
+    			<div class="col-md-4">
+	          <div class="block-7">
+	          	<img th:src="@{/images/pricing-1.jpg}" class="img" >
+	            <div class="text-center p-4">
+	            	<span class="excerpt d-block">코딩천재 / 장원반</span>
+	            	<span class="price"><sup>￦</sup> <span class="number">49</span> <sub>/mos</sub></span>
+	            	<span>내가 했던 소스코드 무료 공개 ㅋ </span><br><br>
+	            	<a href="#" class="btn btn-primary d-block px-2 py-3">Get Started</a>
+	            </div>
+	          </div>
+	        </div>
+	        <div class="col-md-4">
+	          <div class="block-7">
+	          	<img th:src="@{/images/pricing-2.jpg}" class="img">
+	            <div class="text-center p-4">
+	            	<span class="excerpt d-block">심심하긔 / 임세만</span>
+		            <span class="price"><sup>￦</sup> <span class="number">79</span> <sub>/mos</sub></span>
+					<span>심심할땐 뭐다? 넷플릭스를 본다 ~_~ </span><br><br>
+		            <a href="#" class="btn btn-primary d-block px-2 py-3">Get Started</a>
+	            </div>
+	          </div>
+	        </div>
+	        <div class="col-md-4">
+	          <div class="block-7">
+	          	<img th:src="@{/images/pricing-3.jpg}" class="img">
+	            <div class="text-center p-4">
+	            	<span class="excerpt d-block">마이멜로디 / 정수현</span>
+		            <span class="price"><sup>￦</sup> <span class="number">109</span> <sub>/mos</sub></span>
+					<span>마이 멜로디는 내 심장과 같아</span><br><br>
+		            <a href="#" class="btn btn-primary d-block px-2 py-3">Get Started</a>
+	            </div>
+	          </div>
+	        </div>
+	      </div><hr>
+		   <a href="#" class="btn btn-primary d-block px-2 py-3" >More</a>
+    	</div>
+    </section>
+		
+	
+
+    <section class="ftco-section bg-light">
+      <div class="container">
+        <div class="row justify-content-center pb-5 mb-3">
+          <div class="col-md-7 heading-section text-center">
+            <h2>favorite</h2>
+          </div>
+        </div>
+        <div class="row d-flex">
+          <div class="col-md-4 d-flex ">
+            <div class="blog-entry align-self-stretch">
+              <a href="blog-single.html" class="block-20 rounded" th:style="'background-image: url('+@{/images/image_1.jpg}+');'">
+              </a>
+              <div class="text p-4">
+              	<div class="meta mb-2">
+                  <div><a href="#">April 07, 2020</a></div>
+                  <div><a href="#">Comment</a></div>
+                  <div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
+                </div>
+                <h3 class="heading"><a href="#">울랄라 딸랄라 울라딸라리 ~ 쾌걸 조로리~ </a></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 d-flex">
+            <div class="blog-entry align-self-stretch">
+              <a href="blog-single.html" class="block-20 rounded" th:style="'background-image: url('+@{/images/image_2.jpg}+');'">
+              </a>
+              <div class="text p-4">
+              	<div class="meta mb-2">
+                  <div><a href="#">April 07, 2020</a></div>
+                  <div><a href="#">Comment</a></div>
+                  <div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
+                </div>
+                <h3 class="heading"><a href="#">아따 아따는요 하고 싶은 장난을 못한데요 ~ </a></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 d-flex">
+            <div class="blog-entry align-self-stretch">
+              <a href="blog-single.html" class="block-20 rounded" th:style="'background-image: url('+@{/images/image_3.jpg}+');'">
+              </a>
+              <div class="text p-4">
+              	<div class="meta mb-2">
+                  <div><a href="#">April 07, 2020</a></div>
+                  <div><a href="#">Comment</a></div>
+                  <div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
+                </div>
+                <h3 class="heading"><a href="#">과자 없인 못살아 정말 못살아 ~</a></h3>
+              </div>
+            </div>
+          </div>
+        </div><hr>
+		   <a href="#" class="btn btn-primary d-block px-2 py-3" >More</a>
+      </div>
+    </section>
+    <section class="ftco-section ftco-no-pt ftco-no-pb">
+    	<div class="container">
+    		<div class="row d-flex no-gutters">
+    			<div class="col-md-5 d-flex" >
+					<img th:src="@{/images/aboutpearl.jpg}" class="img img-video d-flex align-self-stretch align-items-center justify-content-center justify-content-md-center mb-4 mb-sm-0" >
+    				</div>
+    			
+    			<div class="col-md-7 pl-md-5 py-md-5">
+    				<div class="heading-section pt-md-5">
+	            <h2 class="mb-4">About</h2>
+    				</div>
+    				<div class="row">
+	    				<div class="col-md-6 services-2 w-100 d-flex">
+							
+	    					<div class="text pl-3">
+	    						<p>"그 안을 들여다 보지 않으면 지나쳐 버릴, 우리는 모두 각자의 진주를 가지고 있다." 
+									감춰진 우리들의 진주를 통해 사람들과 소통하고 펀딩을 통해 소정의 금액으로 자신만의 전시회까지, 
+									Show Me Your Pearl			
+								</p>
+	    					</div>	    				  		
+	    			</div>
+	        </div>
+        </div>
+		</div>
+		</div>  
+    </section>
+    
+    <section class="ftco-section bg-light">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-md-6 text-center mb-5">
+						<h2 class="heading-section">Contact Form </h2>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-md-12">
+						<div class="wrapper">
+							<div class="row mb-5">
+								<div class="col-md-3">
+									<div class="dbox w-100 text-center">
+				        		<div class="icon d-flex align-items-center justify-content-center">
+				        			<span class="fa fa-map-marker"></span>
+				        		</div>
+				        		<div class="text">
+					            <p><span>Address:</span> 668, Jungang-daero, Busanjin-gu, Busan, Republic of Korea </p>
+					          </div>
+				          </div>
+								</div>
+								<div class="col-md-3">
+									<div class="dbox w-100 text-center">
+				        		<div class="icon d-flex align-items-center justify-content-center">
+				        			<span class="fa fa-phone"></span>
+				        		</div>
+				        		<div class="text">
+					            <p><span>Phone:</span> <a href="tel://1234567920">+8210 6768 7536</a></p>
+					          </div>
+				          </div>
+								</div>
+								<div class="col-md-3">
+									<div class="dbox w-100 text-center">
+				        		<div class="icon d-flex align-items-center justify-content-center">
+				        			<span class="fa fa-paper-plane"></span>
+				        		</div>
+				        		<div class="text">
+					            <p><span>Email:</span> <a href="mailto:info@yoursite.com">qskantt@naver.com</a></p>
+					          </div>
+				          </div>
+								</div>
+								<div class="col-md-3">
+									<div class="dbox w-100 text-center">
+				        		<div class="icon d-flex align-items-center justify-content-center">
+				        			<span class="fa fa-globe"></span>
+				        		</div>
+				        		<div class="text">
+					            <p><span>Website</span> <a href="#">yoursite.com</a></p>
+					          </div>
+				          </div>
+								</div>
+							</div>
+							<div class="row no-gutters">
+								<div class="col-md-7">
+									<div class="contact-wrap w-100 p-md-5 p-4">
+										<h3 class="mb-4">Contact Us</h3>
+										<form method="POST" id="contactForm" name="contactForm" class="contactForm">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="label" for="name">Full Name</label>
+														<input type="text" class="form-control" name="name" id="name" placeholder="Name">
+													</div>
+												</div>
+												<div class="col-md-6"> 
+													<div class="form-group">
+														<label class="label" for="email">Email Address</label>
+														<input type="email" class="form-control" name="email" id="email" placeholder="Email">
+													</div>
+												</div>
+												<div class="col-md-12">
+													<div class="form-group">
+														<label class="label" for="subject">Subject</label>
+														<input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+													</div>
+												</div>
+												<div class="col-md-12">
+													<div class="form-group">
+														<label class="label" for="#">Message</label>
+														<textarea name="message" class="form-control" id="message" cols="30" rows="4" placeholder="Message"></textarea>
+													</div>
+												</div>
+												<div class="col-md-12">
+													<div class="form-group">
+														<input type="submit" value="Send Message" class="btn btn-primary">
+														<div class="submitting"></div>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="col-md-5 d-flex align-items-stretch">
+									<div class="info-wrap w-100 p-5 img" >
+				          </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+   
+	<footer th:replace="fragments/footer :: footer"> </footer>
+
+</body>
+</html>
