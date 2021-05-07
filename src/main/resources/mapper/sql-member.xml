@@ -13,6 +13,10 @@
 		select * from member where memEmail=#{memEmail} and mempass=#{memPass}
 	</select>
 	
+	<select id="getProfile" parameterType="Long" resultType="com.pearl.domain.MemberVO">
+		select * from member where memNum=#{memNum} 
+	</select>
+	
 	<insert id="insert">
 		<selectKey keyProperty="memNum" resultType="Long" order="BEFORE">
 			select member_seq.nextval from dual

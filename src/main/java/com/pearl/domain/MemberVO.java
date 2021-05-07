@@ -8,5 +8,5 @@ public class MemberVO {
 	private String memName, memPass, memEmail;
 	private Long memPhone;
 	private String memLevel,memBank;
-	private Long memAccount;
+	private String memAccount;
 }

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/fragments/head.html::head">
+</head>
+<style>
+li {
+	list-style: none;
+}
+</style>
+<body>
+	<header th:replace="fragments/header :: header"> </header>
+
+
+
+	<section class="ftco-section bg-light">
+		<div class="container">
+			<div class="row justify-content-center pb-5 mb-3">
+				<div
+					class="col-md-7 heading-section text-center ftco-animate fadeInUp ftco-animated">
+					<h2>회원 관리</h2>
+				</div>
+			</div>
+			<div class="row">
+				<nav>
+					<div class="panel-left ftco-animate fadeInUp ftco-animated block-7"
+						style="margin-right: 30px; padding: 30px 30px 30px 0px;">
+						<ul>
+							<li class="menu-label"><h5><a href="/admin/member">▶ 회원 관리</a></h5></li>
+							<li class="menu-label"><a href="/admin/post" style="color: #000;">▶ 게시물 관리</a></li>
+							<li class="menu-label"><a href="/admin/fund" style="color: #000;">▶ 펀딩 관리</a></li>
+						</ul>
+					</div>
+				</nav>
+				<div class="ftco-animate fadeInUp ftco-animated"
+					style="display: inline-block; width: 75%">
+					<div class="block-7">
+						<div class="text-center p-4">
+							<form id="searchForm" action="#" method="get" class="search-form">
+								<div class="input-group show" style="margin-bottom: 10px;">
+									<button class="btn btn-primary dropdown-toggle" type="button"
+										id="dropdownMenuButton" data-toggle="dropdown"
+										style="width: 15%;">전체 보기</button>
+									<input type="hidden" name="type" value=""> <input
+										type="hidden" name="pageNum" value=""> <input
+										type="hidden" name="amount" value="">
+									<div class="dropdown-menu animated--fade-in"
+										aria-labelledby="dropdownMenuButton"
+										x-placement="bottom-start"
+										style="position: absolute; transform: translate3d(0px, 52px, 0px); top: 0px; left: 0px; will-change: transform; overflow: visible; aria-expanded: false;">
+										<span class="dropdown-item" onclick="searchType(this)"
+											data-srch="">전체 보기</span> <span class="dropdown-item"
+											onclick="searchType(this)" data-srch="T">제목</span> <span
+											class="dropdown-item" onclick="searchType(this)"
+											data-srch="C">내용</span> <span class="dropdown-item"
+											onclick="searchType(this)" data-srch="W">작성자</span>
+									</div>
+
+									<input type="text" class="form-control" placeholder="Search..."
+										style="width: 65%; margin-left: 10px; margin-right: 10px;"
+										name="keyword" id="keyword" value="">
+									<button class="btn btn-primary" type="button" id="srchBtn"
+										style="width: 15%;">Search</button>
+								</div>
+							</form>
+							<hr>
+							<div class="block-7">
+								<button class="btn btn-danger" type="button" id="btnRemove"
+									style="float: left; width: 15%;">삭제하기</button>
+							</div>
+							<table class="styled-table" align="center"
+								style="width: 100%">
+								<thead style="color: black;">
+									<th><input type="checkbox" name="cbAll" value="cbAll"></th>
+									<th>회원 번호</th>
+									<th>닉네임</th>
+									<th>연락처</th>
+									<th>이메일</th>
+									<th>등급</th>
+								</thead>
+								<tbody>
+									<tr th:each="m : ${list }">
+										<td><input type="checkbox" name="cb" th:value="${m.memNum}"></td>
+										<td>[[${m.memNum}]]</td>
+										<td><a
+											th:href="@{/admin/member/profile(memNum=${m.memNum})}">[[${m.memName}]]</a></td>
+										<td>[[${m.memPhone}]]</td>
+										<td>[[${m.memEmail}]]</td>
+										<td>[[${m.memLevel}]]</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer th:replace="fragments/footer :: footer"> </footer>
+
+</body>
+<script>
+	$(document).ready(function() {
+		$('input[name=cbAll]').on('change', function() {
+			$('input[name=cb]').prop('checked', this.checked);
+		});
+		
+		$('#btnRemove').on("click", function() {
+			var arr = $('input[name=cb]:checked').serializeArray().map(function(item) { return item.value });
+			
+			alert("회원번호 " + arr + "번을 삭제합니다.");
+			
+			 window.location.href='/admin/member/delete?memNum=' + arr;
+		});
+	});
+</script>
+</html>
