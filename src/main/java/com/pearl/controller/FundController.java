@@ -47,9 +47,10 @@ public class FundController {
 	}
 	
 	@PostMapping("/modify")
-	public String modify(FundVO vo) {
-		service.update(vo);
-		return "redirect:/fund/fundList";
+	public ModelAndView modify(FundVO vo) {
+		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ vo.getFundNum());
+		service.update(vo);		
+		return mv;
 	}
 	
 	@GetMapping("/delete")
@@ -61,13 +62,25 @@ public class FundController {
 	@RequestMapping("/write")
 	public ModelAndView fundWrite() {
 		ModelAndView mv = new ModelAndView("fund/fundWrite");
-		
 		return mv;
 	}
 	
 	@PostMapping("/write")
 	public ModelAndView fundWrite(FundVO vo) {
 		ModelAndView mv = new ModelAndView("redirect:/fund/fundList");
+		service.insert(vo);
+		return mv;
+	}
+	
+	@RequestMapping("/pay")
+	public ModelAndView fundPay() {
+		ModelAndView mv = new ModelAndView("fund/fundPay");
+		return mv;
+	}
+	
+	@PostMapping("/pay")
+	public ModelAndView fundPay(FundVO vo) {
+		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ vo.getFundNum());
 		service.insert(vo);
 		return mv;
 	}
