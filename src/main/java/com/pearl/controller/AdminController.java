@@ -1,18 +1,26 @@
 package com.pearl.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pearl.domain.AdminPaymentVO;
 import com.pearl.domain.MemberVO;
+import com.pearl.domain.ReplyVO;
+import com.pearl.domain.SearchVO;
 import com.pearl.service.AdminService;
 import com.pearl.service.MemberService;
 
 import lombok.Setter;
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -76,9 +84,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/post/delete")
-	public ModelAndView postDelete(Model model, Long postNum[]) {
+	public ModelAndView postDelete(Model model, Long boardNum[]) {
 		ModelAndView mv = new ModelAndView("redirect:/admin/post");
-		adminService.postDelete(postNum);
+		adminService.postDelete(boardNum);
 		
 		return mv;
 	}
@@ -98,4 +106,27 @@ public class AdminController {
 		
 		return mv;
 	}
+	
+	@RequestMapping("/payment")
+	public ModelAndView payment(Model model) {
+		ModelAndView mv = new ModelAndView("admin/payment");
+		mv.addObject("list", adminService.paymentList());
+		
+		return mv;
+	}
+	
+//	@ResponseBody
+//	@RequestMapping("/searchPayment")
+//	public ResponseEntity<List<AdminPaymentVO>> searchPaymentList(Model model, @RequestBody SearchVO vo) {
+//		List<AdminPaymentVO> list = adminService.searchPaymentList(vo);
+//		return new ResponseEntity<List<AdminPaymentVO>>(list,HttpStatus.OK);
+//	}
+	
+//	@RequestMapping("/payment/delete")
+//	public ModelAndView paymentDelete(Model model, Long fundNum[]) {
+//		ModelAndView mv = new ModelAndView("redirect:/admin/payment");
+//		adminService.fundDelete(fundNum);
+//		
+//		return mv;
+//	}
 }
