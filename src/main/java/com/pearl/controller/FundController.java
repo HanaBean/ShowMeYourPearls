@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pearl.domain.FundVO;
+import com.pearl.domain.RewardVO;
 import com.pearl.service.FundService;
+import com.pearl.service.RewardService;
 
 import lombok.Setter;
 
@@ -21,6 +23,10 @@ public class FundController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private FundService service;
+	
+	@Setter(onMethod_ = @Autowired)
+	private RewardService rwService;
+	
 	
 	@RequestMapping("/fundList")
 	public ModelAndView list() {
@@ -66,9 +72,12 @@ public class FundController {
 	}
 	
 	@PostMapping("/write")
-	public ModelAndView fundWrite(FundVO vo) {
+	public ModelAndView fundWrite(FundVO vo, List<RewardVO> list) {
 		ModelAndView mv = new ModelAndView("redirect:/fund/fundList");
 		service.insert(vo);
+		for(int i=0;i<list.size();i++) {
+			rwService.insert(list.get(i));
+		}
 		return mv;
 	}
 	
