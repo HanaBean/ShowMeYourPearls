@@ -11,7 +11,7 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-end">
           <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="/home/main">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="/gallery/list">Gallery<i class="ion-ios-arrow-forward"></i></a></span> <span>Gallery Single<i class="ion-ios-arrow-forward"></i></span></p>
+          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="/">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="/gallery/list">Gallery<i class="ion-ios-arrow-forward"></i></a></span> <span>Gallery Single<i class="ion-ios-arrow-forward"></i></span></p>
             <h1 class="mb-0 bread">Gallery</h1>
           </div>
         </div>
@@ -145,12 +145,44 @@
 						+"</div>"
 						+"<div class='comment-body'><h3>"+data[i].memName+"</h3>"
 						+"<div class='meta'>"+data[i].replyDate+"</div>"
-						+"<p>"+data[i].replyContent+"</p>"
-						+"<a href='#' class='reply'>수정</a> "
+						+"<p id='reply-"+i+"'>"+data[i].replyContent+"</p>"
+						+"<a id='btnReplyModify"+i+"' href='javascript:void(0);' onclick='replyModifyForm("+i+")' class='reply'>수정</a> "
 						+"<a href='javascript:void(0);' onclick='replyDelete("+data[i].replyNum+")' class='reply'>삭제</a>"
+						+"<input type='hidden' name='replyNum' value='"+data[i].replyNum+"' id='reply"+i+"'" 
 						+"</div></li>"; 
 				}
 				$('.comment-list').html(str);
+		})
+	}
+	
+	function replyModifyForm(i) {
+		var id = "#reply-"+i;
+		var btnid = '#btnReplyModify'+i;
+		var str = $(id).val();
+		$(id).contents().unwrap().wrap('<textarea name="replyContent" id="reply-'+i+'" cols="30" rows="2" text="'+str+'"/>');
+		$(id).css('display','block');
+		$(btnid).removeAttr("onclick");
+		$(btnid).attr("onclick","replyModify("+i+")");
+	}
+	
+	function replyModify(i) {
+		var numId = "#reply"+i;
+		var ContentId = "#reply-"+i;
+		var replyNum = $(numId).val();
+		var replyContent = $(ContentId).val();
+		var param = {"replyNum":replyNum,"replyContent":replyContent};
+		$.ajax({
+			type: "POST",
+			url: "/reply/update",
+			data: JSON.stringify(param),
+			contentType:'application/json; charset=utf-8',
+			dataType: 'text',
+			success: function(data) {
+				console.log(data);
+				replyList(board);
+			},error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
 		})
 	}
 	
