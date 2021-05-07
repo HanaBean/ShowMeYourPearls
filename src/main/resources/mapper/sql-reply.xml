@@ -6,8 +6,8 @@
 
 
 	<select id="list" resultType="com.pearl.domain.ReplyVO">
-		select /*+ INDEX_ASC(reply reply_pk)*/ *  from reply, member
-		where replynum >= 0 and boardnum=#{boardNum}
+		select /*+ INDEX_ASC(reply reply_pk)*/ *  from reply r, member m
+		where replynum >= 0 and boardnum=#{boardNum} and r.memnum = m.memnum order by replynum
 	</select>
 	
 	<select id="get" resultType="com.pearl.domain.ReplyVO">
