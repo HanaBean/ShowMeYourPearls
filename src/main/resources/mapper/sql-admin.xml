@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pearl.mapper.AdminMapper">
+
+
+	<select id="boardList"
+		resultType="com.pearl.domain.AdminBoardVO">
+		select /*+INDEX(board board_pk)*/
+		b.boardNum, b.boardTitle,
+		b.memNum, m.memName, m.memEmail, b.boardDate
+		from member m, board b
+		where b.boardtype = 'c' and b.memNum = m.memNum
+	</select>
+
+	<select id="fundList" resultType="com.pearl.domain.AdminFundVO">
+		select /*+INDEX(fund fund_pk)*/
+		f.fundNum, m.memNum, m.memName, m.memEmail, f.fundStartDate,
+		f.fundEndDate, f.fundMoney, f.fundTitle, fundIntro
+		from member m, fund
+		f
+		where f.memNum = m.memNum
+	</select>
+
+	<delete id="fundDelete">
+		DELETE FROM fund
+		<where>
+			<foreach item="fundNum" index="index" collection="array"
+				open="fundNum IN (" close=")" separator=",">
+				#{fundNum}
+			</foreach>
+		</where>
+	</delete>
+
+	<delete id="memberDelete">
+		DELETE FROM member
+		<where>
+			<foreach item="memNum" index="index" collection="array"
+				open="memNum IN (" close=")" separator=",">
+				#{memNum}
+			</foreach>
+		</where>
+	</delete>
+
+	<delete id="postDelete">
+		DELETE FROM board
+		<where>
+			<foreach item="postNum" index="index" collection="array"
+				open="postNum IN (" close=")" separator=",">
+				#{postNum}
+			</foreach>
+		</where>
+	</delete>
+
+</mapper>

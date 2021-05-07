@@ -6,18 +6,19 @@
 
 	<select id="list" resultType="com.pearl.domain.BoardVO">
 	<![CDATA[  
-		select /*+INDEX(board board_pk)*/ * from Board where boardnum > 0
+		select /*+INDEX(board board_pk)*/ * from Board 
+		where boardnum > 0 and boardType = 'N' 
 		]]>
 	</select>
 	
 	<select id="read" resultType="com.pearl.domain.BoardVO">
 		select * from Board 
-		where boardnum = #{boardNum}
+		where boardnum = #{boardNum} 
 	</select>
 	
 	<insert id="insert">
 		insert into Board(boardNum, memNum, boardTitle, boardContent, boardDate, boardType)
-		values(BOARD_SEQ.nextval, 21, #{boardTitle}, #{boardContent}, sysdate, #{boardType})
+		values(BOARD_SEQ.nextval, 99999, #{boardTitle}, #{boardContent}, sysdate, #{boardType})
 	</insert>
 	
 	<delete id="delete">

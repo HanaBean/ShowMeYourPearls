@@ -12,7 +12,6 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Service
-@Log4j
 public class MemberServiceImpl implements MemberService {
 	
 	@Setter(onMethod_ = @Autowired)
@@ -24,7 +23,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String get(MemberVO vo) {
+	public MemberVO get(MemberVO vo) {
 		return mapper.get(vo);
 	}
 
@@ -44,8 +43,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int delete(int memNum) {
+	public int delete(Long memNum) {
 		return mapper.delete(memNum);
+	}
+
+
+	@Override
+	public MemberVO getProfile(Long memNum) {
+		return mapper.getProfile(memNum);
 	}
 
 }

@@ -10,9 +10,10 @@ import com.pearl.domain.MemberVO;
 @Mapper
 public interface MemberMapper {
 	List<MemberVO> list();
-	String get(MemberVO vo);
+	MemberVO getProfile(Long memNum);
+	MemberVO get(MemberVO vo);
 	int insert(MemberVO vo);
 	int update(MemberVO vo);
 	int updateLevel(MemberVO vo);
-	int delete(int memNum);
+	int delete(Long memNum);
 }

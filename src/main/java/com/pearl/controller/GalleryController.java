@@ -42,11 +42,6 @@ public class GalleryController {
 		ModelAndView mv = new ModelAndView("gallery/gallery");
 		List<GalleryVO> list = service.list();
 		mv.addObject("gallery", list);
-//		HashMap<Integer,String> nameList = service.readWriters();
-//		for(int i=0; i<list.size();i++) {
-//			BoardVO vo = list.get(i);
-//			mv.addObject(vo.getBoardTitle(), nameList.get(vo.getMemNum().intValue()));
-//		}
 		return mv;
 	}
 	
@@ -61,7 +56,6 @@ public class GalleryController {
 			EmotionVO vo = emo.get(i);
 			mv.addObject(vo.getEmoExpress(), vo.getEmoCount());
 		}
-		//mv.addObject("emotion", emotion.emoCount(boardNum));
 		return mv;
 	}
 	

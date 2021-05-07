@@ -6,11 +6,15 @@
 
 
 	<select id="list" resultType="com.pearl.domain.ReplyVO">
-		select /*+INDEX(reply reply_pk)*/ * from reply
+		select r.*,m.memname from reply r, member m where r.memnum=m.memnum and boardNum=#{boardNum} order by r.replyDate
 	</select>
 	
 	<select id="get" resultType="com.pearl.domain.ReplyVO">
 		select * from reply where replynum=#{replyNum}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from reply where boardNum=#{boardNum}
 	</select>
 	
 	<insert id="insert">

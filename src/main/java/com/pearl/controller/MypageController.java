@@ -1,8 +1,12 @@
 package com.pearl.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,9 +15,8 @@ import com.pearl.domain.MemberVO;
 import com.pearl.service.MemberService;
 
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 
-@Log4j
+
 @Controller
 @RequestMapping("/mypage/*")
 public class MypageController {
@@ -28,12 +31,23 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/edit")
-	public ModelAndView edit() {
+	public ModelAndView edit(MemberVO vo, Model model,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("mypage/edit");
+		getLoginMember(request, mv);
+		
 		return mv;
 	}
 	
-	@RequestMapping("/fundinfo")
+	
+	@PostMapping("/editsend")
+	 public String Editsend(MemberVO vo) {
+		 service.update(vo); 
+		 return "redirect:edit";
+	 
+	 	}
+	 
+	
+	@GetMapping("/fundinfo")
 	public ModelAndView fundinfo() {
 		ModelAndView mv = new ModelAndView("mypage/fundinfo");
 		return mv;
@@ -45,12 +59,16 @@ public class MypageController {
 		return mv;
 	}
 	
-	
-	
-	/*
-	 * @PostMapping("/edit") public String updateForm(MemberVO vo) { log.info(vo);
-	 * service.update(vo); return "redirect:/mypage/edit"; }
-	 */
-
+	public ModelAndView getLoginMember(HttpServletRequest request, ModelAndView mv) {
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		if(member != null) {
+			member = service.getProfile(member.getMemNum());
+			mv.addObject("meminfo", member);
+		} else {
+			mv.setViewName("redirect:../log/login");
+		}
+		return mv;
+	}
 	
 }

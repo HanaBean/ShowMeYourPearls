@@ -1,5 +1,8 @@
 package com.pearl.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +16,7 @@ import com.pearl.service.MemberService;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
-@Log4j
+
 @Controller
 @RequestMapping("/log/*")
 public class LoginController { 
@@ -21,7 +24,7 @@ public class LoginController {
 	@Setter(onMethod_ = @Autowired)
 	private MemberService service;
 	
-	private MemberVO member;
+	private MemberVO member = new MemberVO();
 	
 	@GetMapping("/login")
 	public ModelAndView login() {
@@ -34,21 +37,22 @@ public class LoginController {
 	
 	@PostMapping("/join")
 	public String insertForm(MemberVO vo) {
-		log.info(vo);
 		service.insert(vo);
 		return "redirect:/log/login";
 	}
 	
 	@PostMapping("/login")
-	public ModelAndView LoginForm(MemberVO vo) {
+	public ModelAndView LoginForm(MemberVO vo, HttpServletRequest request) {
 		ModelAndView log = new ModelAndView("log/login");
-		String logVo = service.get(vo);
+		member = service.get(vo);
+		HttpSession session = request.getSession(true);
 		
-		if(logVo == null) {
+		if(member == null) {
+			session.setAttribute("member", null);
 			log.addObject("cklog", "alert");
 		} else {
-			log.addObject("cklog",logVo);
-			log.setViewName("home/main");
+			session.setAttribute("member", member);
+			log.setViewName("redirect:../mypage/edit");
 		}
 		return log;
 	}

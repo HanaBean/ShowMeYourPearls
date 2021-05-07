@@ -64,101 +64,26 @@
             
             
               <div class="mt-5">
-              <h3 class="mb-5">6 Comments</h3>
+              <h3 class="mb-5" id="comment-count">Comments</h3>
               <ul class="comment-list">
-                <li class="comment">
-                  <div class="vcard bio">
-                    <img th:src="@{/images/person_1.jpg}" alt="Image placeholder">
-                  </div>
-                  <div class="comment-body">
-                    <h3>John Doe</h3>
-                    <div class="meta">April 7, 2020 at 10:05pm</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                    <p><a href="#" class="reply">Reply</a></p>
-                  </div>
-                </li>
-
-                <li class="comment">
-                  <div class="vcard bio">
-                    <img th:src="@{/images/person_1.jpg}" alt="Image placeholder">
-                  </div>
-                  <div class="comment-body">
-                    <h3>John Doe</h3>
-                    <div class="meta">April 7, 2020 at 10:05pm</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                    <p><a href="#" class="reply">Reply</a></p>
-                  </div>
-
-                  <ul class="children">
-                    <li class="comment">
-                      <div class="vcard bio">
-                        <img th:src="@{/images/person_1.jpg}" alt="Image placeholder">
-                      </div>
-                      <div class="comment-body">
-                        <h3>John Doe</h3>
-                        <div class="meta">April 7, 2020 at 10:05pm</div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                        <p><a href="#" class="reply">Reply</a></p>
-                      </div>
-
-
-                      <ul class="children">
-                        <li class="comment">
-                          <div class="vcard bio">
-                            <img th:src="@{/images/person_1.jpg}" alt="Image placeholder">
-                          </div>
-                          <div class="comment-body">
-                            <h3>John Doe</h3>
-                            <div class="meta">April 7, 2020 at 10:05pm</div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                            <p><a href="#" class="reply">Reply</a></p>
-                          </div>
-
-                            <ul class="children">
-                              <li class="comment">
-                                <div class="vcard bio">
-                                  <img th:src="@{/images/person_1.jpg}" alt="Image placeholder">
-                                </div>
-                                <div class="comment-body">
-                                  <h3>John Doe</h3>
-                                  <div class="meta">April 7, 2020 at 10:05pm</div>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                  <p><a href="#" class="reply">Reply</a></p>
-                                </div>
-                              </li>
-                            </ul>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-
-                <li class="comment">
-                  <div class="vcard bio">
-                    <img th:src="@{/images/person_1.jpg}" alt="Image placeholder">
-                  </div>
-                  <div class="comment-body">
-                    <h3>John Doe</h3>
-                    <div class="meta">April 7, 2020 at 10:05pm</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                    <p><a href="#" class="reply">Reply</a></p>
-                  </div>
-                </li>
+                
               </ul>
               <!-- END comment-list -->
               <div class="comment-form-wrap pt-5">
                 <h3 class="mb-5">댓글 추가</h3>
-                <form action="#" class="p-1 bg-light">
+                <form action="#" class="p-1 bg-light" method="POST" id="replyWrite">
                   <div class="form-group">
                     <label for="name">Name *</label>
-                    <input type="text" class="form-control" id="name" value="수세미" readonly>
+                    <input type="text" class="form-control" id="name" name="memName" value="수세미" readonly>
+                    <input type="hidden" name="memNum" value="1" />
+                    <input type="hidden" name="boardNum" th:value="${gallery.boardNum}"/>
                   </div>
                   <div class="form-group">
                     <label for="message">Message</label>
-                    <textarea name="" id="message" cols="30" rows="2" class="form-control"></textarea>
+                    <textarea name="replyContent" id="message" cols="30" rows="2" class="form-control"></textarea>
                   </div>
                   <div class="form-group">
-                    <input type="submit" value="Reply" class="btn py-3 px-4 btn-primary">
+                    <input type="submit" id="replySubmit" value="Reply" class="btn py-3 px-4 btn-primary">
                   </div>
 
                 </form>
@@ -198,7 +123,72 @@
         </div>
       </div>
     </section> <!-- .section -->
+<script type="text/javascript" th:src="@{/js/reply.js?ver=1.0}"></script>
 <script th:inline="javascript">
+		var board = [[${gallery.boardNum}]];
+
+	$(function(){
+	  replyList(board);
+	});
+	
+	function replyList(board){
+		var link = /*[[@{/images/person_1.jpg}]]*/'';
+		
+		$.getJSON("/reply/" + board,
+		  function(data) {
+				var str = "";
+				console.log(data);
+				$('#comment-count').html(data.length+" Comments");
+				for (var i = 0 ; i < data.length; i++) {
+					str +="<li class='comment'><div class='vcard bio'>"
+						+"<img src='"+link+"' alt='Image placeholder'>"
+						+"</div>"
+						+"<div class='comment-body'><h3>"+data[i].memName+"</h3>"
+						+"<div class='meta'>"+data[i].replyDate+"</div>"
+						+"<p>"+data[i].replyContent+"</p>"
+						+"<a href='#' class='reply'>수정</a> "
+						+"<a href='javascript:void(0);' onclick='replyDelete("+data[i].replyNum+")' class='reply'>삭제</a>"
+						+"</div></li>"; 
+				}
+				$('.comment-list').html(str);
+		})
+	}
+	
+	function replyDelete(replyNum){
+		var param = {'replyNum':replyNum};
+		$.ajax({
+			type: "POST",
+			url: "/reply/delete",
+			data: param,
+			dataType: 'text',
+			success: function(data) {
+				console.log(data);
+				replyList(board);
+			}
+		})
+	}
+	
+	
+	$('#replySubmit').click(function(e){
+		e.preventDefault();
+    var form = $('#replyWrite').serialize();
+
+    $.ajax({
+         type: "POST",
+         url: "/reply/upload",
+         data: form,
+         dataType: 'text',
+         success: function (data) {
+         	alert(data);
+         	replyList(board);
+         },
+         error: function (e) {
+             console.log("ERROR : ", e);
+             alert("fail");
+         }
+     });
+	});
+	
   var boardNum = [[${gallery.boardNum}]];
   var memNum = [[${gallery.memNum}]];
 
@@ -237,9 +227,6 @@ function emotion(emo){
 	});
 }
 
-$(function(){
-    
-});
 </script>
     <footer th:replace="fragments/footer :: footer"></footer>
   
