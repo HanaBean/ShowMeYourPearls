@@ -2,4 +2,19 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.pearl.mapper.MainMapper">
   
+ <!--  <select id="Numcount" resultType="com.pearl.mapper.MainMappe">
+		select boardNum, count(emoExpress) From Emotion Group by boardNum
+	</select>
+	
+	<select id="rownum" resultType="com.pearl.mapper.MainMappe">
+		select row_number, emoExpress from emotion where row_number <= 3;
+	</select>
+	
+	<select id="pop" resultType="com.pearl.mapper.MainMappe">
+		select*from board where boardNum in ( select row_number, emoExpress from emotion where row_number <= 3;)
+	</select>
+   -->
+  
+  </mapper>

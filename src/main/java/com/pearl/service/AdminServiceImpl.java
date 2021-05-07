@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.pearl.domain.AdminBoardVO;
 import com.pearl.domain.AdminFundVO;
+import com.pearl.domain.AdminPaymentVO;
 import com.pearl.domain.MemberVO;
+import com.pearl.domain.SearchVO;
 import com.pearl.mapper.AdminMapper;
 import com.pearl.mapper.MemberMapper;
 
@@ -15,7 +17,6 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Service
-@Log4j
 public class AdminServiceImpl implements AdminService {
 	
 	@Setter(onMethod_ = @Autowired)
@@ -30,6 +31,16 @@ public class AdminServiceImpl implements AdminService {
 	public List<AdminFundVO> fundList() {
 		return mapper.fundList();
 	}
+	
+	@Override
+	public List<AdminPaymentVO> paymentList() {
+		return mapper.paymentList();
+	}
+	
+	@Override
+	public List<AdminPaymentVO> searchPaymentList(SearchVO vo) {
+		return mapper.searchPaymentList(vo);
+	}
 
 	@Override
 	public int fundDelete(Long[] arrFundNum) {
@@ -42,8 +53,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public int postDelete(Long[] arrPostNum) {
-		return mapper.postDelete(arrPostNum);
+	public int postDelete(Long[] arrBoardNum) {
+		return mapper.postDelete(arrBoardNum);
 	}
 
 }

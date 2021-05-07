@@ -14,7 +14,7 @@
 					<form action="/notice/modify" method="POST" id="modifyForm"
 						name="modifyForm" class="contactForm">
 						<input type="hidden" id="boardNum" name="boardNum"
-						th:value="${notice.boardNum}">
+							th:value="${notice.boardNum}">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
@@ -31,11 +31,15 @@
 										th:text="${notice.boardContent}"></textarea>
 								</div>
 							</div>
+
+							<a th:href="@{/notice/read(boardNum=${notice.boardNum })}"
+								class="btn-custom d-flex" style="margin-left: 0px"><span
+								class="fa fa-chevron-left"></span><i class="sr-only">Read
+									more</i></a>
 							<div class="form-group" style="margin: auto">
 								<input type="submit" value="수정하기" id="editBtn"
-									class="btn btn-secondary"> 
-									<input type="button"
-									value="삭제하기" id="removeBtn" class="btn btn-primary"
+									class="btn btn-primary"> <input type="button"
+									value="삭제하기" id="removeBtn" class="btn btn-danger"
 									th:onclick="location.href='/notice/delete?boardNum=[[${notice.boardNum}]]'">
 								<div class="submitting"></div>
 							</div>
