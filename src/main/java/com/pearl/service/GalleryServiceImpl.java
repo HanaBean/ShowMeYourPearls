@@ -1,12 +1,13 @@
 package com.pearl.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pearl.domain.BoardVO;
-import com.pearl.domain.EmotionVO;
+import com.pearl.domain.GalleryVO;
 import com.pearl.domain.MemberVO;
 import com.pearl.mapper.GalleryMapper;
 
@@ -18,7 +19,7 @@ public class GalleryServiceImpl implements GalleryService{
 	private GalleryMapper mapper;
 
 	@Override
-	public List<BoardVO> list() {
+	public List<GalleryVO> list() {
 		return mapper.list();
 	}
 
@@ -47,21 +48,4 @@ public class GalleryServiceImpl implements GalleryService{
 		return mapper.delete(boardNum);
 	}
 
-	@Override
-	public int emotionInsert(EmotionVO vo) {
-		return mapper.emotionInsert(vo); 
-	}
-
-	@Override
-	public EmotionVO getEmo(EmotionVO vo) {
-		return mapper.getEmo(vo);
-	}
-	
-	@Override
-	public int updateEmo(EmotionVO vo) {
-		return mapper.updateEmo(vo);
-	}
-	
-	
-	
 }
