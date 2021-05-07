@@ -6,7 +6,7 @@
 	<header th:replace="fragments/header :: header"> </header>
 	<!-- END nav -->
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('images/bg_2.jpg');"
+		th:style="'background-image: url('+@{/images/bg_2.jpg}+');'"
 		data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
@@ -14,8 +14,10 @@
 				<div class="col-md-9 ftco-animate pb-5">
 					<p class="breadcrumbs mb-2">
 						<span class="mr-2"><a href="index.html">Home <i
-								class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a th:href="@{/fund/fundList}">Funding <i class="ion-ios-arrow-forward"></i></a></span>
-						<span>Write <i class="ion-ios-arrow-forward"></i></span>
+								class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a
+							th:href="@{/fund/fundList}">Funding <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>Write <i
+							class="ion-ios-arrow-forward"></i></span>
 					</p>
 					<h1 class="mb-0 bread">Funding Write</h1>
 				</div>
@@ -30,13 +32,13 @@
 					<div class="col-lg-8 ftco-animate">
 						<div class="form-group">
 							<input type="text" class="form-control"
-								placeholder="Write your funding title."
-								name="fundTitle" id="fundTitle">
+								placeholder="Write your funding title." name="fundTitle"
+								id="fundTitle">
 						</div>
 						<div>
 							<img src="http://placehold.it/760x570" class="img-fluid">
 						</div>
-						<div> 
+						<div>
 							<textarea name="fundIntro" id="fundIntro" rows="10" cols="88"
 								placeholder="Write here something"></textarea>
 						</div>
@@ -62,45 +64,49 @@
 							<div class="categories">
 								<li><div>펀딩 기간</div>
 									<div class="row">
-										<input type="text" placeholder="Start Date" name="fundStartDate" id="fundStartDate"
+										<input type="text" placeholder="Start Date"
+											name="fundStartDate" id="fundStartDate"
 											style="width: 160px; position: relative; left: 15px;">
-										<input type="text" placeholder="End Date" name="fundEndDate" id="fundEndDate"
+										<input type="text" placeholder="End Date" name="fundEndDate"
+											id="fundEndDate"
 											style="width: 160px; position: relative; right: 0px;">
 									</div></li>
 								<li>
 									<div>
 										상품 등록
 										<div class="tagcloud">
-											<a href="#" class="tag-cloud-link"
-												style="width: 37pt; height: 20pt; position: relative; left: 255px;">Add</a>
+											<input type="button" id="add" class="tag-cloud-link"
+												onclick="addItem()" value="add"
+												style="width: 37pt; height: 20pt; position: relative; left: 255px;">
 										</div>
 									</div>
 									<div class="row">
-
-										<input type="text" placeholder="Product Name"
+										<input type="text" id="productName" placeholder="Product Name"
 											style="width: 160px; position: relative; left: 15px;">
-										<input type="text" placeholder="Price"
+										<input type="text" id="productPrice" placeholder="Price"
 											style="width: 160px; position: relative; right: 0px;">
 									</div>
-
 								</li>
-								<li>
-									<div>등록된 상품</div>
-									<div class="row" style="position: relative; left: 20px">
-										<span id="item-name">장수풍뎅이 수세미</span><span>&nbsp;&nbsp;&nbsp;</span> <span id="item-price">5000</span><span>&nbsp;</span>
-										<span>원&nbsp;&nbsp;</span>
-										<div class="tagcloud">
-											<a href="#" class="tag-cloud-link">delete</a>
-										</div>
-
+									<h6 style="font-weight: 800;">등록된 상품</h6>
+									<br>
+								<div id="attach-item">
+									<div id="register-item">
+										<li id="item-form" style="float: left; width:100%;">
+											<div id="item-name" style="float: left; margin: 0 20px 0 0;">
+											</div>
+											<div id="item-price" style="float: left;"> </div>
+										
+										</li>
+										
 									</div>
 
-								</li>
-								<div class="row">
-									<span><input type="submit" value="Start Project"
-										class="btn btn-primary d-block px-2 py-3"></span>
-									<span><a href="blog-single.html"
-										class="btn btn-secondary d-block px-2 py-3">Cancel</a></span>
+								</div>
+								
+								<div>
+									<input type="submit" value="Start Project"
+										class="btn btn-primary d-block px-2 py-3" style="float:left; width:50%;"><input
+										type="button" value="Cancel" onclick="history.back(-1);"
+										class="btn btn-secondary d-block px-2 py-3" style="float:left; width:50%">
 								</div>
 
 
@@ -115,7 +121,34 @@
 		</form>
 	</section>
 	<!-- .section -->
-	<footer th:replace="fragments/footer :: footer"></footer>
 
+	<script>
+		var count = 0;
+		function addItem() {
+			var productName = $("#productName");
+			var productPrice = $("#productPrice");
+			var item = productName.val();
+			var price = productPrice.val();
+			$("#attach-item")
+					.prepend(
+							'<div id="register-item'+count+'"><li id="item-form" style="float: left; width:80%;">'
+							+'<div id="item-name" style="float: left; margin: 0 20px 0 0;">'
+							+ item
+							+'</div><div id="item-price" style="float: left;">'
+							+ price
+							+'</div></li><div class="tagcloud" style="float:left; width:20%;">'
+							+'<a class="tag-cloud-link" onclick="deleteItem('+count+')">delete</a></div></div>');
+			productName.val("");
+			productPrice.val("");
+			count++;
+		}
+
+		function deleteItem(cnt) {
+			var id = '#register-item'+cnt;
+			$(id).remove();
+		}
+	</script>
+	<footer th:replace="fragments/footer :: footer"></footer>
 </body>
+
 </html>

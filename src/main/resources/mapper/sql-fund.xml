@@ -26,13 +26,13 @@
 	
 	<insert id="insert">
 		insert into Fund(FundNum,memnum,fundstartdate,fundenddate,fundmoney,funddday,fundtitle,fundintro) 
-			values(FUNDING_SEQ.nextval,999999,#{fundStartDate},#{fundEndDate},
+			values(FUND_SEQ.nextval,999999,#{fundStartDate},#{fundEndDate},
 			#{fundMoney},#{fundDday},#{fundTitle},#{fundIntro})
 	</insert>
 	
 	<update id="update">
 		update Fund set 
-		memname=#{memName},fundstartdate=#{fundStartDate},fundenddate=#{fundEndDate},
+		fundstartdate=#{fundStartDate},fundenddate=#{fundEndDate},
 		fundmoney=#{fundMoney},funddday=#{fundDday},fundtitle=#{fundTitle} ,fundintro=#{fundIntro} 
 		where FundNum=#{fundNum}
 	</update>

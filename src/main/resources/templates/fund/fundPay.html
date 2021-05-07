@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/fragments/head.html::head">
+</head>
+<body>
+	<header th:replace="fragments/header :: header"> </header>
+	<!-- END nav -->
+	<section class="hero-wrap hero-wrap-2"
+		th:style="'background-image: url('+@{/images/bg_2.jpg}+');'"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-end">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs mb-2">
+						<span class="mr-2"><a href="index.html">Home <i
+								class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a
+							th:href="@{/fund/fundList}">Funding <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>Payment <i
+							class="ion-ios-arrow-forward"></i></span>
+					</p>
+					<h1 class="mb-0 bread">Funding Payment</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section bg-light">
+		<div class="container">
+			<div class="contact-wrap w-100 p-md-5 p-4">
+				<div>
+					<span name="artist-name" style="font-size: 2.0em">정원빈</span><span>&nbsp;&nbsp;작가님의</span>
+					<span>글 제목</span>
+				</div>
+				<div>
+					<div style="float: left; margin: 3px 10px 3px 1px;">
+						<img src="http://placehold.it/160x120">
+					</div>
+					<div class="payment-right-bar">
+						<span>잠시라도 볼수는 없나요. 내 심장이 멈출꺼 같아요. 그대향한 그리운 맘으로 살아가기가 부족한
+							나역시 힘이 드는데, 용서해요. 내 욕심만 채웠어요 아 //이거 어떻게 해야 옆에 붙는거지//</span>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="contact-wrap w-100 p-md-5 p-4">
+				<h3 class="mb-4">Product Information</h3>
+				<div>
+					<table border="1" width="50%" height="200" cellspacing="5">
+
+						<thead>
+							<tr align="center" bgcolor="white">
+								<td>Reward Product</td>
+								<th>Count</th>
+								<th>Price</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr align="center" bgcolor="white">
+								<th>아저씨 포스터</th>
+								<td>20</td>
+								<td>2000원</td>
+							</tr>
+							<tr align="center" bgcolor="white">
+								<td>태극기 휘날리면 포스터</td>
+								<td>10</td>
+								<td>2000원</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div>소계 6마넌</div>
+				<div class="col-md-6">
+					<div>
+						<label class="label">Sponsor More</label> <input type="text"
+							class="form-control" placeholder="Donation">
+					</div>
+				</div>
+				<div>총 [소계+후원금] 후원합니다.</div>
+			</div>
+
+			<div>
+				<div class="col-md-12">
+					<div class="wrapper">
+						<div class="row mb-5">
+							<div class="col-md-3">
+								<div class="dbox w-100 text-center"></div>
+							</div>
+						</div>
+						<div class="row no-gutters">
+							<div class="col-md-7">
+								<div class="contact-wrap w-100 p-md-5 p-4">
+									<h3 class="mb-4">Shipping information</h3>
+									<form method="POST" id="contactForm" name="contactForm"
+										class="contactForm">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="label" for="name">Receiver</label> <input
+														type="text" class="form-control" name="name" id="name"
+														placeholder="Name">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="label">Address</label><input type=button
+														value="Zip Code" class="btn btn-info"
+														style="padding: 2px; margin: 0 0 0 10px;"> <input
+														type="text" class="form-control" name="text" id="text"
+														placeholder="Zip Code"> <input type="text"
+														class="form-control" name="text" id="text"
+														placeholder="Address"><input type="text"
+														class="form-control" name="text" id="text"
+														placeholder="Address Detail">
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="label" for="subject">Contact</label> <input
+														type="text" class="form-control" name="subject"
+														id="subject" placeholder="Contact Number">
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="label" for="#">Message</label>
+													<textarea name="message" class="form-control" id="message"
+														cols="30" rows="4" placeholder="Message"></textarea>
+												</div>
+											</div>
+
+										</div>
+									</form>
+								</div>
+							</div>
+
+						</div>
+						<div class="row no-gutters">
+							<div class="col-md-7">
+								<div class="contact-wrap w-100 p-md-5 p-4">
+									<h3 class="mb-4">Card information</h3>
+									<form method="POST" id="contactForm" name="contactForm"
+										class="contactForm">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="label">Card Number</label> <input type="text"
+														class="form-control" placeholder="16 Digit Card Number">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="label">CVC</label> <input type="text"
+														class="form-control" name="text" id="text"
+														placeholder="3 DIGIT">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="label">Valid Date</label> <input type="text"
+														class="form-control" name="text" id="text"
+														placeholder="MMYY">
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="label" for="password">Password</label> <input
+														type="password" class="form-control" name="password"
+														id="password"
+														placeholder="The first two digits of the card password">
+												</div>
+											</div>
+
+
+										</div>
+									</form>
+								</div>
+							</div>
+
+						</div>
+						<div class="contact-wrap w-100 p-md-5 p-4">
+							<input type="submit" class="btn btn-primary" value="Payment">
+							<input type="button" class="btn btn-secondary" value="Cancel">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer th:replace="fragments/footer :: footer"></footer>
+
+</body>
+</html>
