@@ -8,14 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pearl.domain.AdminPaymentVO;
 import com.pearl.domain.MemberVO;
-import com.pearl.domain.ReplyVO;
 import com.pearl.domain.SearchVO;
 import com.pearl.service.AdminService;
 import com.pearl.service.MemberService;
@@ -115,18 +113,14 @@ public class AdminController {
 		return mv;
 	}
 	
-//	@ResponseBody
-//	@RequestMapping("/searchPayment")
-//	public ResponseEntity<List<AdminPaymentVO>> searchPaymentList(Model model, @RequestBody SearchVO vo) {
-//		List<AdminPaymentVO> list = adminService.searchPaymentList(vo);
-//		return new ResponseEntity<List<AdminPaymentVO>>(list,HttpStatus.OK);
-//	}
-	
-//	@RequestMapping("/payment/delete")
-//	public ModelAndView paymentDelete(Model model, Long fundNum[]) {
-//		ModelAndView mv = new ModelAndView("redirect:/admin/payment");
-//		adminService.fundDelete(fundNum);
-//		
-//		return mv;
-//	}
+
+	@ResponseBody
+	@PostMapping("/searchPayment")
+	public ResponseEntity<List<AdminPaymentVO>> searchPaymentList(String searchType, Long searchValue) {
+		SearchVO vo = new SearchVO(searchType, searchValue);
+		System.out.print(vo);
+		List<AdminPaymentVO> list = adminService.searchPaymentList(vo);
+		return new ResponseEntity<List<AdminPaymentVO>>(list,HttpStatus.OK);
+	}
+
 }

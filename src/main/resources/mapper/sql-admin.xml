@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pearl.mapper.AdminMapper">
 
-
 	<select id="boardList"
 		resultType="com.pearl.domain.AdminBoardVO">
 		select /*+INDEX(board board_pk)*/
@@ -22,6 +21,35 @@
 		f
 		where f.memNum = m.memNum
 	</select>
+
+	<select id="paymentList"
+		resultType="com.pearl.domain.AdminPaymentVO">
+		select /*+INDEX(payment payment_pk)*/
+		*
+		from payment
+	</select>
+
+	<select id="searchPaymentList"
+		resultType="com.pearl.domain.AdminPaymentVO">
+		select /*+INDEX(payment payment_pk)*/
+		*
+		from payment
+		<if test="searchType == 'all'">
+		
+		</if>
+		<if test="searchType == 'payNum'">
+			where payNum = #{searchValue}
+		</if>
+		<if test="searchType == 'memNum'">
+			where memNum = #{searchValue}
+		</if>
+		<if test="searchType == 'fundNum'">
+			where fundNum = #{searchValue}
+		</if>
+	</select>
+
+
+
 
 	<delete id="fundDelete">
 		DELETE FROM fund
@@ -46,9 +74,9 @@
 	<delete id="postDelete">
 		DELETE FROM board
 		<where>
-			<foreach item="postNum" index="index" collection="array"
-				open="postNum IN (" close=")" separator=",">
-				#{postNum}
+			<foreach item="boardNum" index="index" collection="array"
+				open="boardNum IN (" close=")" separator=",">
+				#{boardNum}
 			</foreach>
 		</where>
 	</delete>

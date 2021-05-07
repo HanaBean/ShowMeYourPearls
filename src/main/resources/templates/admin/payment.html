@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/fragments/head.html::head">
+</head>
+<style>
+li {
+	list-style: none;
+}
+</style>
+<body>
+	<header th:replace="fragments/header :: header"> </header>
+
+	<section class="ftco-section bg-light">
+		<div class="container">
+			<div class="row justify-content-center pb-5 mb-3">
+				<div
+					class="col-md-7 heading-section text-center ftco-animate fadeInUp ftco-animated">
+					<h2>펀딩 관리</h2>
+				</div>
+			</div>
+			<div class="row">
+				<nav>
+					<div class="panel-left ftco-animate fadeInUp ftco-animated block-7"
+						style="margin-right: 30px; padding: 30px 30px 30px 0px;">
+						<ul>
+							<li class="menu-label"><a href="/admin/member"
+								style="color: #000;">▶ 회원 관리</a></li>
+							<li class="menu-label"><a href="/admin/post"
+								style="color: #000;">▶ 게시물 관리</a></li>
+							<li class="menu-label"><h5 style="marin-bottom: 0px;">
+									<a href="/admin/fund">▶ 펀딩 관리</a>
+								</h5></li>
+							<li class="menu-label"><a href="/admin/fund"
+								style="margin-left: 20px; color: #000;">-펀딩 목록</a></li>
+							<li class="menu-label"><a href="/admin/payment"
+								style="margin-left: 20px;">-결제 목록</a></li>
+						</ul>
+					</div>
+				</nav>
+				<div class="ftco-animate fadeInUp ftco-animated"
+					style="display: inline-block; width: 75%">
+					<div class="block-7">
+						<div class="text-center p-4">
+							<form id="searchForm" action="#" class="search-form">
+								<div class="input-group show" style="margin-bottom: 10px;">
+									<button class="btn btn-primary dropdown-toggle" type="button" name="searchType"
+										id="dropdownMenuButton" data-toggle="dropdown"
+										style="width: 15%;">전체보기</button>
+
+									<div class="dropdown-menu animated--fade-in" id="dropdown"
+										aria-labelledby="dropdownMenuButton"
+										x-placement="bottom-start"
+										style="position: absolute; transform: translate3d(0px, 52px, 0px); top: 0px; left: 0px; will-change: transform; overflow: visible; aria-expanded: false;">
+										<span class="dropdown-item">전체보기</span> <span
+											class="dropdown-item">결제번호</span> <span class="dropdown-item">회원번호</span>
+										<span class="dropdown-item">펀딩번호</span>
+									</div>
+
+									<input type="text" class="form-control" placeholder="Search..."
+										style="width: 65%; margin-left: 10px; margin-right: 10px;"
+										name="searchValue" value="" id="txtSearch">
+									<button class="btn btn-primary" type="button" id="srchBtn"
+										style="width: 15%;">Search</button>
+								</div>
+							</form>
+							<hr>
+							<table id="table" class="styled-table" align="center" style="width: 100%">
+								<thead style="color: black;">
+									<th>결제 번호</th>
+									<th>회원 번호</th>
+									<th>펀딩 번호</th>
+									<th>결제 일자</th>
+									<th>결제 금액</th>
+								</thead>
+								<tbody>
+									<tr th:each="p : ${list }">
+										<td>[[${p.payNum}]]</td>
+										<td><a th:href="@{/mypage/my}">[[${p.memNum}]]</a></td>
+										<td><a th:href="@{/fund/get(fundNum=${p.fundNum})}">[[${p.fundNum}]]</a></td>
+										<td>[[${p.payTime}]]</td>
+										<td
+											th:text="${#numbers.formatDecimal(p.payTotal, 0, 'COMMA', 0, 'POINT')}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer th:replace="fragments/footer :: footer"> </footer>
+
+</body>
+<script>
+	$(document).ready(function() {
+		$('input[name=cbAll]').on('change', function() {
+			$('input[name=cb]').prop('checked', this.checked);
+		});
+
+		$('.dropdown-item').on('click', function() {
+			var value = $(this).text();
+
+			$('#dropdownMenuButton').text(value);
+		});
+
+		$('#srchBtn').on('click', function() {
+			var searchType = $('#dropdownMenuButton').text();
+			var strSearchValue = $('#txtSearch').val();
+			var searchValue = parseInt(strSearchValue);
+			
+			
+			if(searchType == '전체보기') {
+				searchType = 'all';
+			}
+			else if(searchType == '결제번호') {
+				searchType = 'payNum';
+			}
+			else if(searchType == '회원번호') {
+				searchType = 'memNum';
+			}
+			else if(searchType == '펀딩번호') {
+				searchType = 'fundNum';
+			}
+			
+			var param = {'searchType': searchType,
+							'searchValue': searchValue};
+			
+			console.log(param);
+			
+			$.ajax({
+				url : '/admin/searchPayment',
+				contentType : "application/json; charset=UTF-8",
+				data : param,
+				type : 'POST',
+				dataType : 'json',
+				success : function(result) {
+					console.log(result);
+					console.log(result.length);
+					
+				},
+                error: function(error) {
+                	console.log(error);
+                }  
+			});
+		});
+	});
+</script>
+</html>
