@@ -12,7 +12,7 @@
 					<div>
 						<h3 class="mb-4" style="display: inline-block;">공지 사항</h3>
 						<input type="submit" value="수정하기" id="editBtn"
-							class="btn btn-secondary" style="float: right;"
+							class="btn btn-primary" style="float: right;"
 							th:onclick="location.href='/notice/modify?boardNum=[[${notice.boardNum}]]'">
 					</div>
 					<hr>
@@ -30,11 +30,10 @@
 						</div>
 					</div>
 					<div>
-						<a th:href="@{/notice/modify(boardNum=${notice.boardNum})}"
+						<a href="/notice/list"
 							class="btn-custom d-flex" style="margin-left: 0px"><span
 							class="fa fa-chevron-left"> </span><i class="sr-only">Read
 								more</i></a>
-
 					</div>
 				</div>
 			</div>
