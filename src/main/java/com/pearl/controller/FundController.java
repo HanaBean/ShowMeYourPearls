@@ -37,8 +37,6 @@ public class FundController {
 		mv.addObject("update", update);
 		return mv;
 	}
-
-	
 	
 	@GetMapping("/get")
 	public ModelAndView get(int fundNum) {
@@ -48,30 +46,41 @@ public class FundController {
 		return mv;
 	}
 	
-	
-	
 	@PostMapping("/modify")
-	public String modify(FundVO vo) {
-		service.update(vo);
-		return "redirect:/fund/fundlist";
+	public ModelAndView modify(FundVO vo) {
+		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ vo.getFundNum());
+		service.update(vo);		
+		return mv;
 	}
 	
 	@GetMapping("/delete")
-	public String delete(int mno) {
-		service.delete(mno);
-		return "redirect:/fund/fundlist";
+	public String delete(int fundNum) {
+		service.delete(fundNum);
+		return "redirect:/fund/fundList";
 	}
 	
 	@RequestMapping("/write")
 	public ModelAndView fundWrite() {
 		ModelAndView mv = new ModelAndView("fund/fundWrite");
-		
 		return mv;
 	}
 	
 	@PostMapping("/write")
 	public ModelAndView fundWrite(FundVO vo) {
 		ModelAndView mv = new ModelAndView("redirect:/fund/fundList");
+		service.insert(vo);
+		return mv;
+	}
+	
+	@RequestMapping("/pay")
+	public ModelAndView fundPay() {
+		ModelAndView mv = new ModelAndView("fund/fundPay");
+		return mv;
+	}
+	
+	@PostMapping("/pay")
+	public ModelAndView fundPay(FundVO vo) {
+		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ vo.getFundNum());
 		service.insert(vo);
 		return mv;
 	}

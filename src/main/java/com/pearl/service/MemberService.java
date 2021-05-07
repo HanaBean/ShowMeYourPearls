@@ -6,7 +6,7 @@ import com.pearl.domain.MemberVO;
 
 public interface MemberService {
 	List<MemberVO> list();
-	String get(MemberVO vo);
+	MemberVO get(MemberVO vo);
 	int insert(MemberVO vo);
 	int update(MemberVO vo);
 	int updateLevel(MemberVO vo);

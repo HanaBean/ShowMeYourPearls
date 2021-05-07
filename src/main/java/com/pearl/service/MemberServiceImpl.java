@@ -9,7 +9,6 @@ import com.pearl.domain.MemberVO;
 import com.pearl.mapper.MemberMapper;
 
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -23,7 +22,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String get(MemberVO vo) {
+	public MemberVO get(MemberVO vo) {
 		return mapper.get(vo);
 	}
 

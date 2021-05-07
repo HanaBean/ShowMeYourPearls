@@ -1,6 +1,7 @@
   
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head th:insert="/fragments/head.html::head">
 </head>
   <body>
@@ -22,7 +23,7 @@
 	
 	.check2{
 		position:absolute;
-		margin-left:1em;
+		margin-left:5em;
 		font-size: 1.5em;
 		top:90%;
 		color: red;
@@ -63,9 +64,27 @@
 	}
 
 	.upload{
-		position:absolute;
-		left:50%;
-		top:80%
+		margin-left: 50em;
+		margin-top: 10em;
+	}
+	
+	.upload_btn{
+		border:0;
+		background-color:#ffffff;
+		color:red;
+		text-decoration:underline;	
+	}
+	
+	.upload_btn:hover{
+		border:0;
+		cursor:pointer;
+		
+	}
+	
+	#image_container{
+		width: 300px;
+		height: 300px;
+		overflow:hidden;
 	
 	}
 
@@ -83,7 +102,13 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> 
+    <div class="upload">
+ 		<input type="file" id="image" accept="image/*" onchange="setThumbnail(event)" style="display:none" /> 
+ 		<button class="upload_btn">프포필 사진 바꾸기</button>
+		<div id="image_container"></div>
+		<span class="nickname2">미세</span>
+	</div>
     <nav>
     <div class="panel-left">
 		<ul class="label">
@@ -93,44 +118,41 @@
 		</ul>
     </div>
     </nav>
-    <div class="upload">
- 		<input type="file" id="image" accept="image/*" onchange="setThumbnail(event);"/> 
-		 <div id="image_container"></div>
-	</div>
     
     <section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb " >
 			<div class="overlay"></div>
-    	<div class="container">
+    	<div class="container2"></div>
     		<div class="row ">
     			<div class="row d-md-flex justify-content-center">
     				<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ">
     			 
-    				<form action="/mypage/edit" class="appointment" id="appointment2" method="post">
+    				<form action="/mypage/editsend" class="appointment" id="appointment2" method="post">
+    					<input type="hidden" th:value="${meminfo.memNum}" name="memNum">
     					<div class="row">
     						
 								<div class="col-md-6">
 									<div class="form-group">
-			              <input type="text" class="form-control" name="memEmail" placeholder="E-mail">
+			              <input type="text" class="form-control" th:value="${meminfo.memName}"  name="memEmail" placeholder="E-mail">
 			            </div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-			              <input type="text" class="form-control" name="memName" placeholder="NickName">
+			              <input type="text" class="form-control" th:value="${meminfo.memEmail}" name="memName" placeholder="NickName">
 			            </div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-			              <input type="text" class="form-control" name="memPhone" placeholder="PhoneNumber">
+			              <input type="text" class="form-control" th:value="${meminfo.memPhone}" name="memPhone" placeholder="PhoneNumber">
 			            </div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-			              <input type="text" class="form-control" name="memPass" placeholder="Password">
+			              <input type="text" class="form-control" th:value="${meminfo.memPass}"  name="memPass" placeholder="Password">
 			            </div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-			              <input type="text" class="form-control" placeholder="RePassword">
+			              <input type="text" class="form-control" th:value="${meminfo.memPass}" placeholder="RePassword">
 			            </div>
 								</div>
 								<div class="col-md-12">
@@ -138,13 +160,13 @@
 			    					<div class="form-field">
 	          					<div class="select-wrap">
 	                      <div class="icon"><span class="fa fa-chevron-down"></span></div>
-	                      <select name="" id="" class="form-control">
-	                      	<option value="">국민은행</option>
-	                        <option value="">신한은행</option>
-	                        <option value="">농협은행</option>
-	                        <option value="">우리은행</option>
-	                        <option value="">하나은행</option>
-	                        <option value="">카카오뱅크</option>
+	                      <select name="" id="" th:field="${meminfo.memBank}" th:value="${meminfo.memBank}" class="form-control">
+	                      	<option th:value="'국민은행'" th:text="국민은행"></option>
+	                        <option th:value="'신한은행'" th:text="신한은행"></option>
+	                        <option th:value="'농협은행'" th:text="농협은행"></option>
+	                        <option th:value="'우리은행'" th:text="우리은행"></option>
+	                        <option th:value="'하나은행'" th:text="하나은행"></option>
+	                        <option th:value="'카카오뱅크'" th:text="카카오뱅크"></option>
 	                      </select>
 	                    </div>
 			              </div>
@@ -152,7 +174,7 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-			              <input type="text" class="form-control" placeholder="Bank Account">
+			              <input type="text" class="form-control" th:value="${meminfo.memAccount}" placeholder="Bank Account">
 			            </div>
 								</div>
 								<div class="col-md-12">
@@ -168,8 +190,16 @@
     	</div>
     </section>
 
-<script> 
+<script th:inline="javascript">  
+$(document).ready(function(){
 
+	const browseBtn = document.querySelector('.upload_btn');
+	const realInput = document.querySelector('#image');
+
+	browseBtn.addEventListener('click',()=>{
+	realInput.click();
+	
+	});
 	function setThumbnail(event) { 
 	
 	var reader = new FileReader();
@@ -183,6 +213,12 @@
 		
 		reader.readAsDataURL(event.target.files[0]); }
 	
+	$("#join_btn").on("click", function() {
+		location.href="/mypage/edit";
+	}); 
+	
+	
+});
 </script>
 
 
