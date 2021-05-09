@@ -9,10 +9,12 @@ import com.pearl.domain.BoardVO;
 import com.pearl.domain.EmotionVO;
 import com.pearl.domain.GalleryVO;
 import com.pearl.domain.MemberVO;
+import com.pearl.paging.Criteria;
 
 @Mapper
 public interface GalleryMapper {
-	List<GalleryVO> list(); 
+	List<GalleryVO> list(GalleryVO vo); 
+	int selectTotalCount(GalleryVO vo);
 	BoardVO read(int boardNum);
 	MemberVO readWriter(Long memNum);
 	int insert(BoardVO vo); 

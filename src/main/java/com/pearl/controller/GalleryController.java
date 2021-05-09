@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.pearl.domain.BoardVO;
 import com.pearl.domain.EmotionVO;
 import com.pearl.domain.GalleryVO;
+import com.pearl.paging.Criteria;
 import com.pearl.service.EmotionService;
 import com.pearl.service.GalleryService;
 
@@ -38,9 +40,9 @@ public class GalleryController {
 	private EmotionService emotion;
 	
 	@RequestMapping("/list")
-	public ModelAndView list() {
+	public ModelAndView list(@ModelAttribute("vo") GalleryVO vo) {
 		ModelAndView mv = new ModelAndView("gallery/gallery");
-		List<GalleryVO> list = service.list();
+		List<GalleryVO> list = service.list(vo);
 		mv.addObject("gallery", list);
 		return mv;
 	}

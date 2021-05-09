@@ -1,6 +1,7 @@
 package com.pearl.service;
 
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import com.pearl.domain.BoardVO;
 import com.pearl.domain.GalleryVO;
 import com.pearl.domain.MemberVO;
 import com.pearl.mapper.GalleryMapper;
+import com.pearl.paging.Criteria;
+import com.pearl.paging.PaginationInfo;
 
 import lombok.Setter;
 
@@ -19,8 +22,19 @@ public class GalleryServiceImpl implements GalleryService{
 	private GalleryMapper mapper;
 
 	@Override
-	public List<GalleryVO> list() {
-		return mapper.list();
+	public List<GalleryVO> list(GalleryVO vo) {
+		List<GalleryVO> list = Collections.emptyList();
+		int count = mapper.selectTotalCount(vo);
+		
+		PaginationInfo pagiInfo = new PaginationInfo(vo);
+		pagiInfo.setTotalCount(count);
+		
+		vo.setPagiInfo(pagiInfo);
+		
+		if(count>0) {
+			list=mapper.list(vo);
+		}
+		return list;
 	}
 
 	@Override

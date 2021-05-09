@@ -17,19 +17,49 @@
         </div>
       </div>
     </section>
+    
+	
 	<section class="ftco-section bg-light">
 			<div class="container">
-			<div style="margin-bottom:200px">
-    			<div class="col-md-12 ftco-animate">
-    			<div>
+			<div class="mb-5">
+			<input type="button" class="btn btn-primary" onclick="location.href='/gallery/write'" value="사진올리기">
+    			<div class="col-md-12">
+    			<div align="center">
 					<span><a href="#">시간순</a></span> 
-					<span><a href="#">인기순</a></span> 
 					<span><a href="#">조회순</a></span>
+					<span><a href="#">인기순</a></span> 
 					<span><a href="#">좋아요순</a></span>
 					<span><a href="#">슬퍼요순</a></span>
 					<span><a href="#">화나요순</a></span>
 					<span><a href="#">즐거워요순</a></span>
 					</div>
+					
+					<!-- -----------------------검색창 ---------------------------------->
+					
+					<!-- <div style="margin: 0 0 40px 0; float: center;">
+						<div align='center'>
+							<form id="searchForm" action="#" method="get" class="search-form">
+								<select style="width: 170px; height: 40px;">
+									<option value="none">==== 전체 검색 ====</option>
+									<option value="">제목</option>
+									<option value="">내용</option>
+									<option value="">작성자</option>
+								</select>
+								<input type="text" placeholder="Search..."
+									style="width: 400px; height: 40px;">
+		
+								<button
+									style="width: 100px; height: 40px; 
+									background-color: #007bff; color: white; 
+									border-radius: 4px">
+									<span><b>SEARCH</b></span>
+								</button>
+							</form>
+						</div>
+					</div> -->
+					
+					
+					
     				<form id="searchForm" action="#" method="get" class="search-form">
 						<div class="input-group">
 							<button class="btn btn-primary dropdown-toggle" type="button"
@@ -55,7 +85,7 @@
 					</form>
     		</div>
     		</div>
-    		<div class="row d-flex">
+    		<div class="row mt-4 d-flex">
           <div class="col-md-4 d-flex ftco-animate" th:each="gallery : ${gallery}">
             <div class="blog-entry align-self-stretch">
               <a th:href="@{/gallery/get(boardNum=${gallery.boardNum})}" class="block-20 rounded" th:style="'background-image: url('+@{/images/pricing-2.jpg}+');'">
@@ -71,19 +101,27 @@
           </div>
         </div>
         <div class="row mt-5">
-          <input type="button" class="btn btn-primary" onclick="location.href='/gallery/write'" style="float:right;" value="사진올리기">
           <div class="col text-center">
-            <div class="block-27">
+            <div class="block-27" th:if="${vo!=null and vo.pagiInfo.totalCount>0}" th:object="${vo.pagiInfo}" th:with="info=${vo.pagiInfo}">
               <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
+                <li th:if="*{hasPreviousPage == true}" th:onclick="movePage([[${#request.requestURI}]],[[${vo.makeQueryString(1)}]])"><a href="javascript:void(0)">&laquo;</a></li>
+                <li th:if="*{hasPreviousPage == true}" th:onclick="movePage([[${#request.requestURI}]],[[${vo.makeQueryString(info.firstPage - 1)}]])"><a href="javascript:void(0)">&lsaquo;</a></li>
+                <li th:each="pageNo : *{#numbers.sequence(firstPage, lastPage)}" th:class="${pageNo == vo.currentPage}?'active'"><a href="javascript:void(0)" th:text="${pageNo}" th:onclick="movePage([[${#request.requestURI}]],[[${vo.makeQueryString(pageNo)}]])">page</a></li>
+                <li th:if="*{hasNextPage == true}" th:onclick="movePage([[${#request.requestURI}]],[[${vo.makeQueryString(info.lastPage + 1)}]])"><a href="javascript:void(0)">&rsaquo;</a></li>
+                <li th:if="*{hasNextPage == true}" th:onclick="movePage([[${#request.requestURI}]],[[${vo.makeQueryString(info.totalCount)}]])"><a href="javascript:void(0)">&raquo;</a></li>
               </ul>
             </div>
+            <th:block layout:fragment="script">
+				<script th:inline="javascript">
+					/*<![CDATA[*/
+		
+					function movePage(uri, queryString) {
+						location.href = uri + queryString;
+					}
+		
+					/*]]>*/
+				</script>
+			</th:block>
           </div>
         </div>
       </div>
