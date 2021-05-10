@@ -124,22 +124,28 @@
 
 	<script>
 		var count = 0;
+		var itemList = [];
 		function addItem() {
 			var productName = $("#productName");
 			var productPrice = $("#productPrice");
 			var item = productName.val();
 			var price = productPrice.val();
+			
 			$("#attach-item")
 					.prepend(
-							'<div id="register-item'+count+'"><li id="item-form" style="float: left; width:80%;">'
+							'<div id="register-item'+count+' name="register-item'+count+'"><li id="item-form" style="float: left; width:80%;">'
 							+'<div id="item-name" style="float: left; margin: 0 20px 0 0;">'
 							+ item
-							+'</div><div id="item-price" style="float: left;">'
+							+'</div><div id="item-price'+count+' name="item-price'+count+'"  style="float: left;">'
 							+ price
 							+'</div></li><div class="tagcloud" style="float:left; width:20%;">'
 							+'<a class="tag-cloud-link" onclick="deleteItem('+count+')">delete</a></div></div>');
+			itemList.push({"productName":item, "productPrice":price});
 			productName.val("");
 			productPrice.val("");
+			itemList.forEach(function(element){
+				console.log(itemList[count].productName +", "+itemList[count].productPrice);
+			});
 			count++;
 		}
 

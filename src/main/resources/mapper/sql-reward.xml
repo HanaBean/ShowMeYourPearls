@@ -7,7 +7,7 @@
 	<insert id="insert">
 		insert into
 		REWARD(RWRDNUM,RWRDNAME,FUNDNUM,RWRDPRICE)
-		values(REWARD_SEQ.nextval,#{rwrdName},#{??},#{rwrdprice});
+		values(REWARD_SEQ.nextval,#{rwrdName},#{FUND_SEQ.nextval},#{rwrdprice});
 	</insert>
 
 </mapper>

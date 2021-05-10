@@ -1,12 +1,16 @@
 package com.pearl.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pearl.domain.FundVO;
@@ -20,6 +24,8 @@ import lombok.Setter;
 @RequestMapping("/fund/*")
 
 public class FundController {
+	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Setter(onMethod_ = @Autowired)
 	private FundService service;
@@ -72,11 +78,12 @@ public class FundController {
 	}
 	
 	@PostMapping("/write")
-	public ModelAndView fundWrite(FundVO vo, List<RewardVO> list) {
+	public ModelAndView fundWrite(FundVO vo, @RequestParam(value="itemList") ArrayList<RewardVO> itemList) {
+		log.info(">>>>>>>>>"+itemList);
 		ModelAndView mv = new ModelAndView("redirect:/fund/fundList");
 		service.insert(vo);
-		for(int i=0;i<list.size();i++) {
-			rwService.insert(list.get(i));
+		for(int i=0;i<itemList.size();i++) {
+			rwService.insert(itemList.get(i));
 		}
 		return mv;
 	}
