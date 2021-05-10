@@ -12,4 +12,5 @@ public class GalleryVO extends CommonDTO {
 	private String boardContent;
 	private Date boardDate;
 	private String boardType, memName;
+	
 }

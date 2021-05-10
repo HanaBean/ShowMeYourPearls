@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,9 @@ import lombok.Setter;
 
 @Service
 public class GalleryServiceImpl implements GalleryService{
+	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Setter(onMethod_ = @Autowired)
 	private GalleryMapper mapper;
 
@@ -25,7 +30,7 @@ public class GalleryServiceImpl implements GalleryService{
 	public List<GalleryVO> list(GalleryVO vo) {
 		List<GalleryVO> list = Collections.emptyList();
 		int count = mapper.selectTotalCount(vo);
-		
+		log.info("list count:"+count);
 		PaginationInfo pagiInfo = new PaginationInfo(vo);
 		pagiInfo.setTotalCount(count);
 		

@@ -60,26 +60,26 @@
 					
 					
 					
-    				<form id="searchForm" action="#" method="get" class="search-form">
+    				<form id="searchForm" th:action="@{/gallery/list}" method="get" class="search-form">
 						<div class="input-group">
 							<button class="btn btn-primary dropdown-toggle" type="button"
 								id="dropdownMenuButton" data-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false" style="width: 200px">전체
 								보기</button>
-							<input type="hidden" name="type" value="">
-							<input type="hidden" name="pageNum" value="">
-							<input type="hidden" name="amount" value="">
+							<input type="hidden" name="currentPage" value="1">
+							<input type="hidden" name="amount" th:value="${vo.amount}">
+							<input type="hidden" name="pageAmount" th:value="${vo.pageAmount}">
 							<div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-								<span class="dropdown-item" onclick="searchType(this)" data-srch="">전체 보기</span>
-								<span class="dropdown-item" onclick="searchType(this)" data-srch="T">제목</span> 
-								<span class="dropdown-item" onclick="searchType(this)" data-srch="C">내용</span>
-								<span class="dropdown-item" onclick="searchType(this)" data-srch="W">작성자</span> 
+								<span class="dropdown-item" th:selected="${#strings.isEmpty( vo.searchType )}">전체 보기</span>
+								<span class="dropdown-item" th:selected="${#strings.equals( vo.searchType, 'title' )}">제목</span> 
+								<span class="dropdown-item" th:selected="${#strings.equals( vo.searchType, 'content' )}">내용</span>
+								<span class="dropdown-item" th:selected="${#strings.equals( vo.searchType, 'writer' )}">작성자</span> 
 							</div>
 
 							<input type="text" class="form-control" placeholder="Search..." style="margin-left: 10px; margin-right: 10px; width:500px"
-								name="keyword" id="keyword" value="">
+								name="searchKeyword" id="keyword" th:value="${vo.searchKeyword}">
 							<div class="form-group-append">
-								<button class="btn btn-primary" type="button" id="srchBtn">Search</button>
+								<button class="btn btn-primary" id="srchBtn">Search</button>
 							</div>
 						</div>
 					</form>
@@ -88,11 +88,11 @@
     		<div class="row mt-4 d-flex">
           <div class="col-md-4 d-flex ftco-animate" th:each="gallery : ${gallery}">
             <div class="blog-entry align-self-stretch">
-              <a th:href="@{/gallery/get(boardNum=${gallery.boardNum})}" class="block-20 rounded" th:style="'background-image: url('+@{/images/pricing-2.jpg}+');'">
+              <a th:href="|@{/gallery/get}${vo.makeQueryString(vo.currentPage)}&boardNum=${gallery.boardNum}|" class="block-20 rounded" th:style="'background-image: url('+@{/images/pricing-2.jpg}+');'">
               </a>
               <div class="text p-4">
               	<div class="meta mb-2">
-                  <div><a th:href="@{/gallery/get(boardNum=${gallery.boardNum})}" th:text="${gallery.boardTitle}"></a></div>
+                  <div><a th:href="|@{/gallery/get}${vo.makeQueryString(vo.currentPage)}&boardNum=${gallery.boardNum}|" th:text="${gallery.boardTitle}"></a></div>
                   <div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div><br>
                   <div th:inline="text"><a href="#" th:text="${gallery.memName}"></a></div>
                 </div>
@@ -102,31 +102,48 @@
         </div>
         <div class="row mt-5">
           <div class="col text-center">
-            <div class="block-27" th:if="${vo!=null and vo.pagiInfo.totalCount>0}" th:object="${vo.pagiInfo}" th:with="info=${vo.pagiInfo}">
-              <ul>
-                <li th:if="*{hasPreviousPage == true}" th:onclick="movePage([[${#request.requestURI}]],[[${vo.makeQueryString(1)}]])"><a href="javascript:void(0)">&laquo;</a></li>
-                <li th:if="*{hasPreviousPage == true}" th:onclick="movePage([[${#request.requestURI}]],[[${vo.makeQueryString(info.firstPage - 1)}]])"><a href="javascript:void(0)">&lsaquo;</a></li>
-                <li th:each="pageNo : *{#numbers.sequence(firstPage, lastPage)}" th:class="${pageNo == vo.currentPage}?'active'"><a href="javascript:void(0)" th:text="${pageNo}" th:onclick="movePage([[${#request.requestURI}]],[[${vo.makeQueryString(pageNo)}]])">page</a></li>
-                <li th:if="*{hasNextPage == true}" th:onclick="movePage([[${#request.requestURI}]],[[${vo.makeQueryString(info.lastPage + 1)}]])"><a href="javascript:void(0)">&rsaquo;</a></li>
-                <li th:if="*{hasNextPage == true}" th:onclick="movePage([[${#request.requestURI}]],[[${vo.makeQueryString(info.totalCount)}]])"><a href="javascript:void(0)">&raquo;</a></li>
-              </ul>
-            </div>
-            <th:block layout:fragment="script">
-				<script th:inline="javascript">
-					/*<![CDATA[*/
-		
-					function movePage(uri, queryString) {
-						location.href = uri + queryString;
-					}
-		
-					/*]]>*/
-				</script>
-			</th:block>
+            <div th:replace="fragments/pagination :: pagination"></div>
           </div>
         </div>
       </div>
     </section>
+<script th:inline="javascript">
+								/*<![CDATA[*/
+					
+								function movePage(uri, queryString) {
+									location.href = uri + queryString;
+								}
+								
+								$("#srchBtn").click(function(e){
+									e.preventDefault();
+									var form = $('searchForm');
+									searchBoard(form);
+								});
+								
+								function searchBoard(form) {
+									/*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
+									if (isEmpty(form) == true) {
+										var searchKeyword = document.getElementById("keyword");
+										if (isEmpty(searchKeyword.value) == true) {
+											alert("키워드를 입력해 주세요.");
+											searchKeyword.focus();
+											return false;
+										}
 
+										form = document.getElementById("searchForm");
+										form.searchKeyword.value = searchKeyword.value;
+										form.submit();
+									}
+
+									if (isEmpty(form.searchKeyword.value) == true) {
+										alert("키워드를 입력해 주세요.");
+										form.searchKeyword.focus();
+										return false;
+									}
+								}
+					
+								/*]]>*/
+</script>
 
     <footer th:replace="fragments/footer :: footer"></footer>
   

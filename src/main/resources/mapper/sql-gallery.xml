@@ -8,13 +8,15 @@
 	<![CDATA[  
 		select * from
 		(select /*+INDEX_desc(b board_pk)*/ rownum rn, b.*, m.memname from Board b, member m 
-		where b.memnum=m.memnum and b.boardnum > 0 and b.boardtype='c' and rownum<=#{currentPage}*#{amount})
-		where rn > (#{currentPage}-1)*#{amount}
+		where b.memnum=m.memnum and b.boardnum > 0 and b.boardtype='c' and rownum<=#{pagiInfo.lastRecordIndex})
+		where rn > #{pagiInfo.firstRecordIndex}
 	]]>
+		<include refid="sql-search.search" />
 	</select>
 	
 	<select id="selectTotalCount" resultType="int">
-		select count(*) from board where boardtype='c'
+		select count(*) from board join member using(memnum) where boardtype='c'
+		<include refid="sql-search.search" />
 	</select>
 	
 	<select id="read" resultType="com.pearl.domain.BoardVO">
