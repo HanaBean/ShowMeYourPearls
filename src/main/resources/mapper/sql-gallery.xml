@@ -8,10 +8,12 @@
 	<![CDATA[  
 		select * from
 		(select /*+INDEX_desc(b board_pk)*/ rownum rn, b.*, m.memname from Board b, member m 
-		where b.memnum=m.memnum and b.boardnum > 0 and b.boardtype='c' and rownum<=#{pagiInfo.lastRecordIndex})
-		where rn > #{pagiInfo.firstRecordIndex}
+		where b.memnum=m.memnum and b.boardnum > 0 and b.boardtype='c' and rownum<=#{pagiInfo.lastRecordIndex}
 	]]>
 		<include refid="sql-search.search" />
+	<![CDATA[ 	
+		)	where rn > #{pagiInfo.firstRecordIndex}
+	]]>
 	</select>
 	
 	<select id="selectTotalCount" resultType="int">
