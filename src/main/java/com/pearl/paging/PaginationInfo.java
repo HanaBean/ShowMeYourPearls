@@ -42,14 +42,13 @@ public class PaginationInfo {
 		if (criteria.getPageAmount() < 5 || criteria.getPageAmount() > 20) {
 			criteria.setPageAmount(10);
 		}
-
 		this.criteria = criteria;
 	}
 
-	public void setTotalRecordCount(int totalRecordCount) {
-		this.totalCount = totalRecordCount;
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
 
-		if (totalRecordCount > 0) {
+		if (totalCount > 0) {
 			calculation();
 		}
 	}
