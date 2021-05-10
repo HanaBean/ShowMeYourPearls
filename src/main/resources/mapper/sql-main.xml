@@ -4,11 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.pearl.mapper.MainMapper">
   
- <select id="get" resultType="com.pearl.mapper.MainMapper">
+ <select id="get" resultType="com.pearl.domain.BoardVO">
 			select*from board where boardNum=#{boardNum}	
 	</select>	
 
-  <select id="rank" resultType="com.pearl.mapper.MainMapper">
+  <select id="list" resultType="com.pearl.domain.BoardVO">
   	<![CDATA[select a.* from 
   	(
   	SELECT boardNum, COUNT(EMOEXPRESS),ROW_NUMBER() OVER 
@@ -18,7 +18,7 @@
   	
   </select> 
   
-  <select id="writer" resultType="com.pearl.mapper.MainMapper">
+  <select id="writer" resultType="com.pearl.domain.BoardVO">
 			select e.memnum, m.memname from emotion e, member m where m.memnum=${memNum} = e.memnum=${memNum};	
 	</select>	
   
