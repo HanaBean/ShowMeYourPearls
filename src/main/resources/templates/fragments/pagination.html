@@ -20,42 +20,89 @@
 			th:onclick="movePage([[${#request.requestURI}]],[[${vo.makeQueryString(info.totalPageCount)}]])"><a
 			href="javascript:void(0)">&raquo;</a></li>
 	</ul>
+	<th:block layout:fragment="script">
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+
+			function movePage(uri, queryString) {
+				location.href = uri + queryString;
+			}
+
+			/*]]>*/
+		</script>
+	</th:block>
 </div>
 
-<div th:fragment="search" id="adv-search" class="input-group">
-		<input type="text" id="mainSearchKeyword" class="form-control" th:value="${params.searchKeyword}" placeholder="키워드를 입력해 주세요." />
-		<div class="input-group-btn">
-			<div class="btn-group" role="group">
-				<div class="dropdown dropdown-lg">
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-					<div class="dropdown-menu dropdown-menu-right" role="menu">
-						<!--/* 검색 form */-->
-						<form id="searchForm" th:action="@{/board/list.do}" method="get" th:onsubmit="return searchBoard(this)" class="form-horizontal" role="form">
-							<!-- /* 현재 페이지 번호, 페이지당 출력할 데이터 개수, 페이지 하단에 출력할 페이지 개수 Hidden 파라미터 */ -->
-							<input type="hidden" name="currentPageNo" value="1" />
-							<input type="hidden" name="recordsPerPage" th:value="${params.recordsPerPage}" />
-							<input type="hidden" name="pageSize" th:value="${params.pageSize}" />
+<form th:fragment="search" id="searchForm" th:action="@{/gallery/list}" method="get" class="search-form">
+	<div class="input-group">
+		<button class="btn btn-primary dropdown-toggle" type="button"
+			id="dropdownMenuButton" data-toggle="dropdown"
+			aria-haspopup="true" aria-expanded="false" style="width: 200px">전체
+			보기</button>
+		<input type="hidden" name="currentPage" value="1">
+		<input type="hidden" name="amount" th:value="${vo.amount}">
+		<input type="hidden" name="pageAmount" th:value="${vo.pageAmount}">
+		<input type="hidden" name="searchType" th:value="${vo.searchType}">
+		<div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+			<span class="dropdown-item" onclick="searchType(this)" data-srch="">전체 보기</span>
+			<span class="dropdown-item" onclick="searchType(this)" data-srch="title">제목</span> 
+			<span class="dropdown-item" onclick="searchType(this)" data-srch="content">내용</span>
+			<span class="dropdown-item" onclick="searchType(this)" data-srch="writer">작성자</span> 
+		</div>
 
-							<div class="form-group">
-								<label for="filter">검색 유형</label>
-								<select name="searchType" class="form-control">
-									<option value="" th:selected="${#strings.isEmpty( params.searchType )}">전체</option>
-									<option value="title" th:selected="${#strings.equals( params.searchType, 'title' )}">제목</option>
-									<option value="content" th:selected="${#strings.equals( params.searchType, 'content' )}">내용</option>
-									<option value="writer" th:selected="${#strings.equals( params.searchType, 'writer' )}">작성자</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="contain">키워드</label>
-								<input type="text" name="searchKeyword" class="form-control" th:value="${params.searchKeyword}" />
-							</div>
-							<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-						</form>
-					</div>
-				</div>
-				<button type="button" class="btn btn-primary" onclick="searchBoard(null)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-			</div>
+		<input type="text" class="form-control" placeholder="Search..." style="margin-left: 10px; margin-right: 10px; width:500px"
+			name="searchKeyword" id="keyword" th:value="${vo.searchKeyword}">
+		<div class="form-group-append">
+			<button class="btn btn-primary" id="srchBtn">Search</button>
 		</div>
 	</div>
+	<th:block layout:fragment="script">
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+
+			$(document).ready(function(){
+		   		var type = [[${vo.searchType ==''?'':vo.searchType}]];
+		   		if(type == 'title'){
+		   			$('#dropdownMenuButton').html('제목');
+		   		} else if(type == 'content') {
+		   			$('#dropdownMenuButton').html('내용');
+		   		} else if(type == 'writer') {
+		   			$('#dropdownMenuButton').html('작성자');
+		   		} else {
+		   			$('#dropdownMenuButton').html('전체 보기');
+//    			$('#searchForm #keyword').val('');
+		   		}
+			});
+			$("#srchBtn").click(function(e){
+				e.preventDefault();
+				var form = $('#searchForm');
+				searchBoard(form);
+			});
+			
+			function searchBoard(form) {
+				/*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
+					var searchKeyword = $("#keyword");
+					var searchType = $('input[name=searchType]').val();
+					if(searchType !== ''&& searchType != null&&searchKeyword.val() === '') {
+						console.log(searchType);
+						alert("키워드를 입력해 주세요.");
+						searchKeyword.focus();
+						return false;
+					}
+					form.submit();
+			}
+			
+			function searchType(item){
+		 		$('#dropdownMenuButton').html($(item).html());
+		 		console.log($(item).html());
+		 		if($(item).html()=='전체 보기') $('#searchForm #keyword').val('');
+		 		$('#searchForm input[name=searchType]').val($(item).attr('data-srch'));
+		 		console.log($('#searchForm input[name=searchType]').val());
+		 	}
+
+			/*]]>*/
+		</script>
+	</th:block>
+</form>
 
 </html>

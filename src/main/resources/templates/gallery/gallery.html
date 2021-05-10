@@ -35,55 +35,9 @@
 					</div>
 					
 					<!-- -----------------------검색창 ---------------------------------->
-					
-					<!-- <div style="margin: 0 0 40px 0; float: center;">
-						<div align='center'>
-							<form id="searchForm" action="#" method="get" class="search-form">
-								<select style="width: 170px; height: 40px;">
-									<option value="none">==== 전체 검색 ====</option>
-									<option value="">제목</option>
-									<option value="">내용</option>
-									<option value="">작성자</option>
-								</select>
-								<input type="text" placeholder="Search..."
-									style="width: 400px; height: 40px;">
-		
-								<button
-									style="width: 100px; height: 40px; 
-									background-color: #007bff; color: white; 
-									border-radius: 4px">
-									<span><b>SEARCH</b></span>
-								</button>
-							</form>
-						</div>
-					</div> -->
+					<form th:replace="fragments/pagination :: search"></form>
 					
 					
-					
-    				<form id="searchForm" th:action="@{/gallery/list}" method="get" class="search-form">
-						<div class="input-group">
-							<button class="btn btn-primary dropdown-toggle" type="button"
-								id="dropdownMenuButton" data-toggle="dropdown"
-								aria-haspopup="true" aria-expanded="false" style="width: 200px">전체
-								보기</button>
-							<input type="hidden" name="currentPage" value="1">
-							<input type="hidden" name="amount" th:value="${vo.amount}">
-							<input type="hidden" name="pageAmount" th:value="${vo.pageAmount}">
-							<input type="hidden" name="searchType" value="${vo.searchType}">
-							<div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-								<span class="dropdown-item" onclick="searchType(this)" data-srch="">전체 보기</span>
-								<span class="dropdown-item" onclick="searchType(this)" data-srch="title">제목</span> 
-								<span class="dropdown-item" onclick="searchType(this)" data-srch="content">내용</span>
-								<span class="dropdown-item" onclick="searchType(this)" data-srch="writer">작성자</span> 
-							</div>
-
-							<input type="text" class="form-control" placeholder="Search..." style="margin-left: 10px; margin-right: 10px; width:500px"
-								name="searchKeyword" id="keyword" th:value="${vo.searchKeyword}">
-							<div class="form-group-append">
-								<button class="btn btn-primary" id="srchBtn">Search</button>
-							</div>
-						</div>
-					</form>
     		</div>
     		</div>
     		<div class="row mt-4 d-flex">
@@ -108,64 +62,7 @@
         </div>
       </div>
     </section>
-<script th:inline="javascript">
-	/*<![CDATA[*/
-	$(document).ready(function(){
-	      		var type2 = "${vo.searchType ==''?'':vo.searchType}";
-	      		if(type2 == 'title'){
-	      			$('#dropdownMenuButton').html('제목');
-	      		} else if(type2 == 'content') {
-	      			$('#dropdownMenuButton').html('내용');
-	      		} else if(type2 == 'writer') {
-	      			$('#dropdownMenuButton').html('작성자');
-	      		} else {
-	      			$('#dropdownMenuButton').html('전체 보기');
-	      			$('#searchForm #keyword').val('');
-	      		}
-	});
-	
-	function movePage(uri, queryString) {
-		location.href = uri + queryString;
-	}
-	
-// 	$("#srchBtn").click(function(e){
-// 		e.preventDefault();
-// 		var form = $('searchForm');
-// 		searchBoard(form);
-// 	});
-	
-	function searchBoard(form) {
-		/*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
-		if (isEmpty(form) == true) {
-			var searchKeyword = document.getElementById("keyword");
-			if (isEmpty(searchKeyword.value) == true) {
-				alert("키워드를 입력해 주세요.");
-				searchKeyword.focus();
-				return false;
-			}
 
-			form = document.getElementById("searchForm");
-			form.searchKeyword.value = searchKeyword.value;
-			form.submit();
-		}
-
-		if (isEmpty(form.searchKeyword.value) == true) {
-			alert("키워드를 입력해 주세요.");
-			form.searchKeyword.focus();
-			return false;
-		}
-	}
-	
-	function searchType(item){
- 		$('#dropdownMenuButton').html($(item).html());
- 		console.log($(item).html());
- 		if($(item).html()=='전체 보기') $('#searchForm #keyword').val('');
- 		$('#searchForm input[name=searchType]').val($(item).attr('data-srch'));
- 		console.log($('#searchForm input[name=searchType]').val());
- 	}
-
-	/*]]>*/
-</script>
 
     <footer th:replace="fragments/footer :: footer"></footer>
   
