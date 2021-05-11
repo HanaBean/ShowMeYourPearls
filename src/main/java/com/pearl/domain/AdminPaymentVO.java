@@ -11,4 +11,5 @@ public class AdminPaymentVO {
 	private Long fundNum;
 	private Date payTime;
 	private int payTotal;
+	
 }

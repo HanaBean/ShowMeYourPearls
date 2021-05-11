@@ -31,10 +31,6 @@ public class MainServiceImpl implements MainService{
 		return mapper.fundlist();
 	}
 
-	@Override
-	public List<AdminBoardVO> payget() {
-		return mapper.payget();
-	}
 
 	@Override
 	public GalleryVO galleryget(Long boardNum) {
@@ -43,7 +39,7 @@ public class MainServiceImpl implements MainService{
 
 
 	@Override
-	public FundVO get(int fundNum) {
+	public FundVO get(Long fundNum) {
 		return mapper.get(fundNum);
 	}
 	
