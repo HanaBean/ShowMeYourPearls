@@ -20,5 +20,4 @@ public interface GalleryMapper {
 	int insert(BoardVO vo); 
 	int update(BoardVO vo); 
 	int delete(int boardNum); 
-	
 }
