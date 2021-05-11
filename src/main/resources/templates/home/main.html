@@ -31,36 +31,18 @@
           </div>
         </div>
     		<div class="row">
-    			<div class="col-md-4">
+    			<div class="col-md-4" th:each="f : ${fund}">
 	          <div class="block-7">
 	          	<img th:src="@{/images/pricing-1.jpg}" class="img" >
 	            <div class="text-center p-4">
-	            	<span class="excerpt d-block">코딩천재 / 장원반</span>
-	            	<span class="price"><sup>￦</sup> <span class="number">49</span> <sub>/mos</sub></span>
-	            	<span>내가 했던 소스코드 무료 공개 ㅋ </span><br><br>
-	            	<a href="#" class="btn btn-primary d-block px-2 py-3">Get Started</a>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col-md-4">
-	          <div class="block-7">
-	          	<img th:src="@{/images/pricing-2.jpg}" class="img">
-	            <div class="text-center p-4">
-	            	<span class="excerpt d-block">심심하긔 / 임세만</span>
-		            <span class="price"><sup>￦</sup> <span class="number">79</span> <sub>/mos</sub></span>
-					<span>심심할땐 뭐다? 넷플릭스를 본다 ~_~ </span><br><br>
-		            <a href="#" class="btn btn-primary d-block px-2 py-3">Get Started</a>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col-md-4">
-	          <div class="block-7">
-	          	<img th:src="@{/images/pricing-3.jpg}" class="img">
-	            <div class="text-center p-4">
-	            	<span class="excerpt d-block">마이멜로디 / 정수현</span>
-		            <span class="price"><sup>￦</sup> <span class="number">109</span> <sub>/mos</sub></span>
-					<span>마이 멜로디는 내 심장과 같아</span><br><br>
-		            <a href="#" class="btn btn-primary d-block px-2 py-3">Get Started</a>
+	          
+	            	  <span th:text="${f.fundTitle}"></span><br><br>
+	            	<!-- <span th:text="${f.memName}"></span> -->
+	            	<!-- <span th:text="${a.count}"></span> -->
+	            	<span th:text="${f.fundIntro}"></span><br><br>
+	            	<span th:text="${#dates.format(f.fundStartDate, 'yyyy-MM-dd')}"></span><span>~</span>
+	            	<span th:text="${#dates.format(f.fundEndDate, 'yyyy-MM-dd')}"></span>
+	            	<a th:href="@{get(fundNum=${f.fundNum})}"class="btn btn-primary d-block px-2 py-3">Get Started</a>
 	            </div>
 	          </div>
 	        </div>
@@ -78,49 +60,22 @@
             <h2>favorite</h2>
           </div>
         </div>
-        <div class="row d-flex">
-          <div class="col-md-4 d-flex ">
+        <div class="row d-flex" >
+          <div class="col-md-4 d-flex" th:each="l : ${list}">
             <div class="blog-entry align-self-stretch">
               <a href="blog-single.html" class="block-20 rounded" th:style="'background-image: url('+@{/images/image_1.jpg}+');'">
               </a>
               <div class="text p-4">
               	<div class="meta mb-2">
-                  <div><a href="#">April 07, 2020</a></div>
-                  <div><a href="#">Comment</a></div>
-                  <div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
+                  <div><span th:text="${#dates.format(l.boardDate, 'yyyy-MM-dd')}"></span></div>
+                	<div><span th:text="${l.memName}"></span></div> 
                 </div>
-                <h3 class="heading"><a href="#">울랄라 딸랄라 울라딸라리 ~ 쾌걸 조로리~ </a></h3>
+                <h3 class="heading"><span th:text="${l.boardContent}"></span></h3>
+                <a th:href="@{get(boardNum=${l.boardNum})}"class="btn btn-primary d-block px-2 py-3">Get Started</a>
               </div>
             </div>
           </div>
-          <div class="col-md-4 d-flex">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20 rounded" th:style="'background-image: url('+@{/images/image_2.jpg}+');'">
-              </a>
-              <div class="text p-4">
-              	<div class="meta mb-2">
-                  <div><a href="#">April 07, 2020</a></div>
-                  <div><a href="#">Comment</a></div>
-                  <div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">아따 아따는요 하고 싶은 장난을 못한데요 ~ </a></h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20 rounded" th:style="'background-image: url('+@{/images/image_3.jpg}+');'">
-              </a>
-              <div class="text p-4">
-              	<div class="meta mb-2">
-                  <div><a href="#">April 07, 2020</a></div>
-                  <div><a href="#">Comment</a></div>
-                  <div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">과자 없인 못살아 정말 못살아 ~</a></h3>
-              </div>
-            </div>
-          </div>
+         
         </div><hr>
 		   <a href="#" class="btn btn-primary d-block px-2 py-3" onClick="location.href='/gallery/list'">More</a>
       </div>
