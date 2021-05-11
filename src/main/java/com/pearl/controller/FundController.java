@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pearl.domain.FundVO;
@@ -78,10 +79,12 @@ public class FundController {
 	}
 	
 	@PostMapping("/write")
-	public ModelAndView fundWrite(FundVO vo, @RequestParam(value="itemList") ArrayList<RewardVO> itemList) {
+	public ModelAndView fundWrite(FundVO vo
+			, @RequestParam(value="itemList") ArrayList<RewardVO> itemList
+			, MultipartHttpServletRequest mt) throws Exception {
 		log.info(">>>>>>>>>"+itemList);
 		ModelAndView mv = new ModelAndView("redirect:/fund/fundList");
-		service.insert(vo);
+		service.insert(vo, mt);
 		for(int i=0;i<itemList.size();i++) {
 			rwService.insert(itemList.get(i));
 		}
@@ -97,7 +100,7 @@ public class FundController {
 	@PostMapping("/pay")
 	public ModelAndView fundPay(FundVO vo) {
 		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ vo.getFundNum());
-		service.insert(vo);
+//		service.insert(vo);
 		return mv;
 	}
 }

@@ -82,7 +82,9 @@
 								<li><label>전시일  : </label><span th:text="${#dates.format(f.fundDday,'yyyy-MM-dd')}">전시일</span></li>
 								
 							</ul>
-
+							
+							<div class="excerpt d-block" th:text="${f.memNum }" style="font-size:15px; color:gray;"></div>
+							<div>작가님</div>
 							<a th:href="@{get(fundNum=${f.fundNum})}" 
 							class="btn btn-primary d-block px-2 py-3">Join
 								Funding</a>
