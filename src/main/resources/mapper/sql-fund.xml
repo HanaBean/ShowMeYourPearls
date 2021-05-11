@@ -16,7 +16,7 @@
 
 	<select id="getList" resultType="com.pearl.domain.FundVO">
 		<![CDATA[
-			select * from fund
+			select * from fund join member using (memnum) 
 		]]>
 	</select>
 	

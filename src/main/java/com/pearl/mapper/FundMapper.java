@@ -9,8 +9,8 @@ import com.pearl.domain.FundVO;
 @Mapper
 public interface FundMapper {
 	List<FundVO> getList();
-	FundVO get(int fundNum);
+	FundVO get(long fundNum);
 	int insert(FundVO vo);
 	int update(FundVO vo);
-	int delete(int fundNum);
+	int delete(long fundNum);
 }

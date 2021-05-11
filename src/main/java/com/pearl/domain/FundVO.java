@@ -10,8 +10,9 @@ import lombok.Data;
 @Data
 @Alias("fundVO")
 public class FundVO {
-	private int fundNum;
-	private int memNum;
+	private Long fundNum;
+	private Long memNum;
+	private String memName;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fundStartDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
