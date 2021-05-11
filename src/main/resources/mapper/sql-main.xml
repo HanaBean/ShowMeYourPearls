@@ -4,22 +4,50 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.pearl.mapper.MainMapper">
   
- <select id="get" resultType="com.pearl.domain.BoardVO">
-			select*from board where boardNum=#{boardNum}	
+ <select id="get" resultType="com.pearl.domain.FundVO" >
+		select * from Fund where fundnum=#{fundNum}
 	</select>	
+	
+	 <select id="galleryget" resultType="com.pearl.domain.GalleryVO" >
+		select * from Fund where boardnum=#{boardNum}
+	</select>
+	
+	<!-- <select id="payget" resultType="com.pearl.domain.AdminPaymentVO" >
+		<![CDATA[ 
+		select a.* from ( select count(paynum) count,
+     	row_number() over (order by count(paynum) desc) rank 
+    	from payment ) a where a.rank <=3 
+    	
+    	select * from payment join fund using(fundnum) where fundnum in
+  (select fundnum, count(paynum) count from 
+  	(
+  	SELECT fundnum, count(paynum) count,ROW_NUMBER() OVER 
+  	(ORDER BY count(paynum) count DESC
+  	)
+  	 AS RANK FROM EMOTION GROUP BY boardNum) where rank <=3) 
+    	]]>
+		</select>	 -->
 
-  <select id="list" resultType="com.pearl.domain.BoardVO">
-  	<![CDATA[select a.* from 
+  <select id="list" resultType="com.pearl.domain.GalleryVO" >
+  	<![CDATA[  select * from board join member using(memnum) where boardnum in
+  (select boardnum from 
   	(
   	SELECT boardNum, COUNT(EMOEXPRESS),ROW_NUMBER() OVER 
-  	(ORDER BY count(EMOEXPRESS=${EMOEXPRESS}) DESC
+  	(ORDER BY count(EMOEXPRESS) DESC
   	)
-  	 AS RANK FROM EMOTION GROUP BY BOARDNUM=${BOARDNUM}) a where a.rank <=3 ]]>
-  	
+  	 AS RANK FROM EMOTION GROUP BY boardNum) where rank <=3) ]]>	
   </select> 
   
-  <select id="writer" resultType="com.pearl.domain.BoardVO">
-			select e.memnum, m.memname from emotion e, member m where m.memnum=${memNum} = e.memnum=${memNum};	
-	</select>	
+   <select id="fundlist" resultType="com.pearl.domain.FundVO" >
+  	<![CDATA[  select * from fund join member using(memnum) where fundnum in
+  (select fundnum from 
+  	(
+  	SELECT fundnum, COUNT(paynum),ROW_NUMBER() OVER 
+  	(ORDER BY count(paynum) DESC
+  	)
+  	 AS RANK FROM payment GROUP BY fundnum) where rank <=3) ]]>	
+  </select> 
+  
+ 	
   
   </mapper>

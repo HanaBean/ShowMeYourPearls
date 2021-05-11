@@ -4,11 +4,15 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.pearl.domain.BoardVO;
+import com.pearl.domain.AdminBoardVO;
+import com.pearl.domain.FundVO;
+import com.pearl.domain.GalleryVO;
 
 @Mapper
 public interface MainMapper {
-	List<BoardVO> list();
-	int get(BoardVO vo);
-	BoardVO writer(BoardVO vo);
+	List<GalleryVO> list(); 
+	List<FundVO> fundlist();
+	List<AdminBoardVO> payget();
+	FundVO get(int fundNum);
+	GalleryVO galleryget(Long boardNum);
 }
