@@ -89,13 +89,13 @@
 
 
 .edit{
-	text-align: center;
-	margin-left:2em;
+	position:absolute;
 	font-size: 1.5em;
 	border-radius:10px;
-	position:absolute;
-	top:73%;
-	left:60%;
+	background-color:#d4f5ce;
+	text-align: center;
+	top:93%;
+	left:71%;
 	border:0;
 }
 

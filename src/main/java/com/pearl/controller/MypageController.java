@@ -25,8 +25,10 @@ public class MypageController {
 	private MemberService service;
 	
 	@RequestMapping("/my")
-	public ModelAndView my() {
+	public ModelAndView my(MemberVO vo, Model model,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("mypage/my");
+		getLoginMember(request, mv);
+
 		return mv;
 	}
 	
