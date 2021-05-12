@@ -36,7 +36,7 @@
 	
 	.panel-left{
 		position:absolute;
-		font-size:2.5em;
+		font-size:2em;
 		top:70%;
 		float:left;
 		height:260px;
@@ -45,10 +45,12 @@
 		margin: 0;
 	}
 	
-	.label{
+	.label2{
 	list-style-type: none;
-	background-color: #dbdbdb;
+	/* background-color: #dbdbdb; */
 	text-align: left;
+	
+	clear:both;
 
 	}
 	
@@ -88,30 +90,40 @@
 	
 	}
 
+ 	#row2{
+	margin:12em;
+	float:left;
+	} 
+/*
+ #row2:focus {
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color; 
+  } */
+ 
 	</style>
-   
     <section class="hero-wrap hero-wrap-2"  data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center">
           <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home 
+          	<p class="breadcrumbs mb-2"><span class="mr-2"><a onClick="location.href='/home/main'">Home 
           	<i class="ion-ios-arrow-forward"></i></a></span> 
-          	<span>My Page <i class="ion-ios-arrow-forward"></i></span></p>
+          	<span onClick="location.href='/mypage/my'">My Page <i class="ion-ios-arrow-forward"></i></span></p>
             <h1 class="mb-0 bread">Edit</h1>
           </div>
         </div>
       </div>
     </section> 
-    <div class="upload">
- 		<input type="file" id="image" accept="image/*" onchange="setThumbnail(event)" style="display:none" /> 
+  <div class="upload">
+ 		<!-- <input type="file" id="image" accept="image/*" onchange="setThumbnail(event)" style="display:none" /> 
  		<button class="upload_btn">프포필 사진 바꾸기</button>
-		<div id="image_container"></div>
-		<span class="nickname2">미세</span>
-	</div>
+		<div id="image_container"></div> -->
+		<span class="nickname2" th:text="${meminfo.memName}"></span>
+	</div> 
     <nav>
     <div class="panel-left">
-		<ul class="label">
+		<ul class="label2">
+			<li class="menu-label"><a href="/mypage">마이 페이지</a></li>
 			<li class="menu-label"><a href="/mypage/edit">프로필 수정</a></li>
 			<li class="menu-label"><a href="/mypage/fundinfo">펀딩 정보</a></li>
 			<li class="menu-label"><a href="/mypage/subinfo">구독 정보</a></li>
@@ -121,40 +133,44 @@
     
     <section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb " >
 			<div class="overlay"></div>
-    	<div class="container2"></div>
-    		<div class="row ">
+    	<div class="container">    	</div>
+    		<div class="row" id="row2">
     			<div class="row d-md-flex justify-content-center">
-    				<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ">
+			<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
     			 
     				<form action="/mypage/editsend" class="appointment" id="appointment2" method="post">
     					<input type="hidden" th:value="${meminfo.memNum}" name="memNum">
-    					<div class="row">
+    					<div class="row" >
     						
+								<div class="col-md-6" >
+						<div class="form-group" style="border-color:black">
+							<label class="label" for="name">이메일</label> <input type="text"
+								class="form-control" id="memEmail" name="memEmail"
+								th:value="${meminfo.memEmail}" style="border-color:black" readonly>
+						</div>
+					</div>
 								<div class="col-md-6">
-									<div class="form-group">
-			              <input type="text" class="form-control" th:value="${meminfo.memName}"  name="memEmail" placeholder="E-mail">
-			            </div>
-								</div>
+						<div class="form-group">
+							<label class="label" for="name">닉네임</label> <input type="text"
+								class="form-control" id="memName" name="memName"
+								th:value="${meminfo.memName}" >
+						</div>
+					</div>
 								<div class="col-md-6">
-									<div class="form-group">
-			              <input type="text" class="form-control" th:value="${meminfo.memEmail}" name="memName" placeholder="NickName">
-			            </div>
-								</div>
+						<div class="form-group">
+							<label class="label" for="name">전화 번호</label> <input type="text"
+								class="form-control" id="PhoneNumber" name="memPhone"
+								placeholder="PhoneNumber" th:value="${meminfo.memPhone}">
+						</div>
+					</div>
 								<div class="col-md-6">
-									<div class="form-group">
-			              <input type="text" class="form-control" th:value="${meminfo.memPhone}" name="memPhone" placeholder="PhoneNumber">
-			            </div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-			              <input type="text" class="form-control" th:value="${meminfo.memPass}"  name="memPass" placeholder="Password">
-			            </div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-			              <input type="text" class="form-control" th:value="${meminfo.memPass}" placeholder="RePassword">
-			            </div>
-								</div>
+						<div class="form-group">
+							<label class="label" for="name">비밀번호</label> <input
+								type="password" class="form-control" id="Password"
+								name="memPass" placeholder="Password" th:value="${meminfo.memPass}"
+								>
+						</div>
+					</div>
 								<div class="col-md-12">
 									<div class="form-group">
 			    					<div class="form-field">
@@ -173,10 +189,12 @@
 			    				</div>
 								</div>
 								<div class="col-md-6">
-									<div class="form-group">
-			              <input type="text" class="form-control" th:value="${meminfo.memAccount}" placeholder="Bank Account">
-			            </div>
-								</div>
+						<div class="form-group">
+							<label class="label" for="name">계좌번호</label> <input type="text"
+								class="form-control" id="memAccount" placeholder="Account"
+								th:value="${meminfo.memAccount}" >
+						</div>
+					</div><hr><hr>
 								<div class="col-md-12">
 									<div class="form-group">
 										<input type="submit" id="join_btn" value="변경하기"
@@ -188,6 +206,7 @@
     			</div>
     		</div>
     	</div>
+
     </section>
 
 <script th:inline="javascript">
@@ -215,9 +234,7 @@ $(document).ready(function(){
 
 	
 	
-	$("#join_btn").on("click", function() {
-		location.href="/mypage/edit";
-	}); 
+	
 	
 	
 });

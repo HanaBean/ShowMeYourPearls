@@ -19,25 +19,19 @@ import lombok.Setter;
 @Controller
 
 public class HomeController {
-	
-	@Setter(onMethod_ = @Autowired)
-	private MemberService memberService;
-	
+
 	@Setter(onMethod_ = @Autowired)
 	private MainService mainservice;
-	
-	
 
 	@RequestMapping("/")
-	public ModelAndView main(Model model) {
-		ModelAndView mv = new ModelAndView("home/main");
+	public ModelAndView main(Model model, Long fundNum, Long boardNum) {
+		ModelAndView mv = new ModelAndView("/main");
 		List<GalleryVO> gallery = mainservice.list();
 		List<FundVO> fund = mainservice.fundlist();
-		mv.addObject("list",gallery);
+		mv.addObject("list", gallery);
 		mv.addObject("fund", fund);
-		 return mv;
+		return mv;
 	}
-	
-	
-	 
+
+
 }

@@ -34,16 +34,16 @@
     			<div class="col-md-4" th:each="f : ${fund}">
 	          <div class="block-7">
 	          	<img th:src="@{/images/pricing-1.jpg}" class="img" >
-	            <div class="text-center p-4">
+	            <div class="text-center p-4" >
 	          
-	            	  <span th:text="${f.fundTitle}"></span><br><br>
-	            	<!-- <span th:text="${f.memName}"></span> -->
+	            	  <span th:text="${f.fundTitle}"></span>&nbsp&nbsp<span th:text="${f.memName}"></span> <br><br>
+	            	
 	            	<!-- <span th:text="${a.count}"></span> -->
 	            	<span th:text="${f.fundIntro}"></span><br><br>
 	            	<span th:text="${#dates.format(f.fundStartDate, 'yyyy-MM-dd')}"></span><span>~</span>
-	            	<span th:text="${#dates.format(f.fundEndDate, 'yyyy-MM-dd')}"></span>
-	            	<a th:href="@{get(fundNum=${f.fundNum})}"class="btn btn-primary d-block px-2 py-3">Get Started</a>
-	            </div>
+	            	<span th:text="${#dates.format(f.fundEndDate, 'yyyy-MM-dd')}"></span><br><br>
+   	            	<a th:href="@{fund/get(fundNum=${f.fundNum})}"class="btn btn-primary d-block px-2 py-3">Get Started</a>
+ 	            </div>
 	          </div>
 	        </div>
 	      </div><hr>
@@ -61,7 +61,7 @@
           </div>
         </div>
         <div class="row d-flex" >
-          <div class="col-md-4 d-flex" th:each="l : ${list}">
+           <div class="col-md-4 d-flex" th:each="l : ${list}">
             <div class="blog-entry align-self-stretch">
               <a href="blog-single.html" class="block-20 rounded" th:style="'background-image: url('+@{/images/image_1.jpg}+');'">
               </a>
@@ -70,11 +70,11 @@
                   <div><span th:text="${#dates.format(l.boardDate, 'yyyy-MM-dd')}"></span></div>
                 	<div><span th:text="${l.memName}"></span></div> 
                 </div>
-                <h3 class="heading"><span th:text="${l.boardContent}"></span></h3>
-                <a th:href="@{get(boardNum=${l.boardNum})}"class="btn btn-primary d-block px-2 py-3">Get Started</a>
-              </div>
+                <h3 class="heading"><span th:text="${l.boardTitle}"></span></h3>
+                 <a th:href="@{gallery/get(boardNum=${l.boardNum})}"class="btn btn-primary d-block px-2 py-3">Get Started</a>
+               </div>
             </div>
-          </div>
+          </div> 
          
         </div><hr>
 		   <a href="#" class="btn btn-primary d-block px-2 py-3" onClick="location.href='/gallery/list'">More</a>
@@ -87,7 +87,7 @@
 					<img th:src="@{/images/aboutpearl.jpg}" class="img img-video d-flex align-self-stretch align-items-center justify-content-center justify-content-md-center mb-4 mb-sm-0" >
     				</div>
     			
-    			<div class="col-md-7 pl-md-5 py-md-5">
+    			<div class="col-md-7 pl-md-5 py-md-5" id="about">
     				<div class="heading-section pt-md-5">
 	            <h2 class="mb-4">About</h2>
     				</div>
@@ -108,7 +108,7 @@
     </section>
     
     <section class="ftco-section bg-light">
-			<div class="container">
+			<div class="container" id="contact">
 				<div class="row justify-content-center">
 					<div class="col-md-6 text-center mb-5">
 						<h2 class="heading-section">Contact Form </h2>
@@ -159,51 +159,7 @@
 				          </div>
 								</div>
 							</div>
-							<div class="row no-gutters">
-								<div class="col-md-7">
-									<div class="contact-wrap w-100 p-md-5 p-4">
-										<h3 class="mb-4">Contact Us</h3>
-										<form method="POST" id="contactForm" name="contactForm" class="contactForm">
-											<div class="row">
-												<div class="col-md-6">
-													<div class="form-group">
-														<label class="label" for="name">Full Name</label>
-														<input type="text" class="form-control" name="name" id="name" placeholder="Name">
-													</div>
-												</div>
-												<div class="col-md-6"> 
-													<div class="form-group">
-														<label class="label" for="email">Email Address</label>
-														<input type="email" class="form-control" name="email" id="email" placeholder="Email">
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="form-group">
-														<label class="label" for="subject">Subject</label>
-														<input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="form-group">
-														<label class="label" for="#">Message</label>
-														<textarea name="message" class="form-control" id="message" cols="30" rows="4" placeholder="Message"></textarea>
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="form-group">
-														<input type="submit" value="Send Message" class="btn btn-primary">
-														<div class="submitting"></div>
-													</div>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-								<div class="col-md-5 d-flex align-items-stretch">
-									<div class="info-wrap w-100 p-5 img" >
-				          </div>
-								</div>
-							</div>
+						
 						</div>
 					</div>
 				</div>

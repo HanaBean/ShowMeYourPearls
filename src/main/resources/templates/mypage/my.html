@@ -6,12 +6,21 @@
 
    <header th:replace="fragments/header :: header"> </header>
    
+   <style>
+   #fundmore.hover{
+   		background-color: black;
+   		font-style: white;
+   }
+   
+   </style>
+   
     <section class="hero-wrap hero-wrap-2"  data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-end">
           <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>My Page <i class="ion-ios-arrow-forward"></i></span></p>
+          	<p class="breadcrumbs mb-2"><span class="mr-2"><a onClick="location.href='/home/main'">Home 
+          	<i class="ion-ios-arrow-forward"></i></a></span></p>
             <h1 class="mb-0 bread">My Page</h1>
           </div>
         </div>
@@ -20,15 +29,17 @@
     
     <div>
     <img th:src="@{/images/profile.jpg}" width="300" height="300" class="pic">
-    	
-    		<span class="nickname">미세</span>
+    	<input type="hidden" th:value="${meminfo.memNum}" name="memNum">
+    		<span class="nickname" th:text="${meminfo.memName}"></span>
     		<input type="button" value="Edit" class="edit" onClick="location.href='/mypage/edit'" style="cursor:pointer">
     		<span class="num1">0</span><span class="num3">Photo</span>
     		<span class="num2">0</span><span class="num4">subscriber</span>
     		<input type="button" value="Donation" class="Donation" id="donation" style="cursor:pointer">
     		<input type="button" value="Subscribe" class="Subscribe" style="cursor:pointer">
-    </div>
-
+    </div><hr><hr>
+<a href="#" class="btn d-block" id="fundmore" onClick="location.href='/fund/fundList'" >
+			<span th:text="${meminfo.memName}"></span>님의 펀딩 보러가기→</a>
+			
 	
     <section class="ftco-section bg-light">
 			<div class="container">

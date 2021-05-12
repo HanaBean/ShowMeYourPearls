@@ -25,13 +25,13 @@
 			<input type="button" class="btn btn-primary" onclick="location.href='/gallery/write'" value="사진올리기">
     			<div class="col-md-12">
     			<div align="center">
-					<span><a href="#">시간순</a></span> 
-					<span><a href="#">조회순</a></span>
-					<span><a href="#">인기순</a></span> 
-					<span><a href="#">좋아요순</a></span>
-					<span><a href="#">슬퍼요순</a></span>
-					<span><a href="#">화나요순</a></span>
-					<span><a href="#">즐거워요순</a></span>
+					<span><a th:href="@{/gallery/list}">시간순</a></span> 
+					<!-- <span><a href="#">조회순</a></span> -->
+					<span><a th:href="|@{/gallery/list}${vo.makeQueryString(vo.currentPage)}&allign=favorite|">인기순</a></span> 
+					<span><a th:href="|@{/gallery/list}${vo.makeQueryString(vo.currentPage)}&allign=like|">좋아요순</a></span>
+					<span><a th:href="|@{/gallery/list}${vo.makeQueryString(vo.currentPage)}&allign=sad|">슬퍼요순</a></span>
+					<span><a th:href="|@{/gallery/list}${vo.makeQueryString(vo.currentPage)}&allign=angry|">화나요순</a></span>
+					<span><a th:href="|@{/gallery/list}${vo.makeQueryString(vo.currentPage)}&allign=happy|">즐거워요순</a></span>
 					</div>
 					
 					<!-- -----------------------검색창 ---------------------------------->
@@ -62,7 +62,16 @@
         </div>
       </div>
     </section>
+    
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	var emo = '&allign='+([[${vo.allign}]]==null?'':[[${vo.allign}]]);
+	function movePage(uri, queryString) {
+		location.href = uri + queryString + emo;
+	}
 
+	/*]]>*/
+</script>
 
     <footer th:replace="fragments/footer :: footer"></footer>
   

@@ -10,7 +10,6 @@ import com.pearl.domain.GalleryVO;
 public interface MainService {
 	List<GalleryVO> list();
 	List<FundVO> fundlist();
-	List<AdminBoardVO> payget();
-	FundVO get(int fundNum);
+	FundVO get(Long fundNum);
 	GalleryVO galleryget(Long boardNum);
 }

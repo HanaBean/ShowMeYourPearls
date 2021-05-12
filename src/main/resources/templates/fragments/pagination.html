@@ -20,17 +20,6 @@
 			th:onclick="movePage([[${#request.requestURI}]],[[${vo.makeQueryString(info.totalPageCount)}]])"><a
 			href="javascript:void(0)">&raquo;</a></li>
 	</ul>
-	<th:block layout:fragment="script">
-		<script th:inline="javascript">
-			/*<![CDATA[*/
-
-			function movePage(uri, queryString) {
-				location.href = uri + queryString;
-			}
-
-			/*]]>*/
-		</script>
-	</th:block>
 </div>
 
 <form th:fragment="search" id="searchForm" th:action="@{/gallery/list}" method="get" class="search-form">

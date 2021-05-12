@@ -42,7 +42,8 @@ public class GalleryController {
 	@RequestMapping("/list")
 	public ModelAndView list(@ModelAttribute("vo") GalleryVO vo) {
 		ModelAndView mv = new ModelAndView("gallery/gallery");
-		List<GalleryVO> list = service.list(vo);
+		List<GalleryVO> list;
+		list = service.list(vo);
 		mv.addObject("gallery", list);
 		return mv;
 	}

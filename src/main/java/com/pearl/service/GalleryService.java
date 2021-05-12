@@ -14,5 +14,5 @@ public interface GalleryService {
 	MemberVO readWriter(Long memNum);
 	int insert(BoardVO vo); 
 	int update(BoardVO vo); 
-	int delete(int boardNum); 
+	int delete(int boardNum);
 }
