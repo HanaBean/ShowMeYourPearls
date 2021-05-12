@@ -70,7 +70,7 @@
                   <div><span th:text="${#dates.format(l.boardDate, 'yyyy-MM-dd')}"></span></div>
                 	<div><span th:text="${l.memName}"></span></div> 
                 </div>
-                <h3 class="heading"><span th:text="${l.boardContent}"></span></h3>
+                <h3 class="heading"><span th:text="${l.boardTitle}"></span></h3>
                  <a th:href="@{gallery/get(boardNum=${l.boardNum})}"class="btn btn-primary d-block px-2 py-3">Get Started</a>
                </div>
             </div>

@@ -18,7 +18,6 @@ import lombok.extern.log4j.Log4j;
 
 
 @Controller
-@RequestMapping("/log/*")
 public class LoginController { 
 	
 	@Setter(onMethod_ = @Autowired)
@@ -28,7 +27,7 @@ public class LoginController {
 	
 	@GetMapping("/login")
 	public ModelAndView login() {
-		ModelAndView mv = new ModelAndView("log/login");
+		ModelAndView mv = new ModelAndView("/login");
 		MemberVO member = new MemberVO();
 		mv.addObject("cklog", member);
 
@@ -38,12 +37,12 @@ public class LoginController {
 	@PostMapping("/join")
 	public String insertForm(MemberVO vo) {
 		service.insert(vo);
-		return "redirect:/log/login";
+		return "redirect:/login";
 	}
 	
 	@PostMapping("/login")
 	public ModelAndView LoginForm(MemberVO vo, HttpServletRequest request) {
-		ModelAndView log = new ModelAndView("log/login");
+		ModelAndView log = new ModelAndView("/login");
 		member = service.get(vo);
 		HttpSession session = request.getSession(true);
 		
@@ -52,7 +51,7 @@ public class LoginController {
 			log.addObject("cklog", "alert");
 		} else {
 			session.setAttribute("member", member);
-			log.setViewName("redirect:../mypage/edit");
+			log.setViewName("redirect:mypage/edit");
 		}
 		return log;
 	}

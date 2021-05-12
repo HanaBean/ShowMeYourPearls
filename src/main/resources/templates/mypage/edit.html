@@ -36,7 +36,7 @@
 	
 	.panel-left{
 		position:absolute;
-		font-size:2.5em;
+		font-size:2em;
 		top:70%;
 		float:left;
 		height:260px;
@@ -47,8 +47,10 @@
 	
 	.label2{
 	list-style-type: none;
-	background-color: #dbdbdb;
+	/* background-color: #dbdbdb; */
 	text-align: left;
+	
+	clear:both;
 
 	}
 	
@@ -88,10 +90,11 @@
 	
 	}
 
-/* 	#row2{
-	 border-color:black;
+ 	#row2{
+	margin:12em;
+	float:left;
 	} 
-
+/*
  #row2:focus {
   outline: 1px dotted;
   outline: 5px auto -webkit-focus-ring-color; 
@@ -120,7 +123,7 @@
     <nav>
     <div class="panel-left">
 		<ul class="label2">
-			<li class="menu-label"><a href="/mypage/my">마이 페이지</a></li>
+			<li class="menu-label"><a href="/mypage">마이 페이지</a></li>
 			<li class="menu-label"><a href="/mypage/edit">프로필 수정</a></li>
 			<li class="menu-label"><a href="/mypage/fundinfo">펀딩 정보</a></li>
 			<li class="menu-label"><a href="/mypage/subinfo">구독 정보</a></li>
@@ -131,7 +134,7 @@
     <section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb " >
 			<div class="overlay"></div>
     	<div class="container">    	</div>
-    		<div class="row ">
+    		<div class="row" id="row2">
     			<div class="row d-md-flex justify-content-center">
 			<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
     			 
@@ -146,7 +149,7 @@
 								th:value="${meminfo.memEmail}" style="border-color:black" readonly>
 						</div>
 					</div>
-								<div class="col-md-6" id="row2">
+								<div class="col-md-6">
 						<div class="form-group">
 							<label class="label" for="name">닉네임</label> <input type="text"
 								class="form-control" id="memName" name="memName"
@@ -191,7 +194,7 @@
 								class="form-control" id="memAccount" placeholder="Account"
 								th:value="${meminfo.memAccount}" >
 						</div>
-					</div>
+					</div><hr><hr>
 								<div class="col-md-12">
 									<div class="form-group">
 										<input type="submit" id="join_btn" value="변경하기"
