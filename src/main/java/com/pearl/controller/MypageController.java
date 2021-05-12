@@ -18,30 +18,30 @@ import lombok.Setter;
 
 
 @Controller
-@RequestMapping("/mypage/*")
+
 public class MypageController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private MemberService service;
 	
-	@RequestMapping("/my")
+	@RequestMapping("/mypage")
 	public ModelAndView my(MemberVO vo, Model model,HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("mypage/my");
+		ModelAndView mv = new ModelAndView("/mypage/my");
 		getLoginMember(request, mv);
 
 		return mv;
 	}
 	
-	@RequestMapping("/edit")
+	@RequestMapping("/mypage/edit")
 	public ModelAndView edit(MemberVO vo, Model model,HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("mypage/edit");
+		ModelAndView mv = new ModelAndView("/mypage/edit");
 		getLoginMember(request, mv);
 		
 		return mv;
 	}
 	
 	
-	@PostMapping("/editsend")
+	@PostMapping("/mypage/editsend")
 	 public String Editsend(MemberVO vo) {
 		 service.update(vo); 
 		 return "redirect:edit";
@@ -49,15 +49,15 @@ public class MypageController {
 	 	}
 	 
 	
-	@GetMapping("/fundinfo")
+	@GetMapping("/mypage/fundinfo")
 	public ModelAndView fundinfo() {
-		ModelAndView mv = new ModelAndView("mypage/fundinfo");
+		ModelAndView mv = new ModelAndView("/mypage/fundinfo");
 		return mv;
 	}
 	
-	@RequestMapping("/subinfo")
+	@RequestMapping("/mypage/subinfo")
 	public ModelAndView subinfo() {
-		ModelAndView mv = new ModelAndView("mypage/subinfo");
+		ModelAndView mv = new ModelAndView("/mypage/subinfo");
 		return mv;
 	}
 	
@@ -68,7 +68,7 @@ public class MypageController {
 			member = service.getProfile(member.getMemNum());
 			mv.addObject("meminfo", member);
 		} else {
-			mv.setViewName("redirect:../log/login");
+			mv.setViewName("redirect:/login");
 		}
 		return mv;
 	}

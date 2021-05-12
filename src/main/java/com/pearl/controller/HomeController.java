@@ -25,7 +25,7 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public ModelAndView main(Model model, Long fundNum, Long boardNum) {
-		ModelAndView mv = new ModelAndView("home/main");
+		ModelAndView mv = new ModelAndView("/main");
 		List<GalleryVO> gallery = mainservice.list();
 		List<FundVO> fund = mainservice.fundlist();
 		mv.addObject("list", gallery);
