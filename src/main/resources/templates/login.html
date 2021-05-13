@@ -27,6 +27,7 @@
 					<div class="col-md-12 col-lg-6 half p-3 py-5">
 						<h2 class="mb-4">Login</h2>
 						<form action="/login" class="appointment" method="post">
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
@@ -63,7 +64,7 @@
 				<div class="row d-md-flex justify-content-center">
 					<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
 						<h2 class="mb-4">Join</h2>
-						<form action="/join" class="appointment" name="insertForm"
+						<form th:action="@{/join}" class="appointment" name="insertForm"
 							method="post">
 							<div class="row">
 								<div class="col-md-6">

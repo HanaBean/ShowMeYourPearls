@@ -13,22 +13,27 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pearl.domain.MemberVO;
 import com.pearl.service.MemberService;
+import com.pearl.service.UserDetailServiceImpl;
 
 import lombok.Setter;
 
 
 @Controller
-
 public class MypageController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private MemberService service;
 	
+	@Setter(onMethod_ = @Autowired)
+	private UserDetailServiceImpl user;
+	
+	
+	
 	@RequestMapping("/mypage")
-	public ModelAndView my(MemberVO vo, Model model,HttpServletRequest request) {
+	public ModelAndView my(MemberVO vo) {
 		ModelAndView mv = new ModelAndView("/mypage/my");
-		getLoginMember(request, mv);
-
+		//getLoginMember(request, mv);
+		mv.addObject("meminfo", new MemberVO());
 		return mv;
 	}
 	
