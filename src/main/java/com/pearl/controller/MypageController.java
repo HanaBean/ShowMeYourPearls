@@ -27,8 +27,6 @@ public class MypageController {
 	@Setter(onMethod_ = @Autowired)
 	private UserDetailServiceImpl user;
 	
-	
-	
 	@RequestMapping("/mypage")
 	public ModelAndView my(MemberVO vo) {
 		ModelAndView mv = new ModelAndView("/mypage/my");
@@ -41,7 +39,6 @@ public class MypageController {
 	public ModelAndView edit(MemberVO vo, Model model,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/mypage/edit");
 		getLoginMember(request, mv);
-		
 		return mv;
 	}
 	

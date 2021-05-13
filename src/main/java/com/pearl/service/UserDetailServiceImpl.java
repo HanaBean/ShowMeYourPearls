@@ -44,7 +44,6 @@ public class UserDetailServiceImpl implements UserDetailsService{
 
         if (("admin").equals(role)) {
         	authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-            authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
         } else {
             authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
         }

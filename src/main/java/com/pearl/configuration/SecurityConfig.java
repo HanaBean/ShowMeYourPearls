@@ -39,13 +39,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // 페이지 권한 설정
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/mypage/**").hasRole("MEMBER")
+                .antMatchers("/mypage/**").hasAnyRole("ADMIN","MEMBER")
                 .antMatchers("/**").permitAll()
             .and() // 로그인 설정
                 .formLogin()
                 .loginPage("/login")
+                .loginProcessingUrl("/loginProcessing")
                 .defaultSuccessUrl("/mypage")
-                .failureUrl("/login")
                 .usernameParameter("memEmail")
                 .passwordParameter("memPass")
                 .permitAll()
