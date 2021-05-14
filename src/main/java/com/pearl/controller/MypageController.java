@@ -4,14 +4,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pearl.domain.CustomUser;
 import com.pearl.domain.MemberVO;
 import com.pearl.service.MemberService;
 import com.pearl.service.MyPageService;
@@ -35,13 +36,12 @@ public class MypageController {
 	private UserDetailServiceImpl user;
 	
 	@RequestMapping("/mypage")
-//	public ModelAndView my(MemberVO vo, HttpServletRequest request) {
-	public ModelAndView my(MemberVO vo) {
+	public ModelAndView my(@AuthenticationPrincipal CustomUser customUser) {
 		ModelAndView mv = new ModelAndView("/mypage/my");
 		//List<BoardVO> mygal = mypageservice.mygallery(vo.getMemNum());
 		//getLoginMember(request, mv);
 		//mv.addObject("mygal", mygal);
-		mv.addObject("meminfo", new MemberVO());
+		mv.addObject("meminfo", customUser.getMember());
 		return mv;
 	}
 	
@@ -49,9 +49,10 @@ public class MypageController {
 	
 	
 	@RequestMapping("/mypage/edit")
-	public ModelAndView edit(MemberVO vo, Model model,HttpServletRequest request) {
+	public ModelAndView edit(@AuthenticationPrincipal CustomUser customUser) {
 		ModelAndView mv = new ModelAndView("/mypage/edit");
-		getLoginMember(request, mv);
+		MemberVO member = service.getProfile(customUser.getMember().getMemNum());
+		mv.addObject("meminfo", member);
 		return mv;
 	}
 	
@@ -77,18 +78,19 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/mypage/myfund")
-	public ModelAndView myfund(@ModelAttribute(value="memNum") Long memNum, Model model) {
+	public ModelAndView myfund(@AuthenticationPrincipal CustomUser customUser) {
 		ModelAndView mv = new ModelAndView("mypage/myfund");
-		mv.addObject("MyfundList", mypageservice.myfundList(memNum)); 
-		
+		mv.addObject("MyfundList", mypageservice.myfundList(customUser.getMember().getMemNum())); 
+		mv.addObject("memNum", customUser.getMember().getMemNum());
 		return mv;
 	
 	}
 	
 	@RequestMapping("/mypage/donafund")
-	public ModelAndView donafund(@ModelAttribute(value="memNum") Long memNum, Model model) {
+	public ModelAndView donafund(@AuthenticationPrincipal CustomUser customUser) {
 		ModelAndView mv = new ModelAndView("mypage/donafund");
-		mv.addObject("donaList", mypageservice.donaList(memNum));
+		mv.addObject("donaList", mypageservice.donaList(customUser.getMember().getMemNum()));
+		mv.addObject("memNum", customUser.getMember().getMemNum());
 		
 		return mv;
 	}
@@ -96,16 +98,16 @@ public class MypageController {
 
 	
 	
-	public ModelAndView getLoginMember(HttpServletRequest request, ModelAndView mv) {
-		HttpSession session = request.getSession();
-		MemberVO member = (MemberVO) session.getAttribute("member");
-		if(member != null) {
-			member = service.getProfile(member.getMemNum());
-			mv.addObject("meminfo", member);
-		} else {
-			mv.setViewName("redirect:/login");
-		}
-		return mv;
-	}
+//	public ModelAndView getLoginMember(HttpServletRequest request, ModelAndView mv) {
+//		HttpSession session = request.getSession();
+//		MemberVO member = (MemberVO) session.getAttribute("member");
+//		if(member != null) {
+//			member = service.getProfile(member.getMemNum());
+//			mv.addObject("meminfo", member);
+//		} else {
+//			mv.setViewName("redirect:/login");
+//		}
+//		return mv;
+//	}
 	
 }

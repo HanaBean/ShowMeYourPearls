@@ -7,7 +7,7 @@
     <select id="myfundList" resultType="com.pearl.domain.MyPageVO"> 
      select f.*, p.nowtotal
             from fund f
-            right join (select fundnum, SUM(PAYTOTAL) nowtotal from payment group by fundnum) p
+            left join (select fundnum, SUM(PAYTOTAL) nowtotal from payment group by fundnum) p
             on(f.fundnum = p.fundnum and f.memnum=#{memNum})
 	</select>
 	

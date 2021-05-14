@@ -131,7 +131,6 @@
 								</thead>
 								<tbody>
 									<tr th:each="d : ${donaList }">
-					
 										<td><a th:href="@{../fund/get(fundNum=${d.fundNum})}">[[${d.fundNum}]]</a></td>
 										<td>[[${d.fundTitle}]]</td> 
 										<td><a th:href="@{/my(memNum=${d.memNum})}">[[${d.memName}]]</a></td>

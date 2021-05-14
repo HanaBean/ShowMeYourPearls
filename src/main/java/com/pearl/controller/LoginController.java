@@ -1,10 +1,12 @@
 package com.pearl.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pearl.domain.MemberVO;
@@ -40,9 +42,12 @@ public class LoginController {
 		return "redirect:/login";
 	}
 	
+	@ResponseStatus(HttpStatus.FORBIDDEN)
 	@RequestMapping("/denied")
-	public ModelAndView dednied() {
-		return new ModelAndView("/denied");
+	public ModelAndView dednied(String message) {
+		ModelAndView mv = new ModelAndView("/denied");
+		mv.addObject("message", message);
+		return mv;
 	}
 	
 //	@PostMapping("/login")

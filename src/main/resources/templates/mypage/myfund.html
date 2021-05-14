@@ -103,8 +103,8 @@
 			<li class="menu-label"><a href="/mypage/edit">프로필 수정</a></li>
 			<li class="menu-label" id="dropbtn"><a href="/mypage/fundinfo">펀딩 정보</a>
 					<ul class="drop">
-						<li class="menu-label"><a th:href="@{myfund(memNum=${memNum})}" >나의 펀딩</a></li>
-						<li class="menu-label"><a th:href="@{donafund(memNum=${memNum})}" >후원하는 펀딩</a></li>
+						<li class="menu-label"><a href="/mypage/myfund" >나의 펀딩</a></li>
+						<li class="menu-label"><a href="/mypage/donafund" >후원하는 펀딩</a></li>
 				
 					</ul>
 				</li>			
@@ -116,7 +116,6 @@
 					style="display: inline-block; width: 75%; margin-left:20em; margin-top: 10em;">
 					<div class="block-7">
 						<div class="text-center p-4">
-			 		<input type="hidden" th:value="${memNum}" name="memNum"/>
 							<table class="styled-table" align="center"
 								style="width: 100%">
 								<thead style="color: black;">
@@ -128,9 +127,8 @@
 									<th>펀딩 내용</th>
 								</thead>
 								<tbody>
-									<tr th:each="f : ${MyfundList }">
-					
-										<td><a th:href="@{../fund/get(fundNum=${f.fundNum})}">[[${f.fundNum}]]</a></td>
+									<tr th:each="f : ${MyfundList}">
+										<td><a th:href="@{/fund/get(fundNum=${f.fundNum})}" value="${f.fundNum}"></a></td>
 										<td>[[${f.fundTitle}]]</td> 
 										<td>[[${#dates.format(f.fundStartDate,'yyyy-MM-dd')}]] ~ [[${#dates.format(f.fundEndDate,'yyyy-MM-dd')}]]</td>
 										<td>[[${f.fundMoney}]]</td>

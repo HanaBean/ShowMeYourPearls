@@ -26,8 +26,8 @@
 	
 	<update id="update">
 		update member set 
-		memname=#{memName, jdbcType=VARCHAR},mempass=#{memPass, jdbcType=VARCHAR},memphone=#{memPhone, jdbcType=VARCHAR}
-		,membank=#{memBank, jdbcType=VARCHAR},memaccount=#{memAccount, jdbcType=VARCHAR} where memnum=#{memNum,jdbcType=NUMERIC}
+		memname=#{memName},mempass=#{memPass},memphone=#{memPhone}
+		,membank=#{memBank},memaccount=#{memAccount} where memnum=#{memNum}
 	</update>
 	
 	<update id="updateLevel">

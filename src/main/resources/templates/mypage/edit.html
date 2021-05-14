@@ -152,7 +152,7 @@
     			<div class="row d-md-flex justify-content-center">
 			<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
     			 
-    				<form action="/mypage/editsend" class="appointment" id="appointment2" method="post">
+    				<form th:action="@{/mypage/editsend}" class="appointment" id="appointment2" method="post">
     					<input type="hidden" th:value="${meminfo.memNum}" name="memNum">
     					<div class="row" >
     						
@@ -205,7 +205,7 @@
 								<div class="col-md-6">
 						<div class="form-group">
 							<label class="label" for="name">계좌번호</label> <input type="text"
-								class="form-control" id="memAccount" placeholder="Account"
+								class="form-control" name= "memAccount" id="memAccount" placeholder="Account"
 								th:value="${meminfo.memAccount}" >
 						</div>
 					</div><hr><hr>
