@@ -47,7 +47,6 @@
 	
 	.label2{
 	list-style-type: none;
-	/* background-color: #dbdbdb; */
 	text-align: left;
 	
 	clear:both;
@@ -60,7 +59,7 @@
 		color:#b8b8b8;
 	}
 	
-	.label a:hover {
+	.label2 a:hover {
 		background-color:#a8a8a8;
 		color:black;
 	}
@@ -94,11 +93,20 @@
 	margin:12em;
 	float:left;
 	} 
-/*
- #row2:focus {
-  outline: 1px dotted;
-  outline: 5px auto -webkit-focus-ring-color; 
-  } */
+
+
+	ul.label2 >  li ul.drop {
+		display: none;	
+	}
+
+	 ul.label2 >  li:hover ul.drop {
+		display:block;
+	}
+	
+	.drop{
+		list-style:none;
+		font-size: 1.5rem;
+	}
  
 	</style>
     <section class="hero-wrap hero-wrap-2"  data-stellar-background-ratio="0.5">
@@ -123,10 +131,16 @@
     <nav>
     <div class="panel-left">
 		<ul class="label2">
-			<li class="menu-label"><a href="/mypage">마이 페이지</a></li>
-			<li class="menu-label"><a href="/mypage/edit">프로필 수정</a></li>
-			<li class="menu-label"><a href="/mypage/fundinfo">펀딩 정보</a></li>
-			<li class="menu-label"><a href="/mypage/subinfo">구독 정보</a></li>
+				<li class="menu-label"><a href="/mypage">마이 페이지</a></li>
+				<li class="menu-label"><a href="/mypage/edit">프로필 수정</a></li>
+				<li class="menu-label" id="dropbtn"><a href="/mypage/fundinfo">펀딩 정보</a>
+					<ul class="drop">
+						<li class="menu-label"><a th:href="@{myfund(memNum=${meminfo.memNum})}" >나의 펀딩</a></li>
+						<li class="menu-label"><a th:href="@{donafund(memNum=${meminfo.memNum})}" >후원하는 펀딩</a></li>
+				
+					</ul>
+				</li>
+				<li class="menu-label"><a href="/mypage/subinfo">구독 정보</a></li>
 		</ul>
     </div>
     </nav>

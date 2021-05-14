@@ -44,16 +44,16 @@
     <section class="ftco-section bg-light">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-6 col-lg-3 ftco-animate">
+					<div class="col-md-6 col-lg-3 ftco-animate" th:each="g : ${mygal}">
 						<div class="staff">
 							<div class="img-wrap d-flex align-items-stretch">
 								<div class="img align-self-stretch" th:style="'background-image: url('+@{/images/staff-1.jpg}+');'"></div>
 							</div>
 							<div class="text pt-3 px-3 pb-4 text-center">
-								<h3>Lloyd Wilson</h3>
-								<span class="position mb-2">Health Coach</span>
+								<span th:text="${g.boardTitle}"></span>
+							<!-- 	<span class="position mb-2">Health Coach</span> -->
 								<div class="faded">
-									<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
+									<span th:text="${g.boardContent}"></span><br>
 									<ul class="ftco-social text-center">
 		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a></li>
 		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a></li>

@@ -1,15 +1,17 @@
 package com.pearl.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pearl.domain.FundVO;
+import com.pearl.domain.RewardVO;
 
 public interface FundService {
 	List<FundVO> getList();
-	FundVO get(int fundNum);
-	int insert(FundVO vo, MultipartHttpServletRequest mt) throws Exception;
+	FundVO get(Long fundNum);
+	void insert(FundVO vo, ArrayList<RewardVO> itemList, MultipartHttpServletRequest mt) throws Exception;
 	int update(FundVO vo);
-	int delete(int fundNum);
+	int delete(Long fundNum);
 }

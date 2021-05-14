@@ -34,7 +34,7 @@
 	
 	.panel-left{
 		position:absolute;
-		font-size:2.5em;
+		font-size:2em;
 		top:70%;
 		float:left;
 		height:260px;
@@ -43,9 +43,8 @@
 		margin: 0;
 	}
 	
-	.label{
+	.label2{
 	list-style-type: none;
-	background-color: #dbdbdb;
 	text-align: left;
 
 	}
@@ -55,12 +54,33 @@
 		text-decoration: none;	
 		color:#b8b8b8;
 	}
+ 
+/*  	#row2{
+	margin:12em;
+	float:left;
+	} 
+
+	 */
 	
-	.label a:hover {
+	.label2 a:hover {
 		background-color:#a8a8a8;
 		color:black;
 	}
 
+
+	ul.label2 >  li ul.drop {
+		display: none;	
+	}
+
+	 ul.label2 >  li:hover ul.drop {
+		display:block;
+	}
+	
+	.drop{
+		list-style:none;
+		font-size: 1.5rem;
+	}
+ 
 	</style>
    
     <section class="hero-wrap hero-wrap-2"  data-stellar-background-ratio="0.5">
@@ -78,9 +98,16 @@
     </section>
     <nav>
     <div class="panel-left">
-		<ul class="label">
+		<ul class="label2">
+			<li class="menu-label"><a href="/mypage">마이 페이지</a></li>
 			<li class="menu-label"><a href="/mypage/edit">프로필 수정</a></li>
-			<li class="menu-label"><a href="/mypage/fundinfo">펀딩 정보</a></li>
+			<li class="menu-label" id="dropbtn"><a href="/mypage/fundinfo">펀딩 정보</a>
+					<ul class="drop">
+						<li class="menu-label"><a href="/mypage/myfund">나의 펀딩</a></li>
+						<li class="menu-label"><a href="/mypage/donafund">후원하는 펀딩</a></li>
+				
+					</ul>
+				</li>			
 			<li class="menu-label"><a href="/mypage/subinfo">구독 정보</a></li>
 		</ul>
     </div>
@@ -94,7 +121,7 @@
     <section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb " >
 			<div class="overlay"></div>
     	<div class="container">
-    		<div class="row ">
+    		<div class="row" id="row2">
     			<div class="row d-md-flex justify-content-center">
     				<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ">
     			 

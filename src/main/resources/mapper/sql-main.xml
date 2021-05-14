@@ -5,22 +5,6 @@
   <mapper namespace="com.pearl.mapper.MainMapper">
   
 
-	
-	<!-- <select id="payget" resultType="com.pearl.domain.AdminPaymentVO" >
-		<![CDATA[ 
-		select a.* from ( select count(paynum) count,
-     	row_number() over (order by count(paynum) desc) rank 
-    	from payment ) a where a.rank <=3 
-    	
-    	select * from payment join fund using(fundnum) where fundnum in
-  (select fundnum, count(paynum) count from 
-  	(
-  	SELECT fundnum, count(paynum) count,ROW_NUMBER() OVER 
-  	(ORDER BY count(paynum) count DESC
-  	)
-  	 AS RANK FROM EMOTION GROUP BY boardNum) where rank <=3) 
-    	]]>
-		</select>	 -->
 
   <select id="list" resultType="com.pearl.domain.GalleryVO" >
   	<![CDATA[  select * from board join member using(memnum) where boardnum in

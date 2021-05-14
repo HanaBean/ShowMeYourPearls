@@ -44,7 +44,7 @@ public class FundController {
 	}
 
 	@GetMapping("/modify")
-	public ModelAndView modify(int fundNum) {
+	public ModelAndView modify(Long fundNum) {
 		ModelAndView mv = new ModelAndView("/fund/fundUpdate");
 		FundVO update = service.get(fundNum);
 		mv.addObject("update", update);
@@ -52,7 +52,7 @@ public class FundController {
 	}
 	
 	@GetMapping("/get")
-	public ModelAndView get(int fundNum) {
+	public ModelAndView get(Long fundNum) {
 		ModelAndView mv = new ModelAndView("/fund/fundGeting");
 		FundVO detail = service.get(fundNum);
 		mv.addObject("detail", detail);
@@ -67,7 +67,7 @@ public class FundController {
 	}
 	
 	@GetMapping("/delete")
-	public String delete(int fundNum) {
+	public String delete(Long fundNum) {
 		service.delete(fundNum);
 		return "redirect:/fund/fundList";
 	}
@@ -79,16 +79,13 @@ public class FundController {
 	}
 	
 	@PostMapping("/write")
-	public ModelAndView fundWrite(FundVO vo
-			, @RequestParam(value="itemList") ArrayList<RewardVO> itemList
+	public String fundWrite(FundVO vo
+			, @RequestParam(value="itemList") ArrayList<RewardVO> RewardList
 			, MultipartHttpServletRequest mt) throws Exception {
-		log.info(">>>>>>>>>"+itemList);
-		ModelAndView mv = new ModelAndView("redirect:/fund/fundList");
-		service.insert(vo, mt);
-		for(int i=0;i<itemList.size();i++) {
-			rwService.insert(itemList.get(i));
-		}
-		return mv;
+		log.info(">>>>>>>>>/write"+mt);
+		service.insert(vo, RewardList, mt);
+		
+		return "redirect:/fund/fundList";
 	}
 	
 	@RequestMapping("/pay")

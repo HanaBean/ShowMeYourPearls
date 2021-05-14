@@ -6,8 +6,8 @@ import com.pearl.domain.FundVO;
 import com.pearl.domain.RewardVO;
 
 public interface RewardService {
-	List<RewardVO> getList();
-	int insert(RewardVO vo);
-	int update(RewardVO vo);
-	int delete(int rwrdNum);
+	List<RewardVO> getListReward();
+	int insertReward(RewardVO vo);
+	int updateReward(RewardVO vo);
+	int deleteReward(int rwrdNum);
 }

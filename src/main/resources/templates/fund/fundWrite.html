@@ -137,9 +137,9 @@
 			$("#attach-item")
 					.prepend(
 							'<div id="register-item'+count+' name="register-item'+count+'"><li id="item-form" style="float: left; width:80%;">'
-							+'<div id="item-name" style="float: left; margin: 0 20px 0 0;">'
+							+'<div id="item-name" name="rewardName'+count+'" style="float: left; margin: 0 20px 0 0;">'
 							+ item
-							+'</div><div id="item-price'+count+' name="item-price'+count+'"  style="float: left;">'
+							+'</div><div id="item-price'+count+' name="rewardPrice'+count+'"  style="float: left;">'
 							+ price
 							+'</div></li><div class="tagcloud" style="float:left; width:20%;">'
 							+'<a class="tag-cloud-link" onclick="deleteItem('+count+')">delete</a></div></div>');
