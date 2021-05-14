@@ -7,13 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pearl.domain.MemberVO;
 import com.pearl.service.MemberService;
+import com.pearl.service.MyPageService;
 import com.pearl.service.UserDetailServiceImpl;
+
+//github.com/LeeGu-hun/ShowMeYourPearl
 
 import lombok.Setter;
 
@@ -25,15 +29,24 @@ public class MypageController {
 	private MemberService service;
 	
 	@Setter(onMethod_ = @Autowired)
+	private MyPageService mypageservice;
+	
+	@Setter(onMethod_ = @Autowired)
 	private UserDetailServiceImpl user;
 	
 	@RequestMapping("/mypage")
+//	public ModelAndView my(MemberVO vo, HttpServletRequest request) {
 	public ModelAndView my(MemberVO vo) {
 		ModelAndView mv = new ModelAndView("/mypage/my");
+		//List<BoardVO> mygal = mypageservice.mygallery(vo.getMemNum());
 		//getLoginMember(request, mv);
+		//mv.addObject("mygal", mygal);
 		mv.addObject("meminfo", new MemberVO());
 		return mv;
 	}
+	
+	
+	
 	
 	@RequestMapping("/mypage/edit")
 	public ModelAndView edit(MemberVO vo, Model model,HttpServletRequest request) {
@@ -62,6 +75,26 @@ public class MypageController {
 		ModelAndView mv = new ModelAndView("/mypage/subinfo");
 		return mv;
 	}
+	
+	@RequestMapping("/mypage/myfund")
+	public ModelAndView myfund(@ModelAttribute(value="memNum") Long memNum, Model model) {
+		ModelAndView mv = new ModelAndView("mypage/myfund");
+		mv.addObject("MyfundList", mypageservice.myfundList(memNum)); 
+		
+		return mv;
+	
+	}
+	
+	@RequestMapping("/mypage/donafund")
+	public ModelAndView donafund(@ModelAttribute(value="memNum") Long memNum, Model model) {
+		ModelAndView mv = new ModelAndView("mypage/donafund");
+		mv.addObject("donaList", mypageservice.donaList(memNum));
+		
+		return mv;
+	}
+	
+
+	
 	
 	public ModelAndView getLoginMember(HttpServletRequest request, ModelAndView mv) {
 		HttpSession session = request.getSession();
