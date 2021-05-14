@@ -51,7 +51,7 @@ public class LoginController {
 			log.addObject("cklog", "alert");
 		} else {
 			session.setAttribute("member", member);
-			log.setViewName("redirect:mypage/edit");
+			log.setViewName("redirect:mypage");
 		}
 		return log;
 	}

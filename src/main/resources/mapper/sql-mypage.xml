@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.pearl.mapper.MyPageMapper">
+    
+    <select id="myfundList" resultType="com.pearl.domain.MyPageVO"> 
+     select f.*, p.nowtotal
+            from fund f
+            right join (select fundnum, SUM(PAYTOTAL) nowtotal from payment group by fundnum) p
+            on(f.fundnum = p.fundnum and f.memnum=#{memNum})
+	</select>
+	
+	    <select id="donaList" resultType="com.pearl.domain.MyPageVO">
+			   select f.*, p.paytotal , m.memname from fund f, payment p,
+                        member m where f.memnum= m.memnum and f.fundnum = p.fundnum and p.memnum=#{memNum}
+	</select> 
+      
+      <select id="mygallery" resultType="com.pearl.domain.BoardVO">
+		select m.memnum,b.boardtitle, b.boardcontent 
+		from board b, member m where m.memnum = b.memnum and m.memnum=#{memNum};
+		
+	</select>
+      
+  </mapper>
