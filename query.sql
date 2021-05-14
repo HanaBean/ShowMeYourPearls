@@ -1,7 +1,7 @@
 create table member (
     memNum number,
     memName varchar2(30),
-    memPass varchar2(20),
+    memPass varchar2(100),
     memEmail varchar2(30),
     memPhone varchar2(20),
     memLevel varchar2(10) default 'member',
