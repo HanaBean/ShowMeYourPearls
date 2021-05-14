@@ -23,7 +23,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberVO get(MemberVO vo) {
-		return mapper.get(vo);
+		return mapper.get(vo.getMemEmail());
 	}
 
 	@Override

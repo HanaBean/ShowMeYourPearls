@@ -18,14 +18,10 @@ import com.pearl.service.UserDetailServiceImpl;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	@Autowired
 	private UserDetailServiceImpl member;
-	
-	//private Logger log = LoggerFactory.getLogger(this.getClass());
-	
-	 public SecurityConfig(UserDetailServiceImpl member) {
-	        this.member = member;
-	 }
-	
+
+//	private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void configure(WebSecurity web) throws Exception
@@ -68,4 +64,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(member).passwordEncoder(passwordEncoder());
     }
+	
 }

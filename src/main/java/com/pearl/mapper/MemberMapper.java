@@ -11,7 +11,7 @@ import com.pearl.domain.MemberVO;
 public interface MemberMapper {
 	List<MemberVO> list();
 	MemberVO getProfile(Long memNum);
-	MemberVO get(MemberVO vo);
+	MemberVO get(String memEmail);
 	int insert(MemberVO vo);
 	int update(MemberVO vo);
 	int updateLevel(MemberVO vo);

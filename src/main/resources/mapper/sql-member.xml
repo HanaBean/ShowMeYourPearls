@@ -8,8 +8,8 @@
 		select /*+INDEX(member member_pk)*/ * from member where memnum>0
 	</select>
 	
-	<select id="get" parameterType="com.pearl.domain.MemberVO" resultType="com.pearl.domain.MemberVO">
-		select * from member where memEmail=#{memEmail} and mempass=#{memPass}
+	<select id="get" resultType="com.pearl.domain.MemberVO">
+		select * from member where memEmail=#{memEmail}
 	</select>
 	
 	<select id="getProfile" parameterType="Long" resultType="com.pearl.domain.MemberVO">
