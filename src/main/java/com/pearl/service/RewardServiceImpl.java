@@ -17,27 +17,27 @@ public class RewardServiceImpl implements RewardService{
 	private RewardMapper mapper;
 
 	@Override
-	public List<RewardVO> getList() {
+	public List<RewardVO> getListReward() {
 		// TODO Auto-generated method stub
-		return mapper.getList();
+		return mapper.getListReward();
 	}
 
 	@Override
-	public int insert(RewardVO vo) {
+	public int insertReward(RewardVO vo) {
 		// TODO Auto-generated method stub
-		return mapper.insert(vo);
+		return mapper.insertReward(vo);
 	}
 
 	@Override
-	public int update(RewardVO vo) {
+	public int updateReward(RewardVO vo) {
 		// TODO Auto-generated method stub
-		return mapper.update(vo);
+		return mapper.updateReward(vo);
 	}
 
 	@Override
-	public int delete(int rwrdNum) {
+	public int deleteReward(int rwrdNum) {
 		// TODO Auto-generated method stub
-		return mapper.delete(rwrdNum);
+		return mapper.deleteReward(rwrdNum);
 	}
 
 	

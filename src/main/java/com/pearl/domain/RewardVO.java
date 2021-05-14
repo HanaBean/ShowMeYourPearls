@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class RewardVO {
 	private String rwrdName;
-	private int rwrdNum, fundNum, rwrdPrice;
+	private Long fundNum;
+	private int rwrdNum, rwrdPrice;
 	
 }

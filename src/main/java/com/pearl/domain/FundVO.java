@@ -1,6 +1,7 @@
 package com.pearl.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,4 +23,5 @@ public class FundVO {
 	private Date fundDday;
 	private String fundTitle;
 	private String fundIntro;
+	private List<PicDTO> picList;
 }

@@ -35,14 +35,20 @@
 					<p>
 						<img src="http://placehold.it/760x570" alt="" class="img-fluid">
 					</p>
+					<div class="pic_list">
+						<img
+							src="<spring:url value='/images/20210513/8665708139031.png' />" />
+						<!-- <a th:each="list : ${detail.picList}" 
+						th:text="${list.originalFileName}"></a> -->
+					</div>
+
+
 					<div class="sidebar-box ftco-animate">
 						<h3>Introduce</h3>
 						<p th:text="${detail.fundIntro}"></p>
 					</div>
 				</div>
 				<!-- .col-md-8 -->
-
-
 
 				<div class="col-lg-4 sidebar pl-lg-5 ftco-animate">
 					<div class="sidebar-box">
@@ -97,11 +103,10 @@
 								<form>
 									<select class="cb-select-product">
 										<option value="none">========= 상품 선택 =========</option>
-										<option value="">개냥이 굿즈
-											<가격></option>
-										<option value="">개냥이 부채 <5000원></option>
-										<option value="">개냥이 간식 <20000원></option>
-										<option value="">개냥이 장난감 <32000원></option>
+										<option value="">개냥이 굿즈</option>
+										<option value="">개냥이 부채</option>
+										<option value="">개냥이 간식</option>
+										<option value="">개냥이 장난감</option>
 									</select>
 								</form>
 

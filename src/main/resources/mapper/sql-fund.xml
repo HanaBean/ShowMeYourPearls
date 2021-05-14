@@ -3,16 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pearl.mapper.FundMapper">
-	<resultMap type="com.pearl.domain.FundVO" id="fundVO">
-	    <result property="fundNum" column="FUNDNUM" />
-	    <result property="memNum" column="MEMNUM" />
-	    <result property="fundStartDate" column="FUNDSTARTDATE" />
-	    <result property="fundEndDate" column="FUNDENDDATE" />
-	    <result property="fundMoney" column="FUNDMONEY" />
-	    <result property="fundDday" column="FUNDDDAY" />
-	    <result property="fundTitle" column="FUNDTITLE" />
-	    <result property="fundIntro" column="FUNDINTRO" />
-    </resultMap>
+<!-- 	<resultMap type="com.pearl.domain.FundVO" id="fundVO"> -->
+<!-- 	    <result property="fundNum" column="FUNDNUM" /> -->
+<!-- 	    <result property="memNum" column="MEMNUM" /> -->
+<!-- 	    <result property="fundStartDate" column="FUNDSTARTDATE" /> -->
+<!-- 	    <result property="fundEndDate" column="FUNDENDDATE" /> -->
+<!-- 	    <result property="fundMoney" column="FUNDMONEY" /> -->
+<!-- 	    <result property="fundDday" column="FUNDDDAY" /> -->
+<!-- 	    <result property="fundTitle" column="FUNDTITLE" /> -->
+<!-- 	    <result property="fundIntro" column="FUNDINTRO" /> -->
+<!--     </resultMap> -->
 
 	<select id="getList" resultType="com.pearl.domain.FundVO">
 		<![CDATA[
@@ -25,8 +25,11 @@
 	</select>
 	
 	<insert id="insert">
+	<selectKey keyProperty="fundNum" resultType="Long" order="BEFORE">
+		select fund_seq.nextval from dual
+	</selectKey>
 		insert into Fund(FundNum,memnum,fundstartdate,fundenddate,fundmoney,funddday,fundtitle,fundintro) 
-			values(FUND_SEQ.nextval,999999,#{fundStartDate},#{fundEndDate},
+			values(#{fundNum},999999,#{fundStartDate},#{fundEndDate},
 			#{fundMoney},#{fundDday},#{fundTitle},#{fundIntro})
 	</insert>
 	
@@ -41,5 +44,68 @@
 	<delete id="delete">
 		delete from Fund where FundNum=#{fundNum}
 	</delete>
+	
+	<insert id ="insertPic" parameterType="com.pearl.domain.PicDTO">
+	 insert all
+	<foreach collection="list" item="item" separator=" ">
+	<![CDATA[
+	into t_file
+	(FUNDNUM, ORIGINAL_FILE_NAME, STORED_FILE_PATH, FILE_SIZE, CREATOR_ID, CREATED_DATETIME) 
+	values 
+	]]>
+		
+			(
+				#{item.fundNum}, 
+				#{item.originalFileName},
+				#{item.storedFilePath},
+				#{item.fileSize}, 
+				'admin', 
+				sysdate
+			)
+		</foreach>
+		select * from dual
+	</insert>
+	
+	<select id="getPicList" parameterType="Long" resultType="com.pearl.domain.PicDTO">
+	<![CDATA[
+	select 
+		idx, FUNDNUM, ORIGINAL_FILE_NAME 
+	from
+		t_file
+	where
+		FundNum= #{fundNum}
+	]]>
+	</select>
+	
+	<!-- 사진 넣기 -->
+	<insert id ="insertItem" parameterType="com.pearl.domain.PicDTO">
+	 insert all
+	<foreach collection="list" item="item" separator=" ">
+	<![CDATA[
+	into t_file
+	(FUNDNUM, ORIGINAL_FILE_NAME, STORED_FILE_PATH, FILE_SIZE, CREATOR_ID, CREATED_DATETIME) 
+	values 
+	]]>
+		
+			(
+				#{item.fundNum}, 
+				#{item.originalFileName},
+				#{item.storedFilePath},
+				#{item.fileSize}, 
+				'admin', 
+				sysdate
+			)
+		</foreach>
+		select * from dual
+	</insert>
+
+<!-- 리워드 상품 넣기 -->
+
+	<insert id="insertReward" parameterType="com.pearl.domain.RewardVO">
+		insert into reward (RWRDNUM,RWRDNAME,FUNDNUM,RWRDPRICE)
+		values (
+			reward_seq.nextval, #{rewardName}, #{fundNum}, #{rewardPrice}
+		)
+	</insert>
 
 </mapper>

@@ -1,24 +1,41 @@
 package com.pearl.service;
 
-import java.util.Iterator;
+
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.pearl.common.FileUtils;
 import com.pearl.domain.FundVO;
+import com.pearl.domain.PicDTO;
+import com.pearl.domain.RewardVO;
 import com.pearl.mapper.FundMapper;
+import com.pearl.mapper.RewardMapper;
 
 import lombok.Setter;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class FundServiceImpl implements FundService{
+	
+//	Logger log = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	private FileUtils fileUtils;
 	
 	@Setter(onMethod_ = @Autowired)
 	private FundMapper mapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private RewardMapper rwMapper;
 
 	@Override
 	public List<FundVO> getList() {
@@ -28,31 +45,33 @@ public class FundServiceImpl implements FundService{
 	}
 
 	@Override
-	public FundVO get(int fundNum) {
-		// TODO Auto-generated method stub
-		return mapper.get(fundNum);
+	public FundVO get(Long fundNum){
+		FundVO vo = mapper.get(fundNum);
+		List<PicDTO> picList = mapper.getPicList(fundNum);
+		vo.setPicList(picList);
+		return vo;
 	}
-
+	
+	@Transactional
 	@Override
-	public int insert(FundVO vo, MultipartHttpServletRequest mt) throws Exception {
-		//fundMapper.insert(vo);
-		if(ObjectUtils.isEmpty(mt)== false) {
-			Iterator<String> iterator = mt.getFileNames();
-			String name;
-			while(iterator.hasNext()) {
-				name= iterator.next();
-				System.out.println("file tag name : "+name);
-				List<MultipartFile> picList = mt.getFiles(name);
-				for(MultipartFile mtF : picList) {
-					System.out.println("start file information");
-					System.out.println("file name : " + mtF.getOriginalFilename() );
-					System.out.println("file size : " + mtF.getSize());
-					System.out.println("file content type : " + mtF.getContentType());
-					System.out.println("end file information.\n");
-				}
-			}
+	public void insert(FundVO vo, ArrayList<RewardVO> itemList, MultipartHttpServletRequest mt) throws Exception {	
+		mapper.insert(vo);
+		
+		for(int i=0;i<itemList.size();i++) {
+			RewardVO item = itemList.get(i);
+			item.setFundNum(vo.getFundNum());
+			rwMapper.insertReward(item);
 		}
-		return mapper.insert(vo);
+		
+		List<PicDTO> list = fileUtils.parseFileInfo(vo.getFundNum(), mt);
+		
+		log.info(">>>>>list"+ list);
+		if(CollectionUtils.isEmpty(list)==false) {
+			mapper.insertPic(list);
+		}
+
+
+		
 	}
 
 	@Override
@@ -62,7 +81,7 @@ public class FundServiceImpl implements FundService{
 	}
 
 	@Override
-	public int delete(int fundNum) {
+	public int delete(Long fundNum) {
 		// TODO Auto-generated method stub
 		return mapper.delete(fundNum);
 	}

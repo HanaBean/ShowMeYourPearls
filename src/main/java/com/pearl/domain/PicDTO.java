@@ -8,5 +8,5 @@ public class PicDTO {
 	private Long fundNum; 
 	private String originalFileName;
 	private String storedFilePath;
-	private long fileSize;
+	private Long fileSize;
 }

@@ -9,8 +9,8 @@ import com.pearl.domain.RewardVO;
 
 @Mapper
 public interface RewardMapper {
-	List<RewardVO> getList();
-	int insert(RewardVO vo);
-	int update(RewardVO vo);
-	int delete(int rwrdNum);
+	List<RewardVO> getListReward();
+	int insertReward(RewardVO rwVo);
+	int updateReward(RewardVO rwVo);
+	int deleteReward(int rwrdNum);
 }
