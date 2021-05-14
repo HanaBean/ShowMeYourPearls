@@ -5,7 +5,7 @@ import java.sql.Date;
 import lombok.Data;
 
 @Data
-public class BoardVO {
+public class BoardVO extends CommonDTO{
 	private Long boardNum;
 	private Long memNum;
 	private String boardTitle;
