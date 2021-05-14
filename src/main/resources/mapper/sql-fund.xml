@@ -99,13 +99,5 @@
 		select * from dual
 	</insert>
 
-<!-- 리워드 상품 넣기 -->
-
-	<insert id="insertReward" parameterType="com.pearl.domain.RewardVO">
-		insert into reward (RWRDNUM,RWRDNAME,FUNDNUM,RWRDPRICE)
-		values (
-			reward_seq.nextval, #{rewardName}, #{fundNum}, #{rewardPrice}
-		)
-	</insert>
-
+	
 </mapper>

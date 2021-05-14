@@ -103,10 +103,8 @@
 								<form>
 									<select class="cb-select-product">
 										<option value="none">========= 상품 선택 =========</option>
-										<option value="">개냥이 굿즈</option>
-										<option value="">개냥이 부채</option>
-										<option value="">개냥이 간식</option>
-										<option value="">개냥이 장난감</option>
+										<option  th:each="reward : ${rewardList}" th:text="${reward.rwrdName + '( ' + reward.rwrdPrice + ' 원 )' } "></option>
+										
 									</select>
 								</form>
 

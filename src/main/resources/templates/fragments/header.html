@@ -23,13 +23,13 @@
 								id="navLogin"><span>Login</span></a>
 							<span sec:authorize="isAuthenticated()" 
 								class="d-flex align-items-center justify-content-center" 
-								sec:authentication="name"></span>
+								sec:authentication="name"></span> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 							<a sec:authorize="isAuthenticated()" href="/logout"
 								class="d-flex align-items-center justify-content-center" 
-								id="navLogin"><span>Logout</span></a>
+								id="navLogin"><span>Logout</span></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 							<a sec:authorize="hasRole('ROLE_MEMBER')" href="/mypage"
 								class="d-flex align-items-center justify-content-center" 
-								id="navLogin"><span>마이페이지</span></a>
+								id="navLogin"><span class="mypage">마이페이지</span></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 							<a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin/member"
 								class="d-flex align-items-center justify-content-center" 
 								id="navLogin"><span>관리</span></a>

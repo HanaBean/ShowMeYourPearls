@@ -13,6 +13,12 @@
 		where b.boardtype = 'c' and b.memNum = m.memNum
 	</select>
 
+	 <select id="test" resultType="com.pearl.domain.MemberVO">
+	 select rownum rn, m.*
+		from member m
+		where rownum between  #{firstRecordIndex} and #{lastRecordIndex}
+	</select>
+
 	<select id="fundList" resultType="com.pearl.domain.AdminFundVO">
 		select /*+INDEX(fund fund_pk)*/
 		f.fundNum, m.memNum, m.memName, m.memEmail, f.fundStartDate,
