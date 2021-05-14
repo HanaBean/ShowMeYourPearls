@@ -1,7 +1,10 @@
 package com.pearl.service;
 
+import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,16 +14,22 @@ import com.pearl.domain.AdminPaymentVO;
 import com.pearl.domain.MemberVO;
 import com.pearl.domain.SearchVO;
 import com.pearl.mapper.AdminMapper;
-import com.pearl.mapper.MemberMapper;
 
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Setter(onMethod_ = @Autowired)
 	private AdminMapper mapper;
+
+	@Override
+	public List<MemberVO> test(MemberVO vo) {
+		List<MemberVO> test = Collections.emptyList();
+		return mapper.test(vo);
+	}
 
 	@Override
 	public List<AdminBoardVO> boardList() {
@@ -56,5 +65,6 @@ public class AdminServiceImpl implements AdminService {
 	public int postDelete(Long[] arrBoardNum) {
 		return mapper.postDelete(arrBoardNum);
 	}
+
 
 }
