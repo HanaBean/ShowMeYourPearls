@@ -55,7 +55,9 @@ public class FundController {
 	public ModelAndView get(Long fundNum) {
 		ModelAndView mv = new ModelAndView("/fund/fundGeting");
 		FundVO detail = service.get(fundNum);
+		List<RewardVO> itemList = rwService.getListReward(fundNum);
 		mv.addObject("detail", detail);
+		mv.addObject("rewardList", itemList);
 		return mv;
 	}
 	
@@ -78,12 +80,11 @@ public class FundController {
 		return mv;
 	}
 	
-	@PostMapping("/write")
+	@PostMapping("/writeFund")
 	public String fundWrite(FundVO vo
-			, @RequestParam(value="itemList") ArrayList<RewardVO> RewardList
+			, @RequestParam(value="itemList") ArrayList<RewardVO> rewardList
 			, MultipartHttpServletRequest mt) throws Exception {
-		log.info(">>>>>>>>>/write"+mt);
-		service.insert(vo, RewardList, mt);
+		service.insert(vo, rewardList, mt);
 		
 		return "redirect:/fund/fundList";
 	}

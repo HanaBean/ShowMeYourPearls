@@ -4,10 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pearl.mapper.RewardMapper">
 
-	<insert id="insert">
-		insert into
-		REWARD(RWRDNUM,RWRDNAME,FUNDNUM,RWRDPRICE)
-		values(REWARD_SEQ.nextval,#{rwrdName},#{FUND_SEQ.nextval},#{rwrdprice});
+	<insert id="insertReward" parameterType="com.pearl.domain.RewardVO">
+		insert into reward (RWRDNUM,RWRDNAME,FUNDNUM,RWRDPRICE)
+		values (
+			reward_seq.nextval, #{rewardName}, #{fundNum}, #{rewardPrice}
+		)
 	</insert>
-
+	
+	<select id="getListReward" resultType="com.pearl.domain.RewardVO">
+			select * from reward where fundnum=#{fundNum}
+	</select>
 </mapper>

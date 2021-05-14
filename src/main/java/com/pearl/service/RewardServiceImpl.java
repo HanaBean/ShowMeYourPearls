@@ -17,9 +17,9 @@ public class RewardServiceImpl implements RewardService{
 	private RewardMapper mapper;
 
 	@Override
-	public List<RewardVO> getListReward() {
+	public List<RewardVO> getListReward(Long fundNum) {
 		// TODO Auto-generated method stub
-		return mapper.getListReward();
+		return mapper.getListReward(fundNum);
 	}
 
 	@Override
