@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class ReplyController {
 	@Setter(onMethod_ =@Autowired)
 	private ReplyService service;
 	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/upload")
 	public ResponseEntity<String> upload(ReplyVO vo){
 		service.insert(vo);
@@ -43,17 +45,19 @@ public class ReplyController {
 		return new ResponseEntity<List<ReplyVO>>(list,HttpStatus.OK);
 	}
 	
+	@PreAuthorize("principal.member.memNum == #vo.memNum")
 	@PostMapping("/delete")
-	public ResponseEntity<String> delete(@RequestParam("replyNum") int replyNum) {
-		log.info("Delete>>>>>>>>"+replyNum);
-		service.delete(replyNum);
+	public ResponseEntity<String> delete(@RequestBody ReplyVO vo) {
+		log.info("Delete>>>>>>>>"+vo);
+		service.delete(vo.getReplyNum().intValue());
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 	
+	@PreAuthorize("principal.member.memNum == #vo.memNum")
 	@PostMapping(value="/update", consumes = MediaType.APPLICATION_JSON_VALUE,
 	        produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> update(@RequestBody ReplyVO vo) {
-		log.info("Delete>>>>>>>>"+vo);
+		log.info("Update>>>>>>>>"+vo);
 		service.update(vo);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}

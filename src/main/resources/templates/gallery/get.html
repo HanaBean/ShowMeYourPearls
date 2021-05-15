@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-  <head th:insert="/fragments/head.html::head">
-  </head>
+<head>
+	<head th:insert="/fragments/head.html::head" th:remove="tag">
+	</head>
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
   <body>
 
     <header th:replace="/fragments/header.html::header"></header>
@@ -72,10 +76,12 @@
               <div class="comment-form-wrap pt-5">
                 <h3 class="mb-5">댓글 추가</h3>
                 <form action="#" class="p-1 bg-light" method="POST" id="replyWrite">
+                	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                   <div class="form-group">
                     <label for="name">Name *</label>
-                    <input type="text" class="form-control" id="name" name="memName" value="수세미" readonly>
-                    <input type="hidden" name="memNum" value="1" />
+                    <input sec:authorize="isAnonymous()" type="text" class="form-control" id="name" name="memName" value="" readonly>
+                    <input sec:authorize="isAuthenticated()" type="text" class="form-control" id="name" name="memName" th:value="${#authentication.principal.member.memName}" readonly>
+                    <input sec:authorize="isAuthenticated()" type="hidden" id="userNum" name="memNum" th:value="${#authentication.principal.member.memNum}" />
                     <input type="hidden" name="boardNum" th:value="${gallery.boardNum}"/>
                   </div>
                   <div class="form-group">
@@ -132,7 +138,7 @@
 <script type="text/javascript" th:src="@{/js/reply.js?ver=1.0}"></script>
 <script th:inline="javascript">
 		var board = [[${gallery.boardNum}]];
-
+		var user = $('#userNum').val();
 	$(function(){
 	  replyList(board);
 	});
@@ -151,11 +157,15 @@
 						+"</div>"
 						+"<div class='comment-body'><h3>"+data[i].memName+"</h3>"
 						+"<div class='meta'>"+data[i].replyDate+"</div>"
-						+"<p id='reply-"+i+"'>"+data[i].replyContent+"</p>"
-						+"<a id='btnReplyModify"+i+"' href='javascript:void(0);' onclick='replyModifyForm("+i+")' class='reply'>수정</a> "
-						+"<a href='javascript:void(0);' onclick='replyDelete("+data[i].replyNum+")' class='reply'>삭제</a>"
-						+"<input type='hidden' name='replyNum' value='"+data[i].replyNum+"' id='reply"+i+"'" 
-						+"</div></li>"; 
+						+"<p id='reply-"+i+"'>"+data[i].replyContent+"</p>";
+					if(user==data[i].memNum){
+						str +="<a id='btnReplyModify"+i+"' href='javascript:void(0);' "
+						+"onclick='replyModifyForm("+i+")' class='reply'>수정</a> "
+						+"<a href='javascript:void(0);' onclick='replyDelete("+i+")' class='reply'>삭제</a>"
+						+"<input type='hidden' name='replyNum' value='"+data[i].replyNum+"' id='reply"+i+"'>" 
+						+"<input type='hidden' name='memNum' value='"+data[i].memNum+"' id='mem"+i+"'>" 
+					}
+					str	+="</div></li>"; 
 				}
 				$('.comment-list').html(str);
 		})
@@ -172,15 +182,22 @@
 	}
 	
 	function replyModify(i) {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 		var numId = "#reply"+i;
 		var ContentId = "#reply-"+i;
+		var memId = "#mem"+i;
 		var replyNum = $(numId).val();
 		var replyContent = $(ContentId).val();
-		var param = {"replyNum":replyNum,"replyContent":replyContent};
+		var memNum = $(memId).val();
+		var param = {"replyNum":replyNum,"replyContent":replyContent,"memNum":memNum};
 		$.ajax({
 			type: "POST",
 			url: "/reply/update",
 			data: JSON.stringify(param),
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(header, token);
+            },
 			contentType:'application/json; charset=utf-8',
 			dataType: 'text',
 			success: function(data) {
@@ -192,12 +209,24 @@
 		})
 	}
 	
-	function replyDelete(replyNum){
-		var param = {'replyNum':replyNum};
+	function replyDelete(i){
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		var numId = "#reply"+i;
+		var ContentId = "#reply-"+i;
+		var memId = "#mem"+i;
+		var replyNum = $(numId).val();
+		var replyContent = $(ContentId).val();
+		var memNum = $(memId).val();
+		var param = {"replyNum":replyNum,"replyContent":replyContent,"memNum":memNum};
 		$.ajax({
 			type: "POST",
 			url: "/reply/delete",
-			data: param,
+			data: JSON.stringify(param),
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(header, token);
+            },
+			contentType:'application/json; charset=utf-8',
 			dataType: 'text',
 			success: function(data) {
 				console.log(data);
@@ -226,41 +255,42 @@
          }
      });
 	});
-	
-  var boardNum = [[${gallery.boardNum}]];
-  var memNum = [[${gallery.memNum}]];
 
 function emotion(emo){
-  var param = {"boardNum":boardNum, "memNum":memNum, "emoExpress":emo}
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var param = {"boardNum":board, "memNum":user, "emoExpress":emo}
   
-  $.ajax({
+	$.ajax({
 		method : 'POST',
-  url:'/gallery/emotion',
-  data: JSON.stringify(param),
-  dataType:'json',
-  contentType:'application/json; charset=utf-8',
-  success:function(responseData){
-  	var data = responseData;
-  	$("#like").html(0);
-  	$("#sad").html(0);
-  	$("#angry").html(0);
-  	$("#happy").html(0);
-  	
-  	$.each(data, function(idx, val) {
-	  	if(val.emoExpress=='a'){
-		  	$("#like").html(val.emoCount);
-	  	}else if(val.emoExpress=='b'){
-		  	$("#sad").html(val.emoCount);
-	  	}else if(val.emoExpress=='c'){
-		  	$("#angry").html(val.emoCount);
-	  	}else if(val.emoExpress=='d'){
-		  	$("#happy").html(val.emoCount);
-	  	}
-		});
-		console.log(data);
-  		
-  },error:function(request, status, error){
-				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		url:'/gallery/emotion',
+		data: JSON.stringify(param),
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+		},
+		dataType:'json',
+		contentType:'application/json; charset=utf-8',
+		success:function(responseData){
+		 	var data = responseData;
+		 	$("#like").html(0);
+		 	$("#sad").html(0);
+		 	$("#angry").html(0);
+		 	$("#happy").html(0);
+	 	
+		 	$.each(data, function(idx, val) {
+		  	if(val.emoExpress=='a'){
+			  	$("#like").html(val.emoCount);
+		  	}else if(val.emoExpress=='b'){
+			  	$("#sad").html(val.emoCount);
+		  	}else if(val.emoExpress=='c'){
+			  	$("#angry").html(val.emoCount);
+		  	}else if(val.emoExpress=='d'){
+			  	$("#happy").html(val.emoCount);
+		  	}
+			});
+			console.log(data);
+	 	},error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		}
 	});
 }
