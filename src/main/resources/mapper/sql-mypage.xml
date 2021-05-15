@@ -5,15 +5,14 @@
     <mapper namespace="com.pearl.mapper.MyPageMapper">
     
     <select id="myfundList" resultType="com.pearl.domain.MyPageVO"> 
-     select f.*, p.nowtotal
-            from fund f
-            left join (select fundnum, SUM(PAYTOTAL) nowtotal from payment group by fundnum) p
-            on(f.fundnum = p.fundnum and f.memnum=#{memNum})
+     	select f.*,nvl(nowtotal,0) nowtotal from fund f left join
+		(select fundnum, sum(paytotal) nowtotal from payment group by fundnum) p 
+		on(f.fundnum = p.fundnum) where memnum=#{memNum}
 	</select>
 	
-	    <select id="donaList" resultType="com.pearl.domain.MyPageVO">
-			   select f.*, p.paytotal , m.memname from fund f, payment p,
-                        member m where f.memnum= m.memnum and f.fundnum = p.fundnum and p.memnum=#{memNum}
+	<select id="donaList" resultType="com.pearl.domain.MyPageVO">
+		select f.*, p.paytotal , m.memname from fund f, payment p, member m 
+		where f.memnum= m.memnum and f.fundnum = p.fundnum and p.memnum=#{memNum}
 	</select> 
       
       <select id="mygallery" resultType="com.pearl.domain.BoardVO">

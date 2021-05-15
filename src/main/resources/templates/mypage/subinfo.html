@@ -6,82 +6,7 @@
 
    <header th:replace="fragments/header :: header"> </header>
    
-	<style>
-	.pic2{
-		margin-left:33em;
-	}
 	
-	.nickname2{
-		position:absolute;
-		margin-left:1em;
-		font-size: 3em;
-		font-weight: bold;
-		top:70%;
-	}
-	
-	.check2{
-		position:absolute;
-		margin-left:1em;
-		font-size: 1.5em;
-		top:90%;
-		color: red;
-		text-decoration:underline;
-	}
-	
-	#appointment2{
-		left:50%
-	}
-	
-	.panel-left{
-		position:absolute;
-		font-size:2em;
-		top:70%;
-		float:left;
-		height:260px;
-		width:350px;
-		padding:0;
-		margin: 0;
-	}
-	
-	.label2{
-	list-style-type: none;
-	text-align: left;
-
-	}
-	
-	.menu-label a{
-		display:block;
-		text-decoration: none;	
-		color:#b8b8b8;
-	}
- 
-/*  	#row2{
-	margin:12em;
-	float:left;
-	} 
-
-	 */
-	
-	.label2 a:hover {
-		background-color:#a8a8a8;
-		color:black;
-	}
-
-
-	ul.label2 >  li ul.drop {
-		display: none;	
-	}
-
-	 ul.label2 >  li:hover ul.drop {
-		display:block;
-	}
-	
-	.drop{
-		list-style:none;
-		font-size: 1.5rem;
-	}
- 
-	</style>
    
     <section class="hero-wrap hero-wrap-2"  data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
@@ -96,22 +21,7 @@
         </div>
       </div>
     </section>
-    <nav>
-    <div class="panel-left">
-		<ul class="label2">
-			<li class="menu-label"><a href="/mypage">마이 페이지</a></li>
-			<li class="menu-label"><a href="/mypage/edit">프로필 수정</a></li>
-			<li class="menu-label" id="dropbtn"><a href="/mypage/fundinfo">펀딩 정보</a>
-					<ul class="drop">
-						<li class="menu-label"><a href="/mypage/myfund">나의 펀딩</a></li>
-						<li class="menu-label"><a href="/mypage/donafund">후원하는 펀딩</a></li>
-				
-					</ul>
-				</li>			
-			<li class="menu-label"><a href="/mypage/subinfo">구독 정보</a></li>
-		</ul>
-    </div>
-    </nav>
+    <nav th:replace="mypage/common :: nav"></nav>
     <div>
 				    <img th:src="@{/images/profile.jpg}" width="300" height="300" class="pic2">
 				    	<span class="nickname2" >미세</span>
@@ -190,6 +100,7 @@
 	          </form>
     			</div>
     		</div>
+    	</div>
     	</div>
     </section>
 

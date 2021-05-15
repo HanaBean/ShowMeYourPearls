@@ -25,9 +25,15 @@
 	</insert>
 	
 	<update id="update">
-		update member set 
-		memname=#{memName},mempass=#{memPass},memphone=#{memPhone}
-		,membank=#{memBank},memaccount=#{memAccount} where memnum=#{memNum}
+		update member
+		<trim prefix="set" suffixOverrides=",">
+			<if test="memName != null">memname=#{memName},</if>
+			<if test="memPass != null and memPass != ''">mempass=#{memPass},</if>
+			<if test="memPhone != null">memphone=#{memPhone},</if>
+			<if test="memBank != null and memBank != ''">membank=#{memBank},</if>
+			<if test="memAccount != null and memAccount != ''">memaccount=#{memAccount}</if>
+		</trim>
+		where memnum=#{memNum}
 	</update>
 	
 	<update id="updateLevel">

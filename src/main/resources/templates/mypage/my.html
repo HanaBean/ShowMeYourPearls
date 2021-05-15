@@ -19,7 +19,7 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-end">
           <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span class="mr-2"><a onClick="location.href='/home/main'">Home 
+          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href='/'>Home 
           	<i class="ion-ios-arrow-forward"></i></a></span></p>
             <h1 class="mb-0 bread">My Page</h1>
           </div>
@@ -31,14 +31,21 @@
     <img th:src="@{/images/profile.jpg}" width="300" height="300" class="pic">
     	<input type="hidden" th:value="${meminfo.memNum}" name="memNum">
     		<span class="nickname" th:text="${meminfo.memName}"></span>
-    		<input type="button" value="Edit" class="edit" onClick="location.href='/mypage/edit'" style="cursor:pointer">
+    		<input type="button" value="Edit" class="edit" 
+    			onClick="location.href='/mypage/edit'" style="cursor:pointer"
+    			th:if="${#authentication.name}==${meminfo.memEmail}">
     		<span class="num1">0</span><span class="num3">Photo</span>
     		<span class="num2">0</span><span class="num4">subscriber</span>
-    		<input type="button" value="Donation" class="Donation" id="donation" style="cursor:pointer">
-    		<input type="button" value="Subscribe" class="Subscribe" style="cursor:pointer">
+    		<input type="button" value="Donation" class="Donation" id="donation" style="cursor:pointer"
+    			th:if="${#authentication.name}!=${meminfo.memEmail}">
+    		<input type="button" value="Subscribe" class="Subscribe" style="cursor:pointer"
+    			th:if="${#authentication.name}!=${meminfo.memEmail}">
     </div><hr><hr>
-<a href="#" class="btn d-block" id="fundmore" onClick="location.href='/fund/fundList'" >
-			<span th:text="${meminfo.memName}"></span>님의 펀딩 보러가기→</a>
+<a class="btn d-block" id="fundmore" href='/fund/fundList'>
+			<span th:if="${#authentication.name}!=${meminfo.memEmail}" th:text="${meminfo.memName+'님의 펀딩 보러가기→'}">
+			</span>
+			<span th:if="${#authentication.name}==${meminfo.memEmail}">내 펀딩 보러가기→
+			</span></a>
 			
 	
     <section class="ftco-section bg-light">

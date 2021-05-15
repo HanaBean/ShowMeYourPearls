@@ -27,7 +27,7 @@
 							<a sec:authorize="isAuthenticated()" href="/logout"
 								class="d-flex align-items-center justify-content-center" 
 								id="navLogin"><span>Logout</span></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-							<a sec:authorize="hasRole('ROLE_MEMBER')" href="/mypage"
+							<a sec:authorize="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')" href="/mypage"
 								class="d-flex align-items-center justify-content-center" 
 								id="navLogin"><span class="mypage">마이페이지</span></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 							<a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin/member"

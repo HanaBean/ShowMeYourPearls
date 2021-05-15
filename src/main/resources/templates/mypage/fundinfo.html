@@ -95,22 +95,7 @@
         </div>
       </div>
     </section>
-    <nav>
-    <div class="panel-left">
-		<ul class="label2">
-			<li class="menu-label"><a href="/mypage">마이 페이지</a></li>
-			<li class="menu-label"><a href="/mypage/edit">프로필 수정</a></li>
-			<li class="menu-label" id="dropbtn"><a href="/mypage/fundinfo">펀딩 정보</a>
-					<ul class="drop">
-						<li class="menu-label"><a href="/mypage/myfund">나의 펀딩</a></li>
-						<li class="menu-label"><a href="/mypage/donafund">후원하는 펀딩</a></li>
-				
-					</ul>
-				</li>
-			<li class="menu-label"><a href="/mypage/subinfo">구독 정보</a></li>
-		</ul>
-    </div>
-    </nav>
+    <nav th:replace="mypage/common :: nav"></nav>
     <div>
 				    <img th:src="@{/images/profile.jpg}" width="300" height="300" class="pic2">
 				    	<span class="nickname2" >미세</span>

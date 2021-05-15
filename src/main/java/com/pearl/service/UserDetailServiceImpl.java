@@ -20,10 +20,20 @@ public class UserDetailServiceImpl implements UserDetailsService{
 	
 	@Transactional
 	public int joinUser(MemberVO member) {
+		// 비밀번호 암호화
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		member.setMemPass(passwordEncoder.encode(member.getMemPass()));
+		return mapper.insert(member);
+	}
+	
+	@Transactional
+	public int updateUser(MemberVO member) {
         // 비밀번호 암호화
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        member.setMemPass(passwordEncoder.encode(member.getMemPass()));
-        return mapper.insert(member);
+		if(member.getMemPass()!=null&&member.getMemPass()!="") {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			member.setMemPass(passwordEncoder.encode(member.getMemPass()));
+		}
+        return mapper.update(member);
     }
 
     @Override

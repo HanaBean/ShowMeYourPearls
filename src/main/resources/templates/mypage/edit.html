@@ -1,229 +1,164 @@
-  
+
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head th:insert="/fragments/head.html::head">
 </head>
-  <body>
+<style>
 
-   <header th:replace="fragments/header :: header"> </header>
-   
-	<style>
-	.pic2{
-		margin-left:33em;
-	}
-	
-	.nickname2{
-		position:absolute;
-		margin-left:1em;
-		font-size: 3em;
-		font-weight: bold;
-		top:70%;
-	}
-	
-	.check2{
-		position:absolute;
-		margin-left:5em;
-		font-size: 1.5em;
-		top:90%;
-		color: red;
-		text-decoration:underline;
-	}
-	
-	#appointment2{
-		left:50%
-	}
-	
-	.panel-left{
-		position:absolute;
-		font-size:2em;
-		top:70%;
-		float:left;
-		height:260px;
-		width:350px;
-		padding:0;
-		margin: 0;
-	}
-	
-	.label2{
-	list-style-type: none;
-	text-align: left;
-	
-	clear:both;
+.pic2 {
+	margin-left: 33em;
+}
 
-	}
-	
-	.menu-label a{
-		display:block;
-		text-decoration: none;	
-		color:#b8b8b8;
-	}
-	
-	.label2 a:hover {
-		background-color:#a8a8a8;
-		color:black;
-	}
+.nickname2 {
+/* 	position: absolute; */
+	margin-left: 1em;
+	font-size: 3em;
+	font-weight: bold;
+/* 	top: 70%; */
+}
 
-	.upload{
-		margin-left: 50em;
-		margin-top: 10em;
-	}
-	
-	.upload_btn{
-		border:0;
-		background-color:#ffffff;
-		color:red;
-		text-decoration:underline;	
-	}
-	
-	.upload_btn:hover{
-		border:0;
-		cursor:pointer;
-		
-	}
-	
-	#image_container{
-		width: 300px;
-		height: 300px;
-		overflow:hidden;
-	
-	}
-
- 	#row2{
+#row2{
 	margin:12em;
 	float:left;
 	} 
 
+.check2 {
+	position: absolute;
+	margin-left: 5em;
+	font-size: 1.5em;
+	top: 90%;
+	color: red;
+	text-decoration: underline;
+}
 
-	ul.label2 >  li ul.drop {
-		display: none;	
-	}
+#appointment2 {
+	left: 50%
+}
 
-	 ul.label2 >  li:hover ul.drop {
-		display:block;
-	}
+</style>
+<body>
+
+	<header th:replace="fragments/header :: header"> </header>
+
+</style>
+	<section class="hero-wrap hero-wrap-2"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div
+				class="row no-gutters slider-text align-items-end justify-content-center">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs mb-2">
+						<span class="mr-2"><a href="/">Home <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>My Page<i
+							class="ion-ios-arrow-forward"></i></span>
+					</p>
+					<h1 class="mb-0 bread">Edit</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+<!-- 	<section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb "> -->
+	<section>
+	<nav th:replace="mypage/common :: nav"></nav>
 	
-	.drop{
-		list-style:none;
-		font-size: 1.5rem;
-	}
- 
-	</style>
-    <section class="hero-wrap hero-wrap-2"  data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-end justify-content-center">
-          <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span class="mr-2"><a onClick="location.href='/home/main'">Home 
-          	<i class="ion-ios-arrow-forward"></i></a></span> 
-          	<span onClick="location.href='/mypage/my'">My Page <i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">Edit</h1>
-          </div>
-        </div>
-      </div>
-    </section> 
-  <div class="upload">
- 		<!-- <input type="file" id="image" accept="image/*" onchange="setThumbnail(event)" style="display:none" /> 
- 		<button class="upload_btn">프포필 사진 바꾸기</button>
-		<div id="image_container"></div> -->
-		<span class="nickname2" th:text="${meminfo.memName}"></span>
-	</div> 
-    <nav>
-    <div class="panel-left">
-		<ul class="label2">
-				<li class="menu-label"><a href="/mypage">마이 페이지</a></li>
-				<li class="menu-label"><a href="/mypage/edit">프로필 수정</a></li>
-				<li class="menu-label" id="dropbtn"><a href="/mypage/fundinfo">펀딩 정보</a>
-					<ul class="drop">
-						<li class="menu-label"><a th:href="@{myfund(memNum=${meminfo.memNum})}" >나의 펀딩</a></li>
-						<li class="menu-label"><a th:href="@{donafund(memNum=${meminfo.memNum})}" >후원하는 펀딩</a></li>
-				
-					</ul>
-				</li>
-				<li class="menu-label"><a href="/mypage/subinfo">구독 정보</a></li>
-		</ul>
-    </div>
-    </nav>
-    
-    <section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb " >
-			<div class="overlay"></div>
-    	<div class="container">    	</div>
-    		<div class="row" id="row2">
-    			<div class="row d-md-flex justify-content-center">
-			<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
-    			 
-    				<form th:action="@{/mypage/editsend}" class="appointment" id="appointment2" method="post">
-    					<input type="hidden" th:value="${meminfo.memNum}" name="memNum">
-    					<div class="row" >
-    						
-								<div class="col-md-6" >
-						<div class="form-group" style="border-color:black">
-							<label class="label" for="name">이메일</label> <input type="text"
-								class="form-control" id="memEmail" name="memEmail"
-								th:value="${meminfo.memEmail}" style="border-color:black" readonly>
-						</div>
+
+		<div class="overlay"></div>
+		<div class="container"></div>
+		<div class="row" id="row2">
+			<div class="row d-md-flex justify-content-center">
+				<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
+					<div class="upload">
+						<!-- <input type="file" id="image" accept="image/*" onchange="setThumbnail(event)" style="display:none" /> 
+				 		<button class="upload_btn">프로필 사진 바꾸기</button>
+						<div id="image_container"></div> -->
+						<span class="nickname2" th:text="${meminfo.memName}"></span>
 					</div>
-								<div class="col-md-6">
-						<div class="form-group">
-							<label class="label" for="name">닉네임</label> <input type="text"
-								class="form-control" id="memName" name="memName"
-								th:value="${meminfo.memName}" >
-						</div>
-					</div>
-								<div class="col-md-6">
-						<div class="form-group">
-							<label class="label" for="name">전화 번호</label> <input type="text"
-								class="form-control" id="PhoneNumber" name="memPhone"
-								placeholder="PhoneNumber" th:value="${meminfo.memPhone}">
-						</div>
-					</div>
-								<div class="col-md-6">
-						<div class="form-group">
-							<label class="label" for="name">비밀번호</label> <input
-								type="password" class="form-control" id="Password"
-								name="memPass" placeholder="Password" th:value="${meminfo.memPass}"
-								>
-						</div>
-					</div>
-								<div class="col-md-12">
-									<div class="form-group">
-			    					<div class="form-field">
-	          					<div class="select-wrap">
-	                      <div class="icon"><span class="fa fa-chevron-down"></span></div>
-	                      <select name="" id="" th:field="${meminfo.memBank}" th:value="${meminfo.memBank}" class="form-control">
-	                      	<option th:value="'국민은행'" th:text="국민은행"></option>
-	                        <option th:value="'신한은행'" th:text="신한은행"></option>
-	                        <option th:value="'농협은행'" th:text="농협은행"></option>
-	                        <option th:value="'우리은행'" th:text="우리은행"></option>
-	                        <option th:value="'하나은행'" th:text="하나은행"></option>
-	                        <option th:value="'카카오뱅크'" th:text="카카오뱅크"></option>
-	                      </select>
-	                    </div>
-			              </div>
-			    				</div>
+
+					<form th:action="@{/mypage/editsend}" class="appointment"
+						id="appointment2" method="post">
+						<input type="hidden" th:value="${meminfo.memNum}" name="memNum">
+						<div class="row">
+
+							<div class="col-md-6">
+								<div class="form-group" style="border-color: black">
+									<label class="label">이메일</label> <input type="text"
+										class="form-control" id="memEmail" name="memEmail"
+										th:value="${meminfo.memEmail}" style="border-color: black"
+										readonly>
 								</div>
-								<div class="col-md-6">
-						<div class="form-group">
-							<label class="label" for="name">계좌번호</label> <input type="text"
-								class="form-control" name= "memAccount" id="memAccount" placeholder="Account"
-								th:value="${meminfo.memAccount}" >
-						</div>
-					</div><hr><hr>
-								<div class="col-md-12">
-									<div class="form-group">
-										<input type="submit" id="join_btn" value="변경하기"
-											class="btn btn-primary py-3 px-4">
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="label" for="memName">닉네임</label> <input
+										type="text" class="form-control" id="memName" name="memName"
+										th:value="${meminfo.memName}">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="label" for="PhoneNumber">전화 번호</label> <input
+										type="text" class="form-control" id="PhoneNumber"
+										name="memPhone" placeholder="PhoneNumber"
+										th:value="${meminfo.memPhone}">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="label" for="Password">비밀번호</label> <input
+										type="password" class="form-control" id="Password"
+										name="memPass" placeholder="Password"
+										th:value="${meminfo.memPass}">
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<div class="form-field">
+										<div class="select-wrap">
+											<div class="icon">
+												<span class="fa fa-chevron-down"></span>
+											</div>
+											<select name="" id="" th:field="${meminfo.memBank}"
+												th:value="${meminfo.memBank}" class="form-control">
+<!-- 												<option th:value="none" th:text="은행을 선택해주세요"></option> -->
+												<option th:value="'국민은행'" th:text="국민은행"></option>
+												<option th:value="'신한은행'" th:text="신한은행"></option>
+												<option th:value="'농협은행'" th:text="농협은행"></option>
+												<option th:value="'우리은행'" th:text="우리은행"></option>
+												<option th:value="'하나은행'" th:text="하나은행"></option>
+												<option th:value="'카카오뱅크'" th:text="카카오뱅크"></option>
+											</select>
+										</div>
 									</div>
 								</div>
-    					</div>
-	          </form>
-    			</div>
-    		</div>
-    	</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="label" for="memAccount">계좌번호</label> <input
+										type="text" class="form-control" name="memAccount"
+										id="memAccount" placeholder="Account"
+										th:value="${meminfo.memAccount}">
+								</div>
+							</div>
+							<hr>
+							<hr>
+							<div class="col-md-12">
+								<div class="form-group">
+									<input type="submit" id="join_btn" value="변경하기"
+										class="btn btn-primary py-3 px-4">
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 
-    </section>
+	</section>
 
-<script th:inline="javascript">
+	<footer th:replace="fragments/footer :: footer"> </footer>
+	<script th:inline="javascript">
 
 const browseBtn = document.querySelector('.upload_btn');
 const realInput = document.querySelector('#image');
@@ -255,7 +190,6 @@ $(document).ready(function(){
 </script>
 
 
-<footer th:replace="fragments/footer :: footer"> </footer>
-    
-  </body>
+
+</body>
 </html>

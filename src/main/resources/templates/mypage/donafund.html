@@ -6,89 +6,12 @@
 
    <header th:replace="fragments/header :: header"> </header>
    
-	<style>
-	.pic2{
-		margin-left:33em;
-	}
-	
-	.nickname2{
-		position:absolute;
-		margin-left:1em;
-		font-size: 3em;
-		font-weight: bold;
-		top:70%;
-	}
-	
-	.check2{
-		position:absolute;
-		margin-left:1em;
-		font-size: 1.5em;
-		top:90%;
-		color: red;
-		text-decoration:underline;
-	}
-	
-	#appointment2{
-		left:50%
-	}
-	
-	.panel-left{
-		position:absolute;
-		font-size:2em;
-		top:70%;
-		float:left;
-		height:260px;
-		width:350px;
-		padding:0;
-		margin: 0;
-	}
-	
-	.label2{
-	list-style-type: none;
-	text-align: left;
-
-	}
-	
-	.menu-label a{
-		display:block;
-		text-decoration: none;	
-		color:#b8b8b8;
-	}
- 
-/*  	#row2{
-	margin:12em;
-	float:left;
-	} 
-
-	 */
-	
-	.label2 a:hover {
-		background-color:#a8a8a8;
-		color:black;
-	}
-
-
-	ul.label2 >  li ul.drop {
-		display: none;	
-	}
-
-	 ul.label2 >  li:hover ul.drop {
-		display:block;
-	}
-	
-	.drop{
-		list-style:none;
-		font-size: 1.5rem;
-	}
- 
-	</style>
-   
     <section class="hero-wrap hero-wrap-2"  data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center">
           <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home 
+          	<p class="breadcrumbs mb-2"><span class="mr-2"><a href="/">Home 
           	<i class="ion-ios-arrow-forward"></i></a></span> 
           	<span>My Page <i class="ion-ios-arrow-forward"></i></span></p>
             <h1 class="mb-0 bread">My Funding</h1>
@@ -96,34 +19,19 @@
         </div>
       </div>
     </section>
-    <nav>
-    <div class="panel-left">
-		<ul class="label2">
-			<li class="menu-label"><a href="/mypage">마이 페이지</a></li>
-			<li class="menu-label"><a href="/mypage/edit">프로필 수정</a></li>
-			<li class="menu-label" id="dropbtn"><a href="/mypage/fundinfo">펀딩 정보</a>
-					<ul class="drop">
-						<li class="menu-label"><a th:href="@{myfund(memNum=${memNum})}" >나의 펀딩</a></li>
-						<li class="menu-label"><a th:href="@{donafund(memNum=${memNum})}" >후원하는 펀딩</a></li>
-				
-					</ul>
-				</li>			
-			<li class="menu-label"><a href="/mypage/subinfo">구독 정보</a></li>
-		</ul>
-    </div>
-    </nav>
+    <section>
+    <nav th:replace="mypage/common :: nav"></nav>
     
   	<div class="ftco-animate fadeInUp ftco-animated"
 					style="display: inline-block; width: 75%; margin-left:20em; margin-top: 10em;">
 					<div class="block-7">
 						<div class="text-center p-4">
-			 		<input type="hidden" th:value="${memNum}" name="memNum"/>
 							<table class="styled-table" align="center"
 								style="width: 100%">
 								<thead style="color: black;">
 									<th>펀딩 번호</th>
 									<th>펀딩 제목</th>
-									<th>닉네임</th>
+									<th>펀딩 작가</th>
 									<th>펀딩 기간</th>
 									<th>목표 금액</th>
 									<th>결제한 금액</th>
@@ -131,21 +39,21 @@
 								</thead>
 								<tbody>
 									<tr th:each="d : ${donaList }">
-										<td><a th:href="@{../fund/get(fundNum=${d.fundNum})}">[[${d.fundNum}]]</a></td>
-										<td>[[${d.fundTitle}]]</td> 
-										<td><a th:href="@{/my(memNum=${d.memNum})}">[[${d.memName}]]</a></td>
-										<td>[[${#dates.format(d.fundStartDate,'yyyy-MM-dd')}]] ~ [[${#dates.format(d.fundEndDate,'yyyy-MM-dd')}]]</td>
+										<td><a th:href="@{/fund/get(fundNum=${d.fundNum})}" th:text="${d.fundNum}"></a></td>
+										<td th:text="${d.fundTitle}"></td> 
+										<td><a th:href="@{/mypage(memNum=${d.memNum})}" th:text="${d.memName}"></a></td>
+										<td th:text="|${#dates.format(d.fundStartDate,'yyyy-MM-dd')} ~ ${#dates.format(d.fundEndDate,'yyyy-MM-dd')}|"></td>
 <!-- 										<td th:text="${#numbers.formatDecimal(f.fundMoney, 0, 'COMMA', 0, 'POINT')}"></td> -->	
-										<td>[[${d.fundMoney}]]</td>
-										<td>[[${d.payTotal}]]</td>
-										<td>[[${d.fundIntro}]]</td>
+										<td th:text="${d.fundMoney}"></td>
+										<td th:text="${d.payTotal}"></td>
+										<td th:text="${d.fundIntro}"></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
-
+	</section>
 <footer th:replace="fragments/footer :: footer"> </footer>
     
   </body>

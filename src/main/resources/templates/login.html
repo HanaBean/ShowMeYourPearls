@@ -64,7 +64,7 @@
 				<div class="row d-md-flex justify-content-center">
 					<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
 						<h2 class="mb-4">Join</h2>
-						<form th:action="@{/join}" class="appointment" name="insertForm"
+						<form th:action="@{/join}" class="appointment" id="insertForm"
 							method="post">
 							<div class="row">
 								<div class="col-md-6">
@@ -109,18 +109,18 @@
 				</div>
 			</div>
 		</div>
-		<p class="alert" style="display:none" th:text="${cklog}">
-		</p>
+
 		
 	</section>
 
 	<script th:inline="javascript">
     
     $( document ).ready( function() {
-		
-    	$("#join_btn").click(function(){
+    	
+    	$("#join_btn").click(function(e){
+    		e.preventDefault();
     		checkAll();
-    });
+    	});
     	
     	 function checkAll() {
 
@@ -177,16 +177,10 @@
     	            return false; 
     			} */
     		
-    	 	alert("회원가입이 완료되었습니다");
-    		return false;
-    	 };
+    	 	//alert("회원가입이 완료되었습니다");
+    		$("#insertForm").submit();
+    	 }
 
-    	
-
-    	if($('.alert').html()=='alert'){
-    		alert("로그인 실패");
-    		
-    	};
    });	
 
     	
