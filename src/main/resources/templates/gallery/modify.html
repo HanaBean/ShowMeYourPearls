@@ -29,7 +29,8 @@
 								<div class="col-md-7">
 									<div class="contact-wrap w-100 p-md-5 p-4">
 										<h3 class="mb-4">업로드 된 사진 수정</h3>
-										<form method="POST" action="/gallery/modify" id="contactForm" name="contactForm" class="contactForm">
+										<form method="POST" th:action="@{/gallery/modify}" id="contactForm" name="contactForm" class="contactForm">
+											<input type="hidden" name="memEmail" th:value="${writer}">
 											<div class="row">
 												<div class="col-md-6">
 													<div class="form-group">

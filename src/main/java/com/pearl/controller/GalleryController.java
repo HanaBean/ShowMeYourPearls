@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,8 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pearl.domain.BoardVO;
+import com.pearl.domain.CustomUser;
 import com.pearl.domain.EmotionVO;
 import com.pearl.domain.GalleryVO;
+import com.pearl.domain.MemberVO;
 import com.pearl.paging.Criteria;
 import com.pearl.service.EmotionService;
 import com.pearl.service.GalleryService;
@@ -62,41 +66,49 @@ public class GalleryController {
 		return mv;
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("/write")
 	public ModelAndView write() {
 		return new ModelAndView("gallery/write");
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
-	public ModelAndView register(BoardVO vo) {
+	public ModelAndView register(BoardVO vo,@AuthenticationPrincipal CustomUser user) {
 		ModelAndView mv = new ModelAndView("redirect:/gallery/list");
+		vo.setMemNum(user.getMember().getMemNum());
 		service.insert(vo);
 		return mv;
 	}
 	
+	@PreAuthorize("principal.username == #memEmail")
 	@GetMapping("/modify")
-	public ModelAndView modify(int boardNum) {
+	public ModelAndView modify(int boardNum, String memEmail) {
 		ModelAndView mv = new ModelAndView("gallery/modify");
 		mv.addObject("gallery", service.read(boardNum));
+		mv.addObject("writer", memEmail);
 		return mv;
 	}
 	
+	@PreAuthorize("principal.username == #memEmail")
 	@PostMapping("/modify")
-	public ModelAndView modify(BoardVO vo) {
+	public ModelAndView modify(BoardVO vo, String memEmail) {
 		ModelAndView mv = new ModelAndView();
 		service.update(vo);
 		mv.setViewName("redirect:/gallery/get?boardNum="+vo.getBoardNum());
 		return mv;
 	}
 	
+	@PreAuthorize("principal.username == #memEmail")
 	@RequestMapping("/delete")
-	public ModelAndView delete(int boardNum) {
+	public ModelAndView delete(int boardNum, String memEmail) {
 		ModelAndView mv = new ModelAndView();
 		service.delete(boardNum);
 		mv.setViewName("redirect:/gallery/list");
 		return mv;
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value="/emotion", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
 	        produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody 

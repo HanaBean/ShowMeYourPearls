@@ -114,8 +114,14 @@
             <span style="margin-bottom:300px;" th:text="${gallery.boardContent}">
             	작성내용
             </span><br>
-            <input type="button" value="수정" th:onclick="location.href='/gallery/modify?boardNum=[[${gallery.boardNum}]]'" class="btn py-3 px-4 btn-primary" style="margin-top:100px;"/>
-			<input type="button" value="삭제" th:onclick="location.href='/gallery/delete?boardNum=[[${gallery.boardNum}]]'" class="btn py-3 px-4 btn-danger" style="margin-top:100px;"/>
+            <input type="button" value="수정" 
+            	th:onclick="location.href='/gallery/modify?boardNum=[[${gallery.boardNum}]]&memEmail='+[[${writer.memEmail}]]" 
+            	class="btn py-3 px-4 btn-primary" style="margin-top:100px;"
+            	th:if="${#authentication.name}==${writer.memEmail}" />
+			<input type="button" value="삭제" 
+				th:onclick="location.href='/gallery/delete?boardNum=[[${gallery.boardNum}]]&memEmail='+[[${writer.memEmail}]]" 
+				class="btn py-3 px-4 btn-danger" style="margin-top:100px;"
+				th:if="${#authentication.name}==${writer.memEmail}" />
 <!--             <input type="button" value="삭제" class="btn py-3 px-4 btn-danger"/> -->
           </div>
           
