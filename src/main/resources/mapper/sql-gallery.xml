@@ -5,12 +5,11 @@
 <mapper namespace="com.pearl.mapper.GalleryMapper">
 
 	<select id="list" resultType="com.pearl.domain.GalleryVO">
-		select b.*, m.memname from
+		select * from
 		<choose>
 		<when test="allign != null and allign != ''">
-					(select row_number() over(order by emo desc) rn, b.*,e.emo from board b 
-					join
-					(select boardnum, count(
+			(select row_number() over(order by emo desc) rn, b.*,e.emo, m.memname from board b 
+			,member m, (select boardnum, count(
 			<choose>
 				<when test="'favorite'.equals(allign)">
 					emoexpress
@@ -28,22 +27,20 @@
 					case emoexpress when 'd' then 1 end
 				</when>
 			</choose>
-					) emo from board left 
-						join emotion using(boardnum) group by boardnum) e 
-					on(e.boardnum=b.boardnum) where b.boardtype = 'c')
+			) emo from board left 
+			join emotion using(boardnum) group by boardnum) e 
+			where e.boardnum=b.boardnum and b.memnum =m.memnum and b.boardtype = 'c'
 		</when>
 		<otherwise>
-			(select /*+INDEX_desc(b board_pk)*/ rownum rn, b.* 
-			from Board b
-			where boardnum > 0 and boardtype='c' )
+			(select /*+INDEX_desc(b board_pk)*/ rownum rn, b.*, m.memname 
+			from Board b, member m
+			where b.memnum=m.memnum and boardnum > 0 and boardtype='c' 
 		 </otherwise>
 		 </choose>
-	<![CDATA[  
-			 b, member m 
-    where b.memnum=m.memnum and rn <=#{pagiInfo.lastRecordIndex} 
-    and rn > #{pagiInfo.firstRecordIndex}
-	]]>
 		<include refid="sql-search.search" />
+	<![CDATA[  
+			) where rn <=#{pagiInfo.lastRecordIndex} and rn > #{pagiInfo.firstRecordIndex}
+	]]>
 	</select>
 	
 	

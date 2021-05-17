@@ -35,8 +35,10 @@ public class ReplyController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/upload")
 	public ResponseEntity<String> upload(ReplyVO vo){
-		service.insert(vo);
-		return new ResponseEntity<String>("success",HttpStatus.OK);
+		int result = service.insert(vo);
+		return result==1
+				? new ResponseEntity<String>("success",HttpStatus.OK)
+				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@GetMapping("/{boardNum}")
