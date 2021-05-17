@@ -12,7 +12,7 @@ public interface GalleryService {
 	List<GalleryVO> list(GalleryVO vo); 
 	BoardVO read(int boardNum); 
 	MemberVO readWriter(Long memNum);
-	int insert(BoardVO vo); 
+	void insert(GalleryVO vo); 
 	int update(BoardVO vo); 
 	int delete(int boardNum);
 }

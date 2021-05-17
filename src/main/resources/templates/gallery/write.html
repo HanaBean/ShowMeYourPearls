@@ -37,8 +37,9 @@
 				<div class="col-md-7">
 					<div class="contact-wrap w-100 p-md-5 p-4">
 						<h3 class="mb-4">새로운 사진 업로드</h3>
-						<form method="POST" th:action="@{/gallery/register}"
-							id="writeForm" class="contactForm">
+						<form method="POST" th:action="@{|/gallery/register?${_csrf.parameterName}=${_csrf.token}|}"
+							id="writeForm" class="contactForm" enctype="multipart/form-data">
+							
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
@@ -78,6 +79,13 @@
 		</div>
 	</section>
 	<!-- .section -->
+	
+<script>
+	$(".custom-file-input").on("change", function() {
+	  var fileName = $(this).val().split("\\").pop();
+	  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+	});
+</script>
 
 	<footer th:replace="fragments/footer :: footer"></footer>
 

@@ -61,8 +61,11 @@
 	</select>
 	
 	<insert id="insert">
+	<selectKey keyProperty="boardNum" resultType="Long" order="BEFORE">
+		select BOARD_SEQ.nextval from dual
+	</selectKey>
 		insert into Board(boardNum, memNum, boardTitle, boardContent, boardDate, boardType)
-		values(BOARD_SEQ.nextval, #{memNum}, #{boardTitle}, #{boardContent}, sysdate, 'c')
+		values(#{boardNum}, #{memNum}, #{boardTitle}, #{boardContent}, sysdate, 'c')
 	</insert>
 	
 	<delete id="delete">
