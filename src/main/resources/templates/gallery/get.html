@@ -28,7 +28,7 @@
           <div class="col-lg-8 ftco-animate">
           <h2 th:text="${gallery.boardTitle}">글 제목</h2>
           	<p>
-              <img th:src="@{/images/pricing-2.jpg}" alt="" class="img-fluid">
+              <img th:src="@{'/gallery/display?fileName='+${gallery.picture.picPath}+'/'+${gallery.picture.picUuid}+'_'+${gallery.picture.picName}+'.'+${gallery.picture.picTail}}" alt="" class="img-fluid">
             </p>
             <div>
             	<div style="display:inline-block; margin:30px; text-align:center;">

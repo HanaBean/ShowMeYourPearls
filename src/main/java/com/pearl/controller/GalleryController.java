@@ -64,7 +64,7 @@ public class GalleryController {
 	@RequestMapping("/get")
 	public ModelAndView get(int boardNum) {
 		ModelAndView mv = new ModelAndView("gallery/get");
-		BoardVO board = service.read(boardNum);
+		GalleryVO board = service.read(boardNum);
 		mv.addObject("gallery", board);
 		mv.addObject("writer", service.readWriter(board.getMemNum()));
 		List<EmotionVO> emo = emotion.emoCount(boardNum);

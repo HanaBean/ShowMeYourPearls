@@ -32,6 +32,7 @@ public class GalleryServiceImpl implements GalleryService{
 	@Setter(onMethod_ = @Autowired)
 	private PictureMapper picMapper;
 
+	@Transactional
 	@Override
 	public List<GalleryVO> list(GalleryVO vo) {
 		List<GalleryVO> list = Collections.emptyList();
@@ -54,8 +55,10 @@ public class GalleryServiceImpl implements GalleryService{
 	}
 
 	@Override
-	public BoardVO read(int boardNum) {
-		return mapper.read(boardNum);
+	public GalleryVO read(int boardNum) {
+		GalleryVO vo = mapper.read(boardNum);
+		vo.setPicture(picMapper.getPic(vo.getBoardNum()));
+		return vo;
 	}
 	
 	@Override

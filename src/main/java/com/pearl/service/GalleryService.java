@@ -10,7 +10,7 @@ import com.pearl.paging.Criteria;
 
 public interface GalleryService {
 	List<GalleryVO> list(GalleryVO vo); 
-	BoardVO read(int boardNum); 
+	GalleryVO read(int boardNum); 
 	MemberVO readWriter(Long memNum);
 	void insert(GalleryVO vo); 
 	int update(BoardVO vo); 

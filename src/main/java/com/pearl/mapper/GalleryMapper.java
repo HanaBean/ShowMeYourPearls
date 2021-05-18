@@ -12,7 +12,7 @@ import com.pearl.domain.MemberVO;
 public interface GalleryMapper {
 	List<GalleryVO> list(GalleryVO vo); 
 	int selectTotalCount(GalleryVO vo);
-	BoardVO read(int boardNum);
+	GalleryVO read(int boardNum);
 	MemberVO readWriter(Long memNum);
 	void insert(GalleryVO vo); 
 	int update(BoardVO vo); 

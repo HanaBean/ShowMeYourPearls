@@ -50,7 +50,7 @@
 		<include refid="sql-search.search" />
 	</select>
 	
-	<select id="read" resultType="com.pearl.domain.BoardVO">
+	<select id="read" resultType="com.pearl.domain.GalleryVO">
 		select * from Board 
 		where boardnum = #{boardNum}
 	</select>
