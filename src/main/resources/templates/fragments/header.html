@@ -80,7 +80,9 @@
 			var url = document.location.href.split('/');
 			if(url[3]==''){
 				if(sessionStorage.getItem('nav')=='navContact'){
-					$('html,body').animate({scrollTop:$('#contactForm').offset().top}, 500);
+					$('html,body').animate({scrollTop:($('#contact').offset().top-150)}, 500);
+				}else if(sessionStorage.getItem('nav')=='navAbout'){
+					$('html,body').animate({scrollTop:($('#about').offset().top-150)}, 500);
 				}
 			}
 			SetClass();
