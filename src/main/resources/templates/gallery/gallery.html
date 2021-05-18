@@ -41,9 +41,11 @@
     		</div>
     		</div>
     		<div class="row mt-4 d-flex">
-          <div class="col-md-4 d-flex ftco-animate" th:each="gallery : ${gallery}">
+          <div class="col-md-4 d-flex ftco-animate" th:each="gallery : ${gallery}" th:object="${gallery.picture}">
             <div class="blog-entry align-self-stretch">
-              <a th:href="|@{/gallery/get}${vo.makeQueryString(vo.currentPage)}&boardNum=${gallery.boardNum}|" class="block-20 rounded" th:style="'background-image: url('+@{/images/pricing-2.jpg}+');'">
+              <a th:href="|@{/gallery/get}${vo.makeQueryString(vo.currentPage)}&boardNum=${gallery.boardNum}|" 
+              class="block-20 rounded" 
+              th:style="'background-image: url(/gallery/display?fileName='+*{picPath}+'/'+*{picUuid}+'_'+*{picName}+'.'+*{picTail}+');'" th:if="${gallery.picture} ne null">
               </a>
               <div class="text p-4">
               	<div class="meta mb-2">

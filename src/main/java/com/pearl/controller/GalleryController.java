@@ -1,31 +1,40 @@
 package com.pearl.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pearl.domain.BoardVO;
 import com.pearl.domain.CustomUser;
 import com.pearl.domain.EmotionVO;
 import com.pearl.domain.GalleryVO;
-import com.pearl.domain.MemberVO;
-import com.pearl.paging.Criteria;
+import com.pearl.domain.PictureVO;
 import com.pearl.service.EmotionService;
 import com.pearl.service.GalleryService;
 
@@ -55,7 +64,7 @@ public class GalleryController {
 	@RequestMapping("/get")
 	public ModelAndView get(int boardNum) {
 		ModelAndView mv = new ModelAndView("gallery/get");
-		BoardVO board = service.read(boardNum);
+		GalleryVO board = service.read(boardNum);
 		mv.addObject("gallery", board);
 		mv.addObject("writer", service.readWriter(board.getMemNum()));
 		List<EmotionVO> emo = emotion.emoCount(boardNum);
@@ -74,9 +83,11 @@ public class GalleryController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
-	public ModelAndView register(BoardVO vo,@AuthenticationPrincipal CustomUser user) {
+	public ModelAndView register(GalleryVO vo,@RequestParam("file") MultipartFile file,
+			@AuthenticationPrincipal CustomUser user) {
 		ModelAndView mv = new ModelAndView("redirect:/gallery/list");
 		vo.setMemNum(user.getMember().getMemNum());
+		vo.setPicture(uploadPicture(file));
 		service.insert(vo);
 		return mv;
 	}
@@ -92,8 +103,9 @@ public class GalleryController {
 	
 	@PreAuthorize("principal.username == #memEmail")
 	@PostMapping("/modify")
-	public ModelAndView modify(BoardVO vo, String memEmail) {
+	public ModelAndView modify(GalleryVO vo,@RequestParam("file") MultipartFile file, String memEmail) {
 		ModelAndView mv = new ModelAndView();
+		if(file.getSize()>0) vo.setPicture(uploadPicture(file));
 		service.update(vo);
 		mv.setViewName("redirect:/gallery/get?boardNum="+vo.getBoardNum());
 		return mv;
@@ -125,6 +137,64 @@ public class GalleryController {
 		List<EmotionVO> emoCnt = emotion.emoCount(vo.getBoardNum().intValue());
 		
 		return new ResponseEntity<List<EmotionVO>>(emoCnt,HttpStatus.OK);
+	}
+	
+	@GetMapping("/display")
+	@ResponseBody
+	public ResponseEntity<byte[]> getFile(String fileName) {
+		File file = new File("c:\\pearl\\"+fileName);
+		log.info("file>>>>>>>>"+file);
+		ResponseEntity<byte[]> result = null;
+		HttpHeaders header = new HttpHeaders();
+		try {
+			header.add("Content-Type", Files.probeContentType(file.toPath()));
+			result = new ResponseEntity<byte[]>(
+					FileCopyUtils.copyToByteArray(file),header,HttpStatus.OK);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	private String getFolder() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String str = sdf.format(new Date());
+		return str.replace("-", File.separator); //separator:폴더와 폴더의 구분자
+	}
+	
+	private PictureVO uploadPicture(MultipartFile file) {
+		PictureVO picture = new PictureVO();
+		String uploadFolder = "c:\\pearl";
+		
+		//저장 경로를 File객체에 담음. 파일이 아닌 디렉토리
+		File uploadPath = new File(uploadFolder, getFolder());
+		log.info("uploadPath: "+uploadPath);
+		if(uploadPath.exists()==false) uploadPath.mkdirs();
+		
+		log.info("uploadFile Name :" + file.getOriginalFilename());
+		log.info("uploadFile Size :" + file.getSize());
+		
+		String uploadFileName = file.getOriginalFilename();
+		
+		//IE has file path
+		uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
+		log.info(uploadFileName);
+		picture.setPicName(uploadFileName.substring(0, uploadFileName.lastIndexOf(".")));
+		picture.setPicTail(uploadFileName.substring(uploadFileName.lastIndexOf(".")+1));
+		
+		UUID uuid = UUID.randomUUID();
+		uploadFileName = uuid.toString()+"_"+uploadFileName;
+		
+		File saveFile = new File(uploadPath, uploadFileName);
+		try {
+			file.transferTo(saveFile);
+			picture.setPicUuid(uuid.toString());
+			picture.setPicPath(getFolder());
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		} //end catch
+		
+		return picture;
 	}
 	
 }
