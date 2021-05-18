@@ -85,8 +85,21 @@ public class GalleryServiceImpl implements GalleryService{
 	}
 
 	@Override
-	public int update(BoardVO vo) {
-		return mapper.update(vo);
+	public int update(GalleryVO vo) {
+		int result = mapper.update(vo);
+		if(vo.getPicture()==null) {
+			return result;
+		}
+		PictureVO picture = vo.getPicture();
+		log.info(">>>>>>>>PostNum:"+vo.getBoardNum());
+		String picPath = picture.getPicPath();
+		log.info(">>>>>>>>picPath:"+picPath.split("\\\\")[0]+"%5C"+picPath.split("\\\\")[1]+"%5C"+picPath.split("\\\\")[2]);
+		picture.setPicPath(
+				picPath.split("\\\\")[0]+"%5C"+picPath.split("\\\\")[1]+"%5C"+picPath.split("\\\\")[2]);
+		picture.setPostNum(vo.getBoardNum());
+		picture.setPicClass("c");
+		picMapper.updatePic(picture);
+		return result;
 	}
 
 	@Override

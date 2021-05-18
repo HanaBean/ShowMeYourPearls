@@ -9,4 +9,5 @@ public interface PictureMapper {
 	
 	public int insertPic(PictureVO picture);
 	public PictureVO getPic(Long boardNum);
+	public void updatePic(PictureVO picture);
 }

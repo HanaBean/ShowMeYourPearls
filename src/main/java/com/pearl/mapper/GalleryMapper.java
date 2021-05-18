@@ -15,6 +15,6 @@ public interface GalleryMapper {
 	GalleryVO read(int boardNum);
 	MemberVO readWriter(Long memNum);
 	void insert(GalleryVO vo); 
-	int update(BoardVO vo); 
+	int update(GalleryVO vo); 
 	int delete(int boardNum); 
 }

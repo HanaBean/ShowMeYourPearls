@@ -13,4 +13,9 @@
 		select * from picture where postnum = #{boardNum} and picclass = 'c'
 	</select>
 	
+	<update id="updatePic">
+		update picture set picUuid=#{picUuid}, picPath=#{picPath}, picName=#{picName}, picTail=#{picTail}
+		where postNum = #{postNum} and picclass = 'c'
+ 	</update>
+	
 </mapper>

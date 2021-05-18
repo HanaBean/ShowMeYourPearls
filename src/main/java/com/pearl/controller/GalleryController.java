@@ -87,39 +87,7 @@ public class GalleryController {
 			@AuthenticationPrincipal CustomUser user) {
 		ModelAndView mv = new ModelAndView("redirect:/gallery/list");
 		vo.setMemNum(user.getMember().getMemNum());
-		
-		PictureVO picture = new PictureVO();
-		String uploadFolder = "c:\\pearl";
-		
-		//저장 경로를 File객체에 담음. 파일이 아닌 디렉토리
-		File uploadPath = new File(uploadFolder, getFolder());
-		log.info("uploadPath: "+uploadPath);
-		if(uploadPath.exists()==false) uploadPath.mkdirs();
-		
-		log.info("uploadFile Name :" + file.getOriginalFilename());
-		log.info("uploadFile Size :" + file.getSize());
-		
-		String uploadFileName = file.getOriginalFilename();
-		
-		//IE has file path
-		uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
-		log.info(uploadFileName);
-		picture.setPicName(uploadFileName.substring(0, uploadFileName.lastIndexOf(".")));
-		picture.setPicTail(uploadFileName.substring(uploadFileName.lastIndexOf(".")+1));
-		
-		UUID uuid = UUID.randomUUID();
-		uploadFileName = uuid.toString()+"_"+uploadFileName;
-		
-		File saveFile = new File(uploadPath, uploadFileName);
-		try {
-			file.transferTo(saveFile);
-			picture.setPicUuid(uuid.toString());
-			picture.setPicPath(getFolder());
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		} //end catch
-		
-		vo.setPicture(picture);
+		vo.setPicture(uploadPicture(file));
 		service.insert(vo);
 		return mv;
 	}
@@ -135,8 +103,9 @@ public class GalleryController {
 	
 	@PreAuthorize("principal.username == #memEmail")
 	@PostMapping("/modify")
-	public ModelAndView modify(BoardVO vo, String memEmail) {
+	public ModelAndView modify(GalleryVO vo,@RequestParam("file") MultipartFile file, String memEmail) {
 		ModelAndView mv = new ModelAndView();
+		if(file.getSize()>0) vo.setPicture(uploadPicture(file));
 		service.update(vo);
 		mv.setViewName("redirect:/gallery/get?boardNum="+vo.getBoardNum());
 		return mv;
@@ -191,6 +160,41 @@ public class GalleryController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String str = sdf.format(new Date());
 		return str.replace("-", File.separator); //separator:폴더와 폴더의 구분자
+	}
+	
+	private PictureVO uploadPicture(MultipartFile file) {
+		PictureVO picture = new PictureVO();
+		String uploadFolder = "c:\\pearl";
+		
+		//저장 경로를 File객체에 담음. 파일이 아닌 디렉토리
+		File uploadPath = new File(uploadFolder, getFolder());
+		log.info("uploadPath: "+uploadPath);
+		if(uploadPath.exists()==false) uploadPath.mkdirs();
+		
+		log.info("uploadFile Name :" + file.getOriginalFilename());
+		log.info("uploadFile Size :" + file.getSize());
+		
+		String uploadFileName = file.getOriginalFilename();
+		
+		//IE has file path
+		uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
+		log.info(uploadFileName);
+		picture.setPicName(uploadFileName.substring(0, uploadFileName.lastIndexOf(".")));
+		picture.setPicTail(uploadFileName.substring(uploadFileName.lastIndexOf(".")+1));
+		
+		UUID uuid = UUID.randomUUID();
+		uploadFileName = uuid.toString()+"_"+uploadFileName;
+		
+		File saveFile = new File(uploadPath, uploadFileName);
+		try {
+			file.transferTo(saveFile);
+			picture.setPicUuid(uuid.toString());
+			picture.setPicPath(getFolder());
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		} //end catch
+		
+		return picture;
 	}
 	
 }
