@@ -84,6 +84,7 @@ public class FundController {
 	public String fundWrite(FundVO vo
 			, @RequestParam(value="itemList") ArrayList<RewardVO> rewardList
 			, MultipartHttpServletRequest mt) throws Exception {
+		
 		service.insert(vo, rewardList, mt);
 		
 		return "redirect:/fund/fundList";
