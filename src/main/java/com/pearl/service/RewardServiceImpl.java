@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pearl.domain.FundVO;
 import com.pearl.domain.RewardVO;
 import com.pearl.mapper.RewardMapper;
 
@@ -23,15 +24,15 @@ public class RewardServiceImpl implements RewardService{
 	}
 
 	@Override
-	public int insertReward(RewardVO vo) {
+	public int insertReward(RewardVO rwvo, FundVO vo) {
 		// TODO Auto-generated method stub
-		return mapper.insertReward(vo);
+		return mapper.insertReward(rwvo);
 	}
 
 	@Override
-	public int updateReward(RewardVO vo) {
+	public int updateReward(RewardVO rwvo) {
 		// TODO Auto-generated method stub
-		return mapper.updateReward(vo);
+		return mapper.updateReward(rwvo);
 	}
 
 	@Override
