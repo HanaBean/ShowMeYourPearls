@@ -72,6 +72,10 @@ public class GalleryServiceImpl implements GalleryService{
 		}
 		PictureVO picture = vo.getPicture();
 		log.info(">>>>>>>>PostNum:"+vo.getBoardNum());
+		String picPath = picture.getPicPath();
+		log.info(">>>>>>>>picPath:"+picPath.split("\\\\")[0]+"%5C"+picPath.split("\\\\")[1]+"%5C"+picPath.split("\\\\")[2]);
+		picture.setPicPath(
+				picPath.split("\\\\")[0]+"%5C"+picPath.split("\\\\")[1]+"%5C"+picPath.split("\\\\")[2]);
 		picture.setPostNum(vo.getBoardNum());
 		picture.setPicClass("c");
 		picMapper.insertPic(picture);

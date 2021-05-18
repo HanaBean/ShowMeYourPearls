@@ -174,6 +174,7 @@ public class GalleryController {
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileName) {
 		File file = new File("c:\\pearl\\"+fileName);
+		log.info("file>>>>>>>>"+file);
 		ResponseEntity<byte[]> result = null;
 		HttpHeaders header = new HttpHeaders();
 		try {
