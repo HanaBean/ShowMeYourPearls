@@ -15,10 +15,17 @@
 		where f.memnum= m.memnum and f.fundnum = p.fundnum and p.memnum=#{memNum}
 	</select> 
       
-      <select id="mygallery" resultType="com.pearl.domain.BoardVO">
+    <select id="mygallery" resultType="com.pearl.domain.BoardVO">
 		select m.memnum,b.boardtitle, b.boardcontent 
 		from board b, member m where m.memnum = b.memnum and m.memnum=#{memNum};
-		
+	</select>
+	
+    <insert id="subscribe">
+    	insert into subscribe values(#{artist}, #{audience})
+    </insert>
+    
+	<select id="subCount" resultType="int">
+		select count(*) from subscribe where artist = #{memNum}
 	</select>
       
   </mapper>

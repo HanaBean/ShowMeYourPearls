@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.pearl.domain.BoardVO;
 import com.pearl.domain.MyPageVO;
+import com.pearl.domain.SubscribeVO;
 import com.pearl.mapper.MyPageMapper;
 
 import lombok.Setter;
@@ -33,6 +34,13 @@ public class MyPageServiceImpl implements MyPageService{
 		return mapper.mygallery(memNum);
 	}
 	
+	@Override
+	public int subscribe(SubscribeVO subscribe) {
+		return mapper.subscribe(subscribe);
+	}
 	
-	
+	@Override
+	public int subCount(Long memNum) {
+		return mapper.subCount(memNum);
+	}
 }

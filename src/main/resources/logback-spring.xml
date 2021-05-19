@@ -4,7 +4,7 @@
 	<!-- Appenders -->
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<Pattern>%-5level %d{yy-MM-dd HH:mm:ss}[%thread] [%logger{0}:%line] - %msg%n</Pattern>
+			<Pattern>%-5level %d{yy-MM-dd HH:mm:ss}[%thread] [%logger:%line] - %msg%n</Pattern>
 		</encoder>
 	</appender>
 
@@ -16,7 +16,7 @@
 
 	<!-- 로거 -->
 	<logger name="board" level="DEBUG" appender-ref="console" />
-	<logger name="jdbc.sqlonly" level="INFO" appender-ref="console-infolog" />
+	<logger name="jdbc.sqlonly" level="INFO" appender-ref="console" />
 	<logger name="jdbc.resultsettable" level="INFO" appender-ref="console-infolog" />
 	<logger name="org.springframework" level="error" />
 	<logger name="org.springframework.jdbc" level="error" />
