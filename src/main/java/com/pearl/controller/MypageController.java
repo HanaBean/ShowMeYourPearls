@@ -33,10 +33,7 @@ public class MypageController {
 	@RequestMapping("/mypage")
 	public ModelAndView my(@AuthenticationPrincipal CustomUser customUser, Long memNum) {
 		ModelAndView mv = new ModelAndView("/mypage/my");
-		//List<BoardVO> mygal = mypageservice.mygallery(vo.getMemNum());
-		//getLoginMember(request, mv);
-		//mv.addObject("mygal", mygal);
-		if(memNum==null) {
+		if(memNum==null) { 
 			if(customUser==null) {
 				mv.setViewName("redirect:/login");
 				return mv;
