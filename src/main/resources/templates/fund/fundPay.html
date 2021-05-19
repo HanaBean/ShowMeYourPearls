@@ -47,8 +47,7 @@
 			<div class="contact-wrap w-100 p-md-5 p-4">
 				<h3 class="mb-4">Product Information</h3>
 				<div>
-					<table border="1" width="50%" height="200" cellspacing="5">
-
+					<table border="1" width="50%" height="200" cellspacing="5" th:each="r : ${rewardList}">
 						<thead>
 							<tr align="center" bgcolor="white">
 								<td>Reward Product</td>
@@ -58,19 +57,15 @@
 						</thead>
 						<tbody>
 							<tr align="center" bgcolor="white">
-								<th>아저씨 포스터</th>
-								<td>20</td>
-								<td>2000원</td>
+								<th th:text="${r.rwrdName}">아저씨 포스터</th>
+								<td th:text="${r.rwrdCnt}">20</td>
+								<td th:text="${r.rwrdName}">2000원</td>
 							</tr>
-							<tr align="center" bgcolor="white">
-								<td>태극기 휘날리면 포스터</td>
-								<td>10</td>
-								<td>2000원</td>
-							</tr>
+							
 						</tbody>
 					</table>
 				</div>
-				<div>소계 6마넌</div>
+				<div th:text="${r.rwrdTotal}"></div>
 				<div class="col-md-6">
 					<div>
 						<label class="label">Sponsor More</label> <input type="text"

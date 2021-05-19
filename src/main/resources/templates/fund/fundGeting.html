@@ -115,7 +115,7 @@
 
 							<div style="margin: 0 0 15px 0;">
 								<h5 style="float:left; margin:10px 0 0 0;">Total</h5> <input type="text"
-								id = "tPrice" class="form-control"
+								id = "tPrice" class="form-control" name="rwrdTotal"
 									readonly style="float:left; margin:0 0 12px 0;">
 							</div>
 
@@ -160,7 +160,7 @@
 					.prepend(
 							'<li id="select-item'+count+'"><div class="row" style="position: relative; left: 20px">'
 									+ '<div style="width: 60%;"><div id="selectProduct'+count
-					+'" name="selectProduct'+count
+					+'" name="rwrdName'
 					+'" style="float: left; margin: 0 10px 0 0;">'
 									+ item
 									+ '</div>'
@@ -168,7 +168,7 @@
 									+ '<div class="tagcloud" style="float: left;"><a class="tag-cloud-link" onclick="cntDown('
 									+ count
 									+ ')">-</a>'
-									+ '</div><div id="cntItem'+count+'" style="text-size: 15px; float: left; padding: 0 4px 0 0;">1</div>'
+									+ '</div><div id="cntItem'+count+'" name="rwrdCnt" style="text-size: 15px; float: left; padding: 0 4px 0 0;">1</div>'
 									+ '<div class="tagcloud" style="float: left;"><a class="tag-cloud-link" onclick="cntUp('
 									+ count
 									+ ')">+</a>'
