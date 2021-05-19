@@ -1,17 +1,18 @@
 package com.pearl.service;
 
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pearl.domain.AdminBoardVO;
-import com.pearl.domain.BoardVO;
 import com.pearl.domain.FundVO;
 import com.pearl.domain.GalleryVO;
 import com.pearl.mapper.MainMapper;
 
 import lombok.Setter;
+import lombok.extern.log4j.Log4j;
 
 
 @Service
@@ -22,8 +23,8 @@ public class MainServiceImpl implements MainService{
 
 
 	@Override
-	public List<GalleryVO> list() {
-		return mapper.list();
+	public List<GalleryVO> list(GalleryVO vo) {
+		return mapper.list(vo);
 	}
 
 	@Override
