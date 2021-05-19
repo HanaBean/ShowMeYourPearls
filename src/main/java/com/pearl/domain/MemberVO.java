@@ -3,7 +3,7 @@ package com.pearl.domain;
 import lombok.Data;
 
 @Data
-public class MemberVO{
+public class MemberVO extends CommonDTO{
 	
 	private Long memNum;
 	
