@@ -51,9 +51,9 @@ li {
 						style="position: absolute; transform: translate3d(0px, 52px, 0px); top: 0px; left: 0px; will-change: transform; overflow: visible; 
 						aria-expanded: false;">
 						<span class="dropdown-item" onclick="searchType(this)" data-srch="">전체 보기</span> 
-						<span class="dropdown-item" onclick="searchType(this)" data-srch="title">글 번호</span> 
-						<span class="dropdown-item" onclick="searchType(this)" data-srch="content">글 제목</span> 
-						<span class="dropdown-item" onclick="searchType(this)" data-srch="writer">작성자</span>
+						<span class="dropdown-item" onclick="searchType(this)" data-srch="boardnum">글 번호</span> 
+						<span class="dropdown-item" onclick="searchType(this)" data-srch="boardtitle">글 제목</span> 
+						<span class="dropdown-item" onclick="searchType(this)" data-srch="boardwriter">작성자</span>
 					</div>
 
 					<input type="text" class="form-control" placeholder="Search..."
@@ -108,11 +108,11 @@ li {
 
 $(document).ready(function(){
 		var type = [[${vo.searchType ==''?'':vo.searchType}]];
-		if(type == 'title'){
+		if(type == 'boardnum'){
 			$('#dropdownMenuButton').html('글 번호');
-		} else if(type == 'content') {
+		} else if(type == 'boardtitle') {
 			$('#dropdownMenuButton').html('글 제목');
-		} else if(type == 'writer') {
+		} else if(type == 'boardwriter') {
 			$('#dropdownMenuButton').html('작성자');
 		} else {
 			$('#dropdownMenuButton').html('전체 보기');
