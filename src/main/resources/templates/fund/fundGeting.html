@@ -99,40 +99,29 @@
 										th:text="${#dates.format(detail.fundEndDate,'yyyy-MM-dd')}"
 										style="width: 160px; position: relative; right: 0px;"></div>
 								</div></li>
-							<li>
-								<form>
-									<select class="cb-select-product">
-										<option value="none">========= 상품 선택 =========</option>
-										<option  th:each="reward : ${rewardList}" th:text="${reward.rwrdName + '( ' + reward.rwrdPrice + ' 원 )' } "></option>
-										
-									</select>
-								</form>
+							<div>
+								<select id="comboItem" name="comboItem" onchange="selectItem()">
+									<option value="상품선택">========= 상품 선택 =========</option>
+									<option th:each="reward : ${rewardList}"
+										th:text="${reward.rwrdName + '( ' + reward.rwrdPrice + ' 원 )' } "></option>
+								</select>
+							</div>
+							<div>
+								<h5>선택한 상품</h5>
+								<div id="attach-item"></div>
+							</div>
 
-							</li>
-							<li>
-								<div>선택한 상품</div>
-								<div class="row" style="position: relative; left: 20px">
-									<span>장수풍뎅이 수세미</span><span>&nbsp;&nbsp;&nbsp;</span><span>5000</span>
-									<span>&nbsp;</span><span>원</span><span>&nbsp;&nbsp;&nbsp;</span>
-									<div class="tagcloud">
-										<a href="#" class="tag-cloud-link">-</a>
-									</div>
-									<div style="text-size: 15px;">&nbsp;1&nbsp;&nbsp;</div>
-									<div class="tagcloud">
-										<a href="#" class="tag-cloud-link">+</a>
-									</div>
-								</div>
 
-							</li>
 
 							<div style="margin: 0 0 15px 0;">
-								결제 금액 <input type="text" class="form-control"
-									placeholder="Total">
+								<h5 style="float:left; margin:10px 0 0 0;">Total</h5> <input type="text"
+								id = "tPrice" class="form-control" name="rwrdTotal"
+									readonly style="float:left; margin:0 0 12px 0;">
 							</div>
 
 							<div class="row">
 								<span style="margin: 0 10px 2px 15px;"> <input
-									type="button" id="funding"
+									type="submit" id="funding"
 									th:onclick="location.href='/fund/pay?fundNum=[[${detail.fundNum}]]'"
 									value="Attend Funding" class="btn btn-info d-block px-2 py-3"></span>
 
@@ -146,12 +135,7 @@
 
 
 							</div>
-							<script
-								src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-							<script type="text/javascript">
-								$(document).ready(function() {
-								});
-							</script>
+
 
 
 
@@ -165,6 +149,111 @@
 		</div>
 	</section>
 	<!-- .section -->
+
+	<script>
+		var count = 0;
+		var total = 0;
+		function selectItem() {
+			var item = $("#comboItem option:selected").text();
+			
+			$("#attach-item")
+					.prepend(
+							'<li id="select-item'+count+'"><div class="row" style="position: relative; left: 20px">'
+									+ '<div style="width: 60%;"><div id="selectProduct'+count
+					+'" name="rwrdName'
+					+'" style="float: left; margin: 0 10px 0 0;">'
+									+ item
+									+ '</div>'
+									+ '</div><div>'
+									+ '<div class="tagcloud" style="float: left;"><a class="tag-cloud-link" onclick="cntDown('
+									+ count
+									+ ')">-</a>'
+									+ '</div><div id="cntItem'+count+'" name="rwrdCnt" style="text-size: 15px; float: left; padding: 0 4px 0 0;">1</div>'
+									+ '<div class="tagcloud" style="float: left;"><a class="tag-cloud-link" onclick="cntUp('
+									+ count
+									+ ')">+</a>'
+									+ '</div><div class="tagcloud" style="float: left;"><a class="tag-cloud-link" onclick="deleteItem('
+									+ count
+									+ ')">del</a>'
+									+ '</div><div id=subTotal'+count+'></div></div></div></li>');
+
+			var id2 = '#select-item' + count;
+			var name = $(id2).text();
+			var index = name.indexOf('(');
+			var index2 = name.indexOf('원');
+			var priceFind = name.substring(index+1,index2).trim();
+			var price = parseInt(priceFind,10);
+			
+			var subTotal = '#subTotal' + count;
+			$(subTotal).text(price);
+			count++;
+			totalPrice();
+			
+		}
+		function deleteItem(count) {
+			var id = '#select-item' + count;
+			$(id).remove();
+			totalPrice();
+		}
+
+		function cntUp(count) {
+			var id = '#cntItem' + count;
+			var stat = $(id).text();
+			var cnt = parseInt(stat, 10);
+			cnt++;
+			$(id).text(cnt);
+			//
+			var id2 = '#select-item' + count;
+			var name = $(id2).text();
+			var index = name.indexOf('(');
+			var index2 = name.indexOf('원');
+			var priceFind = name.substring(index+1,index2).trim();
+			var price = parseInt(priceFind,10);
+			
+			var subTotal = '#subTotal' + count;
+			var subSum = price*cnt;
+			$(subTotal).text(subSum);
+			
+			totalPrice();
+			
+		}
+
+		function cntDown(count) {
+			var id = '#cntItem' + count;
+			var stat = $(id).text();
+			var cnt = parseInt(stat, 10);
+			if (cnt > 1) {
+				cnt--;
+			}
+			$(id).text(cnt);
+			
+			//
+			var id2 = '#select-item' + count;
+			var name = $(id2).text();
+			var index = name.indexOf('(');
+			var index2 = name.indexOf('원');
+			var priceFind = name.substring(index+1,index2).trim();
+			var price = parseInt(priceFind,10);
+			
+			var subTotal = '#subTotal' + count;
+			var subSum = price*cnt;
+			$(subTotal).text(subSum);
+			
+			totalPrice();
+		}
+		
+
+
+		function totalPrice() {
+			total=0;
+			for (var i=0;i<count;i++){
+				console.log("서브토탈"+i+" : "+$('#subTotal'+i).text());
+				total += parseInt($('#subTotal'+i).text()==''?0:$('#subTotal'+i).text());
+			};	
+			console.log("총합 : "+total);
+			$('#tPrice').val(total);
+		}
+	</script>
 	<footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

@@ -61,6 +61,14 @@ public class FundController {
 		return mv;
 	}
 	
+	@RequestMapping("/getPay")
+	public ModelAndView get(RewardVO rwvo, FundVO vo) {
+		ModelAndView mv = new ModelAndView("fund/fundPay");
+		mv.addObject("fund", vo);
+		mv.addObject("reward", rwvo);
+		return mv;
+	}
+	
 	@PostMapping("/modify")
 	public ModelAndView modify(FundVO vo) {
 		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ vo.getFundNum());
@@ -84,15 +92,10 @@ public class FundController {
 	public String fundWrite(FundVO vo
 			, @RequestParam(value="itemList") ArrayList<RewardVO> rewardList
 			, MultipartHttpServletRequest mt) throws Exception {
+		
 		service.insert(vo, rewardList, mt);
 		
 		return "redirect:/fund/fundList";
-	}
-	
-	@RequestMapping("/pay")
-	public ModelAndView fundPay() {
-		ModelAndView mv = new ModelAndView("fund/fundPay");
-		return mv;
 	}
 	
 	@PostMapping("/pay")

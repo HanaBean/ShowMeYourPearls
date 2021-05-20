@@ -5,7 +5,7 @@ import java.sql.Date;
 import lombok.Data;
 
 @Data
-public class AdminPaymentVO {
+public class AdminPaymentVO extends CommonDTO {
 	private Long payNum;
 	private Long memNum;
 	private Long fundNum;

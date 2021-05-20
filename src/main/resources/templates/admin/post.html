@@ -93,13 +93,18 @@ li {
 					</div>
 				</div>
 			</div>
+			 <div class="row mt-5">
+          <div class="col text-center">
+            <div th:replace="fragments/pagination :: pagination"></div>
+          </div>
+        </div>
 		</div>
 	</section>
 
 	<footer th:replace="fragments/footer :: footer"> </footer>
 
 </body>
-<script>
+<script th:inline="javascript">
 	$(document).ready(function() {
 		$('input[name=cbAll]').on('change', function() {
 			$('input[name=cb]').prop('checked', this.checked);
@@ -113,5 +118,13 @@ li {
 			 window.location.href='/admin/post/delete?boardNum=' + arr;
 		});
 	});
+	
+	/*<![CDATA[*/
+	
+	function movePage(uri, queryString) {
+		location.href = uri + queryString ;
+	}
+
+	/*]]>*/
 </script>
 </html>

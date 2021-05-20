@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import com.pearl.domain.AdminBoardVO;
 import com.pearl.domain.AdminFundVO;
 import com.pearl.domain.AdminPaymentVO;
+import com.pearl.domain.BoardVO;
+import com.pearl.domain.FundVO;
 import com.pearl.domain.MemberVO;
 import com.pearl.domain.SearchVO;
 
@@ -17,6 +19,13 @@ public interface AdminMapper {
 	List<AdminPaymentVO> paymentList();
 	List<AdminPaymentVO> searchPaymentList(SearchVO vo);
 	List<MemberVO> test(MemberVO vo);
+	List<BoardVO> boardpage(BoardVO vo);
+	List<AdminFundVO> fundpage(AdminFundVO vo);
+	List<AdminPaymentVO> paymentpage(AdminPaymentVO vo);
+	int selectTotalCount(MemberVO vo);
+	int selectTotalCount2(BoardVO vo);
+	int selectTotalCount3(AdminFundVO vo);
+	int selectTotalCount4(AdminPaymentVO vo);
 	int fundDelete(Long arrFundNum[]);
 	int memberDelete(Long arrMemNum[]);
 	int postDelete(Long arrBoardNum[]);

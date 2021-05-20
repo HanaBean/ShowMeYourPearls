@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="/fragments/head.html::head">
+<head>
+	<head th:insert="/fragments/head.html::head" th:remove="tag">
+	</head>
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
   <body>
 
@@ -30,16 +34,17 @@
     <div>
     <img th:src="@{/images/profile.jpg}" width="300" height="300" class="pic">
     	<input type="hidden" th:value="${meminfo.memNum}" name="memNum">
+    	<input type="hidden" th:value="${#authentication.principal.member.memNum}" name="userNum">
     		<span class="nickname" th:text="${meminfo.memName}"></span>
     		<input type="button" value="Edit" class="edit" 
     			onClick="location.href='/mypage/edit'" style="cursor:pointer"
     			th:if="${#authentication.name}==${meminfo.memEmail}">
     		<span class="num1">0</span><span class="num3">Photo</span>
-    		<span class="num2">0</span><span class="num4">subscriber</span>
+    		<span class="num2" id="subscribe" th:text="${subscriber}">0</span><span class="num4">subscriber</span>
     		<input type="button" value="Donation" class="Donation" id="donation" style="cursor:pointer"
     			th:if="${#authentication.name}!=${meminfo.memEmail}">
     		<input type="button" value="Subscribe" class="Subscribe" style="cursor:pointer"
-    			th:if="${#authentication.name}!=${meminfo.memEmail}">
+    			th:if="${#authentication.name}!=${meminfo.memEmail}" th:onclick="subscribe()">
     </div><hr><hr>
 <a class="btn d-block" id="fundmore" href='/fund/fundList'>
 			<span th:if="${#authentication.name}!=${meminfo.memEmail}" th:text="${meminfo.memName+'님의 펀딩 보러가기→'}">
@@ -223,9 +228,39 @@
 			</div> -->			
 		</section>
 		<script th:inline="javascript">
+		
+			function subscribe(){
+				var artist = $("input[name=memNum]").val();
+				var audience = $("input[name=userNum]").val();
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				var param = {"artist":artist*1, "audience":audience*1}
+				console.log(param);
+				$.ajax({
+					method : 'POST',
+					url:'/subscribe',
+					data: JSON.stringify(param),
+					beforeSend: function(xhr){
+						xhr.setRequestHeader(header, token);
+					},
+					dataType:'text',
+					contentType:'application/json; charset=utf-8',
+					success:function(data){
+					 	alert("구독하셨습니다");
+					 	$('#subscribe').text(data);
+						console.log(data);
+				 	},error:function(e){
+				 		console.log("ERROR : ", e);
+			            alert("로그인후 이용가능합니다.");
+			            //location.href="/login";
+					}
+				});
+			}
+		
+		
 		/*  $( document ).ready( function() {
 			 
-			 window.onload = function() {
+			window.onload = function() {
 		 
 			function onClick() {
 				

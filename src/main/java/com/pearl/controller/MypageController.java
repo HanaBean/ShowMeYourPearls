@@ -1,23 +1,28 @@
 package com.pearl.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pearl.domain.CustomUser;
 import com.pearl.domain.MemberVO;
+import com.pearl.domain.SubscribeVO;
 import com.pearl.service.MemberService;
 import com.pearl.service.MyPageService;
 import com.pearl.service.UserDetailServiceImpl;
 
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @Controller
 public class MypageController {
 	
@@ -33,16 +38,15 @@ public class MypageController {
 	@RequestMapping("/mypage")
 	public ModelAndView my(@AuthenticationPrincipal CustomUser customUser, Long memNum) {
 		ModelAndView mv = new ModelAndView("/mypage/my");
-		//List<BoardVO> mygal = mypageservice.mygallery(vo.getMemNum());
-		//getLoginMember(request, mv);
-		//mv.addObject("mygal", mygal);
-		if(memNum==null) {
+		if(memNum==null) { 
 			if(customUser==null) {
 				mv.setViewName("redirect:/login");
 				return mv;
 			}
-			mv.addObject("meminfo", customUser.getMember());
-		} else mv.addObject("meminfo", service.getProfile(memNum));
+			memNum = customUser.getMember().getMemNum();
+		}
+		mv.addObject("meminfo", service.getProfile(memNum));
+		mv.addObject("subscriber", mypageservice.subCount(memNum));
 		return mv;
 	}
 	
@@ -93,6 +97,15 @@ public class MypageController {
 		ModelAndView mv = new ModelAndView("mypage/donafund");
 		mv.addObject("donaList", mypageservice.donaList(customUser.getMember().getMemNum()));
 		return mv;
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/subscribe")
+	public ResponseEntity<Integer> subscribe(@RequestBody SubscribeVO subscriber) {
+		log.info("subscribe>>>>>>>>>>>>"+subscriber);
+		mypageservice.subscribe(subscriber);
+		return new ResponseEntity<Integer>(
+				mypageservice.subCount(subscriber.getArtist()), HttpStatus.OK);
 	}
 	
 }

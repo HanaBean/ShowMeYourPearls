@@ -7,12 +7,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pearl.domain.AdminFundVO;
 import com.pearl.domain.AdminPaymentVO;
+import com.pearl.domain.BoardVO;
 import com.pearl.domain.MemberVO;
 import com.pearl.domain.SearchVO;
 import com.pearl.service.AdminService;
@@ -29,17 +32,46 @@ public class AdminController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private AdminService adminService;
+
+	   
+	   @RequestMapping("/member")
+	   public ModelAndView member(@ModelAttribute("vo") MemberVO vo) {
+	      ModelAndView mv = new ModelAndView("admin/member");
+	      vo.setAmount(10);
+	      List<MemberVO> tist = adminService.test(vo);
+	      mv.addObject("list", tist);
+	      return mv;
+	   }
 	
-	@RequestMapping("/member")
-	public ModelAndView member(Model model) {
-		ModelAndView mv = new ModelAndView("admin/member");
-		mv.addObject("list", memberService.list());
-		
-		return mv;
-	}
-	
-	@RequestMapping("/member/profile")
-	public ModelAndView profile(Model model, Long memNum) {
+	   @RequestMapping("/post")
+	   public ModelAndView post(@ModelAttribute("vo") BoardVO vo) {
+		   ModelAndView mv = new ModelAndView("admin/post");
+		   vo.setAmount(10);
+		   List<BoardVO> paging= adminService.boardpage(vo);
+		   mv.addObject("list", paging);
+		   return mv;
+	   }
+
+	   @RequestMapping("/fund")
+	   public ModelAndView fund(@ModelAttribute("vo") AdminFundVO vo) {
+		   ModelAndView mv = new ModelAndView("admin/fund");
+		   vo.setAmount(10);
+		   List<AdminFundVO> fundpage= adminService.fundpage(vo);
+		   mv.addObject("list", fundpage);
+		   return mv;
+	   }
+	   
+	   @RequestMapping("/payment")
+	   public ModelAndView payment(@ModelAttribute("vo") AdminPaymentVO vo) {
+		   ModelAndView mv = new ModelAndView("admin/payment");
+			vo.setAmount(10);
+		   List<AdminPaymentVO> paymentpage= adminService.paymentpage(vo);
+		   mv.addObject("list", paymentpage);
+		   return mv;
+	   }
+
+	   @RequestMapping("/member/profile")
+	   public ModelAndView profile(Model model, Long memNum) {
 		ModelAndView mv = new ModelAndView("admin/profile");
 		mv.addObject("vo", memberService.getProfile(memNum));
 		
@@ -73,26 +105,11 @@ public class AdminController {
 	//
 	
 	
-	@RequestMapping("/post")
-	public ModelAndView post(Model model) {
-		ModelAndView mv = new ModelAndView("admin/post");
-		mv.addObject("list", adminService.boardList());
-		
-		return mv;
-	}
 	
 	@RequestMapping("/post/delete")
 	public ModelAndView postDelete(Model model, Long boardNum[]) {
 		ModelAndView mv = new ModelAndView("redirect:/admin/post");
 		adminService.postDelete(boardNum);
-		
-		return mv;
-	}
-	
-	@RequestMapping("/fund")
-	public ModelAndView fund(Model model) {
-		ModelAndView mv = new ModelAndView("admin/fund");
-		mv.addObject("list", adminService.fundList());
 		
 		return mv;
 	}
@@ -105,13 +122,6 @@ public class AdminController {
 		return mv;
 	}
 	
-	@RequestMapping("/payment")
-	public ModelAndView payment(Model model) {
-		ModelAndView mv = new ModelAndView("admin/payment");
-		mv.addObject("list", adminService.paymentList());
-		
-		return mv;
-	}
 	
 
 	@ResponseBody
