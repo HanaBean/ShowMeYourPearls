@@ -62,10 +62,12 @@ public class FundController {
 	}
 	
 	@RequestMapping("/getPay")
-	public ModelAndView get(RewardVO rwvo, FundVO vo) {
-		ModelAndView mv = new ModelAndView("fund/fundPay");
+	public ModelAndView get(@RequestParam(value="itemList") List<RewardVO> rwvo, FundVO vo) {
+		log.info("rwvo>>>>>>>>>"+rwvo);
+		ModelAndView mv = new ModelAndView("/fund/fundPay");
+		
+		mv.addObject("reward", rwvo);			
 		mv.addObject("fund", vo);
-		mv.addObject("reward", rwvo);
 		return mv;
 	}
 	

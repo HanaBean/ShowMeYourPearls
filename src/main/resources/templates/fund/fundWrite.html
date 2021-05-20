@@ -26,7 +26,7 @@
 	</section>
 
 	<section class="ftco-section ftco-degree-bg">
-		<form action="/fund/writeFund" method="POST" id="writeForm" enctype="multipart/form-data">
+		<form th:action="@{|/fund/writeFund?${_csrf.parameterName}=${_csrf.token}|}" method="POST" id="writeForm" enctype="multipart/form-data">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-8 ftco-animate">
@@ -137,8 +137,8 @@
 			
 			$("#attach-item")
 					.prepend(
-							'<div id="register-item'+count+'" name="register-item'+count+'"><li id="item-form" style="float: left; width:80%;">'
-							+'<div id="item-name" name="rewardName'+count+'" style="float: left; margin: 0 20px 0 0;">'
+							'<div id="register-item'+count+'"><li id="item-form" style="float: left; width:80%;">'
+							+'<div id="item-name" name="rewardName" style="float: left; margin: 0 20px 0 0;">'
 							+ item
 							+'</div><div id="item-price'+count+' name="rewardPrice'+count+'"  style="float: left;">'
 							+ price

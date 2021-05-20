@@ -41,18 +41,28 @@
     		</div>
     		</div>
     		<div class="row mt-4 d-flex">
-          <div class="col-md-4 d-flex ftco-animate" th:each="gallery : ${gallery}" th:object="${gallery.picture}">
-            <div class="blog-entry align-self-stretch">
+          <div class="col-md-6 col-lg-3 ftco-animate" th:each="gallery : ${gallery}" th:object="${gallery.picture}">
+          	<div class="staff">
+            <div class="img-wrap d-flex align-items-stretch">
               <a th:href="|@{/gallery/get}${vo.makeQueryString(vo.currentPage)}&boardNum=${gallery.boardNum}|" 
-              class="block-20 rounded" 
+              class="img align-self-stretch" 
               th:style="'background-image: url(/gallery/display?fileName='+*{picPath}+'/'+*{picUuid}+'_'+*{picName}+'.'+*{picTail}+');'" th:if="${gallery.picture} ne null">
               </a>
-              <div class="text p-4">
+              </div>
+              <div class="text pt-3 px-3 pb-4 text-center">
               	<div class="meta mb-2">
-                  <div><a th:href="|@{/gallery/get}${vo.makeQueryString(vo.currentPage)}&boardNum=${gallery.boardNum}|" th:text="${gallery.boardTitle}"></a></div>
-                  <div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div><br>
-                  <div th:inline="text"><a href="#" th:text="${gallery.memName}"></a></div>
+                  <div><a th:href="|@{/gallery/get}${vo.makeQueryString(vo.currentPage)}&boardNum=${gallery.boardNum}|" th:text="${gallery.boardTitle}"></a>
+                  <a th:href="|@{/gallery/get}${vo.makeQueryString(vo.currentPage)}&boardNum=${gallery.boardNum}|" class="meta-chat"><span class="fa fa-comment"></span> [[${gallery.replyCount}]]</a></div><br>
+                  <div th:inline="text"><a th:href="@{/mypage(memNum=${gallery.memNum})}" th:text="${gallery.memName}"></a><a th:if="${gallery.funding}" th:href="@{/gallery/fund(memNum=${gallery.memNum})}" class="tag-cloud-link" style="background-color:#19a2b8; color:white; margin-left:5px;">Proceeding</a></div>
                 </div>
+                <div class="faded">
+									<ul class="ftco-social text-center">
+		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a></li>
+		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a></li>
+		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-google"></span></a></li>
+		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"></span></a></li>
+		              </ul>
+	              </div>
               </div>
             </div>
           </div>

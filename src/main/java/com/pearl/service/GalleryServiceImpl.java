@@ -106,5 +106,15 @@ public class GalleryServiceImpl implements GalleryService{
 	public int delete(int boardNum) {
 		return mapper.delete(boardNum);
 	}
+	
+	@Override
+	public List<Long> nowFunding(){
+		return mapper.nowFunding();
+	}
+	
+	@Override
+	public Long nowFund(Long memNum) {
+		return mapper.nowFund(memNum);
+	}
 
 }

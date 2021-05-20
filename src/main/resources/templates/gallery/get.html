@@ -112,7 +112,7 @@
               <div class="desc">
                 <a href="#"><span th:text="${writer.memName}">작성자명</span></a>
                 <span class="tagcloud">
-									<a href="#" class="tag-cloud-link" style="background-color:#19a2b8; color:white;">Proceeding</a>
+									<a th:if="${gallery.funding}" th:href="@{/gallery/fund(memNum=${gallery.memNum})}" class="tag-cloud-link" style="background-color:#19a2b8; color:white;">Proceeding</a>
 								</span>
                 <p th:text="${gallery.boardDate}">작성일자</p>
               </div>
