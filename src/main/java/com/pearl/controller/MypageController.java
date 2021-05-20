@@ -1,5 +1,7 @@
 package com.pearl.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,8 +47,21 @@ public class MypageController {
 			}
 			memNum = customUser.getMember().getMemNum();
 		}
+		List<SubscribeVO> subLists = mypageservice.subList(memNum);
+		if(customUser!=null&&memNum!=customUser.getMember().getMemNum()) {
+			boolean result = false;
+			for(int i=0;i<subLists.size();i++) {
+				SubscribeVO sub = subLists.get(i);
+				if(sub.getAudience()==customUser.getMember().getMemNum()) {
+					result = true;
+				}
+			}
+			if(result) mv.addObject("subs", "true");
+			else mv.addObject("subs", "false");
+		}
 		mv.addObject("meminfo", service.getProfile(memNum));
-		mv.addObject("subscriber", mypageservice.subCount(memNum));
+		mv.addObject("subscriber", subLists.size());
+		mv.addObject("myGallery", mypageservice.myGallery(memNum));
 		return mv;
 	}
 	
@@ -67,18 +82,12 @@ public class MypageController {
 		 user.updateUser(vo); 
 		 return "redirect:edit";
 	}
-	 
-	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/mypage/fundinfo")
-	public ModelAndView fundinfo() {
-		ModelAndView mv = new ModelAndView("/mypage/fundinfo");
-		return mv;
-	}
 	
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("/mypage/subinfo")
-	public ModelAndView subinfo() {
+	public ModelAndView subinfo(@AuthenticationPrincipal CustomUser customUser) {
 		ModelAndView mv = new ModelAndView("/mypage/subinfo");
+		mv.addObject("list",mypageservice.mySubList(customUser.getMember().getMemNum()));
 		return mv;
 	}
 	
@@ -101,11 +110,18 @@ public class MypageController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/subscribe")
-	public ResponseEntity<Integer> subscribe(@RequestBody SubscribeVO subscriber) {
+	public ResponseEntity subscribe(@RequestBody SubscribeVO subscriber) {
 		log.info("subscribe>>>>>>>>>>>>"+subscriber);
+		List<SubscribeVO> subLists = mypageservice.subList(subscriber.getArtist());
+		for(int i=0;i<subLists.size();i++) {
+			SubscribeVO sub = subLists.get(i);
+			if(sub.getAudience()==subscriber.getAudience()) {
+				mypageservice.unsubscribe(subscriber);
+				return  new ResponseEntity<Integer>(subLists.size()-1, HttpStatus.OK);
+			}
+		}
 		mypageservice.subscribe(subscriber);
-		return new ResponseEntity<Integer>(
-				mypageservice.subCount(subscriber.getArtist()), HttpStatus.OK);
+		return new ResponseEntity<Integer>(subLists.size()+1, HttpStatus.OK);
 	}
 	
 }

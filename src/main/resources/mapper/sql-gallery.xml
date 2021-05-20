@@ -91,4 +91,12 @@
 		update emotion set emoExpress=#{emoExpress} where boardNum=#{boardNum} and memNum=#{memNum}
 	</update>
 	
+	<select id="nowFunding" resultType="Long">
+		select memnum from fund where to_char(fundenddate) >=to_char(sysdate)
+	</select>
+	
+	<select id="nowFund" resultType="Long">
+		select fundnum from fund where to_char(fundenddate) >=to_char(sysdate) and memnum=#{memNum}
+	</select>
+	
 </mapper>

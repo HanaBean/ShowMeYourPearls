@@ -14,18 +14,28 @@
 		select f.*, p.paytotal , m.memname from fund f, payment p, member m 
 		where f.memnum= m.memnum and f.fundnum = p.fundnum and p.memnum=#{memNum}
 	</select> 
-      
-    <select id="mygallery" resultType="com.pearl.domain.BoardVO">
-		select m.memnum,b.boardtitle, b.boardcontent 
-		from board b, member m where m.memnum = b.memnum and m.memnum=#{memNum};
-	</select>
-	
+    
     <insert id="subscribe">
     	insert into subscribe values(#{artist}, #{audience})
     </insert>
     
-	<select id="subCount" resultType="int">
-		select count(*) from subscribe where artist = #{memNum}
+    <delete id="unsubscribe">
+    	delete from subscribe where artist=#{artist} and audience=#{audience}
+    </delete>
+    
+	<select id="subList" resultType="com.pearl.domain.SubscribeVO">
+		select * from subscribe where artist = #{memNum}
+	</select>
+	
+	<select id="mySubList" resultType="com.pearl.domain.MemberVO">
+		select * from member 
+		where memnum in(select artist from subscribe where audience = #{memNum})
+		
+	</select>
+	
+	<select id="myGallery" resultType="com.pearl.domain.GalleryVO">
+		select * from board where boardtype = 'c' and memnum =#{memNum}
+		
 	</select>
       
   </mapper>

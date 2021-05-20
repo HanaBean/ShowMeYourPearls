@@ -46,7 +46,6 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.delete(memNum);
 	}
 
-
 	@Override
 	public MemberVO getProfile(Long memNum) {
 		return mapper.getProfile(memNum);
