@@ -75,7 +75,7 @@ li {
 								<tbody>
 									<tr th:each="p : ${list }">
 										<td>[[${p.payNum}]]</td>
-										<td><a th:href="@{/mypage/my}">[[${p.memNum}]]</a></td>
+										<td><a th:href="@{/admin/member/profile(memNum=${p.memNum})}">[[${p.memNum}]]</a></td>
 										<td><a th:href="@{/fund/get(fundNum=${p.fundNum})}">[[${p.fundNum}]]</a></td>
 										<td>[[${p.payTime}]]</td>
 										<td

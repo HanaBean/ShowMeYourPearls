@@ -6,7 +6,6 @@ import com.pearl.domain.AdminBoardVO;
 import com.pearl.domain.AdminFundVO;
 import com.pearl.domain.AdminPaymentVO;
 import com.pearl.domain.BoardVO;
-import com.pearl.domain.FundVO;
 import com.pearl.domain.MemberVO;
 import com.pearl.domain.SearchVO;
 
@@ -16,6 +15,7 @@ public interface AdminService {
 	List<AdminPaymentVO> paymentList();
 	List<AdminPaymentVO> searchPaymentList(SearchVO vo);
 	List<MemberVO> test(MemberVO vo);
+	List<MemberVO> adminmem(MemberVO vo);
 	List<BoardVO> boardpage(BoardVO vo);
 	List<AdminFundVO> fundpage(AdminFundVO vo);
 	List<AdminPaymentVO> paymentpage(AdminPaymentVO vo);

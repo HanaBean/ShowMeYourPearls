@@ -39,33 +39,30 @@ li {
 					style="display: inline-block; width: 75%">
 					<div class="block-7">
 						<div class="text-center p-4">
-							<form id="searchForm" action="#" method="get" class="search-form">
-								<div class="input-group show" style="margin-bottom: 10px;">
-									<button class="btn btn-primary dropdown-toggle" type="button"
-										id="dropdownMenuButton" data-toggle="dropdown"
-										style="width: 15%;">전체 보기</button>
-									<input type="hidden" name="type" value=""> <input
-										type="hidden" name="pageNum" value=""> <input
-										type="hidden" name="amount" value="">
-									<div class="dropdown-menu animated--fade-in"
-										aria-labelledby="dropdownMenuButton"
-										x-placement="bottom-start"
-										style="position: absolute; transform: translate3d(0px, 52px, 0px); top: 0px; left: 0px; will-change: transform; overflow: visible; aria-expanded: false;">
-										<span class="dropdown-item" onclick="searchType(this)"
-											data-srch="">전체 보기</span> <span class="dropdown-item"
-											onclick="searchType(this)" data-srch="T">제목</span> <span
-											class="dropdown-item" onclick="searchType(this)"
-											data-srch="C">내용</span> <span class="dropdown-item"
-											onclick="searchType(this)" data-srch="W">작성자</span>
-									</div>
+							 <form th:fragment="search"  id="searchForm" th:action="@{/admin/post}" method="get" class="search-form" >
+				<div class="input-group show" style="margin-bottom: 10px;">
+					<button class="btn btn-primary dropdown-toggle" type="button"
+						id="dropdownMenuButton" data-toggle="dropdown" style="width: 15%;">전체 보기</button>
+					<input type="hidden" name="currentPage" value="1"> 
+					<input type="hidden" name="amount" th:value="${vo.amount}"> 
+					<input type="hidden" name="pageAmount" th:value="${vo.pageAmount}">
+					<input type="hidden" name="searchType" th:value="${vo.searchType}">
+					<div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton" x-placement="bottom-start"
+						style="position: absolute; transform: translate3d(0px, 52px, 0px); top: 0px; left: 0px; will-change: transform; overflow: visible; 
+						aria-expanded: false;">
+						<span class="dropdown-item" onclick="searchType(this)" data-srch="">전체 보기</span> 
+						<span class="dropdown-item" onclick="searchType(this)" data-srch="title">글 번호</span> 
+						<span class="dropdown-item" onclick="searchType(this)" data-srch="content">글 제목</span> 
+						<span class="dropdown-item" onclick="searchType(this)" data-srch="writer">작성자</span>
+					</div>
 
-									<input type="text" class="form-control" placeholder="Search..."
-										style="width: 65%; margin-left: 10px; margin-right: 10px;"
-										name="keyword" id="keyword" value="">
-									<button class="btn btn-primary" type="button" id="srchBtn"
-										style="width: 15%;">Search</button>
-								</div>
-							</form>
+					<input type="text" class="form-control" placeholder="Search..."
+						style="width: 65%; margin-left: 10px; margin-right: 10px;"
+						name="searchKeyword" id="keyword" th:value="${vo.searchKeyword}">
+					<button class="btn btn-primary" type="button" id="srchBtn"
+						style="width: 15%;">Search</button>
+				</div>
+			</form>  
 							<hr>
 							<div class="block-7">
 								<button class="btn btn-danger" type="button" id="btnRemove"
@@ -84,7 +81,8 @@ li {
 										<td><input type="checkbox" name="cb" th:value="${ab.boardNum}"></td>
 										<td>[[${ab.boardNum}]]</td>
 										<td><a th:href="@{/gallery/get(boardNum=${ab.boardNum})}">[[${ab.boardTitle}]]</a></td>
-										<td><a th:href="@{/mypage/my}">[[${ab.memName}]]([[${ab.memEmail}]])</a></td>
+										<td><a th:href="@{/admin/member/profile(memNum=${ab.memNum})}">[[${ab.memName}]]([[${ab.memEmail}]])</a></td>
+										<!-- <td><a th:href="@{/mypage/my}">[[${ab.memName}]]</a></td> -->
 										<td>[[${ab.boardDate}]]</td>
 									</tr>
 								</tbody>
@@ -104,7 +102,51 @@ li {
 	<footer th:replace="fragments/footer :: footer"> </footer>
 
 </body>
+<th:block layout:fragment="script">
 <script th:inline="javascript">
+/*<![CDATA[*/
+
+$(document).ready(function(){
+		var type = [[${vo.searchType ==''?'':vo.searchType}]];
+		if(type == 'title'){
+			$('#dropdownMenuButton').html('글 번호');
+		} else if(type == 'content') {
+			$('#dropdownMenuButton').html('글 제목');
+		} else if(type == 'writer') {
+			$('#dropdownMenuButton').html('작성자');
+		} else {
+			$('#dropdownMenuButton').html('전체 보기');
+//	$('#searchForm #keyword').val('');
+		}
+});
+$("#srchBtn").click(function(e){
+	e.preventDefault();
+	var form = $('#searchForm');
+	searchBoard(form);
+});
+
+function searchBoard(form) {
+	/*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
+		var searchKeyword = $("#keyword");
+		var searchType = $('input[name=searchType]').val();
+		if(searchType !== ''&& searchType != null&&searchKeyword.val() === '') {
+			console.log(searchType);
+			alert("키워드를 입력해 주세요.");
+			searchKeyword.focus();
+			return false;
+		}
+		form.submit();
+}
+
+function searchType(item){
+		$('#dropdownMenuButton').html($(item).html());
+		console.log($(item).html());
+		if($(item).html()=='전체 보기') $('#searchForm #keyword').val('');
+		$('#searchForm input[name=searchType]').val($(item).attr('data-srch'));
+		console.log($('#searchForm input[name=searchType]').val());
+	}
+
+/*]]>*/
 	$(document).ready(function() {
 		$('input[name=cbAll]').on('change', function() {
 			$('input[name=cb]').prop('checked', this.checked);
@@ -127,4 +169,5 @@ li {
 
 	/*]]>*/
 </script>
+</th:block>
 </html>
