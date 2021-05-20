@@ -21,86 +21,24 @@
         </div>
       </div>
     </section>
+    <section>
     <nav th:replace="mypage/common :: nav"></nav>
-    <div>
-				    <img th:src="@{/images/profile.jpg}" width="300" height="300" class="pic2">
-				    	<span class="nickname2" >미세</span>
-			    		<span class="check2">프로필 사진 변경하기</span> 
-			    </div>
-    
-    <section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb " >
 			<div class="overlay"></div>
     	<div class="container">
     		<div class="row" id="row2">
     			<div class="row d-md-flex justify-content-center">
     				<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ">
-    			 
-    				<form action="#" class="appointment" id="appointment2">
-    					<div class="row">
-    						
-								<div class="col-md-6">
-									<div class="form-group">
-			              <input type="text" class="form-control" placeholder="E-mail">
-			            </div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-			              <input type="text" class="form-control" placeholder="Name">
-			            </div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-			              <input type="text" class="form-control" placeholder="NickName">
-			            </div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-			              <input type="text" class="form-control" placeholder="Password">
-			            </div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-			              <input type="text" class="form-control" placeholder="RePassword">
-			            </div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-			              <input type="text" class="form-control" placeholder="PhoneNumber">
-			            </div>
-								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-			    					<div class="form-field">
-	          					<div class="select-wrap">
-	                      <div class="icon"><span class="fa fa-chevron-down"></span></div>
-	                      <select name="" id="" class="form-control">
-	                      	<option value="">국민은행</option>
-	                        <option value="">신한은행</option>
-	                        <option value="">농협은행</option>
-	                        <option value="">우리은행</option>
-	                        <option value="">하나은행</option>
-	                        <option value="">카카오뱅크</option>
-	                      </select>
-	                    </div>
-			              </div>
-			    				</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-			              <input type="text" class="form-control" placeholder="Bank Account">
-			            </div>
-								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<input type="submit" id="join_btn" value="변경하기"
-											class="btn btn-primary py-3 px-4">
+    			 		<div class="styled-table" align="center"
+								style="width: 100%">
+									<div th:each="sub : ${list}" style="margin-bottom:10px;">
+<!-- 										<td><input type="checkbox" name="cb" th:value="${m.memNum}"></td> -->
+										<a th:href="@{/mypage(memNum=${sub.memNum})}" th:text="${sub.memName}"></a>
+										<input type="button" value="Subscribe" style="cursor:pointer;  background-color:black; color:white;" onclick="">
 									</div>
-								</div>
-    					</div>
-	          </form>
-    			</div>
-    		</div>
-    	</div>
+								</div>	
+	    			</div>
+	    		</div>
+	    	</div>
     	</div>
     </section>
 
