@@ -37,6 +37,7 @@ import com.pearl.domain.GalleryVO;
 import com.pearl.domain.PictureVO;
 import com.pearl.service.EmotionService;
 import com.pearl.service.GalleryService;
+import com.pearl.service.ReplyService;
 
 import lombok.Setter;
 
@@ -52,12 +53,36 @@ public class GalleryController {
 	@Setter(onMethod_ = @Autowired)
 	private EmotionService emotion;
 	
+	@Setter(onMethod_ = @Autowired)
+	private ReplyService reply;
+	
 	@RequestMapping("/list")
 	public ModelAndView list(@ModelAttribute("vo") GalleryVO vo) {
 		ModelAndView mv = new ModelAndView("gallery/gallery");
 		List<GalleryVO> list;
 		list = service.list(vo);
+		List<Long> funding = service.nowFunding();
+		for(int i=0; i<list.size();i++) {
+			GalleryVO gal = list.get(i);
+			int replyCount = reply.getCount(gal.getBoardNum().intValue());
+			gal.setReplyCount(replyCount);
+			for(int j=0; j<funding.size();j++) {
+				Long nowFund = funding.get(j);
+				if(gal.getMemNum()==nowFund) {
+					gal.setFunding(true);
+				}
+			}
+		}
 		mv.addObject("gallery", list);
+		//mv.addObject("funding", );
+		return mv;
+	}
+	
+	@RequestMapping("/fund")
+	public ModelAndView fund(Long memNum) {
+		ModelAndView mv = new ModelAndView();
+		Long fund = service.nowFund(memNum);
+		mv.setViewName("redirect:../fund/get?fundNum="+fund);
 		return mv;
 	}
 	
@@ -65,6 +90,8 @@ public class GalleryController {
 	public ModelAndView get(int boardNum) {
 		ModelAndView mv = new ModelAndView("gallery/get");
 		GalleryVO board = service.read(boardNum);
+		Long fund = service.nowFund(board.getMemNum());
+		board.setFunding(fund!=null?true:false);
 		mv.addObject("gallery", board);
 		mv.addObject("writer", service.readWriter(board.getMemNum()));
 		List<EmotionVO> emo = emotion.emoCount(boardNum);

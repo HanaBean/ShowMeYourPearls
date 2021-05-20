@@ -55,11 +55,14 @@
 	
     <section class="ftco-section bg-light">
 			<div class="container">
-				<div class="row mt-4 d-flex" th:each="gallery : ${myGallery}" th:object="${gallery.picture}">
-					<div class="col-md-6 col-lg-3 ftco-animate">
+				<div class="row mt-4 d-flex">
+					<div class="col-md-6 col-lg-3 ftco-animate" th:each="gallery : ${myGallery}" th:object="${gallery.picture}">
 						<div class="staff">
 							<div class="img-wrap d-flex align-items-stretch">
-								<div class="img align-self-stretch" th:style="'background-image: url(/gallery/display?fileName='+*{picPath}+'/'+*{picUuid}+'_'+*{picName}+'.'+*{picTail}+');'"></div>
+								<a th:href="|@{/gallery/get}?boardNum=${gallery.boardNum}|" 
+              class="img align-self-stretch" 
+              th:style="'background-image: url(/gallery/display?fileName='+*{picPath}+'/'+*{picUuid}+'_'+*{picName}+'.'+*{picTail}+');'" th:if="${gallery.picture} ne null">
+              </a>
 							</div>
 							<div class="text pt-3 px-3 pb-4 text-center">
  								<a th:href="@{/gallery/get(boardNum=${gallery.boardNum})}"><h3 th:text="${gallery.boardTitle}">Title</h3></a>

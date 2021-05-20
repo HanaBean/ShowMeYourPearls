@@ -15,4 +15,6 @@ public interface GalleryService {
 	void insert(GalleryVO vo); 
 	int update(GalleryVO vo); 
 	int delete(int boardNum);
+	List<Long> nowFunding();
+	Long nowFund(Long memNum);
 }
