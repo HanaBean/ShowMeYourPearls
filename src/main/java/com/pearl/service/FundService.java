@@ -11,7 +11,7 @@ import com.pearl.domain.RewardVO;
 public interface FundService {
 	List<FundVO> getList();
 	FundVO get(Long fundNum);
-	void insert(FundVO vo, ArrayList<RewardVO> itemList, MultipartHttpServletRequest mt) throws Exception;
+	void insert(FundVO vo);
 	int update(FundVO vo);
 	int delete(Long fundNum);
 }

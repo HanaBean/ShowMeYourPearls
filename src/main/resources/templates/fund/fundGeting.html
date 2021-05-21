@@ -27,86 +27,90 @@
 
 	<section class="ftco-section ftco-degree-bg">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 ftco-animate">
-					<div class="form-group">
-						<span th:text="${detail.fundTitle}" class="form-control"></span>
-					</div>
-					<p>
-						<img src="http://placehold.it/760x570" alt="" class="img-fluid">
-					</p>
-					<div class="pic_list">
-						<img
-							src="<spring:url value='/images/20210513/8665708139031.png' />" />
-						<!-- <a th:each="list : ${detail.picList}" 
-						th:text="${list.originalFileName}"></a> -->
-					</div>
-
-
-					<div class="sidebar-box ftco-animate">
-						<h3>Introduce</h3>
-						<p th:text="${detail.fundIntro}"></p>
-					</div>
-				</div>
-				<!-- .col-md-8 -->
-
-				<div class="col-lg-4 sidebar pl-lg-5 ftco-animate">
-					<div class="sidebar-box">
-						<div style="margin: 0px 7px 7px 0px;">
-							<img src="images/person_1.jpg" alt="Image placeholder"
-								style="width: 40px; height: 40px; border-radius: 20px;"> <span>정원빈</span><span>&nbsp;&nbsp;작가님
-								펀딩 </span> <span class="tagcloud"> <span> <a href="#"
-									class="tag-cloud-link"
-									style="background-color: #19a2b8; color: white;">Proceeding</a>
-							</span>
-							</span>
-
-
-						</div>
-
+			<form th:action="@{getPay}" method="POST" id="itemSubmit">
+				<div class="row">
+					<div class="col-lg-8 ftco-animate">
 						<div class="form-group">
-							<label>목표 금액</label>
-							<div>
-								<div th:text="${detail.fundMoney}" class="form-control"></div>
-							</div>
+							<input type="text" th:value="${detail.fundTitle}"
+								class="form-control" name="fundTitle" readonly>
 						</div>
-						<div>
-							<label>달성률</label>
-							<div text="100%" class="form-control"></div>
+						<p>
+							<img src="http://placehold.it/760x570" alt="" class="img-fluid">
+						</p>
+						<div class="pic_list">
+							<img
+								src="<spring:url value='/images/20210513/8665708139031.png' />" />
+							<!-- <a th:each="list : ${detail.picList}" 
+						th:text="${list.originalFileName}"></a> -->
 						</div>
-						<div>
-							<label>현재 모금액</label>
-							<div text="100000" class="form-control"></div>
-						</div>
-						<div>
-							<label>참여인원</label>
-							<div text class="form-control"></div>
-						</div>
-						<div>
-							<label>전시일자</label> <span
-								th:text="${#dates.format(detail.fundDday,'yyyy-MM-dd')}"
-								class="form-control"> </span>
+
+
+						<div class="sidebar-box ftco-animate">
+							<h3>Introduce</h3>
+							<p th:text="${detail.fundIntro}" name="fundIntro"></p>
 						</div>
 					</div>
-					<div class="sidebar-box ftco-animate">
-						<div class="categories">
-							<li><div>펀딩 기간</div>
-								<div class="row">
-									<div
-										th:text="${#dates.format(detail.fundStartDate,'yyyy-MM-dd')}"
-										style="width: 160px; position: relative; left: 15px;"></div>
-									<div
-										th:text="${#dates.format(detail.fundEndDate,'yyyy-MM-dd')}"
-										style="width: 160px; position: relative; right: 0px;"></div>
-								</div></li>
-							<div>
-								<select id="comboItem" name="comboItem" onchange="selectItem()">
-									<option value="상품선택">========= 상품 선택 =========</option>
-									<option th:each="reward : ${rewardList}"
-										th:text="${reward.rwrdName + '( ' + reward.rwrdPrice + ' 원 )' } "></option>
-								</select>
+					<!-- .col-md-8 -->
+
+					<div class="col-lg-4 sidebar pl-lg-5 ftco-animate">
+						<div class="sidebar-box">
+							<div style="margin: 0px 7px 7px 0px;">
+								<img src="images/person_1.jpg" alt="Image placeholder"
+									style="width: 40px; height: 40px; border-radius: 20px;">
+								<span>정원빈</span><span>&nbsp;&nbsp;작가님 펀딩 </span> <span
+									class="tagcloud"> <span> <a href="#"
+										class="tag-cloud-link"
+										style="background-color: #19a2b8; color: white;">Proceeding</a>
+								</span>
+								</span>
+
+
 							</div>
-							<form th:action="@{getPay}" method="POST" id="itemSubmit">
+
+							<div class="form-group">
+								<label>목표 금액</label>
+								<div>
+									<div th:text="${detail.fundMoney}" class="form-control"></div>
+								</div>
+							</div>
+							<div>
+								<label>달성률</label>
+								<div text="100%" class="form-control"></div>
+							</div>
+							<div>
+								<label>현재 모금액</label>
+								<div text="100000" class="form-control"></div>
+							</div>
+							<div>
+								<label>참여인원</label>
+								<div text class="form-control"></div>
+							</div>
+							<div>
+								<label>전시일자</label> <span
+									th:text="${#dates.format(detail.fundDday,'yyyy-MM-dd')}"
+									class="form-control"> </span>
+							</div>
+						</div>
+
+						<div class="sidebar-box ftco-animate">
+							<div class="categories">
+								<li><div>펀딩 기간</div>
+									<div class="row">
+										<div
+											th:text="${#dates.format(detail.fundStartDate,'yyyy-MM-dd')}"
+											style="width: 160px; position: relative; left: 15px;"></div>
+										<div
+											th:text="${#dates.format(detail.fundEndDate,'yyyy-MM-dd')}"
+											style="width: 160px; position: relative; right: 0px;"></div>
+									</div></li>
+								<div>
+									<select id="comboItem" name="comboItem" onchange="selectItem()">
+										<option value="상품선택">========= 상품 선택 =========</option>
+										<option th:each="reward : ${rewardList}"
+											th:text="${reward.rwrdName + '( ' + reward.rwrdPrice + ' 원 )' } "></option>
+									</select>
+								</div>
+
 								<div>
 
 									<h5>선택한 상품</h5>
@@ -125,65 +129,59 @@
 
 								<input type="hidden" name="fundNum" th:value="${detail.fundNum}">
 								<input type="hidden" name="itemList" id="itemList">
-							</form>
 
-							<div class="row">
-								<span style="margin: 0 10px 2px 15px;"> <input
-									type="button" id="funding" onclick="addItemList()"
-									value="Attend Funding" class="btn btn-info d-block px-2 py-3"></span>
-								<span> <input type="button" id="update" value="Update"
-									class="btn btn-primary d-block px-2 py-3">
-								</span> <span> <input type="button" id="delete" value="Delete"
-									class="btn btn-danger d-block px-2 py-3">
-								</span>
 
 
 							</div>
-
-
-
+						</div>
+						<div class="row">
+							<span style="margin: 0 10px 2px 15px;"> <input
+								type="submit" id="funding" form="itemSubmit"
+								value="Attend Funding" class="btn btn-info d-block px-2 py-3"></span>
+							<span> <input type="button" id="update" value="Update"
+								class="btn btn-primary d-block px-2 py-3">
+							</span> <span> <input type="button" id="delete" value="Delete"
+								class="btn btn-danger d-block px-2 py-3">
+							</span>
 						</div>
 					</div>
-
-
 				</div>
-
-			</div>
+			</form>
 		</div>
 	</section>
 	<!-- .section -->
 
 	<script>
 		var count = 0;
-		var countItem =0;
+		var countItem = 0;
 		var total = 0;
+		var basic = 1;
 
 		function selectItem() {
 			var item = $("#comboItem option:selected").text();
 			$("#attach-item")
 					.prepend(
 							'<li id="select-item'+count+'"><div class="row" style="position: relative; left: 20px">'
-									+ '<div style="width: 60%;"><div id="selectProduct'+count
+									+ '<div style="width: 60%;"><input type="text" id="selectProduct'+count
 					+'" name="rwrdName'
-					+'" style="float: left; margin: 0 10px 0 0;">'
-									+ item
-									+ '</div>'
+					+'" style="float: left; margin: 0 10px 0 0;" value="'+item+'" readonly>'
+
 									+ '</div><div>'
 									+ '<div class="tagcloud" style="float: left;"><a class="tag-cloud-link" onclick="cntDown('
 									+ count
 									+ ')">-</a>'
-									+ '</div><div id="cntItem'+count+'" name="rwrdCnt" style="text-size: 15px; float: left; padding: 0 4px 0 0;">1</div>'
+									+ '</div><div id="cntItem'+count+'"  style="text-size: 15px; float: left; padding: 0 4px 0 0;">1</div>'
 									+ '<div class="tagcloud" style="float: left;"><a class="tag-cloud-link" onclick="cntUp('
 									+ count
 									+ ')">+</a>'
 									+ '</div><div class="tagcloud" style="float: left;"><a class="tag-cloud-link" onclick="deleteItem('
 									+ count
 									+ ')">del</a>'
-									+ '</div><div id=subTotal'+count+'></div></div></div></li>'
-									+ '<input type ="hidden" name = "rwrdNum" value="'+count+'">');
+									+ '</div><div id=subTotal'+count+'></div></div></div>'
+									+ '<input type ="hidden" id = "hidden'+count+'" name = "rwrdCnt" value=1></li>');
 
-			var id2 = '#select-item' + count;
-			var name = $(id2).text();
+			var id2 = '#selectProduct' + count;
+			var name = $(id2).val();
 			var index = name.indexOf('(');
 			var index2 = name.indexOf('원');
 			var priceFind = name.substring(index + 1, index2).trim();
@@ -194,8 +192,8 @@
 			count++;
 			countItem++;
 			totalPrice();
-
 		}
+
 		function deleteItem(count) {
 			var id = '#select-item' + count;
 			$(id).remove();
@@ -209,9 +207,11 @@
 			var cnt = parseInt(stat, 10);
 			cnt++;
 			$(id).text(cnt);
+			$('#hidden' + count).val(cnt);
+			console.log("hidden count: " + $('#hidden' + count).val());
 			//
-			var id2 = '#select-item' + count;
-			var name = $(id2).text();
+			var id2 = '#selectProduct' + count;
+			var name = $(id2).val();
 			var index = name.indexOf('(');
 			var index2 = name.indexOf('원');
 			var priceFind = name.substring(index + 1, index2).trim();
@@ -233,10 +233,11 @@
 				cnt--;
 			}
 			$(id).text(cnt);
+			$('#hidden' + count).val(cnt);
 
 			//
-			var id2 = '#select-item' + count;
-			var name = $(id2).text();
+			var id2 = '#selectProduct' + count;
+			var name = $(id2).val();
 			var index = name.indexOf('(');
 			var index2 = name.indexOf('원');
 			var priceFind = name.substring(index + 1, index2).trim();
@@ -260,29 +261,40 @@
 			console.log("총합 : " + total);
 			$('#tPrice').val(total);
 		}
-		
-		function addItemList(){
-			var id2 = '#select-item' + count;
-			var name = $(id2).text();
+
+		function addItemList() {
+			/* var id2 = '#selectProduct' + count;
+			var name = $(id2).val();
 			var index = name.indexOf('(');
 			var index2 = name.indexOf('원');
 			var priceFind = name.substring(index + 1, index2).trim();
 			var price = parseInt(priceFind, 10);
-
-			var object = new Array();
+			
+			
+			var a = [1, 2];
+			var b = [3, 4];
+			var c = [5, 6];
+			var itemC = [a,b,c];
+			console.log("배열 : " + itemC);
+			$('itemList').val(itemC);
+			var control = $('itemList').val();
+			console.log("itemList:"+control);
+			
+			리스트를 배열에 담아서 input type hidden에 전송
+			var object 
 			var reward = {rwrdName: "ab", rwrdCnt: "3"};
 			var reward2 = {rwrdName: "bc", rwrdCnt: "3"};
 			var reward3 = {rwrdName: "cd", rwrdCnt: "3"};
 				object.push(reward);
 				object.push(reward2);
-				object.push(reward3);
-			console.log("배열 : "+object);
-// 			for(int i = 0;i<=countItem;i++){
-// 			}
+				object.push(reward3); 
+			console.log("배열 : ",object);
+			for(int i = 0;i<=countItem;i++){
+			}
 			$('itemList').val(object);
 			var con = $('itemList').val();
-			console.log("itemList:"+con);
-			//$('#itemSubmit').submit();
+			console.log("itemList:"+con);  */
+			$('#itemSubmit').submit();
 		}
 	</script>
 	<footer th:replace="fragments/footer :: footer"></footer>

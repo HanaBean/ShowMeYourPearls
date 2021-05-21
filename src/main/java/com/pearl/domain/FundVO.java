@@ -18,10 +18,11 @@ public class FundVO {
 	private Date fundStartDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fundEndDate;
-	private int fundMoney;
+	private int fundMoney, rwrdTotal;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fundDday;
 	private String fundTitle;
 	private String fundIntro;
-	private List<PicDTO> picList;
+	private PictureVO pic;
+	private RewardVO[] rwvo;
 }

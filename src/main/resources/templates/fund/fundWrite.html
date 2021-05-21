@@ -26,7 +26,9 @@
 	</section>
 
 	<section class="ftco-section ftco-degree-bg">
-		<form th:action="@{|/fund/writeFund?${_csrf.parameterName}=${_csrf.token}|}" method="POST" id="writeForm" enctype="multipart/form-data">
+		<form
+			th:action="@{|/fund/writeFund?${_csrf.parameterName}=${_csrf.token}|}"
+			method="POST" id="writeForm" enctype="multipart/form-data">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-8 ftco-animate">
@@ -35,9 +37,13 @@
 								placeholder="Write your funding title." name="fundTitle"
 								id="fundTitle">
 						</div>
-						<div>
-							<img src="http://placehold.it/760x570" class="img-fluid">
+						
+						<div class="custom-file" id="inputFile" style="margin:3px 0 20px 0;">
+							<input name="file" type="file" class="custom-file-input"
+								id="customFile"> <label class="custom-file-label"
+								for="customFile">사진을 업로드 하세요.</label>
 						</div>
+						<div class="select_img"><img id="uploadImg" src="" /></div>
 						<div>
 							<textarea name="fundIntro" id="fundIntro" rows="10" cols="88"
 								placeholder="Write here something"></textarea>
@@ -55,8 +61,9 @@
 									placeholder="Target Amount" id="fundMoney" name="fundMoney">
 							</div>
 							<div>
-								<span>전시일자 <input type="text" placeholder="YYYY-MM-DD"
-									class="form-control" name="fundDday" id="fundDday">
+								<span>전시일자 <input type="text"
+									class="form-control appointment_date" placeholder="Fund_Day"
+									name="fundDday" id="fundDday">
 								</span>
 							</div>
 						</div>
@@ -66,9 +73,10 @@
 									<div class="row">
 										<input type="text" placeholder="Start Date"
 											name="fundStartDate" id="fundStartDate"
+											class="form-control appointment_date"
 											style="width: 160px; position: relative; left: 15px;">
 										<input type="text" placeholder="End Date" name="fundEndDate"
-											id="fundEndDate"
+											id="fundEndDate" class="form-control appointment_date"
 											style="width: 160px; position: relative; right: 0px;">
 									</div></li>
 								<li>
@@ -81,36 +89,38 @@
 										</div>
 									</div>
 									<div class="row">
-										<input type="text" id="productName" name="rwrdName" placeholder="Product Name"
+										<input type="text" id="productName" name="rwrdName"
+											placeholder="Product Name"
 											style="width: 160px; position: relative; left: 15px;">
-										<input type="text" id="productPrice" name="rwrdPrice" placeholder="Price"
+										<input type="text" id="productPrice" name="rwrdPrice"
+											placeholder="Price"
 											style="width: 160px; position: relative; right: 0px;">
 									</div>
 								</li>
-									<h6 style="font-weight: 800;">등록된 상품</h6>
-									<br>
+								<h6 style="font-weight: 800;">등록된 상품</h6>
+								<br>
 								<div id="attach-item">
 									<input type="hidden" name="itemList" id="itemList">
 									<div id="register-item">
-										<li id="item-form" style="float: left; width:100%;">
+										<li id="item-form" style="float: left; width: 100%;">
 											<div id="item-name" style="float: left; margin: 0 20px 0 0;">
 											</div>
-											<div id="item-price" style="float: left;"> </div>
-										
+											<div id="item-price" style="float: left;"></div>
+
 										</li>
-										
+
 									</div>
 
 								</div>
-								<div>
-									<input type="file" id="files" name="files" multiple="multiple">
-								</div>
-								
+
+
 								<div>
 									<input type="submit" value="Start Project"
-										class="btn btn-primary d-block px-2 py-3" style="float:left; width:50%;"><input
-										type="button" value="Cancel" onclick="history.back(-1);"
-										class="btn btn-secondary d-block px-2 py-3" style="float:left; width:50%">
+										class="btn btn-primary d-block px-2 py-3"
+										style="float: left; width: 50%;"><input type="button"
+										value="Cancel" onclick="history.back(-1);"
+										class="btn btn-secondary d-block px-2 py-3"
+										style="float: left; width: 50%">
 								</div>
 
 
@@ -134,21 +144,26 @@
 			var productPrice = $("#productPrice");
 			var item = productName.val();
 			var price = productPrice.val();
-			
+
 			$("#attach-item")
 					.prepend(
 							'<div id="register-item'+count+'"><li id="item-form" style="float: left; width:80%;">'
-							+'<div id="item-name" name="rewardName" style="float: left; margin: 0 20px 0 0;">'
-							+ item
-							+'</div><div id="item-price'+count+' name="rewardPrice'+count+'"  style="float: left;">'
-							+ price
-							+'</div></li><div class="tagcloud" style="float:left; width:20%;">'
-							+'<a class="tag-cloud-link" onclick="deleteItem('+count+')">delete</a></div></div>');
-			itemList.push({"productName":item, "productPrice":price});
+									+ '<div id="item-name" name="rewardName" style="float: left; margin: 0 20px 0 0;">'
+									+ item
+									+ '</div><div id="item-price'+count+' name="rewardPrice'+count+'"  style="float: left;">'
+									+ price
+									+ '</div></li><div class="tagcloud" style="float:left; width:20%;">'
+									+ '<a class="tag-cloud-link" onclick="deleteItem('
+									+ count + ')">delete</a></div></div>');
+			itemList.push({
+				"productName" : item,
+				"productPrice" : price
+			});
 			productName.val("");
 			productPrice.val("");
-			itemList.forEach(function(element){
-				console.log(itemList[count].productName +", "+itemList[count].productPrice);
+			itemList.forEach(function(element) {
+				console.log(itemList[count].productName + ", "
+						+ itemList[count].productPrice);
 			});
 			count++;
 			var items = $("#itemList");
@@ -156,7 +171,7 @@
 		}
 
 		function deleteItem(cnt) {
-			var id = '#register-item'+cnt;
+			var id = '#register-item' + cnt;
 			$(id).remove();
 		}
 	</script>
