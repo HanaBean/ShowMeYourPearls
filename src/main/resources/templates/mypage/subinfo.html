@@ -28,7 +28,7 @@ td {
   }
 
 .subname {
-	width:300px;
+	width:400px;
 }
 
 h5 {
@@ -66,7 +66,7 @@ h5 {
     				<h5>구독 정보</h4><hr><hr><hr><hr><hr><hr>
    				<table class="sub-table" >
 							<thead>
-								<th>회원 번호</th>
+								<th>프로필 사진</th>
 								<th class="subname">회원 닉네임</th>
 								<th>구독 관리</th>
 							</thead>
@@ -74,10 +74,9 @@ h5 {
 								<tr th:each="sub : ${list}" >
 									<td><a href="#"><img th:src="@{/images/person_1.jpg}" alt="Image placeholder" class="img-fluid" 
 									style="width: 40px;	height:40px; border-radius: 20px;"></a>&nbsp&nbsp&nbsp
-									<a th:href="@{/mypage(memNum=${sub.memNum})}" th:text="${sub.memNum}"></a></td>
-									<td><a th:href="@{/mypage(memName=${sub.memName})}" th:text="${sub.memName}">
+									<td><a th:href="@{/mypage(memNum=${sub.memNum})}" th:text="${sub.memName}">
 									</a></td>
-									<td><input type="button" value="Subscribe" style="cursor:pointer; background-color:#939596; border-radius:5px;"  onclick=""></td>
+									<td><input type="button" value="Subscribe" style="cursor:pointer; background-color:#343a40; color:white; border-radius:5px;"  onclick=""></td>
 								</tr>	
 							</tbody>
 						</table>

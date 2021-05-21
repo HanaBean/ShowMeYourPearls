@@ -6,6 +6,10 @@
 li {
 	list-style: none;
 }
+
+.fundname{
+	width:100px;
+}
 </style>
 <body>
 	<header th:replace="fragments/header :: header"> </header>
@@ -69,7 +73,7 @@ li {
 								<thead style="color: black;">
 									<th><input type="checkbox" name="cbAll" value="cbAll"></th>
 									<th>펀딩 번호</th>
-									<th>펀딩 명</th>
+									<th class="fundname">펀딩 명</th>
 									<th>작가명(이메일)</th>
 									<th>펀딩 기간</th>
 									<th>목표 금액</th>
