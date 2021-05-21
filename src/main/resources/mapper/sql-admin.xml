@@ -14,48 +14,185 @@
 	</select>
 	
    <select id="test" resultType="com.pearl.domain.MemberVO"> 
-     select*from (select rownum rn, m.* from member m) where rn between #{pagiInfo.firstRecordIndex} and #{pagiInfo.lastRecordIndex}
+    select*from (select rownum rn, m.* from member m where memlevel='member' <include refid="memsearch" />) 
+    where rn between #{pagiInfo.firstRecordIndex} and #{pagiInfo.lastRecordIndex} 
+   </select>
+   
+  <sql id="memsearch">
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="searchKeyword != null and searchKeyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="searchType != null and searchType != ''">
+					<choose>
+						<when test="'title'.equals(searchType)">
+							AND memnum LIKE '%' || #{searchKeyword} || '%'
+						</when>
+						<when test="'content'.equals(searchType)">
+							AND mememail LIKE '%' || #{searchKeyword} || '%'
+						</when>
+						<when test="'writer'.equals(searchType)">
+							AND memname LIKE '%' || #{searchKeyword} || '%'
+						</when>
+					</choose>
+				</when>
+				<!-- 검색 유형이 없을 때 -->
+				<otherwise>
+					AND
+						(
+							   memnum LIKE '%' || #{searchKeyword} || '%'
+							OR mememail LIKE '%' || #{searchKeyword} || '%'
+							OR memname LIKE '%' || #{searchKeyword} || '%'
+						)
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
+	
+    <select id="adminmem" resultType="com.pearl.domain.MemberVO"> 
+      select*from (select rownum rn, m.* from member m where memlevel='admin' <include refid="memsearch" />) 
+      where rn between #{pagiInfo.firstRecordIndex} and #{pagiInfo.lastRecordIndex} 
    </select>
    
    <select id="selectTotalCount" resultType="int">
-      select count(*) from member
-      <include refid="sql-search.search" />
+       select count(*) from member where memlevel ='member'
+   </select>
+   <select id="selectTotalCount5" resultType="int">
+       select count(*) from member where memlevel ='admin'
    </select>
    
    <select id="boardpage" resultType="com.pearl.domain.BoardVO">
-   	select * from (select row_number() over(order by boarddate) rn,x.* 
-	from (select b.*, m.memname, m.mememail from board b,member m where b.memnum = m.memnum) x )
-	where rn between #{pagiInfo.firstRecordIndex} and #{pagiInfo.lastRecordIndex}
+   	select*from
+ 	(select row_number() over (order by boarddate desc) rn, b.*, m.memname, m.mememail
+    from board b, member m
+    where b.memnum = m.memnum <include refid="boardsearch" /> )
+    where rn between #{pagiInfo.firstRecordIndex} and #{pagiInfo.lastRecordIndex}
    </select>
    
+    <sql id="boardsearch">
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="searchKeyword != null and searchKeyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="searchType != null and searchType != ''">
+					<choose>
+						<when test="'boardnum'.equals(searchType)">
+						and	boardnum LIKE '%' || #{searchKeyword} || '%'
+						</when>
+						<when test="'boardtitle'.equals(searchType)">
+						and boardtitle LIKE '%' || #{searchKeyword} || '%'
+						</when>
+						<when test="'boardwriter'.equals(searchType)">
+							AND memname LIKE '%' || #{searchKeyword} || '%'
+						</when>
+					</choose>
+					
+				</when>
+				<!-- 검색 유형이 없을 때 -->
+				<otherwise>
+					AND
+						(
+							   boardnum LIKE '%' || #{searchKeyword} || '%'
+							OR boardtitle LIKE '%' || #{searchKeyword} || '%'
+							OR memname LIKE '%' || #{searchKeyword} || '%'
+						)
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
    
    <select id="selectTotalCount2" resultType="int">
-      select count(*) from board join member using(memnum) where boardtype='c'
-      <include refid="sql-search.search" />
+      select count(*) from board b, member m, picture p where b.memnum= m.memnum and b.boardnum = p.postnum and boardtype='c'
    </select>
 
  	<select id="fundpage" resultType="com.pearl.domain.AdminFundVO">
          select*from (select row_number() over(order by funddday) rn, y.*
     from  ( select f.*, x.nowtotal, m.memname, m.mememail from member m, fund f,
     (select f.fundnum, nvl(sum(paytotal),0) nowtotal from FUND F full outer join payment p on f.fundnum = p.fundnum
-     group by f.fundnum) x where f.memnum = m.memnum and x.fundnum = f.fundnum) y  )
+     group by f.fundnum) x where f.memnum = m.memnum and x.fundnum = f.fundnum ) y <include refid="fundsearch" /> )
      where rn between #{pagiInfo.firstRecordIndex} and #{pagiInfo.lastRecordIndex}
   	</select>
-
+  	
+ <sql id="fundsearch">
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="searchKeyword != null and searchKeyword != ''">
+		where
+		<trim prefixOverrides="and">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="searchType != null and searchType != ''">
+					<choose>
+						<when test="'fundnum'.equals(searchType)">
+						and	fundnum LIKE '%' || #{searchKeyword} || '%'
+						</when>
+						<when test="'fundtitle'.equals(searchType)">
+						and fundtitle LIKE '%' || #{searchKeyword} || '%'
+						</when>
+						<when test="'fundwriter'.equals(searchType)">
+							AND memname LIKE '%' || #{searchKeyword} || '%'
+						</when>
+					</choose>
+					
+				</when>
+				<!-- 검색 유형이 없을 때 -->
+				<otherwise>
+					AND
+						(
+							   fundnum LIKE '%' || #{searchKeyword} || '%'
+							OR fundtitle LIKE '%' || #{searchKeyword} || '%'
+							OR memname LIKE '%' || #{searchKeyword} || '%'
+						)
+				</otherwise>
+			</choose>
+			</trim>
+		</if>
+	</sql>
 
 	<select id="selectTotalCount3" resultType="int">
-      select count(*) from fund f, member m, payment p where f.fundnum = p.fundnum and f.memnum = m.memnum 
-      <include refid="sql-search.search" />
+      select count(*) from fund 
    </select>
 
  	<select id="paymentpage" resultType="com.pearl.domain.AdminPaymentVO">
-  	select*from (select rownum rn, p.* from payment p) where rn between #{pagiInfo.firstRecordIndex} and #{pagiInfo.lastRecordIndex}
+  	select*from (select rownum rn, p.* from payment p <include refid="paysearch" /> ) where rn between #{pagiInfo.firstRecordIndex} and #{pagiInfo.lastRecordIndex}
   	</select>
 
+<sql id="paysearch">
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="searchKeyword != null and searchKeyword != ''">
+		where
+		<trim prefixOverrides="and">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="searchType != null and searchType != ''">
+					<choose>
+						<when test="'paynum'.equals(searchType)">
+						and	paynum LIKE '%' || #{searchKeyword} || '%'
+						</when>
+						<when test="'memnum'.equals(searchType)">
+						and memnum LIKE '%' || #{searchKeyword} || '%'
+						</when>
+						<when test="'fundnum'.equals(searchType)">
+							AND fundnum LIKE '%' || #{searchKeyword} || '%'
+						</when>
+					</choose>
+					
+				</when>
+				<!-- 검색 유형이 없을 때 -->
+				<otherwise>
+					AND
+						(
+							   paynum LIKE '%' || #{searchKeyword} || '%'
+							OR memnum LIKE '%' || #{searchKeyword} || '%'
+							OR fundnum LIKE '%' || #{searchKeyword} || '%'
+						)
+				</otherwise>
+			</choose>
+			</trim>
+		</if>
+	</sql>
 
 	<select id="selectTotalCount4" resultType="int">
       select count(*) from payment 
-      <include refid="sql-search.search" />
    </select>
 
 
@@ -69,7 +206,6 @@
 		f
 		where f.memNum = m.memNum
 	</select>
-
 
 
 	<select id="paymentList"

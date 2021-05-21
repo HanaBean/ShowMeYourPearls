@@ -79,6 +79,21 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public List<MemberVO> adminmem(MemberVO vo) {
+		List<MemberVO> adminmem = Collections.emptyList();
+		int count = mapper.selectTotalCount5(vo);
+		log.info("list count:"+count);
+		PaginationInfo pagiInfo = new PaginationInfo(vo);
+		pagiInfo.setTotalCount(count);
+		
+		vo.setPagiInfo(pagiInfo);
+		
+		if(count>0) {
+			adminmem=mapper.adminmem(vo);
+		}
+		return adminmem;
+	}
+	@Override
 	public List<BoardVO> boardpage(BoardVO vo) {
 		List<BoardVO> boardpage = Collections.emptyList();
 		int count = mapper.selectTotalCount2(vo);
@@ -125,5 +140,6 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return paymentpage;
 	}
+
 
 }

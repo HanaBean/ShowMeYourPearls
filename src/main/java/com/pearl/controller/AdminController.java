@@ -18,6 +18,7 @@ import com.pearl.domain.AdminPaymentVO;
 import com.pearl.domain.BoardVO;
 import com.pearl.domain.MemberVO;
 import com.pearl.domain.SearchVO;
+import com.pearl.paging.Criteria;
 import com.pearl.service.AdminService;
 import com.pearl.service.MemberService;
 
@@ -33,12 +34,21 @@ public class AdminController {
 	@Setter(onMethod_ = @Autowired)
 	private AdminService adminService;
 
-	   
+	
 	   @RequestMapping("/member")
 	   public ModelAndView member(@ModelAttribute("vo") MemberVO vo) {
 	      ModelAndView mv = new ModelAndView("admin/member");
 	      vo.setAmount(10);
 	      List<MemberVO> tist = adminService.test(vo);
+	      mv.addObject("list", tist);
+	      return mv;
+	   }
+	   
+	   @RequestMapping("/adminmem")
+	   public ModelAndView adminmem(@ModelAttribute("vo") MemberVO vo) {
+	      ModelAndView mv = new ModelAndView("admin/adminmem");
+	      vo.setAmount(10);
+	      List<MemberVO> tist = adminService.adminmem(vo);
 	      mv.addObject("list", tist);
 	      return mv;
 	   }

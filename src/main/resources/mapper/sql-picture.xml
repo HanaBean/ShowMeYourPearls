@@ -13,9 +13,13 @@
 		select * from picture where postnum = #{boardNum} and picclass = 'c'
 	</select>
 	
+	<select id="getProfile" resultType="com.pearl.domain.PictureVO">
+		select * from picture where postnum = #{memNum} and picclass = 'p'
+	</select>
+	
 	<update id="updatePic">
 		update picture set picUuid=#{picUuid}, picPath=#{picPath}, picName=#{picName}, picTail=#{picTail}
-		where postNum = #{postNum} and picclass = 'c'
+		where postNum = #{postNum} and picclass = #{picClass}
  	</update>
 	
 </mapper>

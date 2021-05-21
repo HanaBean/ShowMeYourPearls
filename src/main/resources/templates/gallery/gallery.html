@@ -6,7 +6,7 @@
 
     <header th:replace="/fragments/header.html::header"></header>
     
-    <section class="hero-wrap hero-wrap-2" th:style="'background-image: url('+@{/images/bg_2.jpg}+');'" data-stellar-background-ratio="0.5">
+    <section class="hero-wrap hero-wrap-2" th:style="'background-image: url('+@{/images/pearl.jpg}+');'" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-end">
@@ -52,15 +52,16 @@
               <div class="text pt-3 px-3 pb-4 text-center">
               	<div class="meta mb-2">
                   <div><a th:href="|@{/gallery/get}${vo.makeQueryString(vo.currentPage)}&boardNum=${gallery.boardNum}|" th:text="${gallery.boardTitle}"></a>
-                  <a th:href="|@{/gallery/get}${vo.makeQueryString(vo.currentPage)}&boardNum=${gallery.boardNum}|" class="meta-chat"><span class="fa fa-comment"></span> [[${gallery.replyCount}]]</a></div><br>
+                  <a th:href="|@{/gallery/get}${vo.makeQueryString(vo.currentPage)}&boardNum=${gallery.boardNum}|" class="meta-chat"><span class="fa fa-comment"></span> [[${gallery.replyCount}]]</a></div>
+                  <span class="position mb-2" th:text="${gallery.boardDate}">Date</span>
                   <div th:inline="text"><a th:href="@{/mypage(memNum=${gallery.memNum})}" th:text="${gallery.memName}"></a><a th:if="${gallery.funding}" th:href="@{/gallery/fund(memNum=${gallery.memNum})}" class="tag-cloud-link" style="background-color:#19a2b8; color:white; margin-left:5px;">Proceeding</a></div>
                 </div>
                 <div class="faded">
 									<ul class="ftco-social text-center">
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-google"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"></span></a></li>
+		                <li class="ftco-animate"><a class="d-flex align-items-center justify-content-center" id="like"><span class="fa" th:text="${gallery.like>0?gallery.like:0}"></span></a></li>
+		                <li class="ftco-animate"><a class="d-flex align-items-center justify-content-center" id="sad"><span class="fa" th:text="${gallery.sad>0?gallery.sad:0}"></span></a></li>
+		                <li class="ftco-animate"><a class="d-flex align-items-center justify-content-center" id="angry"><span class="fa" th:text="${gallery.angry>0?gallery.angry:0}"></span></a></li>
+		                <li class="ftco-animate"><a class="d-flex align-items-center justify-content-center" id="happy"><span class="fa" th:text="${gallery.happy>0?gallery.happy:0}"></span></a></li>
 		              </ul>
 	              </div>
               </div>

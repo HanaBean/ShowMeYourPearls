@@ -15,12 +15,20 @@
 	margin-left: 1em;
 	font-size: 3em;
 	font-weight: bold;
+	text-align: center;
 /* 	top: 70%; */
 }
 
+.row{
+	borderwidth : 1px;
+	
+}
+
+
+
+
 #row2{
 	margin:12em;
-	float:left;
 	} 
 
 .check2 {
@@ -68,46 +76,51 @@
 		<div class="container"></div>
 		<div class="row" id="row2">
 			<div class="row d-md-flex justify-content-center">
-				<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
-					<div class="upload">
-						<!-- <input type="file" id="image" accept="image/*" onchange="setThumbnail(event)" style="display:none" /> 
-				 		<button class="upload_btn">프로필 사진 바꾸기</button>
-						<div id="image_container"></div> -->
-						<span class="nickname2" th:text="${meminfo.memName}"></span>
-					</div>
+				<div class="col-lg-6">
+				<img style="margin-left:0;" alt="프로필 사진이 없습니다." th:src="@{'/gallery/display?fileName='+${meminfo.profile.picPath}+'/'+${meminfo.profile.picUuid}+'_'+${meminfo.profile.picName}+'.'+${meminfo.profile.picTail}}" id="profileImg" width="300" height="300"/>
+						<p class="nickname2" th:text="${meminfo.memName}"></p><hr>
+					
 
-					<form th:action="@{/mypage/editsend}" class="appointment"
-						id="appointment2" method="post">
+					<form th:action="@{|/mypage/editsend?${_csrf.parameterName}=${_csrf.token}|}" class="appointment"
+						id="appointment2" method="post" enctype="multipart/form-data">
+						<div class="form-group row">
+		            <div class="col-sm-10">
+		                <div class="custom-file" id="inputFile">
+		                    <input name="file" type="file" class="custom-file-input" id="customFile">
+		                    <label class="custom-file-label" for="customFile">프로필 사진 선택</label>
+		                </div>
+		            </div>
+	        	</div><br><br>
 						<input type="hidden" th:value="${meminfo.memNum}" name="memNum">
 						<div class="row">
 
 							<div class="col-md-6">
 								<div class="form-group" style="border-color: black">
-									<label class="label">이메일</label> <input type="text"
-										class="form-control" id="memEmail" name="memEmail"
+									<label class="label">이메일</label> 
+									<input type="text" class="form-control" id="memEmail" name="memEmail"
 										th:value="${meminfo.memEmail}" style="border-color: black"
 										readonly>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="label" for="memName">닉네임</label> <input
-										type="text" class="form-control" id="memName" name="memName"
+									<label class="label" for="memName">닉네임</label> 
+									<input type="text" class="form-control" id="memName" name="memName"
 										th:value="${meminfo.memName}">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="label" for="PhoneNumber">전화 번호</label> <input
-										type="text" class="form-control" id="PhoneNumber"
+									<label class="label" for="PhoneNumber">전화 번호</label> 
+									<input type="text" class="form-control" id="PhoneNumber"
 										name="memPhone" placeholder="PhoneNumber"
 										th:value="${meminfo.memPhone}">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="label" for="Password">비밀번호</label> <input
-										type="password" class="form-control" id="Password"
+									<label class="label" for="Password">비밀번호</label> 
+									<input type="password" class="form-control" id="Password"
 										name="memPass" placeholder="Password"
 										th:value="${meminfo.memPass}">
 								</div>
@@ -159,34 +172,48 @@
 
 	<footer th:replace="fragments/footer :: footer"> </footer>
 	<script th:inline="javascript">
-
-const browseBtn = document.querySelector('.upload_btn');
-const realInput = document.querySelector('#image');
-
-browseBtn.addEventListener('click',()=>{
-realInput.click();
-
-});
-function setThumbnail(event) { 
-
-var reader = new FileReader();
-
-reader.onload = function(event) { 
-	var img = document.createElement("img"); 
-	img.setAttribute("src", event.target.result); 
-	document.querySelector("div#image_container").appendChild(img); 
-	
-	}; 
-	
-	reader.readAsDataURL(event.target.files[0]); }
-$(document).ready(function(){
-
-	
-	
-	
-	
-	
-});
+		
+// 		const browseBtn = document.querySelector('.upload_btn');
+// 		const realInput = document.querySelector('#image');
+		
+// 		browseBtn.addEventListener('click',()=>{
+// 		realInput.click();
+		
+// 		});
+// 		function setThumbnail(event) { 
+		
+// 		var reader = new FileReader();
+		
+// 		reader.onload = function(event) { 
+// 			var img = document.createElement("img"); 
+// 			img.setAttribute("src", event.target.result); 
+// 			document.querySelector("div#image_container").appendChild(img); 
+			
+// 			}; 
+			
+// 			reader.readAsDataURL(event.target.files[0]); }
+			
+		$(".custom-file-input").change(function() {
+			console.log(""+$(this).val());
+			if(this.files&& this.files[0]){
+				var reader = new FileReader;
+				reader.onload = function(data){
+					$('#profileImg').attr("src", data.target.result).width(400);    
+				}
+				reader.readAsDataURL(this.files[0]);
+			}
+		  var fileName = $(this).val().split("\\").pop();
+		  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+		});
+			
+		$(document).ready(function(){
+		
+			
+			
+			
+			
+			
+		});
 </script>
 
 

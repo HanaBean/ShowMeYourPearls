@@ -107,10 +107,10 @@
             </div>
             <div class="about-author d-flex p-1 bg-light">
               <div class="bio">
-                <a href="#"><img th:src="@{/images/person_1.jpg}" alt="Image placeholder" class="img-fluid" style="width: 40px;	height:40px; border-radius: 20px;"></a>
+                <a th:href="@{/mypage(memNum=${gallery.memNum})}"><img th:src="@{/images/person_1.jpg}" alt="Image placeholder" class="img-fluid" style="width: 40px;	height:40px; border-radius: 20px;"></a>
               </div>
               <div class="desc">
-                <a href="#"><span th:text="${writer.memName}">작성자명</span></a>
+                <a th:href="@{/mypage(memNum=${gallery.memNum})}"><span th:text="${writer.memName}">작성자명</span></a>
                 <span class="tagcloud">
 									<a th:if="${gallery.funding}" th:href="@{/gallery/fund(memNum=${gallery.memNum})}" class="tag-cloud-link" style="background-color:#19a2b8; color:white;">Proceeding</a>
 								</span>

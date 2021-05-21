@@ -25,10 +25,9 @@ li {
 					<div class="panel-left ftco-animate fadeInUp ftco-animated block-7"
 						style="margin-right: 30px; padding: 30px 30px 30px 0px;">
 						<ul>
-							
-							<li class="menu-label"><h5 style="marin-bottom: 0px;"><a href="/admin/member">▶ 회원 관리</a></h5></li>
-							<li class="menu-label"><a href="/admin/member" style="margin-left: 20px;">-일반회원 목록</a></li>
-							<li class="menu-label"><a href="/admin/adminmem" style="margin-left: 20px; color: #000;">-관리자 목록</a></li>
+							<li class="menu-label"><h5 style="marin-bottom: 0px;"><a href="/admin/member">▶  회원 관리</a></h5></li>
+							<li class="menu-label"><a href="/admin/member"style="margin-left: 20px; color: #000;">-일반회원 목록</a></li>
+							<li class="menu-label"><a href="/admin/adminmem"style="margin-left: 20px;">-관리자 목록</a></li>
 							<li class="menu-label"><a href="/admin/post" style="color: #000;">▶ 게시물 관리</a></li>
 							<li class="menu-label"><a href="/admin/fund" style="color: #000;">▶ 펀딩 관리</a></li>
 						</ul>
@@ -38,7 +37,7 @@ li {
 					style="display: inline-block; width: 75%">
 					<div class="block-7">
 						<div class="text-center p-4">
-		 <form th:fragment="search"  id="searchForm" th:action="@{/admin/member}" method="get" class="search-form" >
+						 <form th:fragment="search"  id="searchForm" th:action="@{/admin/adminmem}" method="get" class="search-form" >
 				<div class="input-group show" style="margin-bottom: 10px;">
 					<button class="btn btn-primary dropdown-toggle" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown" style="width: 15%;">전체 보기</button>
@@ -149,7 +148,6 @@ function searchType(item){
 	}
 
 /*]]>*/
-
 	$(document).ready(function() {
 		$('input[name=cbAll]').on('change', function() {
 			$('input[name=cb]').prop('checked', this.checked);
@@ -171,7 +169,7 @@ function searchType(item){
 	}
 
 	/*]]>*/
-	
+
 </script>
 </th:block>
 </html>
