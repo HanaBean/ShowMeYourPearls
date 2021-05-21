@@ -12,7 +12,11 @@ public class GalleryVO extends CommonDTO {
 	private String boardContent;
 	private Date boardDate;
 	private String boardType, memName, allign;
+	
 	private int replyCount;
 	private boolean funding;
+	
 	private PictureVO picture;
+	
+	private int like,sad,angry,happy;
 }

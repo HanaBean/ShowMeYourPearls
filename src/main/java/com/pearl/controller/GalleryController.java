@@ -72,6 +72,19 @@ public class GalleryController {
 					gal.setFunding(true);
 				}
 			}
+			List<EmotionVO> emoList = emotion.emoCount(gal.getBoardNum().intValue());
+			for(int k=0; k<emoList.size();k++) {
+				EmotionVO emo = emoList.get(k);
+				if(emo.getEmoExpress().equals("a")) {
+					gal.setLike(emo.getEmoCount());
+				}else if(emo.getEmoExpress().equals("b")) {
+					gal.setSad(emo.getEmoCount());
+				}else if(emo.getEmoExpress().equals("c")) {
+					gal.setAngry(emo.getEmoCount());
+				}else if(emo.getEmoExpress().equals("d")) {
+					gal.setHappy(emo.getEmoCount());
+				}
+			}
 		}
 		mv.addObject("gallery", list);
 		//mv.addObject("funding", );
