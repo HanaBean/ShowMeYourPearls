@@ -29,10 +29,10 @@
 								id="navLogin"><span>Logout</span></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 							<a sec:authorize="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')" href="/mypage"
 								class="d-flex align-items-center justify-content-center" 
-								id="navLogin"><span class="mypage">마이페이지</span></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+								id="navLogin"><span>My</span></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 							<a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin/member"
 								class="d-flex align-items-center justify-content-center" 
-								id="navLogin"><span>관리</span></a>
+								id="navLogin"><span>Admin</span></a>
 						</p>
 					</div>
 				</div>

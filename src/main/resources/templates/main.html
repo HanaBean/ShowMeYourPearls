@@ -3,12 +3,12 @@
 <head th:insert="/fragments/head.html::head">
 </head>
 <style>
-#img {
+/* #img {
 	width: 400px;
 	height: 500px;
 	 overflow: hidden;
 	 display:inline-block;
-}
+} */
 </style>
 <body>
 	<header th:replace="fragments/header :: header"> </header>
@@ -44,7 +44,8 @@
 	          	<img th:src="@{/display/pricing-1.jpg}" class="img" >
 	            <div class="text-center p-4" >
 	          
-                 <img th:src="@{'/display?fileName='+${f.picPath}+'/'+${f.picUuid}+'_'+${f.picName}+'.'+${f.picTail}}" alt="" class="img-fluid" name="image">
+                 <img th:src="@{'/display?fileName='+${f.picPath}+'/'+${f.picUuid}+'_'+${f.picName}+'.'+${f.picTail}}" alt="" class="img-fluid" name="image"
+                 		style="width:100%; min-width:350px; height:400px;">
 	            	  <span th:text="${f.fundTitle}"></span>&nbsp&nbsp&nbsp&nbsp<span th:text="${f.memName}"></span> <br><br>
 	            	
 	            	<!-- <span th:text="${a.count}"></span> -->
@@ -72,9 +73,8 @@
         <div class="row d-flex" >
            <div class="col-md-4 d-flex" th:each="l : ${list}">
             <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20 rounded">
-              </a>
-                 <img th:src="@{'/display?fileName='+${l.picPath}+'/'+${l.picUuid}+'_'+${l.picName}+'.'+${l.picTail}}" alt="" class="img-fluid">
+              <img th:src="@{'/display?fileName='+${l.picPath}+'/'+${l.picUuid}+'_'+${l.picName}+'.'+${l.picTail}}" alt="" class="img-fluid"
+                 style="width:100%; min-width:350px; height:400px;">
         <div class="text p-4">
               	<div class="meta mb-2">
                   <div><span th:text="${#dates.format(l.boardDate, 'yyyy-MM-dd')}"></span></div>
