@@ -32,15 +32,17 @@
     </section>
     
     <div>
+    
     <img th:src="@{/images/profile.jpg}" width="300" height="300" class="pic">
+    
     	<input type="hidden" th:value="${meminfo.memNum}" name="memNum">
     	<input type="hidden" sec:authorize="isAuthenticated()" th:value="${#authentication.principal.member.memNum}" name="userNum">
     		<span class="nickname" th:text="${meminfo.memName}"></span>
     		<input type="button" value="Edit" class="edit" 
     			onClick="location.href='/mypage/edit'" style="cursor:pointer"
     			th:if="${#authentication.name}==${meminfo.memEmail}">
-    		<span class="num1">0</span><span class="num3">Photo</span>
-    		<span class="num2" id="subscribe" th:text="${subscriber}">0</span><span class="num4">subscriber</span>
+    		<span class="num1" th:text="${#lists.size(myGallery)}">photo</span><span class="num3">Photo</span>
+    		<span class="num2" id="subscribe" th:text="${subscriber}">subs</span><span class="num4">subscriber</span>
     		<input type="button" value="Donation" class="Donation" id="donation" style="cursor:pointer"
     			th:if="${#authentication.name}!=${meminfo.memEmail}">
     		<input type="button" value="Subscribe" class="Subscribe" id="btnSub" style="cursor:pointer"
@@ -51,6 +53,7 @@
 			</span>
 			<span th:if="${#authentication.name}==${meminfo.memEmail}">내 펀딩 보러가기→
 			</span></a>
+			
 			
 	
     <section class="ftco-section bg-light">
