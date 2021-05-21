@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.pearl.mapper.MainMapper">
 
-  <select id="list" resultType="com.pearl.domain.GalleryVO" >
+  <select id="list" resultType="com.pearl.domain.AdminBoardVO" >
   	<![CDATA[   select b.*,m.memname,p.*
      from board b, member m, picture p,(select boardnum,cnt 
      from (SELECT boardNum, COUNT(EMOEXPRESS) as cnt,ROW_NUMBER() OVER (ORDER BY count(EMOEXPRESS) DESC) AS RANK FROM EMOTION GROUP BY boardNum) where rank <=3) a

@@ -65,6 +65,7 @@
             <div class="blog-entry align-self-stretch">
               <a href="blog-single.html" class="block-20 rounded">
               </a>
+                 <img th:src="@{'/display?fileName='+${l.picPath}+'/'+${l.picUuid}+'_'+${l.picName}+'.'+${l.picTail}}" alt="" class="img-fluid">
         <div class="text p-4">
               	<div class="meta mb-2">
                   <div><span th:text="${#dates.format(l.boardDate, 'yyyy-MM-dd')}"></span></div>
