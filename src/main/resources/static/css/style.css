@@ -8827,6 +8827,10 @@ h1, h2, h3, h4, h5,
       transition: all 0.3s ease;
       color: #000000;
       margin-bottom: 5px; }
+    .staff .text a {
+    	font-size: 18px;
+    	color: #000000;
+    }
     .staff .text .position {
       color: #00bd56;
       display: block;
@@ -8870,6 +8874,18 @@ h1, h2, h3, h4, h5,
         -moz-border-radius: 50%;
         -ms-border-radius: 50%;
         border-radius: 50%; }
+        .staff .ftco-social li #like {
+        	background: linear-gradient(45deg, #0053c7 0%, #207dff 100%);
+        }
+        .staff .ftco-social li #sad {
+        	background: linear-gradient(45deg, #adadad 0%, #696969 100%);
+        }
+        .staff .ftco-social li #angry {
+        	background: linear-gradient(45deg, #990303 0%, #ff0000 100%);
+        }
+        .staff .ftco-social li #happy {
+        	background: linear-gradient(45deg, #005403 0%, #00bd56 100%);
+        }
   .staff:hover, .staff:focus {
     -webkit-box-shadow: 0px 24px 48px -13px rgba(0, 0, 0, 0.11);
     -moz-box-shadow: 0px 24px 48px -13px rgba(0, 0, 0, 0.11);
@@ -8883,6 +8899,8 @@ h1, h2, h3, h4, h5,
       background: #00bd56;
       color: rgba(255, 255, 255, 0.8); }
       .staff:hover .text h3, .staff:focus .text h3 {
+        color: #fff; }
+      .staff:hover .text a, .staff:focus .text a {
         color: #fff; }
       .staff:hover .text .position, .staff:focus .text .position {
         color: rgba(255, 255, 255, 0.4); }
