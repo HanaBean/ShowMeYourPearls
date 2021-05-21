@@ -62,17 +62,16 @@
    </select>
    
    <select id="boardpage" resultType="com.pearl.domain.BoardVO">
-   		select b.*,m.memname,m.mememail,p.*
-    from board b, member m, picture p,
-    ( select boardnum, boarddate, row_number() over (order by boarddate desc) rn from board   <include refid="boardsearch" /> ) x
-    where b.boardnum = x.boardnum and b.memnum = m.memnum and b.boardnum = p.postnum and rn between #{pagiInfo.firstRecordIndex} and #{pagiInfo.lastRecordIndex}
+   	select*from
+ 	(select row_number() over (order by boarddate desc) rn, b.*, m.memname, m.mememail
+    from board b, member m
+    where b.memnum = m.memnum <include refid="boardsearch" /> )
+    where rn between #{pagiInfo.firstRecordIndex} and #{pagiInfo.lastRecordIndex}
    </select>
    
     <sql id="boardsearch">
 		<!-- 검색 키워드가 있을 때 -->
 		<if test="searchKeyword != null and searchKeyword != ''">
-		where
-		<trim prefixOverrides="and">
 			<choose>
 				<!-- 검색 유형이 있을 때 -->
 				<when test="searchType != null and searchType != ''">
@@ -99,7 +98,6 @@
 						)
 				</otherwise>
 			</choose>
-			</trim>
 		</if>
 	</sql>
    

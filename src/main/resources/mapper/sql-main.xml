@@ -14,13 +14,11 @@
    
     
    <select id="fundlist" resultType="com.pearl.domain.FundVO" >
-  	<![CDATA[  select * from fund join member using(memnum) where fundnum in
-  (select fundnum from 
-  	(
-  	SELECT fundnum, COUNT(paynum),ROW_NUMBER() OVER 
-  	(ORDER BY count(paynum) DESC
-  	)
-  	 AS RANK FROM payment GROUP BY fundnum) where rank <=3) ]]>	
+  	<![CDATA[   select f.*,m.memname,p.*
+    from fund f, member m, picture p,
+    (select fundnum, cnt from ( SELECT fundnum, COUNT(paynum) cnt ,ROW_NUMBER() OVER 
+  	(ORDER BY count(paynum) DESC) AS RANK FROM payment GROUP BY fundnum) where rank <=3 ) a
+    where a.fundnum = f.fundnum and f.memnum = m.memnum and picclass='F' and p.postnum = f.fundnum ]]>	
   </select> 
   
  	

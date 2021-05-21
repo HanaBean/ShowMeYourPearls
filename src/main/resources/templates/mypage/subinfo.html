@@ -2,6 +2,41 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="/fragments/head.html::head">
 </head>
+<style>
+.sub-table {
+	width:800px;
+	border-top: 1px solid #444444;
+    border-collapse: collapse;
+    text-align: center;
+    padding-right: 100px;
+}
+
+
+th {
+	font-weight : bold;
+	border-bottom: 1px solid #444444;
+    padding: 10px;
+    color:black;
+    background-color:#343a40;
+    color:white;
+    border-bottom: 2px solid black;
+  }
+
+td {
+      border-bottom: 1px solid #444444;
+    padding: 10px;
+  }
+
+.subname {
+	width:300px;
+}
+
+h5 {
+	font-size : 3em;
+	font-weight: bold;
+}
+
+</style>
   <body>
 
    <header th:replace="fragments/header :: header"> </header>
@@ -28,13 +63,24 @@
     		<div class="row" id="row2">
     			<div class="row d-md-flex justify-content-center">
     				<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ">
-    			 		<div class="styled-table" align="center"
-								style="width: 100%">
-									<div th:each="sub : ${list}" style="margin-bottom:10px;">
-<!-- 										<td><input type="checkbox" name="cb" th:value="${m.memNum}"></td> -->
-										<a th:href="@{/mypage(memNum=${sub.memNum})}" th:text="${sub.memName}"></a>
-										<input type="button" value="Subscribe" style="cursor:pointer;  background-color:black; color:white;" onclick="">
-									</div>
+    				<h5>구독 정보</h4><hr><hr><hr><hr><hr><hr>
+   				<table class="sub-table" >
+							<thead>
+								<th>회원 번호</th>
+								<th class="subname">회원 닉네임</th>
+								<th>구독 관리</th>
+							</thead>
+							<tbody>
+								<tr th:each="sub : ${list}" >
+									<td><a href="#"><img th:src="@{/images/person_1.jpg}" alt="Image placeholder" class="img-fluid" 
+									style="width: 40px;	height:40px; border-radius: 20px;"></a>&nbsp&nbsp&nbsp
+									<a th:href="@{/mypage(memNum=${sub.memNum})}" th:text="${sub.memNum}"></a></td>
+									<td><a th:href="@{/mypage(memName=${sub.memName})}" th:text="${sub.memName}">
+									</a></td>
+									<td><input type="button" value="Subscribe" style="cursor:pointer; background-color:#939596; border-radius:5px;"  onclick=""></td>
+								</tr>	
+							</tbody>
+						</table>
 								</div>	
 	    			</div>
 	    		</div>

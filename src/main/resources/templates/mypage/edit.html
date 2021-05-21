@@ -15,12 +15,20 @@
 	margin-left: 1em;
 	font-size: 3em;
 	font-weight: bold;
+	text-align: center;
 /* 	top: 70%; */
 }
 
+.row{
+	borderwidth : 1px;
+	
+}
+
+
+
+
 #row2{
 	margin:12em;
-	float:left;
 	} 
 
 .check2 {
@@ -69,11 +77,11 @@
 		<div class="row" id="row2">
 			<div class="row d-md-flex justify-content-center">
 				<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
+						<span class="nickname2" th:text="${meminfo.memName}"></span><hr>
 					<div class="upload">
 						<!-- <input type="file" id="image" accept="image/*" onchange="setThumbnail(event)" style="display:none" /> 
 				 		<button class="upload_btn">프로필 사진 바꾸기</button>
 						<div id="image_container"></div> -->
-						<span class="nickname2" th:text="${meminfo.memName}"></span>
 					</div>
 
 					<form th:action="@{/mypage/editsend}" class="appointment"
@@ -83,31 +91,31 @@
 
 							<div class="col-md-6">
 								<div class="form-group" style="border-color: black">
-									<label class="label">이메일</label> <input type="text"
-										class="form-control" id="memEmail" name="memEmail"
+									<label class="label">이메일</label> 
+									<input type="text" class="form-control" id="memEmail" name="memEmail"
 										th:value="${meminfo.memEmail}" style="border-color: black"
 										readonly>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="label" for="memName">닉네임</label> <input
-										type="text" class="form-control" id="memName" name="memName"
+									<label class="label" for="memName">닉네임</label> 
+									<input type="text" class="form-control" id="memName" name="memName"
 										th:value="${meminfo.memName}">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="label" for="PhoneNumber">전화 번호</label> <input
-										type="text" class="form-control" id="PhoneNumber"
+									<label class="label" for="PhoneNumber">전화 번호</label> 
+									<input type="text" class="form-control" id="PhoneNumber"
 										name="memPhone" placeholder="PhoneNumber"
 										th:value="${meminfo.memPhone}">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="label" for="Password">비밀번호</label> <input
-										type="password" class="form-control" id="Password"
+									<label class="label" for="Password">비밀번호</label> 
+									<input type="password" class="form-control" id="Password"
 										name="memPass" placeholder="Password"
 										th:value="${meminfo.memPass}">
 								</div>
