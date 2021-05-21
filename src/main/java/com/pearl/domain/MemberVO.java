@@ -10,4 +10,5 @@ public class MemberVO extends CommonDTO{
 	private String memName, memPass, memEmail,memPhone;
 	private String memLevel,memBank, memAccount;
 	
+	private PictureVO profile;
 }

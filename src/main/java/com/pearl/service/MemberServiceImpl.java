@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pearl.domain.MemberVO;
+import com.pearl.domain.PictureVO;
 import com.pearl.mapper.MemberMapper;
+import com.pearl.mapper.PictureMapper;
 
 import lombok.Setter;
 
@@ -15,6 +17,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private MemberMapper mapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private PictureMapper picMapper;
 	
 	@Override
 	public List<MemberVO> list() {
@@ -48,7 +53,16 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberVO getProfile(Long memNum) {
-		return mapper.getProfile(memNum);
+		MemberVO vo = mapper.getProfile(memNum);
+		vo.setProfile(picMapper.getProfile(vo.getMemNum()));
+		if(vo.getProfile()==null) {
+			vo.setProfile(new PictureVO());
+			vo.getProfile().setPicPath("empty");
+			vo.getProfile().setPicName("empty");
+			vo.getProfile().setPicTail("empty");
+			vo.getProfile().setPicUuid("empty");
+		}
+		return vo;
 	}
 
 }

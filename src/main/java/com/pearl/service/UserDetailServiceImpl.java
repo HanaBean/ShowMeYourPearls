@@ -10,13 +10,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pearl.domain.CustomUser;
 import com.pearl.domain.MemberVO;
+import com.pearl.domain.PictureVO;
 import com.pearl.mapper.MemberMapper;
+import com.pearl.mapper.PictureMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class UserDetailServiceImpl implements UserDetailsService{
 
 	@Autowired
 	private MemberMapper mapper;
+	
+	@Autowired
+	private PictureMapper picMapper;
 	
 	@Transactional
 	public int joinUser(MemberVO member) {
@@ -33,7 +41,21 @@ public class UserDetailServiceImpl implements UserDetailsService{
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			member.setMemPass(passwordEncoder.encode(member.getMemPass()));
 		}
-        return mapper.update(member);
+		int result = mapper.update(member);
+		if(member.getProfile()==null) {
+			return result;
+		}
+		PictureVO picture = member.getProfile();
+		log.info(">>>>>>>>PostNum:"+member.getMemNum());
+		String picPath = picture.getPicPath();
+		log.info(">>>>>>>>picPath:"+picPath.split("\\\\")[0]+"%5C"+picPath.split("\\\\")[1]+"%5C"+picPath.split("\\\\")[2]);
+		picture.setPicPath(
+				picPath.split("\\\\")[0]+"%5C"+picPath.split("\\\\")[1]+"%5C"+picPath.split("\\\\")[2]);
+		picture.setPostNum(member.getMemNum());
+		picture.setPicClass("p");
+		if(picMapper.getProfile(member.getMemNum())==null) picMapper.insertPic(picture); 
+		else picMapper.updatePic(picture); 
+		return result;
     }
 
     @Override
