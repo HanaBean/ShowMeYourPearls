@@ -185,13 +185,13 @@
 							<div class="text pt-3 px-3 pb-4 text-center">
  								<a th:href="@{/gallery/get(boardNum=${gallery.boardNum})}"><h3 th:text="${gallery.boardTitle}">Title</h3></a>
 								<span class="position mb-2" th:text="${gallery.boardDate}">Date</span>
+								<p th:text="${gallery.boardContent}">Content</p>
 								<div class="faded">
-									<p th:text="${gallery.boardContent}">Content</p>
 									<ul class="ftco-social text-center">
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-google"></span></a></li>
-		                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"></span></a></li>
+		                <li class="ftco-animate"><a class="d-flex align-items-center justify-content-center" id="like"><span class="fa" th:text="${gallery.like>0?gallery.like:0}"></span></a></li>
+		                <li class="ftco-animate"><a class="d-flex align-items-center justify-content-center" id="sad"><span class="fa" th:text="${gallery.sad>0?gallery.sad:0}"></span></a></li>
+		                <li class="ftco-animate"><a class="d-flex align-items-center justify-content-center" id="angry"><span class="fa" th:text="${gallery.angry>0?gallery.angry:0}"></span></a></li>
+		                <li class="ftco-animate"><a class="d-flex align-items-center justify-content-center" id="happy"><span class="fa" th:text="${gallery.happy>0?gallery.happy:0}"></span></a></li>
 		              </ul>
 	              </div>
 							</div>

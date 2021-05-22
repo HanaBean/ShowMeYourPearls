@@ -21,9 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pearl.domain.CustomUser;
+import com.pearl.domain.EmotionVO;
+import com.pearl.domain.GalleryVO;
 import com.pearl.domain.MemberVO;
 import com.pearl.domain.PictureVO;
 import com.pearl.domain.SubscribeVO;
+import com.pearl.service.EmotionService;
 import com.pearl.service.MemberService;
 import com.pearl.service.MyPageService;
 import com.pearl.service.UserDetailServiceImpl;
@@ -43,6 +46,9 @@ public class MypageController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private UserDetailServiceImpl user;
+
+	@Setter(onMethod_ = @Autowired)
+	private EmotionService emotion;
 	
 	@RequestMapping("/mypage")
 	public ModelAndView my(@AuthenticationPrincipal CustomUser customUser, Long memNum) {
@@ -66,9 +72,26 @@ public class MypageController {
 			if(result) mv.addObject("subs", "true");
 			else mv.addObject("subs", "false");
 		}
+		List<GalleryVO> myGallery = mypageservice.myGallery(memNum);
+		for(int j=0; j<myGallery.size();j++) {
+			GalleryVO gal = myGallery.get(j);
+			List<EmotionVO> emoList = emotion.emoCount(gal.getBoardNum().intValue());
+			for(int k=0; k<emoList.size();k++) {
+				EmotionVO emo = emoList.get(k);
+				if(emo.getEmoExpress().equals("a")) {
+					gal.setLike(emo.getEmoCount());
+				}else if(emo.getEmoExpress().equals("b")) {
+					gal.setSad(emo.getEmoCount());
+				}else if(emo.getEmoExpress().equals("c")) {
+					gal.setAngry(emo.getEmoCount());
+				}else if(emo.getEmoExpress().equals("d")) {
+					gal.setHappy(emo.getEmoCount());
+				}
+			}
+		}
 		mv.addObject("meminfo", service.getProfile(memNum));
 		mv.addObject("subscriber", subLists.size());
-		mv.addObject("myGallery", mypageservice.myGallery(memNum));
+		mv.addObject("myGallery", myGallery);
 		return mv;
 	}
 	
