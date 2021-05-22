@@ -50,55 +50,61 @@
 
 }
 
+.num{
+	position: absolute;
+	margin-left:1000px;
+	bottom:150px;
+	font-size: 1.2em;
+	
+}
+
+.numm{
+	padding-left: 10px;
+	
+}
+
 .num1{
 	position: absolute;
-	bottom:160px;
-	right:930px;
-	font-size: 1.2em;
+	float:left;
+ 	margin-left: 10px; 
 	
 }
 
 .num2{
 	position: absolute;
-	bottom:120px;
-	right:930px;
-	font-size: 1.2em;
+	padding-top: 30px;
 }
 
 .num3{
 	position: absolute;
-	bottom:160px;
-	right:850px;
-	font-size: 1.2em;
+	padding-top: 30px;
+	padding-left: 20px;
+	
 }
 
-.num4{
-	position: absolute;
-	bottom:120px;
-	right:810px;
-	font-size: 1.2em;
+.btn2{
+	position : absolute;
+	margin-left: 850px;
+	bottom:30px;
+	
 }
 
 .Donation{
-	position: absolute;
+	margin-left:40px;
 	font-size: 1.5em;
 	border-radius:10px;
 	text-align: center;
-	bottom:20px;
-	left:1020px;
 	background-color: #d9e4fc;
 	border:0;
 }
 
 .Subscribe{
-	position: absolute;
+	float :left;
 	font-size: 1.5em;
 	border-radius:10px;
 	text-align: center;
 	background-color: #f54e4e;
 	border:0;
-	bottom:20px;
-	left:850px;
 }
 
 </style>
@@ -149,12 +155,12 @@
     		<input type="button" value="Edit" class="edit" 
     			onClick="location.href='/mypage/edit'" style="cursor:pointer"
     			th:if="${#authentication.name}==${meminfo.memEmail}"></div>
-    		<span class="num1" th:text="${#lists.size(myGallery)}">photo</span><span class="num3">Photo</span>
-    		<span class="num2" id="subscribe" th:text="${subscriber}">subs</span><span class="num4">subscriber</span>
-    		<input type="button" value="Donation" class="Donation" id="donation" style="cursor:pointer"
+    		<div class="num"><span class="numm" th:text="${#lists.size(myGallery)}">photo</span><span class="num1">Photo</span>
+    		<span class="num2" id="subscribe" th:text="${subscriber}">subs</span><span class="num3">subscriber</span></div>
+    		<div class="btn2"><input type="button" value="Donation" class="Donation" id="donation" style="cursor:pointer"
     			th:if="${#authentication.name}!=${meminfo.memEmail}">
     		<input type="button" value="Subscribe" class="Subscribe" id="btnSub" style="cursor:pointer"
-    			th:if="${#authentication.name}!=${meminfo.memEmail}" onclick="addSubscribe()">
+    			th:if="${#authentication.name}!=${meminfo.memEmail}" onclick="addSubscribe()"></div>
     </div></div>	
 			<a class="btn d-block" id="fundmore" href='/fund/fundList'>
 			<span th:if="${#authentication.name}!=${meminfo.memEmail}"  th:text="${meminfo.memName+'님의 펀딩 보러가기→'}">
