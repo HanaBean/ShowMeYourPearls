@@ -79,75 +79,7 @@
 	margin-left: 33em;
 }
 
-.nickname{
-	font-size: 3em;
-	font-weight: bold;
-	margin-left:20em;
-	
-	float:left;
-}
 
-
-.edit{
-	font-size: 1.5em;
-	border-radius:10px;
-	background-color:#d4f5ce;
-	text-align: center;
-	margin-left:1em;
-	margin-top:0.8em;
-	float:left;
-	border:0;
-}
-
-.num1{
-	position:absolute;
-	top:17%;
-	left:53%;
-	font-size: 1.2em;
-}
-
-.num2{
-	position:absolute;
-	top:20%;
-	left:53%;
-	font-size: 1.2em;
-}
-
-.num3{
-	position:absolute;
-	top:17%;
-	left:56%;
-	font-size: 1.2em;
-}
-
-.num4{
-	position:absolute;
-	top:20%;
-	left:56%;
-	font-size: 1.2em;
-}
-
-.Donation{
-	position:absolute;
-	font-size: 1.5em;
-	border-radius:10px;
-	text-align: center;
-	top:33%;
-	left:45%;
-	background-color: #d9e4fc;
-	border:0;
-}
-
-.Subscribe{
-	position:absolute;
-	font-size: 1.5em;
-	border-radius:10px;
-	text-align: center;
-	background-color: #f54e4e;
-	border:0;
-	top:33%;
-	left:55%;
-}
 
 .black_bg{
 	display:none;

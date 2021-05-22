@@ -43,7 +43,7 @@
 								id="customFile"> <label class="custom-file-label"
 								for="customFile">사진을 업로드 하세요.</label>
 						</div>
-						<div class="select_img"><img id="uploadImg" src="" /></div>
+						<div class="select_img" style="margin:0 0 12px 0;"><img id="uploadImg" src="" /></div>
 						<div>
 							<textarea name="fundIntro" id="fundIntro" rows="10" cols="88"
 								placeholder="Write here something"></textarea>
@@ -174,6 +174,19 @@
 			var id = '#register-item' + cnt;
 			$(id).remove();
 		}
+		
+		$(".custom-file-input").change(function() {
+		console.log(""+$(this).val());
+		if(this.files&& this.files[0]){
+			var reader = new FileReader;
+			reader.onload = function(data){
+				$('#uploadImg').attr("src", data.target.result).width(720);    
+			}
+			reader.readAsDataURL(this.files[0]);
+		}
+	  var fileName = $(this).val().split("\\").pop();
+	  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+	});
 	</script>
 	<footer th:replace="fragments/footer :: footer"></footer>
 </body>
