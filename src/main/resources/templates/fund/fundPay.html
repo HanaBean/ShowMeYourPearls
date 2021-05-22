@@ -35,7 +35,8 @@
 				</div>
 				<div>
 					<div style="float: left; margin: 3px 10px 3px 1px;">
-						<img src="http://placehold.it/160x120">
+						<img th:src="@{'/gallery/display?fileName='+${fund.pic.picPath}+'/'+${fund.pic.picUuid}+'_'+${fund.pic.picName}+'.'+${fund.pic.picTail}}" 
+								th:if="${fund.pic} ne null" alt="" class="img-fluid">
 					</div>
 					<div class="payment-right-bar">
 						<span th:text="${fund.fundIntro}"></span>
@@ -58,12 +59,13 @@
 							<tr align="center" bgcolor="white">
 								<th th:text="${r.rwrdName}"></th>
 								<td th:text="${r.rwrdCnt}"></td>
-								<td>2000원</td>
+								<td th:text="${r.rwrdPrice*r.rwrdCnt+'원'}"></td>
 							</tr>
 							
 						</tbody>
-						<input type="text" readonly th:value="${fund.rwrdTotal}">
 					</table>
+					<span>총합 : </span>
+					<input type="text" readonly th:value="${fund.rwrdTotal+'원'}">
 				</div>
 				<div class="col-md-6">
 					<div>

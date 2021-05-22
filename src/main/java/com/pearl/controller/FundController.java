@@ -2,7 +2,6 @@ package com.pearl.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -23,10 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pearl.domain.CustomUser;
 import com.pearl.domain.FundVO;
+import com.pearl.domain.MemberVO;
 import com.pearl.domain.PictureVO;
 import com.pearl.domain.RewardVO;
 import com.pearl.service.FundService;
-import com.pearl.service.RewardService;
 
 import lombok.Setter;
 
@@ -38,9 +37,6 @@ public class FundController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private FundService service;
-	
-	@Setter(onMethod_ = @Autowired)
-	private RewardService rwService;
 	
 	@RequestMapping("/fundList")
 	public ModelAndView list() {
@@ -61,13 +57,14 @@ public class FundController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/writeFund")
 	public ModelAndView fundWrite(FundVO vo,@AuthenticationPrincipal CustomUser user
-//			, @RequestParam(value="itemList") ArrayList<RewardVO> rewardList
+//			, @RequestParam(value="itemList") String itemList
 			, @RequestParam("file") MultipartFile file) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/fund/fundList");
+//		log.info(itemList);
+		log.info("RwVo>>>>>>>>>>"+vo.getRwvo());
 		vo.setMemNum(user.getMember().getMemNum());
 		vo.setPic(uploadPicture(file));
 		service.insert(vo);
-		
 		return mv;
 	}
 	
@@ -92,9 +89,10 @@ public class FundController {
 	public ModelAndView get(Long fundNum) {
 		ModelAndView mv = new ModelAndView("/fund/fundGeting");
 		FundVO detail = service.get(fundNum);
-		List<RewardVO> itemList = rwService.getListReward(fundNum);
+		MemberVO artist = service.artist(detail.getMemNum());
 		mv.addObject("detail", detail);
-		mv.addObject("rewardList", itemList);
+		mv.addObject("artist", artist);
+		mv.addObject("rewardList", detail.getRwvo());
 		return mv;
 	}
 	
@@ -102,10 +100,10 @@ public class FundController {
 	@RequestMapping("/getPay")
 	public ModelAndView get(FundVO vo) {
 		ModelAndView mv = new ModelAndView("/fund/fundPay");
+		vo = service.getPay(vo);
 		log.info("fund>>>>>>>>>>"+vo.getRwvo());
-		RewardVO[] rwvo = vo.getRwvo();
 		mv.addObject("fund", vo);
-		mv.addObject("reward", rwvo);
+		mv.addObject("reward", vo.getRwvo());
 		return mv;
 	}
 

@@ -29,7 +29,7 @@
 		select fund_seq.nextval from dual
 	</selectKey>
 		insert into Fund(FundNum,memnum,fundstartdate,fundenddate,fundmoney,funddday,fundtitle,fundintro) 
-			values(#{fundNum},1,#{fundStartDate},#{fundEndDate},
+			values(#{fundNum},#{memNum},#{fundStartDate},#{fundEndDate},
 			#{fundMoney},#{fundDday},#{fundTitle},#{fundIntro})
 	</insert>
 	

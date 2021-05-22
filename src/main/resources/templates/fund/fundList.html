@@ -69,10 +69,10 @@
 				<div class="col-md-4 ftco-animate" th:each="f : ${list}" th:object="${f.pic}">
 					<div class="block-7">
 						<div class="img" th:if="${f.pic} ne null"
-							th:style="'background-image: url(/gallery/display?fileName='+*{picPath}+'/'+*{picUuid}+'_'+*{picName}+'.'+*{picTail}+');'"
+							th:style="'cursor:pointer; background-image: url(/gallery/display?fileName='+*{picPath}+'/'+*{picUuid}+'_'+*{picName}+'.'+*{picTail}+');'"
 							th:onclick="location.href='get?fundNum=[[${f.fundNum}]]'"></div>
 						<div class="img" th:unless="${f.pic} ne null"
-							style="background-image: url(http://placehold.it/300x200);"
+							style="cursor:pointer;background-image: url(http://placehold.it/300x200);"
 							th:onclick="location.href='get?fundNum=[[${f.fundNum}]]'"></div>
 						<div class="text-center p-4">
 						<a th:href="@{get(fundNum=${f.fundNum})}">
@@ -84,12 +84,12 @@
 								<li><label>모금 시작일  : </label><span th:text="${#dates.format(f.fundStartDate,'yyyy-MM-dd')}"></span></li>
 								<li><label>모금 마감일  : </label><span th:text="${#dates.format(f.fundEndDate,'yyyy-MM-dd')}"></span></li>
 								<li><label>전시일  : </label><span th:text="${#dates.format(f.fundDday,'yyyy-MM-dd')}">전시일</span></li>
-								
 							</ul>
-							
-							<div class="excerpt d-block" th:text="${f.memName }" style="font-size:15px; color:gray;"></div>
-							<div>작가님</div>
-							<a th:href="@{get(fundNum=${f.fundNum})}" 
+							<a th:href="@{/mypage(memNum=${f.memNum})}" style="color:black;"><span th:text="${f.memName + ' 작가님'}"></span></a>
+<!-- 							<div class="excerpt d-block" th:onclick="location.href='/mypage?memNum=[[${f.memNum}]]'"  -->
+<!-- 								th:text="${f.memName }" style="cursor:pointer;font-size:15px; color:gray;"></div> -->
+<!-- 							<div>작가님</div> -->
+							<a th:href="@{get(fundNum=${f.fundNum})}"
 							class="btn btn-primary d-block px-2 py-3">Join
 								Funding</a>
 						</div>

@@ -89,10 +89,10 @@
 										</div>
 									</div>
 									<div class="row">
-										<input type="text" id="productName" name="rwrdName"
+										<input type="text" id="productName"
 											placeholder="Product Name"
 											style="width: 160px; position: relative; left: 15px;">
-										<input type="text" id="productPrice" name="rwrdPrice"
+										<input type="text" id="productPrice"
 											placeholder="Price"
 											style="width: 160px; position: relative; right: 0px;">
 									</div>
@@ -137,37 +137,47 @@
 	<!-- .section -->
 
 	<script>
+	$('input[type=submit]').click(function(e){
+		e.preventDefault();
+		var items = $("#itemList");
+		console.log($('input[name=itemList]').val());
+		itemList.forEach(function(element,i) {
+			console.log(itemList[i].productName + ", "
+					+ itemList[i].productPrice);
+		});
+		items.val(itemList);
+		console.log($('input[name=itemList]').val());
+		$('#writeForm').submit();
+	})
 		var count = 0;
 		var itemList = [];
 		function addItem() {
 			var productName = $("#productName");
 			var productPrice = $("#productPrice");
 			var item = productName.val();
-			var price = productPrice.val();
+			var price = productPrice.val()*1;
 
 			$("#attach-item")
 					.prepend(
 							'<div id="register-item'+count+'"><li id="item-form" style="float: left; width:80%;">'
-									+ '<div id="item-name" name="rewardName" style="float: left; margin: 0 20px 0 0;">'
-									+ item
-									+ '</div><div id="item-price'+count+' name="rewardPrice'+count+'"  style="float: left;">'
-									+ price
-									+ '</div></li><div class="tagcloud" style="float:left; width:20%;">'
+									+ '<input type="text" id="item-name" name="rwvo['+count+'].rwrdName"'
+									+ 'style="width: 50%;float: left;margin:0 10px 0 0;" readonly '
+									+ 'value="'+item+'">'
+									+ '<input type="number" id="item-price'+count+'" name="rwvo['+count+'].rwrdPrice"'
+									+ ' style="float: left;width: 40%;" readonly '
+									+ 'value='+price+'>'
+									+ '</li><div class="tagcloud" style="float:left; width:20%;">'
 									+ '<a class="tag-cloud-link" onclick="deleteItem('
 									+ count + ')">delete</a></div></div>');
+			
 			itemList.push({
 				"productName" : item,
 				"productPrice" : price
 			});
 			productName.val("");
 			productPrice.val("");
-			itemList.forEach(function(element) {
-				console.log(itemList[count].productName + ", "
-						+ itemList[count].productPrice);
-			});
 			count++;
-			var items = $("#itemList");
-			items.val(itemList);
+			
 		}
 
 		function deleteItem(cnt) {

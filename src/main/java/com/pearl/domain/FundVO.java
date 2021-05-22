@@ -24,5 +24,5 @@ public class FundVO {
 	private String fundTitle;
 	private String fundIntro;
 	private PictureVO pic;
-	private RewardVO[] rwvo;
+	private List<RewardVO> rwvo;
 }

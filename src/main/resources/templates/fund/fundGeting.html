@@ -35,16 +35,9 @@
 								class="form-control" name="fundTitle" readonly>
 						</div>
 						<p>
-							<img src="http://placehold.it/760x570" alt="" class="img-fluid">
+							<img th:src="@{'/gallery/display?fileName='+${detail.pic.picPath}+'/'+${detail.pic.picUuid}+'_'+${detail.pic.picName}+'.'+${detail.pic.picTail}}" 
+								th:if="${detail.pic} ne null" alt="" class="img-fluid">
 						</p>
-						<div class="pic_list">
-							<img
-								src="<spring:url value='/images/20210513/8665708139031.png' />" />
-							<!-- <a th:each="list : ${detail.picList}" 
-						th:text="${list.originalFileName}"></a> -->
-						</div>
-
-
 						<div class="sidebar-box ftco-animate">
 							<h3>Introduce</h3>
 							<p th:text="${detail.fundIntro}" name="fundIntro"></p>
@@ -55,9 +48,13 @@
 					<div class="col-lg-4 sidebar pl-lg-5 ftco-animate">
 						<div class="sidebar-box">
 							<div style="margin: 0px 7px 7px 0px;">
-								<img src="images/person_1.jpg" alt="Image placeholder"
+								<img th:src="@{'/gallery/display?fileName='+${artist.profile.picPath}+'/'+${artist.profile.picUuid}+'_'+${artist.profile.picName}+'.'+${artist.profile.picTail}}" 
+                					th:if="${artist.profile}!=null" alt="Image placeholder"
 									style="width: 40px; height: 40px; border-radius: 20px;">
-								<span>정원빈</span><span>&nbsp;&nbsp;작가님 펀딩 </span> <span
+								<img th:src="@{/images/aboutpearl.jpg}" 
+                					th:unless="${artist.profile}!=null" alt="Image placeholder"
+									style="width: 40px; height: 40px; border-radius: 20px;">
+								<span th:text="${artist.memName}">작가명</span><span>&nbsp;&nbsp;작가님 펀딩 </span> <span
 									class="tagcloud"> <span> <a href="#"
 										class="tag-cloud-link"
 										style="background-color: #19a2b8; color: white;">Proceeding</a>
@@ -107,7 +104,7 @@
 									<select id="comboItem" name="comboItem" onchange="selectItem()">
 										<option value="상품선택">========= 상품 선택 =========</option>
 										<option th:each="reward : ${rewardList}"
-											th:text="${reward.rwrdName + '( ' + reward.rwrdPrice + ' 원 )' } "></option>
+											th:text="${reward.rwrdName + '(' + reward.rwrdPrice + '원)' } "></option>
 									</select>
 								</div>
 
@@ -163,7 +160,7 @@
 					.prepend(
 							'<li id="select-item'+count+'"><div class="row" style="position: relative; left: 20px">'
 									+ '<div style="width: 60%;"><input type="text" id="selectProduct'+count
-					+'" name="rwrdName'
+					+'" name="rwvo['+count+'].rwrdName'
 					+'" style="float: left; margin: 0 10px 0 0;" value="'+item+'" readonly>'
 
 									+ '</div><div>'
@@ -178,7 +175,7 @@
 									+ count
 									+ ')">del</a>'
 									+ '</div><div id=subTotal'+count+'></div></div></div>'
-									+ '<input type ="hidden" id = "hidden'+count+'" name = "rwrdCnt" value=1></li>');
+									+ '<input type ="hidden" id = "hidden'+count+'" name = "rwvo['+count+'].rwrdCnt" value=1></li>');
 
 			var id2 = '#selectProduct' + count;
 			var name = $(id2).val();
