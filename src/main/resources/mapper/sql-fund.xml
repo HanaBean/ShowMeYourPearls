@@ -77,7 +77,7 @@
 <!-- 	]]> -->
 <!-- 	</select> -->
 	
-<!-- 	<!-- 사진 넣기 --> -->
+ 	<!-- 사진 넣기 -->
 <!-- 	<insert id ="insertItem" parameterType="com.pearl.domain.PicDTO"> -->
 <!-- 	 insert all -->
 <!-- 	<foreach collection="list" item="item" separator=" "> -->
