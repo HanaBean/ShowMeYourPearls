@@ -55,13 +55,13 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO getProfile(Long memNum) {
 		MemberVO vo = mapper.getProfile(memNum);
 		vo.setProfile(picMapper.getProfile(vo.getMemNum()));
-		if(vo.getProfile()==null) {
-			vo.setProfile(new PictureVO());
-			vo.getProfile().setPicPath("empty");
-			vo.getProfile().setPicName("empty");
-			vo.getProfile().setPicTail("empty");
-			vo.getProfile().setPicUuid("empty");
-		}
+//		if(vo.getProfile()==null) {
+//			vo.setProfile(new PictureVO());
+//			vo.getProfile().setPicPath("empty");
+//			vo.getProfile().setPicName("empty");
+//			vo.getProfile().setPicTail("empty");
+//			vo.getProfile().setPicUuid("empty");
+//		}
 		return vo;
 	}
 

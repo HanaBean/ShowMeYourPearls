@@ -74,7 +74,10 @@
 		<div class="row" id="row2">
 			<div class="row d-md-flex justify-content-center">
 				<div class="col-lg-6">
-				<img style="margin-left:0;" alt="프로필 사진이 없습니다." th:src="@{'/gallery/display?fileName='+${meminfo.profile.picPath}+'/'+${meminfo.profile.picUuid}+'_'+${meminfo.profile.picName}+'.'+${meminfo.profile.picTail}}" id="profileImg" width="300" height="300"/>
+				<label for="customFile"><img style="margin-left:0;" th:if="${meminfo.profile}!=null" alt="프로필 사진이 없습니다." 
+				th:src="@{'/gallery/display?fileName='+${meminfo.profile.picPath}+'/'+${meminfo.profile.picUuid}+'_'+${meminfo.profile.picName}+'.'+${meminfo.profile.picTail}}" id="profileImg" width="300" height="300"/>
+				<img style="margin-left:0;" th:unless="${meminfo.profile}!=null" alt="프로필 사진이 없습니다." 
+				src="http://placehold.it/300x300" id="profileImg" width="300" height="300"/></label>
 						<p class="nickname2" th:text="${meminfo.memName}"></p><hr>
 					
 
@@ -131,7 +134,7 @@
 											</div>
 											<select name="" id="" th:field="${meminfo.memBank}"
 												th:value="${meminfo.memBank}" class="form-control">
-												<option th:value="'none'" th:text="은행을선택해주세요"></option>
+												<option th:value="null" th:text="은행을선택해주세요"></option>
 												<option th:value="'국민은행'" th:text="국민은행"></option>
 												<option th:value="'신한은행'" th:text="신한은행"></option>
 												<option th:value="'농협은행'" th:text="농협은행"></option>

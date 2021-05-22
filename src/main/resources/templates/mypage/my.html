@@ -58,15 +58,17 @@
 			
 	
     <section class="ftco-section bg-light">
+    	<input type="hidden" th:value="${meminfo.memNum}" name="memNum">
+    	<input type="hidden" sec:authorize="isAuthenticated()" th:value="${#authentication.principal.member.memNum}" name="userNum">
     
      <div class="info">
     
-    <img th:if="${meminfo.profile}==null" th:src="@{/images/profile.jpg}" width="300" height="300" class="pic">
     <img th:if="${meminfo.profile}!=null" 
     th:src="@{'/gallery/display?fileName='+${meminfo.profile.picPath}+'/'+${meminfo.profile.picUuid}+'_'+${meminfo.profile.picName}+'.'+${meminfo.profile.picTail}}" 
     width="300" height="300" class="pic">
-    	<input type="hidden" th:value="${meminfo.memNum}" name="memNum">
-    	<input type="hidden" sec:authorize="isAuthenticated()" th:value="${#authentication.principal.member.memNum}" name="userNum">
+    <img th:unless="${meminfo.profile}!=null" 
+    src="http://placehold.it/300x300" alt="프로필 사진을 설정해주세요"
+    width="300" height="300" class="pic">
     		<div class="haha"><p class="nickname" th:text="${meminfo.memName}"></p>
     		<input type="button" value="Edit" class="edit" 
     			onClick="location.href='/mypage/edit'" style="cursor:pointer"
