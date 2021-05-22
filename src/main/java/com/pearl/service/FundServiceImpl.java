@@ -25,9 +25,6 @@ public class FundServiceImpl implements FundService {
 
 	Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-	private FileUtils fileUtils;
-
 	@Setter(onMethod_ = @Autowired)
 	private FundMapper mapper;
 
@@ -46,7 +43,7 @@ public class FundServiceImpl implements FundService {
 	@Override
 	public FundVO get(Long fundNum) {
 		FundVO vo = mapper.get(fundNum);
-		List<PicDTO> picList = mapper.getPicList(fundNum);
+//		List<PicDTO> picList = mapper.getPicList(fundNum);
 //		vo.setPicList(picList);
 		return vo;
 	}

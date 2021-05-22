@@ -45,59 +45,59 @@
 		delete from Fund where FundNum=#{fundNum}
 	</delete>
 	
-	<insert id ="insertPic" parameterType="com.pearl.domain.PicDTO">
-	 insert all
-	<foreach collection="list" item="item" separator=" ">
-	<![CDATA[
-	into t_file
-	(FUNDNUM, ORIGINAL_FILE_NAME, STORED_FILE_PATH, FILE_SIZE, CREATOR_ID, CREATED_DATETIME) 
-	values 
-	]]>
+<!-- 	<insert id ="insertPic" parameterType="com.pearl.domain.PicDTO"> -->
+<!-- 	 insert all -->
+<!-- 	<foreach collection="list" item="item" separator=" "> -->
+<!-- 	<![CDATA[ -->
+<!-- 	into t_file -->
+<!-- 	(FUNDNUM, ORIGINAL_FILE_NAME, STORED_FILE_PATH, FILE_SIZE, CREATOR_ID, CREATED_DATETIME)  -->
+<!-- 	values  -->
+<!-- 	]]> -->
 		
-			(
-				#{item.fundNum}, 
-				#{item.originalFileName},
-				#{item.storedFilePath},
-				#{item.fileSize}, 
-				'admin', 
-				sysdate
-			)
-		</foreach>
-		select * from dual
-	</insert>
+<!-- 			( -->
+<!-- 				#{item.fundNum},  -->
+<!-- 				#{item.originalFileName}, -->
+<!-- 				#{item.storedFilePath}, -->
+<!-- 				#{item.fileSize},  -->
+<!-- 				'admin',  -->
+<!-- 				sysdate -->
+<!-- 			) -->
+<!-- 		</foreach> -->
+<!-- 		select * from dual -->
+<!-- 	</insert> -->
 	
-	<select id="getPicList" parameterType="Long" resultType="com.pearl.domain.PicDTO">
-	<![CDATA[
-	select 
-		idx, FUNDNUM, ORIGINAL_FILE_NAME 
-	from
-		t_file
-	where
-		FundNum= #{fundNum}
-	]]>
-	</select>
+<!-- 	<select id="getPicList" parameterType="Long" resultType="com.pearl.domain.PicDTO"> -->
+<!-- 	<![CDATA[ -->
+<!-- 	select  -->
+<!-- 		idx, FUNDNUM, ORIGINAL_FILE_NAME  -->
+<!-- 	from -->
+<!-- 		t_file -->
+<!-- 	where -->
+<!-- 		FundNum= #{fundNum} -->
+<!-- 	]]> -->
+<!-- 	</select> -->
 	
-	<!-- 사진 넣기 -->
-	<insert id ="insertItem" parameterType="com.pearl.domain.PicDTO">
-	 insert all
-	<foreach collection="list" item="item" separator=" ">
-	<![CDATA[
-	into t_file
-	(FUNDNUM, ORIGINAL_FILE_NAME, STORED_FILE_PATH, FILE_SIZE, CREATOR_ID, CREATED_DATETIME) 
-	values 
-	]]>
+<!-- 	<!-- 사진 넣기 --> -->
+<!-- 	<insert id ="insertItem" parameterType="com.pearl.domain.PicDTO"> -->
+<!-- 	 insert all -->
+<!-- 	<foreach collection="list" item="item" separator=" "> -->
+<!-- 	<![CDATA[ -->
+<!-- 	into t_file -->
+<!-- 	(FUNDNUM, ORIGINAL_FILE_NAME, STORED_FILE_PATH, FILE_SIZE, CREATOR_ID, CREATED_DATETIME)  -->
+<!-- 	values  -->
+<!-- 	]]> -->
 		
-			(
-				#{item.fundNum}, 
-				#{item.originalFileName},
-				#{item.storedFilePath},
-				#{item.fileSize}, 
-				'admin', 
-				sysdate
-			)
-		</foreach>
-		select * from dual
-	</insert>
+<!-- 			( -->
+<!-- 				#{item.fundNum},  -->
+<!-- 				#{item.originalFileName}, -->
+<!-- 				#{item.storedFilePath}, -->
+<!-- 				#{item.fileSize},  -->
+<!-- 				'admin',  -->
+<!-- 				sysdate -->
+<!-- 			) -->
+<!-- 		</foreach> -->
+<!-- 		select * from dual -->
+<!-- 	</insert> -->
 
 	
 </mapper>
