@@ -126,20 +126,26 @@
 
 								<input type="hidden" name="fundNum" th:value="${detail.fundNum}">
 								<input type="hidden" name="itemList" id="itemList">
-
+								<input type="hidden" name="memNum" th:value="${artist.memNum}">
+								<input type="hidden" name="memEmail" th:value="${artist.memEmail}">
 
 
 							</div>
 						</div>
 						<div class="row">
-							<span style="margin: 0 10px 2px 15px;"> <input
-								type="submit" id="funding" form="itemSubmit"
-								value="Attend Funding" class="btn btn-info d-block px-2 py-3"></span>
-							<span> <input type="button" id="update" value="Update"
-								class="btn btn-primary d-block px-2 py-3">
-							</span> <span> <input type="button" id="delete" value="Delete"
+							<input type="submit" id="funding" form="itemSubmit"
+								style="margin-right: 5px; "
+								value="Attend Funding" class="btn btn-info d-block px-2 py-3">
+							<input type="button" id="update" value="Update"
+								style="margin-right: 5px;" 
+								th:if="${#authentication.name}==${artist.memEmail}"
+								th:onclick="|location.href='@{modify(fundNum=${detail.fundNum},memEmail=${artist.memEmail})}'|"
+								class="btn btn-primary d-block px-2 py-3" >
+							<input type="button" id="delete" value="Delete"
+								th:if="${#authentication.name}==${artist.memEmail}"
+								onclick="deleteFund()"
 								class="btn btn-danger d-block px-2 py-3">
-							</span>
+							
 						</div>
 					</div>
 				</div>
@@ -259,39 +265,8 @@
 			$('#tPrice').val(total);
 		}
 
-		function addItemList() {
-			/* var id2 = '#selectProduct' + count;
-			var name = $(id2).val();
-			var index = name.indexOf('(');
-			var index2 = name.indexOf('원');
-			var priceFind = name.substring(index + 1, index2).trim();
-			var price = parseInt(priceFind, 10);
-			
-			
-			var a = [1, 2];
-			var b = [3, 4];
-			var c = [5, 6];
-			var itemC = [a,b,c];
-			console.log("배열 : " + itemC);
-			$('itemList').val(itemC);
-			var control = $('itemList').val();
-			console.log("itemList:"+control);
-			
-			리스트를 배열에 담아서 input type hidden에 전송
-			var object 
-			var reward = {rwrdName: "ab", rwrdCnt: "3"};
-			var reward2 = {rwrdName: "bc", rwrdCnt: "3"};
-			var reward3 = {rwrdName: "cd", rwrdCnt: "3"};
-				object.push(reward);
-				object.push(reward2);
-				object.push(reward3); 
-			console.log("배열 : ",object);
-			for(int i = 0;i<=countItem;i++){
-			}
-			$('itemList').val(object);
-			var con = $('itemList').val();
-			console.log("itemList:"+con);  */
-			$('#itemSubmit').submit();
+		function deleteFund() {
+			$('#itemSubmit').attr("action","/fund/delete").submit();
 		}
 	</script>
 	<footer th:replace="fragments/footer :: footer"></footer>

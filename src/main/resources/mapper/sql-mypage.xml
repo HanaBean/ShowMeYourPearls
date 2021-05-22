@@ -5,9 +5,9 @@
     <mapper namespace="com.pearl.mapper.MyPageMapper">
     
     <select id="myfundList" resultType="com.pearl.domain.MyPageVO"> 
-     	select f.*,nvl(nowtotal,0) nowtotal from fund f left join
+     	select /*+INDEX_DESC(f fund_pk)*/ f.*,nvl(nowtotal,0) nowtotal from fund f left join
 		(select fundnum, sum(paytotal) nowtotal from payment group by fundnum) p 
-		on(f.fundnum = p.fundnum) where memnum=#{memNum}
+		on(f.fundnum = p.fundnum) where memnum=#{memNum} and f.fundnum>0 order by fundenddate desc
 	</select>
 	
 	<select id="donaList" resultType="com.pearl.domain.MyPageVO">

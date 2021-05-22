@@ -68,18 +68,18 @@ public class FundController {
 		return mv;
 	}
 	
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("principal.username == #memEmail")
 	@GetMapping("/modify")
-	public ModelAndView modify(Long fundNum) {
+	public ModelAndView modify(Long fundNum,String memEmail) {
 		ModelAndView mv = new ModelAndView("/fund/fundUpdate");
 		FundVO update = service.get(fundNum);
 		mv.addObject("update", update);
 		return mv;
 	}
 	
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("principal.username == #memEmail")
 	@PostMapping("/modify")
-	public ModelAndView modify(FundVO vo) {
+	public ModelAndView modify(FundVO vo,String memEmail) {
 		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ vo.getFundNum());
 		service.update(vo);		
 		return mv;
@@ -100,16 +100,19 @@ public class FundController {
 	@RequestMapping("/getPay")
 	public ModelAndView get(FundVO vo) {
 		ModelAndView mv = new ModelAndView("/fund/fundPay");
+		log.info("fundVO>>>>>>>>>>>"+vo);
 		vo = service.getPay(vo);
+		MemberVO artist = service.artist(vo.getMemNum());
 		log.info("fund>>>>>>>>>>"+vo.getRwvo());
 		mv.addObject("fund", vo);
+		mv.addObject("artist", artist);
 		mv.addObject("reward", vo.getRwvo());
 		return mv;
 	}
 
-	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/delete")
-	public String delete(Long fundNum) {
+	@PreAuthorize("principal.username == #memEmail")
+	@RequestMapping("/delete")
+	public String delete(Long fundNum,String memEmail) {
 		service.delete(fundNum);
 		return "redirect:/fund/fundList";
 	}

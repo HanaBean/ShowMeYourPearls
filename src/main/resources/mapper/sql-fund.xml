@@ -3,20 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pearl.mapper.FundMapper">
-<!-- 	<resultMap type="com.pearl.domain.FundVO" id="fundVO"> -->
-<!-- 	    <result property="fundNum" column="FUNDNUM" /> -->
-<!-- 	    <result property="memNum" column="MEMNUM" /> -->
-<!-- 	    <result property="fundStartDate" column="FUNDSTARTDATE" /> -->
-<!-- 	    <result property="fundEndDate" column="FUNDENDDATE" /> -->
-<!-- 	    <result property="fundMoney" column="FUNDMONEY" /> -->
-<!-- 	    <result property="fundDday" column="FUNDDDAY" /> -->
-<!-- 	    <result property="fundTitle" column="FUNDTITLE" /> -->
-<!-- 	    <result property="fundIntro" column="FUNDINTRO" /> -->
-<!--     </resultMap> -->
 
 	<select id="getList" resultType="com.pearl.domain.FundVO">
 		<![CDATA[
-			select * from fund join member using (memnum) 
+			select /*+INDEX_DESC(fund fund_pk)*/ * from fund join member using (memnum) where fundnum>0
 		]]>
 	</select>
 	

@@ -30,7 +30,7 @@
 			<div class="contact-wrap w-100 p-md-5 p-4">
 				<div>
 				<h3 class="mb-4">Product Information</h3>
-					<span style="font-size: 2.0em">정원빈</span><span>&nbsp;&nbsp;작가님의</span>
+					<span style="font-size: 2.0em" th:text="${artist.memName}">정원빈</span><span>&nbsp;&nbsp;작가님의</span>
 					<span th:text="${fund.fundTitle}"></span>
 				</div>
 				<div>
@@ -64,7 +64,7 @@
 							
 						</tbody>
 					</table>
-					<span>총합 : </span>
+					<span>소계 : </span>
 					<input type="text" readonly th:value="${fund.rwrdTotal+'원'}">
 				</div>
 				<div class="col-md-6">

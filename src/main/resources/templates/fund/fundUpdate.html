@@ -25,7 +25,8 @@
 	</section>
 
 	<section class="ftco-section ftco-degree-bg">
-		<form action="/fund/modify" method="POST" id="modifyForm">
+		<form th:action="@{|/fund/modify?${_csrf.parameterName}=${_csrf.token}|}" 
+			method="POST" id="modifyForm" enctype="multipart/form-data">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-8 ftco-animate">
@@ -104,6 +105,7 @@
 										class="btn btn-secondary d-block px-2 py-3"></span>
 								</div>
 								<input type="hidden" th:value="${update.fundNum}" name="fundNum">
+								<input type="hidden" th:value="${#authentication.principal.member.memEmail}" name="memEmail">
 							</div>
 						</div>
 
