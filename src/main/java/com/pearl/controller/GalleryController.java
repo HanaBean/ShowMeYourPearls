@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -121,6 +122,7 @@ public class GalleryController {
 		return new ModelAndView("gallery/write");
 	}
 	
+	@Transactional
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
 	public ModelAndView register(GalleryVO vo,@RequestParam("file") MultipartFile file,

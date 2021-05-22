@@ -66,10 +66,14 @@
 
 <!-- -----------------------펀드 게시물 ---------------------------------->
 			<div class="row">
-				<div class="col-md-4 ftco-animate" th:each="f : ${list}">
+				<div class="col-md-4 ftco-animate" th:each="f : ${list}" th:object="${f.pic}">
 					<div class="block-7">
-						<a th:href="@{get(fundNum=${f.fundNum})}"><div class="img" 
-							style="background-image: url(http://placehold.it/200x100);"></div></a>
+						<div class="img" th:if="${f.pic} ne null"
+							th:style="'background-image: url(/gallery/display?fileName='+*{picPath}+'/'+*{picUuid}+'_'+*{picName}+'.'+*{picTail}+');'"
+							th:onclick="location.href='get?fundNum=[[${f.fundNum}]]'"></div>
+						<div class="img" th:unless="${f.pic} ne null"
+							style="background-image: url(http://placehold.it/300x200);"
+							th:onclick="location.href='get?fundNum=[[${f.fundNum}]]'"></div>
 						<div class="text-center p-4">
 						<a th:href="@{get(fundNum=${f.fundNum})}">
 							<span class="excerpt d-block" th:text="${f.fundTitle}" style="font-size:28px;"></span></a>

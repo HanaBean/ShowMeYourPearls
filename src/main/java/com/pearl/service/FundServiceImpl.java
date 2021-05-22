@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pearl.common.FileUtils;
 import com.pearl.domain.FundVO;
+import com.pearl.domain.GalleryVO;
 import com.pearl.domain.PicDTO;
 import com.pearl.domain.PictureVO;
 import com.pearl.mapper.FundMapper;
@@ -36,8 +37,13 @@ public class FundServiceImpl implements FundService {
 
 	@Override
 	public List<FundVO> getList() {
-		System.out.print(">>>" + mapper.getList().size() + "\n");
-		return mapper.getList();
+		List<FundVO> list = mapper.getList();
+		for(int i=0; i<list.size();i++) {
+			FundVO fund = list.get(i);
+			PictureVO pic = picMapper.getPicF(fund.getFundNum());
+			fund.setPic(pic);
+		}
+		return list;
 	}
 
 	@Override

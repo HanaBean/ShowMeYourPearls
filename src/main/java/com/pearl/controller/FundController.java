@@ -10,7 +10,10 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pearl.domain.CustomUser;
 import com.pearl.domain.FundVO;
 import com.pearl.domain.PictureVO;
 import com.pearl.domain.RewardVO;
@@ -28,7 +32,6 @@ import lombok.Setter;
 
 @Controller
 @RequestMapping("/fund/*")
-
 public class FundController {
 	
 	private Logger log = LoggerFactory.getLogger(this.getClass());
@@ -39,7 +42,6 @@ public class FundController {
 	@Setter(onMethod_ = @Autowired)
 	private RewardService rwService;
 	
-	
 	@RequestMapping("/fundList")
 	public ModelAndView list() {
 		ModelAndView mv = new ModelAndView("/fund/fundList");
@@ -48,11 +50,41 @@ public class FundController {
 		return mv;
 	}
 
+	@PreAuthorize("isAuthenticated()")
+	@RequestMapping("/write")
+	public ModelAndView fundWrite() {
+		ModelAndView mv = new ModelAndView("fund/fundWrite");
+		return mv;
+	}
+	
+	@Transactional
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/writeFund")
+	public ModelAndView fundWrite(FundVO vo,@AuthenticationPrincipal CustomUser user
+//			, @RequestParam(value="itemList") ArrayList<RewardVO> rewardList
+			, @RequestParam("file") MultipartFile file) throws Exception {
+		ModelAndView mv = new ModelAndView("redirect:/fund/fundList");
+		vo.setMemNum(user.getMember().getMemNum());
+		vo.setPic(uploadPicture(file));
+		service.insert(vo);
+		
+		return mv;
+	}
+	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/modify")
 	public ModelAndView modify(Long fundNum) {
 		ModelAndView mv = new ModelAndView("/fund/fundUpdate");
 		FundVO update = service.get(fundNum);
 		mv.addObject("update", update);
+		return mv;
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/modify")
+	public ModelAndView modify(FundVO vo) {
+		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ vo.getFundNum());
+		service.update(vo);		
 		return mv;
 	}
 	
@@ -66,6 +98,7 @@ public class FundController {
 		return mv;
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("/getPay")
 	public ModelAndView get(FundVO vo) {
 		ModelAndView mv = new ModelAndView("/fund/fundPay");
@@ -75,37 +108,15 @@ public class FundController {
 		mv.addObject("reward", rwvo);
 		return mv;
 	}
-	
-	@PostMapping("/modify")
-	public ModelAndView modify(FundVO vo) {
-		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ vo.getFundNum());
-		service.update(vo);		
-		return mv;
-	}
-	
+
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/delete")
 	public String delete(Long fundNum) {
 		service.delete(fundNum);
 		return "redirect:/fund/fundList";
 	}
 	
-	@RequestMapping("/write")
-	public ModelAndView fundWrite() {
-		ModelAndView mv = new ModelAndView("fund/fundWrite");
-		return mv;
-	}
-	
-	@PostMapping("/writeFund")
-	public ModelAndView fundWrite(FundVO vo
-			, @RequestParam(value="itemList") ArrayList<RewardVO> rewardList
-			, @RequestParam("file") MultipartFile file) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/fund/fundList");
-		vo.setPic(uploadPicture(file));
-		service.insert(vo);
-		
-		return mv;
-	}
-	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/pay")
 	public ModelAndView fundPay(FundVO vo) {
 		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ vo.getFundNum());

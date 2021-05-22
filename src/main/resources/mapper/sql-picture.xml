@@ -13,6 +13,10 @@
 		select * from picture where postnum = #{boardNum} and picclass = 'c'
 	</select>
 	
+	<select id="getPicF" resultType="com.pearl.domain.PictureVO">
+		select * from picture where postnum = #{boardNum} and picclass = 'f'
+	</select>
+	
 	<select id="getProfile" resultType="com.pearl.domain.PictureVO">
 		select * from picture where postnum = #{memNum} and picclass = 'p'
 	</select>

@@ -14,12 +14,12 @@ public class FundVO {
 	private Long fundNum;
 	private Long memNum;
 	private String memName;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date fundStartDate;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date fundEndDate;
 	private int fundMoney, rwrdTotal;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date fundDday;
 	private String fundTitle;
 	private String fundIntro;
