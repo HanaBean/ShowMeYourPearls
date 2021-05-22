@@ -30,8 +30,10 @@
 			<if test="memName != null">memname=#{memName},</if>
 			<if test="memPass != null and memPass != ''">mempass=#{memPass},</if>
 			<if test="memPhone != null">memphone=#{memPhone},</if>
-			<if test="memBank != null and memBank != ''">membank=#{memBank},</if>
-			<if test="memAccount != null and memAccount != ''">memaccount=#{memAccount}</if>
+			<if test="memBank != null and memBank != '' and memAccount != null and memAccount != ''">
+			membank=#{memBank}, memaccount=#{memAccount}
+			</if>
+			
 		</trim>
 		where memnum=#{memNum}
 	</update>

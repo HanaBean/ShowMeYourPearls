@@ -118,7 +118,7 @@ public class MypageController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/subscribe")
-	public ResponseEntity subscribe(@RequestBody SubscribeVO subscriber) {
+	public ResponseEntity<Integer> subscribe(@RequestBody SubscribeVO subscriber) {
 		log.info("subscribe>>>>>>>>>>>>"+subscriber);
 		List<SubscribeVO> subLists = mypageservice.subList(subscriber.getArtist());
 		for(int i=0;i<subLists.size();i++) {
