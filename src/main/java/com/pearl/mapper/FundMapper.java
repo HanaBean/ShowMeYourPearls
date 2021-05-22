@@ -15,7 +15,7 @@ public interface FundMapper {
 	Long insert(FundVO vo);
 	int update(FundVO vo);
 	int delete(Long fundNum);
-	void insertPic(List<PicDTO> list) throws Exception;
-	void insertItem(List<RewardVO> rwList);
-	List<PicDTO> getPicList(Long fundNum);
+//	void insertPic(List<PicDTO> list) throws Exception;
+//	void insertItem(List<RewardVO> rwList);
+//	List<PicDTO> getPicList(Long fundNum);
 }
