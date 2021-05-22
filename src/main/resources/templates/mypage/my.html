@@ -33,19 +33,19 @@
 	font-weight: bold;
 	margin-left:20em;
 	margin-bottom:1em;
-	float:left;
+	float: left;
 	
 }
 
 
 .edit{
+	position:absolute;
 	font-size: 1.5em;
 	border-radius:10px;
 	background-color:#d4f5ce;
 	text-align: center;
 	margin-left:1em;
 	margin-top:0.8em;
-	float:left;
 	border:0;
 
 }
@@ -83,29 +83,33 @@
 }
 
 .btn2{
-	position : absolute;
+	position:absolute;
 	margin-left: 850px;
-	bottom:30px;
+	bottom: 10px;
 	
 }
 
-.Donation{
-	margin-left:40px;
-	font-size: 1.5em;
-	border-radius:10px;
-	text-align: center;
-	background-color: #d9e4fc;
-	border:0;
-}
-
 .Subscribe{
-	float :left;
+	
 	font-size: 1.5em;
 	border-radius:10px;
 	text-align: center;
 	background-color: #f54e4e;
 	border:0;
+	
 }
+
+.Donation{
+	position:absolute;
+	margin-left:20px;
+	font-size: 1.5em;
+	border-radius:10px;
+	text-align: center;
+	background-color: #d9e4fc;
+	border:0;
+	
+}
+
 
 </style>
   <body>
@@ -157,10 +161,10 @@
     			th:if="${#authentication.name}==${meminfo.memEmail}"></div>
     		<div class="num"><span class="numm" th:text="${#lists.size(myGallery)}">photo</span><span class="num1">Photo</span>
     		<span class="num2" id="subscribe" th:text="${subscriber}">subs</span><span class="num3">subscriber</span></div>
-    		<div class="btn2"><input type="button" value="Donation" class="Donation" id="donation" style="cursor:pointer"
-    			th:if="${#authentication.name}!=${meminfo.memEmail}">
-    		<input type="button" value="Subscribe" class="Subscribe" id="btnSub" style="cursor:pointer"
-    			th:if="${#authentication.name}!=${meminfo.memEmail}" onclick="addSubscribe()"></div>
+    		<div class="btn2"><input type="button" value="Subscribe" class="Subscribe" id="btnSub" style="cursor:pointer"
+    			th:if="${#authentication.name}!=${meminfo.memEmail}" onclick="addSubscribe()">
+    		<input type="button" value="Donation" class="Donation" id="donation" style="cursor:pointer"
+    			th:if="${#authentication.name}!=${meminfo.memEmail}"></div>
     </div></div>	
 			<a class="btn d-block" id="fundmore" href='/fund/fundList'>
 			<span th:if="${#authentication.name}!=${meminfo.memEmail}"  th:text="${meminfo.memName+'님의 펀딩 보러가기→'}">
