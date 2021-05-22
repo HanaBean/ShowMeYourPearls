@@ -63,7 +63,10 @@ public class GalleryServiceImpl implements GalleryService{
 	
 	@Override
 	public MemberVO readWriter(Long memNum) {
-		return mapper.readWriter(memNum);
+		MemberVO writer = mapper.readWriter(memNum);
+		PictureVO pic = picMapper.getProfile(memNum);
+		writer.setProfile(pic);
+		return writer;
 	}
 
 	@Transactional

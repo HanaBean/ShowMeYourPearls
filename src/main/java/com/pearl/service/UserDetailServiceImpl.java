@@ -37,7 +37,8 @@ public class UserDetailServiceImpl implements UserDetailsService{
 	@Transactional
 	public int updateUser(MemberVO member) {
         // 비밀번호 암호화
-		if(member.getMemPass()!=null&&member.getMemPass()!="") {
+		if(member.getMemPass()!=null&&!member.getMemPass().trim().equals("")) {
+			log.info("ServicePass>>>>>"+member.getMemPass());
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			member.setMemPass(passwordEncoder.encode(member.getMemPass()));
 		}

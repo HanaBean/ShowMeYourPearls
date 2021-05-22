@@ -9,4 +9,6 @@ public class ReplyVO {
 	private Long replyNum,memNum,boardNum;
 	private String replyContent, memName;
 	private Date replyDate;
+	
+	private String profile;
 }
