@@ -6,6 +6,26 @@
 	<meta name="_csrf" th:content="${_csrf.token}"/>
 	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
+<style>
+.info{
+ 	margin-bottom: 1.3em;
+}
+
+
+.btn{
+	font-size: 1.1em;
+}
+
+.haha{
+	position:absolute;
+	top:6%;
+	}
+
+.haha2{
+	clear:both;
+}
+
+</style>
   <body>
 
    <header th:replace="fragments/header :: header"> </header>
@@ -29,9 +49,17 @@
           </div>
         </div>
       </div>
+      
+      
     </section>
     
-    <div>
+   
+			
+			
+	
+    <section class="ftco-section bg-light">
+    
+     <div class="info">
     
     <img th:if="${meminfo.profile}==null" th:src="@{/images/profile.jpg}" width="300" height="300" class="pic">
     <img th:if="${meminfo.profile}!=null" 
@@ -39,27 +67,24 @@
     width="300" height="300" class="pic">
     	<input type="hidden" th:value="${meminfo.memNum}" name="memNum">
     	<input type="hidden" sec:authorize="isAuthenticated()" th:value="${#authentication.principal.member.memNum}" name="userNum">
-    		<span class="nickname" th:text="${meminfo.memName}"></span>
+    		<div class="haha"><p class="nickname" th:text="${meminfo.memName}"></p>
     		<input type="button" value="Edit" class="edit" 
     			onClick="location.href='/mypage/edit'" style="cursor:pointer"
-    			th:if="${#authentication.name}==${meminfo.memEmail}">
+    			th:if="${#authentication.name}==${meminfo.memEmail}"></div>
     		<span class="num1" th:text="${#lists.size(myGallery)}">photo</span><span class="num3">Photo</span>
     		<span class="num2" id="subscribe" th:text="${subscriber}">subs</span><span class="num4">subscriber</span>
     		<input type="button" value="Donation" class="Donation" id="donation" style="cursor:pointer"
     			th:if="${#authentication.name}!=${meminfo.memEmail}">
     		<input type="button" value="Subscribe" class="Subscribe" id="btnSub" style="cursor:pointer"
     			th:if="${#authentication.name}!=${meminfo.memEmail}" onclick="addSubscribe()">
-    </div><hr><hr>
-<a class="btn d-block" id="fundmore" href='/fund/fundList'>
-			<span th:if="${#authentication.name}!=${meminfo.memEmail}" th:text="${meminfo.memName+'님의 펀딩 보러가기→'}">
+    </div>
+			<a class="btn d-block" id="fundmore" href='/fund/fundList'>
+			<span th:if="${#authentication.name}!=${meminfo.memEmail}"  th:text="${meminfo.memName+'님의 펀딩 보러가기→'}">
 			</span>
-			<span th:if="${#authentication.name}==${meminfo.memEmail}">내 펀딩 보러가기→
+			<span th:if="${#authentication.name}==${meminfo.memEmail}" class="btn">내 펀딩 보러가기→
 			</span></a>
 			
-			
-	
-    <section class="ftco-section bg-light">
-			<div class="container">
+			<div class="container" name="mygal">
 				<div class="row mt-4 d-flex">
 					<div class="col-md-6 col-lg-3 ftco-animate" th:each="gallery : ${myGallery}" th:object="${gallery.picture}">
 						<div class="staff">
@@ -85,14 +110,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<!-- <div class="black_bg" id="black_bg"></div>
-			<div class="modal" id="modal">
-				<div class="modal_close"><a href="#close">Close</a></div>
-				<div>
-				어쩌구 저쩌구 
-				</div>
-			</div> -->			
+			</div>		
 		</section>
 		<script th:inline="javascript">
 			  var subs = [[${subs}]];

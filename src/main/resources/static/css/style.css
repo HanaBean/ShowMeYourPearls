@@ -82,48 +82,48 @@
 .nickname{
 	font-size: 3em;
 	font-weight: bold;
-	margin-left:2.5em;
-	position:absolute;
-	top:70%;
+	margin-left:20em;
+	
+	float:left;
 }
 
 
 .edit{
-	position:absolute;
 	font-size: 1.5em;
 	border-radius:10px;
 	background-color:#d4f5ce;
 	text-align: center;
-	top:93%;
-	left:71%;
+	margin-left:1em;
+	margin-top:0.8em;
+	float:left;
 	border:0;
 }
 
 .num1{
 	position:absolute;
-	top:83%;
-	left:60%;
+	top:17%;
+	left:53%;
 	font-size: 1.2em;
 }
 
 .num2{
 	position:absolute;
-	top:86%;
-	left:60%;
+	top:20%;
+	left:53%;
 	font-size: 1.2em;
 }
 
 .num3{
 	position:absolute;
-	top:83%;
-	left:63%;
+	top:17%;
+	left:56%;
 	font-size: 1.2em;
 }
 
 .num4{
 	position:absolute;
-	top:86%;
-	left:63%;
+	top:20%;
+	left:56%;
 	font-size: 1.2em;
 }
 
@@ -132,8 +132,8 @@
 	font-size: 1.5em;
 	border-radius:10px;
 	text-align: center;
-	top:93%;
-	left:62%;
+	top:33%;
+	left:45%;
 	background-color: #d9e4fc;
 	border:0;
 }
@@ -145,8 +145,8 @@
 	text-align: center;
 	background-color: #f54e4e;
 	border:0;
-	top:93%;
-	left:52%;
+	top:33%;
+	left:55%;
 }
 
 .black_bg{

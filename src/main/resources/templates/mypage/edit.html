@@ -24,9 +24,6 @@
 	
 }
 
-
-
-
 #row2{
 	margin:12em;
 	} 
@@ -134,7 +131,7 @@
 											</div>
 											<select name="" id="" th:field="${meminfo.memBank}"
 												th:value="${meminfo.memBank}" class="form-control">
-<!-- 												<option th:value="none" th:text="은행을 선택해주세요"></option> -->
+												<option th:value="'none'" th:text="은행을선택해주세요"></option>
 												<option th:value="'국민은행'" th:text="국민은행"></option>
 												<option th:value="'신한은행'" th:text="신한은행"></option>
 												<option th:value="'농협은행'" th:text="농협은행"></option>
@@ -172,26 +169,6 @@
 
 	<footer th:replace="fragments/footer :: footer"> </footer>
 	<script th:inline="javascript">
-		
-// 		const browseBtn = document.querySelector('.upload_btn');
-// 		const realInput = document.querySelector('#image');
-		
-// 		browseBtn.addEventListener('click',()=>{
-// 		realInput.click();
-		
-// 		});
-// 		function setThumbnail(event) { 
-		
-// 		var reader = new FileReader();
-		
-// 		reader.onload = function(event) { 
-// 			var img = document.createElement("img"); 
-// 			img.setAttribute("src", event.target.result); 
-// 			document.querySelector("div#image_container").appendChild(img); 
-			
-// 			}; 
-			
-// 			reader.readAsDataURL(event.target.files[0]); }
 			
 		$(".custom-file-input").change(function() {
 			console.log(""+$(this).val());
