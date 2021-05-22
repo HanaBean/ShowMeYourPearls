@@ -109,7 +109,7 @@ public class FundController {
 	@PostMapping("/pay")
 	public ModelAndView fundPay(FundVO vo) {
 		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ vo.getFundNum());
-//		service.insert(vo);
+		service.insert(vo);
 		return mv;
 	}
 	

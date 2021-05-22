@@ -71,7 +71,7 @@
 							class="form-control" placeholder="Donation">
 					</div>
 				</div>
-				<div>총 [소계+후원금] 후원합니다.</div>
+				<div><input type="text" value="" name="payTotal">(소계+후원금)을 후원합니다.</div>
 			</div>
 
 			<div>
@@ -140,32 +140,23 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="label">Card Number</label> <input type="text"
-														class="form-control" placeholder="16 Digit Card Number">
+														class="form-control" name="payCardNum" placeholder="16 Digit Card Number">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="label">CVC</label> <input type="text"
-														class="form-control" name="text" id="text"
+														class="form-control" name="payCvc" id="text"
 														placeholder="3 DIGIT">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="label">Valid Date</label> <input type="text"
-														class="form-control" name="text" id="text"
+														class="form-control" name="payCardExpire" id="text"
 														placeholder="MMYY">
 												</div>
 											</div>
-											<div class="col-md-12">
-												<div class="form-group">
-													<label class="label" for="password">Password</label> <input
-														type="password" class="form-control" name="password"
-														id="password"
-														placeholder="The first two digits of the card password">
-												</div>
-											</div>
-
 
 										</div>
 									</form>
