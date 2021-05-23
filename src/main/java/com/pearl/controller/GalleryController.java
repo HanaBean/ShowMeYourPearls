@@ -129,9 +129,16 @@ public class GalleryController {
 			@AuthenticationPrincipal CustomUser user) {
 		ModelAndView mv = new ModelAndView("redirect:/gallery/list");
 		vo.setMemNum(user.getMember().getMemNum());
-		vo.setPicture(uploadPicture(file));
-		service.insert(vo);
-		return mv;
+		PictureVO pic = uploadPicture(file);
+		if(pic!=null) {
+			vo.setPicture(pic);
+			service.insert(vo);
+			return mv;
+		}else {
+			mv.setViewName("redirect:/gallery/write");
+			mv.addObject("result", "fail");
+			return mv;
+		}
 	}
 	
 	@PreAuthorize("principal.username == #memEmail")
@@ -208,6 +215,22 @@ public class GalleryController {
 		PictureVO picture = new PictureVO();
 		String uploadFolder = "c:\\pearl";
 		
+		if(!file.isEmpty()) {
+			String contentType = file.getContentType();
+			if(contentType.contains("image/jpeg")) {
+				picture.setPicTail("jpg");
+			}else if(contentType.contains("image/gif")) {
+				picture.setPicTail("gif");
+			}else if(contentType.contains("image/png")) {
+				picture.setPicTail("png");
+			}else if(contentType.contains("image/bmp")) {
+				picture.setPicTail("bmp");
+			}else {
+				return null;
+			}
+		}
+		log.info("확장자>>>>"+picture.getPicTail());
+		
 		//저장 경로를 File객체에 담음. 파일이 아닌 디렉토리
 		File uploadPath = new File(uploadFolder, getFolder());
 		log.info("uploadPath: "+uploadPath);
@@ -228,6 +251,7 @@ public class GalleryController {
 		uploadFileName = uuid.toString()+"_"+uploadFileName;
 		
 		File saveFile = new File(uploadPath, uploadFileName);
+		if(!checkImageType(saveFile)) return null;
 		try {
 			file.transferTo(saveFile);
 			picture.setPicUuid(uuid.toString());
@@ -237,6 +261,17 @@ public class GalleryController {
 		} //end catch
 		
 		return picture;
+	}
+	
+	private boolean checkImageType(File file) {
+		try {
+			String contentType = Files.probeContentType(file.toPath());
+			log.info("checkImage>>>>>"+contentType);
+			return contentType.startsWith("image");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 }

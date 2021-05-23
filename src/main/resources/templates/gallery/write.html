@@ -59,7 +59,7 @@
 					            <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>
 					            <div class="col-sm-10">
 					                <div class="custom-file" id="inputFile">
-					                    <input name="file" type="file" class="custom-file-input" id="customFile">
+					                    <input name="file" type="file" class="custom-file-input" id="customFile" accept="image/*">
 					                    <label class="custom-file-label" for="customFile">파일을 선택해 주세요.</label>
 					                </div>
 					            </div>
@@ -82,8 +82,30 @@
 	<!-- .section -->
 	
 <script>
+	
+	function checkExtension(fileSize){
+		if(fileSize >= 5242880){
+			alert("파일 사이즈 초과");
+			return false;
+		}
+	return true;
+}
 	$(".custom-file-input").change(function() {
-		console.log(""+$(this).val());
+		var file = $(this)[0].files;
+		var fileName = $(this).val();
+		console.log(""+fileName);
+		var fileExt = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
+		console.log(""+fileExt);
+		console.log(""+file[0].size);
+		if(fileExt!="jpg"&&fileExt!="jpeg"&&fileExt!="gif"&&fileExt!="png"&&fileExt!="bmp"){
+			alert("이미지 파일이 아닙니다");
+			$(this).val("");
+			return;
+		} else if(file[0].size >= 5242880){
+			alert("5MB이하의 이미지만 사용가능합니다");
+			return false;
+		}
+		
 		if(this.files&& this.files[0]){
 			var reader = new FileReader;
 			reader.onload = function(data){
