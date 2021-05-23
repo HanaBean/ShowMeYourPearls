@@ -111,6 +111,78 @@
 }
 
 
+        
+
+        
+    
+		body { font-family: Arial, Helvetica, sans-serif;} 
+		
+		.close{
+			position:absolute;
+			margin-left:270px;
+			background-color: white;
+			color: black;
+			padding: 15px 25px;
+			border-radius: 6px;
+			cursor: pointer;
+		}
+		.modal{
+			position: fixed;
+			top: 0; left: 0;
+			width: 100%; height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items : center;
+		}
+		.md_overlay {
+			background-color: rgba(0, 0, 0, 0.6);
+			width: 100%; height: 100%;
+			position: absolute;
+		}
+		.md_content {
+			width: 40%;
+			position: relative;
+			padding: 50px 100px;
+			background-color: white;
+			text-align: center;
+			border-radius: 6px;
+			box-shadow: 0 10px 20px rgba(0,0,0,0.20), 0 6px 6px rgba(0, 0, 0, 0.20);
+		}
+		h1 {
+			position:absolute;
+			top:10px;
+			left:260px;			
+			
+		}
+		.hidden {
+			display: none;
+		}
+		
+		.show {
+			display: block;
+		}
+		.modal_text { padding: 30px; }
+
+.bank{
+	position:absolute;
+	font-size: 1.5em;
+	left:300px;
+	
+	
+}        
+        
+ .count{
+ 	position:absolute;
+    top:115px;
+    left:270px;
+    font-size: 1.5em;    
+
+        } 
+
+.modal_text2 {
+			display: none;
+		}
+
 </style>
   <body>
 
@@ -163,9 +235,22 @@
     		<span class="num2" id="subscribe" th:text="${subscriber}">subs</span><span class="num3">subscriber</span></div>
     		<div class="btn2"><input type="button" value="Subscribe" class="Subscribe" id="btnSub" style="cursor:pointer"
     			th:if="${#authentication.name}!=${meminfo.memEmail}" onclick="addSubscribe()">
-    		<input type="button" value="Donation" class="Donation" id="donation" style="cursor:pointer"
+    		<input type="button" value="Donation" class="Donation" id="donation" style="cursor:pointer" onclick="modalstart"
     			th:if="${#authentication.name}!=${meminfo.memEmail}"></div>
     </div></div>	
+
+    	<div class="modal hidden">
+		<div class="md_overlay"></div>
+		<div class="md_content">
+			<h1>Donation</h1>
+			<div class="modal_text">
+				 <span th:text="${meminfo.memBank}" class="bank"></span>
+      			 <span th:text="${meminfo.memAccount}" class="count"></span>
+			</div>
+			 <div class="modal_text2">후원계좌가 없습니다</div>
+			<button class="close" onclick="mmodalend">Close</button>
+		</div>
+	</div>
 			<a class="btn d-block" id="fundmore" href='/fund/fundList'>
 			<span th:if="${#authentication.name}!=${meminfo.memEmail}"  th:text="${meminfo.memName+'님의 펀딩 보러가기→'}">
 			</span>
@@ -245,8 +330,72 @@
 			}
 		});
 		
+		const openButton = document.getElementById("donation");
+		const nothing = document.querySelector(".modal_text2");
+		const save = document.querySelector(".modal_text");
+		const modal = document.querySelector(".modal");
+		const overlay = modal.querySelector(".md_overlay");
+		const closeButton = modal.querySelector(".close");
 		
+		//동작함수
 		
+	/*		const openModal = () => {
+			modal.classList.remove("hidden");
+			nothing.classList.add("hidden");
+		$(function(){
+			if(save ==  null || save == 'none' ){
+				nothing.classList.remove("hidden");
+			}
+		});
+		}
+		
+		openButton.onclick = function() {
+			if(save !=null || save !=='' || save != 'none'){
+			modal.classList.remove("hidden");
+			nothing.classList.add("hidden");
+			} else {
+				save.classList.add("hidden")
+				nothing.classList.remove("hidden");	
+				return false;
+			};
+		
+	    }
+		*/
+		const closeModal = () => {
+			modal.classList.add("hidden");
+		}
+		//클릭 이벤트
+	/*		openButton.addEventListener("click", openModal);*/
+		closeButton.addEventListener("click", closeModal); 
+	
+	
+		/*		function modalstart() {
+			var clsoe = modal.querySelector(".close");
+			var context = document.getElementById(".modal_text").val();
+			var nothing = document.getElementById(".modal_text2").val();
+		if($(".donation").css("hidden")){
+			$(".donation").show();
+		}
+			
+	}	*/
+	
+
+
+
+
+	
+		/*
+		document.getElementById("donation").onclick = function() {
+		        document.getElementById("modal hidden").style.display="block";
+		    }
+		   
+		    document.getElementById("clsoe").onclick = function() {
+		        document.getElementById("modal").style.display="none";
+		    }   */
+		
+		    
+		    
+		    
 		/*  $( document ).ready( function() {
 			 
 			window.onload = function() {
