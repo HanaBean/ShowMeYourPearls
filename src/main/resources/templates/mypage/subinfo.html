@@ -72,7 +72,6 @@ h5 {
    				<table class="sub-table" >
 							<thead>
 							<tr>
-								<th>프로필 사진</th>
 								<th class="subname">회원 닉네임</th>
 								<th>구독 관리</th>
 							</tr>	
@@ -80,8 +79,8 @@ h5 {
 							<tbody>
 								<tr th:each="sub : ${list}" >
 									<td><a href="#"><img th:src="@{/images/person_1.jpg}" alt="Image placeholder" class="img-fluid" 
-									style="width: 40px;	height:40px; border-radius: 20px;"></a>&nbsp&nbsp&nbsp
-									<td><a th:href="@{/mypage(memNum=${sub.memNum})}" th:text="${sub.memName}">
+									style="width: 40px;	height:40px; border-radius: 20px;"></a>
+									&nbsp&nbsp&nbsp<a th:href="@{/mypage(memNum=${sub.memNum})}" th:text="${sub.memName}">
 									</a></td>
 									<td><input type="button" value="Unsubscribe" th:onclick="'subscribe('+${sub.memNum}+')'"
 									style="cursor:pointer; background-color:#343a40; border-radius:5px; color:white;"
