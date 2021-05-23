@@ -12,6 +12,7 @@
 					<div>
 						<h3 class="mb-4" style="display: inline-block;">공지 사항</h3>
 						<input type="submit" value="수정하기" id="editBtn"
+							sec:authorize="hasRole('ROLE_ADMIN')"
 							class="btn btn-primary" style="float: right;"
 							th:onclick="location.href='/notice/modify?boardNum=[[${notice.boardNum}]]'">
 					</div>

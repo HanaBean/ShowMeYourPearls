@@ -25,6 +25,7 @@
 					style="display: inline-block; text-align: center;">공지사항</h1>
 				<input type="button" value="공지 작성" id="writeBtn"
 					style="float: right;" class="btn btn-primary"
+					sec:authorize="hasRole('ROLE_ADMIN')"
 					onclick="location.href='/notice/write'">
 			</div>
 			<hr>

@@ -1,6 +1,7 @@
 package com.pearl.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,7 @@ public class NoticeController {
 		return mv;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/write")
 	public ModelAndView writePage() {
 		ModelAndView mv = new ModelAndView("notice/write");
@@ -42,6 +44,7 @@ public class NoticeController {
 		return mv;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/write")
 	public ModelAndView writeSend(BoardVO vo) {
 		ModelAndView mv = new ModelAndView("redirect:/notice/list");
@@ -49,6 +52,7 @@ public class NoticeController {
 		return mv;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/modify")
 	public ModelAndView modifyPage(int boardNum, Model model) {
 		ModelAndView mv = new ModelAndView("notice/modify");
@@ -57,6 +61,7 @@ public class NoticeController {
 		return mv;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/modify")
 	public ModelAndView modifySend(BoardVO vo) {
 		ModelAndView mv = new ModelAndView("redirect:/notice/list");
@@ -64,6 +69,7 @@ public class NoticeController {
 		return mv;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/delete")
 	public ModelAndView delete(int boardNum, Model model) {
 		ModelAndView mv = new ModelAndView("redirect:/notice/list");
