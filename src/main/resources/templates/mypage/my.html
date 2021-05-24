@@ -251,7 +251,7 @@
 			<button class="close" onclick="mmodalend">Close</button>
 		</div>
 	</div>
-			<a class="btn d-block" id="fundmore" href='/fund/fundList'>
+			<a class="btn d-block" id="fundmore" th:href='@{/fund/fundList(memNum=${meminfo.memNum})}'>
 			<span th:if="${#authentication.name}!=${meminfo.memEmail}"  th:text="${meminfo.memName+'님의 펀딩 보러가기→'}">
 			</span>
 			<span th:if="${#authentication.name}==${meminfo.memEmail}" class="btn">내 펀딩 보러가기→

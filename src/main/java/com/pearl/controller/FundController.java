@@ -48,6 +48,7 @@ public class FundController {
 	public ModelAndView list(@ModelAttribute("vo") FundVO vo) {
 		ModelAndView mv = new ModelAndView("/fund/fundList");
 		List<FundVO> fund = service.getList(vo);
+		if(vo.getMemNum()!=null) mv.addObject("memNum", vo.getMemNum());
 		mv.addObject("list", fund);
 		return mv;
 	}

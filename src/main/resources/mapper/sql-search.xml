@@ -37,6 +37,9 @@
 	</sql>
 	
 	<sql id="searchFund">
+		<if test = "memNum != null and memNum != ''">
+			and f.memNum = #{memNum}
+		</if>
 		<if test="fundNow != null and fundNow != ''">
 			<choose>
 				<when test="'done'.equals(fundNow)">

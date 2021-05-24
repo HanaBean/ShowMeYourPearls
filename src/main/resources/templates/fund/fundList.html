@@ -144,9 +144,11 @@
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 		var fundNow = '&fundNow='+([[${vo.fundNow}]]==null?'':[[${vo.fundNow}]]);
-	function movePage(uri, queryString) {
-		location.href = uri + queryString + fundNow;
-	}
+		var memNum = '&memNum='+([[${memNum}]]==null?'':[[${memNum}]]);
+		function movePage(uri, queryString) {
+	
+			location.href = uri + queryString + fundNow + memNum;
+		}
 
 	/*]]>*/
 </script>
