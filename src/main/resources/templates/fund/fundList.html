@@ -43,8 +43,8 @@
 			</div>
 
 <!-- -----------------------검색창 ---------------------------------->
-			<div style="margin: 0 0 40px 0; float: center;">
-				<center>
+			<div style="margin: 0 0 40px 0; float: center;" align="center">
+				
 					<form>
 						<select style="width: 170px; height: 40px;">
 							<option value="none">==== 전체 검색 ====</option>
@@ -61,7 +61,7 @@
 							<span><b>SEARCH</b></span>
 						</button>
 					</form>
-				</center>
+				
 			</div>
 
 <!-- -----------------------펀드 게시물 ---------------------------------->
@@ -97,6 +97,11 @@
 				</div>
 
 			</div>
+			<div class="row mt-5">
+          <div class="col text-center">
+            <div th:replace="fragments/pagination :: pagination"></div>
+          </div>
+        </div>
 		</div>
 	</section>
 	<footer th:replace="fragments/footer :: footer"></footer>

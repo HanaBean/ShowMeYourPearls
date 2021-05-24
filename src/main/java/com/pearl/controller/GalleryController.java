@@ -118,8 +118,10 @@ public class GalleryController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("/write")
-	public ModelAndView write() {
-		return new ModelAndView("gallery/write");
+	public ModelAndView write(String result) {
+		ModelAndView mv = new ModelAndView("gallery/write");
+		mv.addObject("result",result);
+		return mv;
 	}
 	
 	@Transactional
@@ -129,8 +131,9 @@ public class GalleryController {
 			@AuthenticationPrincipal CustomUser user) {
 		ModelAndView mv = new ModelAndView("redirect:/gallery/list");
 		vo.setMemNum(user.getMember().getMemNum());
-		PictureVO pic = uploadPicture(file);
-		if(pic!=null) {
+		log.info("file>>>>>>>>>"+file);
+		if(file.getSize()>0) {
+			PictureVO pic = uploadPicture(file);
 			vo.setPicture(pic);
 			service.insert(vo);
 			return mv;
