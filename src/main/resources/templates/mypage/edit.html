@@ -120,7 +120,7 @@
 								<div class="form-group">
 									<label class="label" for="Password">비밀번호</label> 
 									<input type="password" class="form-control" id="Password"
-										name="memPass" placeholder="Password">
+										name="memPass" placeholder="Password" th:value="${meminfo.memPass}">
 								</div>
 							</div>
 							<div class="col-md-12">
@@ -200,14 +200,19 @@
 		
 			
 		 $( document ).ready( function() {
+		  	/*<![CDATA[*/
+    		var result = /*[[${result}]]*/ 
+    	/*]]*/
+    	if(result=="joinFail"){
+    		alert("이미 존재하는 닉네임입니다.");
+    	}
 		  	$("#edit_btn").click(function(e){
 		    		e.preventDefault();
 		    		editsomething();
 		    	});
-		
 		 function editsomething() {
 		
-			 	var specialCheck = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+			 	var specialCheck = /[~!@#$%^&*()_+|<>?:{}]/;
 			 	var ckname = $('#memName').val();	 
 	    			if(ckname=="") {
 	    				alert("닉네임을 입력해주세요");
@@ -234,22 +239,22 @@
 		    				return false;  
 		    			}  
 		    			 
-		    	/* 	 var psRegex = !/^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/	 
+		    		 var psRegex = /^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/	 
 		    		 var ckps = $('#Password').val();
-		    		 	if( !psRegex.test(ckps)) {
+		    		 	if(ckps!=""&& !psRegex.test(ckps)) {
 		    			     alert("비밀번호는 숫자, 영문, 특수문자(!@$%^&*?_~ 만 허용) 조합으로 8~20자리를 사용해야 합니다.");
 		    			     $('#Password').focus();
 		    				return false;  
-		    		 	}  */
+		    		 	}  
 		    		 	
 		    		var ckbank = $('#memBank').val();	 
 				    var ckaccount = $('#memAccount').val();
 				    console.log(ckbank, ckaccount);
-				    	if(ckbank == null||ckbank == "") {
+				    	if((ckbank == null||ckbank == "") && (ckaccount!= "")) {
 				    	alert("은행을 입력해주세요");
 				    	$('#memBank').focus();
 				    	return false;
-				    }  else if(ckaccount == null||ckaccount== "") {
+				    }  else if((ckbank != "") && (ckaccount == null||ckaccount== "")) {
 				    	alert("계좌번호를 입력해주세요");
 				    	$('#memAccount').focus();
 				    	return false;
@@ -261,48 +266,6 @@
 	    		$("#appointment2").submit();
 	    	 }
 		 });
-	    			
-	    			/* 
-	    			
-	    			var psRegex = !/^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/
-	    			var ckps = $('#Password').val();	
-	    			if(ckps=="") {
-	    				alert("Password을 입력해주세요");
-	    				$('#Password').focus();
-	    				return false;
-	    			}  else if(ckps.search(/\s/) != -1) {
-	    				alert("비밀번호를 공백없이 입력해주세요");
-	    				$('#Password').focus();
-	    				return false;
-	    			} 
-	    			
-	    			var ckbank = $('#memBank').val();	 
-	    			var ckaccount = $('#memAccount').val();
-	    			else if( ckbank == null && ckaccount != "") {
-	    				alert("은행을 입력해주세요");
-	    				$('#memBank').focus();
-	    				return false;
-	    			} else if( ckbank != null && ckaccount == "") {
-	    				alert("계좌번호를 입력해주세요");
-	    				$('#memAccount').focus();
-	    				return false;
-	    			} if( regExp != ckaccount) {
-	    			     alert("숫자와 '-' 만 입력가능합니다.");
-	    			     $('#memAccount').focus();
-	    			     return;
-	    			} else if(ckaccount.search(/\s/) != -1) {
-	    				alert("계좌번호를 공백없이 입력해주세요");
-	    				$('#memAccount').focus();
-	    				return false;
-	    			} else if(specialCheck.test(ckaccount)){ 
-	    				alert("계좌번호는 특수문자를 포함 할 수 없습니다.");
-	    				return false;
-	    			} */
-
-	    	 	//alert("회원가입이 완료되었습니다");
-			
-			
-	
 </script>
 
 

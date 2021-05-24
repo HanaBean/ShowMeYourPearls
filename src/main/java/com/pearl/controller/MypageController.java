@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pearl.domain.CustomUser;
 import com.pearl.domain.EmotionVO;
@@ -115,6 +116,17 @@ public class MypageController {
 		 user.updateUser(vo); 
 		 return "redirect:edit";
 	}
+	
+
+	/*
+	 * @RequestMapping("/mypage/editsend") public String appointment2(MemberVO vo,
+	 * RedirectAttributes rttr) { log.info("VO1>>>>>"+vo); String ninkname =
+	 * vo.getMemName(); if(!user.nickNameCheck(ninkname)) {
+	 * rttr.addFlashAttribute("result","joinFail"); }else { log.info("VO2>>>>>"+vo);
+	 * 
+	 * } return "redirect:/mypage/edit"; }
+	 */
+	
 	
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("/mypage/subinfo")
