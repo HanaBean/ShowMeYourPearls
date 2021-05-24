@@ -67,20 +67,20 @@
 							<div class="form-group">
 								<label>목표 금액</label>
 								<div>
-									<div th:text="${detail.fundMoney}" class="form-control"></div>
+									<div th:text="${#numbers.formatInteger(detail.fundMoney,3,'COMMA')+'원'}" class="form-control"></div>
 								</div>
 							</div>
 							<div>
 								<label>달성률</label>
-								<div text="100%" class="form-control"></div>
+								<div text="100%" th:text="${#numbers.formatDecimal(detail.total*1.0/detail.fundMoney*100,3,2)+'%'}" class="form-control"></div>
 							</div>
 							<div>
 								<label>현재 모금액</label>
-								<div text="100000" class="form-control"></div>
+								<div th:text="${#numbers.formatInteger(detail.total,3,'COMMA')+'원'}" class="form-control"></div>
 							</div>
 							<div>
 								<label>참여인원</label>
-								<div text class="form-control"></div>
+								<div th:text="${detail.attend+'명'}" class="form-control"></div>
 							</div>
 							<div>
 								<label>전시일자</label> <span

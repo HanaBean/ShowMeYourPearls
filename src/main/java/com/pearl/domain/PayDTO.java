@@ -8,9 +8,9 @@ import lombok.Data;
 
 @Data
 public class PayDTO {
-	private int payTotal, payCardNum, payCvc, payCardExpire, payDona;
+	private int payTotal, payCvc, payCardExpire, payDona;
 	private Long fundNum, memNum, payNum; 
-	private String payAdress;
+	private String payCardNum, payAddress;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date payTime;
 }
