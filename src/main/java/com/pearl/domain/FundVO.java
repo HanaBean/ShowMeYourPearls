@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @Alias("fundVO")
-public class FundVO {
+public class FundVO extends CommonDTO{
 	private Long fundNum;
 	private Long memNum;
 	private String memName;
@@ -26,4 +26,5 @@ public class FundVO {
 	private PictureVO pic;
 	private int total, attend;
 	private List<RewardVO> rwvo;
+	private String fundNow;
 }

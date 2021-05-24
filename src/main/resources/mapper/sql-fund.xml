@@ -5,9 +5,18 @@
 <mapper namespace="com.pearl.mapper.FundMapper">
 
 	<select id="getList" resultType="com.pearl.domain.FundVO">
+			select * from 
+			(select /*+INDEX_DESC(f fund_pk)*/ rownum rn, f.*, m.memname from fund f, member m 
+				where f.memnum=m.memnum and fundnum>0
+			<include refid="sql-search.searchFund" />		
 		<![CDATA[
-			select /*+INDEX_DESC(fund fund_pk)*/ * from fund join member using (memnum) where fundnum>0
+			) where rn between #{pagiInfo.firstRecordIndex}+1 and #{pagiInfo.lastRecordIndex}
 		]]>
+	</select>
+	
+	<select id="selectTotalCount" resultType="int">
+		select count(*) from Fund f, member m where f.memnum = m.memnum 
+		<include refid="sql-search.searchFund" />
 	</select>
 	
 	<select id="get" resultType="com.pearl.domain.FundVO">

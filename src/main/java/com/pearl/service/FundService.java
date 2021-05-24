@@ -10,7 +10,7 @@ import com.pearl.domain.MemberVO;
 import com.pearl.domain.RewardVO;
 
 public interface FundService {
-	List<FundVO> getList();
+	List<FundVO> getList(FundVO vo);
 	FundVO get(Long fundNum);
 	MemberVO artist(Long memNum);
 	FundVO getPay(FundVO vo);

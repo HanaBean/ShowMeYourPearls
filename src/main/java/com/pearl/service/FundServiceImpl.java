@@ -1,5 +1,6 @@
 package com.pearl.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import com.pearl.mapper.FundMapper;
 import com.pearl.mapper.MemberMapper;
 import com.pearl.mapper.PictureMapper;
 import com.pearl.mapper.RewardMapper;
+import com.pearl.paging.PaginationInfo;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -42,12 +44,23 @@ public class FundServiceImpl implements FundService {
 	private MemberMapper memMapper;
 
 	@Override
-	public List<FundVO> getList() {
-		List<FundVO> list = mapper.getList();
-		for(int i=0; i<list.size();i++) {
-			FundVO fund = list.get(i);
-			PictureVO pic = picMapper.getPicF(fund.getFundNum());
-			fund.setPic(pic);
+	public List<FundVO> getList(FundVO vo) {
+		List<FundVO> list = Collections.emptyList(); 
+		int count = mapper.selectTotalCount(vo);
+		log.info("list count:"+count);
+		PaginationInfo pagiInfo = new PaginationInfo(vo);
+		pagiInfo.setTotalCount(count);
+		
+		vo.setPagiInfo(pagiInfo);
+		
+		if(count >0) {
+			list = mapper.getList(vo);
+			for(int i=0; i<list.size();i++) {
+				FundVO fund = list.get(i);
+				PictureVO pic = picMapper.getPicF(fund.getFundNum());
+				fund.setPic(pic);
+			}
+			
 		}
 		return list;
 	}
