@@ -30,4 +30,5 @@ public interface AdminMapper {
 	int fundDelete(Long arrFundNum[]);
 	int memberDelete(Long arrMemNum[]);
 	int postDelete(Long arrBoardNum[]);
+	int paymentDelete(Long arrPayNum[]);
 }

@@ -246,6 +246,16 @@
 			</foreach>
 		</where>
 	</delete>
+	
+		<delete id="paymentDelete">
+		DELETE FROM payment
+		<where>
+			<foreach item="payNum" index="index" collection="array"
+				open="payNum IN (" close=")" separator=",">
+				#{payNum}
+			</foreach>
+		</where>
+	</delete>
 
 	<delete id="memberDelete">
 		DELETE FROM member

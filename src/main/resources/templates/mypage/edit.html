@@ -105,7 +105,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="label" for="memName">닉네임</label> 
-									<input type="text" class="form-control" id="memName" name="memName"
+									<input type="text" class="form-control" id="memName" name="memName" maxlength="12" 
 										th:value="${meminfo.memName}">
 								</div>
 							</div>
@@ -131,7 +131,7 @@
 											<div class="icon">
 												<span class="fa fa-chevron-down"></span>
 											</div>
-											<select name="" id="" th:field="${meminfo.memBank}"
+											<select name="memBank" id="memBank" th:field="${meminfo.memBank}"
 												th:value="${meminfo.memBank}" class="form-control">
 												<option th:value="null" th:text="은행을선택해주세요"></option>
 												<option th:value="'국민은행'" th:text="국민은행"></option>
@@ -157,7 +157,7 @@
 							<hr>
 							<div class="col-md-12">
 								<div class="form-group">
-									<input type="submit" id="join_btn" value="변경하기"
+									<input type="submit" id="edit_btn" value="변경하기"
 										class="btn btn-primary py-3 px-4">
 								</div>
 							</div>
@@ -184,15 +184,112 @@
 		  var fileName = $(this).val().split("\\").pop();
 		  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 		});
-			
-		$(document).ready(function(){
 		
 			
+		 $( document ).ready( function() {
+		  	$("#edit_btn").click(function(e){
+		    		e.preventDefault();
+		    		editsomething();
+		    	});
+		
+		 function editsomething() {
+		
+			 	var specialCheck = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+			 	var ckname = $('#memName').val();	 
+	    			if(ckname=="") {
+	    				alert("닉네임을 입력해주세요");
+	    				$('#memName').focus();
+	    				return false;
+	    			} else if(ckname.search(/\s/) != -1) {
+	    				alert("닉네임을 공백없이 입력해주세요");
+	    				$('#memName').focus();
+	    				return false;
+	    			} else if (specialCheck.test(ckname)) {
+	    				alert("닉네임은 특수문자를 포함 할 수 없습니다."); 
+	    				$('#memName').focus();
+	    				return false;
+	    			}	    			
+	    			 var regExp = /^[0-9]*$/;
+		    		 var cknumber = $('#PhoneNumber').val();	 
+		    			 if(cknumber=="") {
+		    				alert("전화번호를 입력해주세요");
+		    				$('#PhoneNumber').focus();
+		    				return false;
+		    			}   else if( !regExp.test(cknumber)) {
+		    			     alert("숫자만 입력가능합니다.");
+		    			     $('#PhoneNumber').focus();
+		    				return false;  
+		    			}  
+		    			 
+		    	/* 	 var psRegex = !/^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/	 
+		    		 var ckps = $('#Password').val();
+		    		 	if( !psRegex.test(ckps)) {
+		    			     alert("비밀번호는 숫자, 영문, 특수문자(!@$%^&*?_~ 만 허용) 조합으로 8~20자리를 사용해야 합니다.");
+		    			     $('#Password').focus();
+		    				return false;  
+		    		 	}  */
+		    		 	
+		    		var ckbank = $('#memBank').val();	 
+				    var ckaccount = $('#memAccount').val();
+				    console.log(ckbank, ckaccount);
+				    	if(ckbank == null||ckbank == "") {
+				    	alert("은행을 입력해주세요");
+				    	$('#memBank').focus();
+				    	return false;
+				    }  else if(ckaccount == null||ckaccount== "") {
+				    	alert("계좌번호를 입력해주세요");
+				    	$('#memAccount').focus();
+				    	return false;
+				    } if( !regExp.test(ckaccount)) {
+				    	alert("숫자만 입력가능합니다.");
+				    	$('#memAccount').focus();
+				    	return;
+				    } 
+	    		$("#appointment2").submit();
+	    	 }
+		 });
+	    			
+	    			/* 
+	    			
+	    			var psRegex = !/^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/
+	    			var ckps = $('#Password').val();	
+	    			if(ckps=="") {
+	    				alert("Password을 입력해주세요");
+	    				$('#Password').focus();
+	    				return false;
+	    			}  else if(ckps.search(/\s/) != -1) {
+	    				alert("비밀번호를 공백없이 입력해주세요");
+	    				$('#Password').focus();
+	    				return false;
+	    			} 
+	    			
+	    			var ckbank = $('#memBank').val();	 
+	    			var ckaccount = $('#memAccount').val();
+	    			else if( ckbank == null && ckaccount != "") {
+	    				alert("은행을 입력해주세요");
+	    				$('#memBank').focus();
+	    				return false;
+	    			} else if( ckbank != null && ckaccount == "") {
+	    				alert("계좌번호를 입력해주세요");
+	    				$('#memAccount').focus();
+	    				return false;
+	    			} if( regExp != ckaccount) {
+	    			     alert("숫자와 '-' 만 입력가능합니다.");
+	    			     $('#memAccount').focus();
+	    			     return;
+	    			} else if(ckaccount.search(/\s/) != -1) {
+	    				alert("계좌번호를 공백없이 입력해주세요");
+	    				$('#memAccount').focus();
+	    				return false;
+	    			} else if(specialCheck.test(ckaccount)){ 
+	    				alert("계좌번호는 특수문자를 포함 할 수 없습니다.");
+	    				return false;
+	    			} */
+
+	    	 	//alert("회원가입이 완료되었습니다");
 			
 			
-			
-			
-		});
+	
 </script>
 
 
