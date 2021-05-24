@@ -211,6 +211,48 @@
 	  var fileName = $(this).val().split("\\").pop();
 	  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 	});
+		
+		$("#writeForm").on("click",function(){
+			var title = $("#fundTitle").val();
+			var intro = $("#fundIntro").val();
+			var file = $("#customFile").val();
+			var money = $("#fundMoney").val();
+			var dday = $("#fundDday").val();
+			var sday = $("#fundStartDate").val();
+			var eday = $("#fundEndDate").val();
+			
+			if(title==""){
+				alert("제목을 입력하세요.");
+				$("#fundTitle").focus();
+				return false;
+			}else if(intro==""){
+				alert("내용을 입력하세요.");
+				$("#fundIntro").focus();
+				return false;
+			}else if(file==""){
+				alert("사진을 첨부하세요.");
+				$("#customFile").focus();
+				return false;
+			}else if(money==""){
+				alert("목표 금액을 입력하세요.");
+				$("#fundMoney").focus();
+				return false;
+			}else if(dday==""){
+				alert("펀딩 날짜를 입력하세요.");
+				$("#fundDday").focus();
+				return false;
+			}else if(sday==""){
+				alert("모금 시작날짜를 입력하세요.");
+				$("#fundStartDate").focus();
+				return false;
+			}else if(eday==""){
+				alert("모금 마감날짜를 입력하세요.");
+				$("#fundEndDate").focus();
+				return false;
+			}else{
+				return true;
+			}
+		})
 	</script>
 	<footer th:replace="fragments/footer :: footer"></footer>
 </body>
