@@ -11,8 +11,12 @@
 	</select>
 	
 	<select id="get" resultType="com.pearl.domain.FundVO">
-		select * from Fund where fundnum=#{fundNum}
+		select f.*,nvl(p.attend,0) attend,nvl(p.total,0) total 
+from Fund f 
+left join(select fundnum, count(*) attend,sum(paytotal) total from payment group by fundnum having fundnum=#{fundnum}) p on(f.fundnum=p.fundnum)
+where f.fundnum=#{fundnum}
 	</select>
+	
 	
 	<insert id="insert">
 	<selectKey keyProperty="fundNum" resultType="Long" order="BEFORE">

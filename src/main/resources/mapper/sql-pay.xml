@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pearl.mapper.FundMapper">
+<mapper namespace="com.pearl.mapper.PayMapper">
 
 	
-	<!-- <insert id="insert">
+	<insert id="insert">
 	<selectKey keyProperty="payNum" resultType="Long" order="BEFORE">
 		select payment_seq.nextval from dual
 	</selectKey>
@@ -13,6 +13,6 @@
 			MEMNUM, PAYCARDNUM, PAYCVC, PAYCARDEXPIRE, PAYDONA, 
 			PAYTOTAL, PAYADRESS) 
 		values(#{payNum},sysdate,#{fundNum},#{memNum},
-			#{payCardNum},#{payCvc},#{payCardExpire},#{payDona},#{payTotal},#{payAdress})
-	</insert> -->
+			#{payCardNum},#{payCvc},#{payCardExpire},#{payDona},#{payTotal},#{payAddress})
+	</insert>
 </mapper>
