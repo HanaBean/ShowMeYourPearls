@@ -66,8 +66,13 @@ li {
 				</div>
 			</form>  
 							<hr>
+							<div class="block-7">
+								<button class="btn btn-danger" type="button" id="btnRemove"
+									style="float: left; width: 15%;">삭제하기</button>
+									</div>
 							<table id="table" class="styled-table" align="center" style="width: 100%">
 								<thead style="color: black;">
+									<th><input type="checkbox" name="cbAll" value="cbAll"></th>
 									<th>결제 번호</th>
 									<th>회원 번호</th>
 									<th>펀딩 번호</th>
@@ -76,6 +81,7 @@ li {
 								</thead>
 								<tbody>
 									<tr th:each="p : ${list }">
+										<td><input type="checkbox" name="cb" th:value="${p.payNum}"></td>
 										<td>[[${p.payNum}]]</td>
 										<td><a th:href="@{/admin/member/profile(memNum=${p.memNum})}">[[${p.memNum}]]</a></td>
 										<td><a th:href="@{/fund/get(fundNum=${p.fundNum})}">[[${p.fundNum}]]</a></td>
@@ -154,10 +160,36 @@ function movePage(uri, queryString) {
 
 /*]]>*/
 
-	$(document).ready(function() {
+	function checkboxdelete(arr){
+		var zero = false;
+		for(var i=0; i<arr.length; i++){
+			console.log(arr);
+			if(arr[i]>0){
+				zero = true;
+				break;
+			}
+		}
+			if(!zero){
+			alert("하나 이상 선택해주세요");
+			return false;
+			}else {
+				alert("회원번호 " + arr + "번을 삭제합니다.");
+				window.location.href='/admin/payment/delete?payNum=' + arr;
+			}
+
+		}
+
+		$(document).ready(function() {
 		$('input[name=cbAll]').on('change', function() {
 			$('input[name=cb]').prop('checked', this.checked);
 		});
+		
+		$('#btnRemove').on("click", function() {
+			var arr = $('input[name=cb]:checked').serializeArray().map(function(item) { return item.value });
+			checkboxdelete(arr);
+			
+		});
+	});
 
 		$('.dropdown-item').on('click', function() {
 			var value = $(this).text();
@@ -205,6 +237,6 @@ function movePage(uri, queryString) {
                 }  
 			});
 		});
-	});
+	
 </script>
 </html>

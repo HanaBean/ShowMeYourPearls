@@ -59,7 +59,7 @@
 					            <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>
 					            <div class="col-sm-10">
 					                <div class="custom-file" id="inputFile">
-					                    <input name="file" type="file" class="custom-file-input" id="customFile" accept="image/*">
+					                    <input name="file" type="file" class="custom-file-input" id="customFile" accept="image/*" value="">
 					                    <label class="custom-file-label" for="customFile">파일을 선택해 주세요.</label>
 					                </div>
 					            </div>
@@ -81,8 +81,34 @@
 	</section>
 	<!-- .section -->
 	
-<script>
+<script th:inline="javascript">
+	$( document ).ready( function() {
+		/*<![CDATA[*/
+		var result = /*[[${result}]]*/ 
+		/*]]*/
+		//console.log(result);
+		if(result=="fail"){
+    	alert("업로드에 실패하였습니다.");
+    }
+	});
 	
+	$('input[type=submit]').click(function(){
+		event.preventDefault();		
+		if($('#boardTitle').val()==""){
+			alert('제목을 입력해주세요.');
+			$('#boardTitle').focus();
+			return;
+		}else if($('#boardContent').val()==""){
+			alert('내용을 입력해주세요.')
+			$('#boardContent').focus();
+			return;
+		}else if($('#customFile').val()==null||$('#customFile').val()==""){
+			alert('사진을 선택해주세요.')
+			return;
+		}
+		$('#writeForm').submit();
+	});
+		
 	function checkExtension(fileSize){
 		if(fileSize >= 5242880){
 			alert("파일 사이즈 초과");
@@ -91,6 +117,7 @@
 	return true;
 }
 	$(".custom-file-input").change(function() {
+		$(this).siblings(".custom-file-label").addClass("selected").html('파일을 선택해주세요.');
 		var file = $(this)[0].files;
 		var fileName = $(this).val();
 		console.log(""+fileName);

@@ -52,25 +52,24 @@
 	</section>
 </body>
 <script>
-	$(document).ready(function() {
-		$("#regBtn").click(function(e) {
-			e.preventDefault();
-			var id = $("#title").val();
-			var name = $("#content").val();
+$(document).ready(function() {
+	$("#editBtn").click(function(e) {
+		e.preventDefault();
+		var id = $("#boardTitle").val();
+		var name = $("#boardContent").val();
 
-			if (id == "") {
-				//$("#state").html("아이디가 비어있습니다.");
-				$("#title").focus();
-				return;
-			}
-			if (name == "") {
-				//$("#state").html("이름이 비어있습니다.");
-				$("#content").focus();
-				return;
-			}
-
-			$("#writeForm").submit();
-		});
-	});
+		if (id == "" || id == null) {
+			alert("제목을 입력해주세요");
+			$("#boardTitle").focus();
+			return false;
+		};
+		if (name == "" || name == null) {
+			alert("내용을 입력해주세요");
+			$("#boardContent").focus();	
+			return false;
+		};
+		$("#modifyForm").submit();
+	}); 
+});
 </script>
 </html>

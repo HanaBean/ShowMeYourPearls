@@ -106,6 +106,7 @@ li {
 </body>
 <th:block layout:fragment="script">
 <script th:inline="javascript">
+	
 /*<![CDATA[*/
 
 $(document).ready(function(){
@@ -150,20 +151,35 @@ function searchType(item){
 
 /*]]>*/
 
-	$(document).ready(function() {
-		$('input[name=cbAll]').on('change', function() {
-			$('input[name=cb]').prop('checked', this.checked);
-		});
+	function checkboxdelete(arr){
+		var zero = false;
+		for(var i=0; i<arr.length; i++){
+			if(arr[i]>0){
+				zero = true;
+				break;
+			}
+		}
+			if(!zero){
+			alert("하나 이상 선택해주세요");
+			return;
+			}else {
+				alert("회원번호 " + arr + "번을 삭제합니다.");
+				window.location.href='/admin/member/delete?memNum=' + arr;
+			}
+	
+		}
+		
+		$(document).ready(function() {
+			$('input[name=cbAll]').on('change', function() {
+				$('input[name=cb]').prop('checked', this.checked);
+			}); 
 		
 		$('#btnRemove').on("click", function() {
 			var arr = $('input[name=cb]:checked').serializeArray().map(function(item) { return item.value });
-			
-			alert("회원번호 " + arr + "번을 삭제합니다.");
-			
-			 window.location.href='/admin/member/delete?memNum=' + arr;
+			checkboxdelete(arr);
 		});
 	});
-	
+	 
 	/*<![CDATA[*/
 	
 	function movePage(uri, queryString) {
