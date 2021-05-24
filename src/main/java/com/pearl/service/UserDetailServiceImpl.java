@@ -58,9 +58,16 @@ public class UserDetailServiceImpl implements UserDetailsService{
 		else picMapper.updatePic(picture); 
 		return result;
     }
+	
+	public boolean emailCheck(String memEmail) {
+		if(mapper.get(memEmail)==null) {
+			return true;
+		}
+		return false;
+	}
 
     @Override
-    public UserDetails loadUserByUsername(String memEmail) throws UsernameNotFoundException {
+    public CustomUser loadUserByUsername(String memEmail) throws UsernameNotFoundException {
     	MemberVO member = mapper.get(memEmail);
         return new CustomUser(member);
     }

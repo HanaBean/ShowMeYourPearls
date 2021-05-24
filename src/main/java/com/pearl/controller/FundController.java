@@ -23,9 +23,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.pearl.domain.CustomUser;
 import com.pearl.domain.FundVO;
 import com.pearl.domain.MemberVO;
+import com.pearl.domain.PayDTO;
 import com.pearl.domain.PictureVO;
-import com.pearl.domain.RewardVO;
 import com.pearl.service.FundService;
+import com.pearl.service.PayService;
 
 import lombok.Setter;
 
@@ -37,6 +38,9 @@ public class FundController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private FundService service;
+	
+	@Setter(onMethod_ = @Autowired)
+	private PayService Pservice;
 	
 	@RequestMapping("/fundList")
 	public ModelAndView list() {
@@ -57,10 +61,8 @@ public class FundController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/writeFund")
 	public ModelAndView fundWrite(FundVO vo,@AuthenticationPrincipal CustomUser user
-//			, @RequestParam(value="itemList") String itemList
 			, @RequestParam("file") MultipartFile file) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/fund/fundList");
-//		log.info(itemList);
 		log.info("RwVo>>>>>>>>>>"+vo.getRwvo());
 		vo.setMemNum(user.getMember().getMemNum());
 		vo.setPic(uploadPicture(file));
@@ -119,9 +121,11 @@ public class FundController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/pay")
-	public ModelAndView fundPay(FundVO vo) {
-		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ vo.getFundNum());
-		service.insert(vo);
+	public ModelAndView fundPay(PayDTO dto, String Address, String Address2) {
+		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ dto.getFundNum());
+		dto.setPayAddress(Address +" "+Address2);
+		log.info(">>>>>dto :"+dto);
+		Pservice.insert(dto);
 		return mv;
 	}
 	
