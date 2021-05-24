@@ -105,35 +105,61 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/member/delete")
-	public ModelAndView delete(Model model, Long memNum[]) {
+	public ModelAndView delete(Model model, Long memNum[]) { 
 		ModelAndView mv = new ModelAndView("redirect:/admin/member");
-		adminService.memberDelete(memNum);
-		
+		if(memNum.length > 0 ) {
+			adminService.memberDelete(memNum);
+		} else {
+			mv.setViewName("redirect:/admin/member");
+		}
 		return mv;
 	}
 	
-	//
-	
-	
+	@RequestMapping("/adminmem/delete")
+	public ModelAndView adminmem(Model model, Long memNum[]) {
+		ModelAndView mv = new ModelAndView("redirect:/admin/adminmem");
+		if(memNum.length > 0 ) {
+			adminService.memberDelete(memNum);
+		} else {
+			mv.setViewName("redirect:/admin/adminmem");
+		}
+		return mv;
+	}
+
 	
 	@RequestMapping("/post/delete")
 	public ModelAndView postDelete(Model model, Long boardNum[]) {
 		ModelAndView mv = new ModelAndView("redirect:/admin/post");
-		adminService.postDelete(boardNum);
-		
+		if(boardNum.length > 0 ) {
+			adminService.postDelete(boardNum);
+		} else {
+			mv.setViewName("redirect:/admin/post");
+		}
 		return mv;
 	}
 	
 	@RequestMapping("/fund/delete")
 	public ModelAndView fundDelete(Model model, Long fundNum[]) {
 		ModelAndView mv = new ModelAndView("redirect:/admin/fund");
-		adminService.fundDelete(fundNum);
-		
+		if(fundNum.length > 0 ) {
+			adminService.fundDelete(fundNum);
+		} else {
+			mv.setViewName("redirect:/admin/fund");
+		}
 		return mv;
 	}
 	
+	@RequestMapping("/payment/delete")
+	public ModelAndView paymentDelete(Model model, Long payNum[]) {
+		ModelAndView mv = new ModelAndView("redirect:/admin/payment");
+		if(payNum.length > 0 ) {
+			adminService.paymentDelete(payNum);
+		} else {
+			mv.setViewName("redirect:/admin/payment");
+		}
+		return mv;
+	}
 	
-
 	@ResponseBody
 	@PostMapping("/searchPayment")
 	public ResponseEntity<List<AdminPaymentVO>> searchPaymentList(String searchType, Long searchValue) {

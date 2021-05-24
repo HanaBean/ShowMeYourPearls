@@ -49,22 +49,21 @@
 	$(document).ready(function() {
 		$("#regBtn").click(function(e) {
 			e.preventDefault();
-			var id = $("#title").val();
-			var name = $("#content").val();
+			var id = $("#boardTitle").val();
+			var name = $("#boardContent").val();
 
-			if (id == "") {
-				//$("#state").html("아이디가 비어있습니다.");
+			if (id == "" || id == null) {
+				alert("제목을 입력해주세요");
 				$("#title").focus();
-				return;
-			}
-			if (name == "") {
-				//$("#state").html("이름이 비어있습니다.");
-				$("#content").focus();
-				return;
-			}
-
+				return false;
+			};
+			if (name == "" || name == null) {
+				alert("내용을 입력해주세요");
+				$("#content").focus();	
+				return false;
+			};
 			$("#writeForm").submit();
-		});
+		}); 
 	});
 </script>
 

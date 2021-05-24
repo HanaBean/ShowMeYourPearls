@@ -63,6 +63,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public int paymentDelete(Long[] arrPayNum) {
+		return mapper.paymentDelete(arrPayNum);
+	}
+
+	@Override
 	public List<MemberVO> test(MemberVO vo) {
 		List<MemberVO> test = Collections.emptyList();
 		int count = mapper.selectTotalCount(vo);
@@ -140,6 +145,7 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return paymentpage;
 	}
+
 
 
 }

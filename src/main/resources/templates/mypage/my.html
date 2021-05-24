@@ -243,11 +243,11 @@
 		<div class="md_overlay"></div>
 		<div class="md_content">
 			<h1>Donation</h1>
-			<div class="modal_text">
+			<div th:if="${meminfo.memBank}!=null" class="modal_text">
 				 <span th:text="${meminfo.memBank}" class="bank"></span>
       			 <span th:text="${meminfo.memAccount}" class="count"></span>
 			</div>
-			 <div class="modal_text2">후원계좌가 없습니다</div>
+			 <div th:unless="${meminfo.memBank}!=null" class="modal_text"><span>후원계좌가 없습니다</span></div>
 			<button class="close" onclick="mmodalend">Close</button>
 		</div>
 	</div>
@@ -339,7 +339,7 @@
 		
 		//동작함수
 		
-	/*		const openModal = () => {
+			const openModal = () => {
 			modal.classList.remove("hidden");
 			nothing.classList.add("hidden");
 		$(function(){
@@ -350,17 +350,11 @@
 		}
 		
 		openButton.onclick = function() {
-			if(save !=null || save !=='' || save != 'none'){
+		
 			modal.classList.remove("hidden");
 			nothing.classList.add("hidden");
-			} else {
-				save.classList.add("hidden")
-				nothing.classList.remove("hidden");	
-				return false;
-			};
+			} 
 		
-	    }
-		*/
 		const closeModal = () => {
 			modal.classList.add("hidden");
 		}
