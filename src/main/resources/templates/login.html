@@ -26,20 +26,22 @@
 				<div class="row d-md-flex justify-content-center">
 					<div class="col-md-12 col-lg-6 half p-3 py-5">
 						<h2 class="mb-4">Login</h2>
-						<form action="loginProcessing" class="appointment" method="post">
-							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+						 <div th:if="${param.error}">
+					        <p class="alert alert-danger">아이디와 비밀번호를 확인해주세요.</p>
+					    </div>
+						<form th:action="@{loginProcessing}" class="appointment" method="post" id="login">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<input type="text" class="form-control" name="memEmail"
-											placeholder="e-mail">
+											placeholder="e-mail" id="memId">
 									</div>
 
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<input type="password" class="form-control" name="memPass"
-											placeholder="Password">
+											placeholder="Password" id="memPw">
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -116,66 +118,106 @@
 	<script th:inline="javascript">
     
     $( document ).ready( function() {
-    	
+    	/*<![CDATA[*/
+    		var result = /*[[${result}]]*/ 
+    	/*]]*/
+    	if(result=="joinFail"){
+    		alert("이미 가입된 이메일입니다.");
+    	}
     	$("#join_btn").click(function(e){
     		e.preventDefault();
     		checkAll();
     	});
     	
-    	 function checkAll() {
+    	$("#login_btn").click(function(e){
+    		e.preventDefault();
+    		checkLogin();
+    	});
+    	
+    	function checkLogin(){
+				var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+				var psRegex = /^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/
+				var ckemail = $('#memId').val();
+				var ckps = $('#memPw').val();	 
 
-    		 	var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+    		if(ckemail==""){	
+					alert("e-mail을 입력해주세요");	 
+					$('#memId').focus();
+					return false;
+//     		} else if(!(reg_email.test(ckemail))){
+// 					alert("유호하지 않은 이메일 양식입니다.  ex)abc@gmail.com");
+// 					$('#e-mail').focus();
+// 					return false;
+    		}else if(ckps=="") {
+					alert("비밀번호를 입력해주세요");
+					$('#memPw').focus();
+					return false;
+    		} else if(ckps.search(/\s/) != -1) {
+					alert("비밀번호를 공백없이 입력해주세요");
+					$('#memPw').val("");
+					$('#memPw').focus();
+					return false;
+// 				} else if(!(psRegex.test(ckps))){
+// 	        alert("비밀번호는 숫자, 영문, 특수문자(!@$%^&*?_~ 만 허용) 조합으로 8~20자리를 사용해야 합니다.")	
+// 	        $('#memPw').val("");
+// 	        $('#memPw').focus();
+// 	        return false; 
+				} 
+    		$("#login").submit();
+    	}
+    	
+    	 function checkAll() {
+					var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
     			var ckemail = $('#e-mail').val();
+    			var ckname = $('#NickName').val();	 
+    			var cknumber = $('#PhoneNumber').val();	 
+    			var psRegex = /^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/
+    			var ckps = $('#Password').val();	 
+    			var ckreps = $('#RePassword').val();	
+    			
     			if(ckemail==""){	
     				alert("e-mail을 입력해주세요");	 
     				$('#e-mail').focus();
     				return false;
-    			} /* else {
-    				if(!(getMail.ckemail)){
+    			} else if(!(reg_email.test(ckemail))){
     				alert("유호하지 않은 이메일 양식입니다.  ex)abc@gmail.com");
-    				ckemail.focus();
+    				$('#e-mail').focus();
     				return false;
-    				} 
-    			} */
-    			
-    			
-    			
-    			var ckname = $('#NickName').val();	 
-    			if(ckname=="") {
-    				alert("NickName을 입력해주세요");
+    			} else if(ckname=="") {
+    				alert("닉네임을 입력해주세요");
     				$('#NickName').focus();
     				return false;
-    			}
-    			
-    			var cknumber = $('#PhoneNumber').val();	 
-    			if(cknumber=="") {
-    				alert("cknumber를 입력해주세요");
+    			}else if(cknumber=="") {
+    				alert("연락처를 입력해주세요");
     				$('#PhoneNumber').focus();
     				return false;
-    			}
-    			
-    			var psRegex = !/^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/
-    			var ckps = $('#Password').val();	 
-    			var ckreps = $('#RePassword').val();	
-    			if(ckps=="") {
-    				alert("Password을 입력해주세요");
+    			}else if(ckps=="") {
+    				alert("비밀번호를 입력해주세요");
     				$('#Password').focus();
     				return false;
     			} else if(ckreps=="") {
-    				alert("RePassword을 입력해주세요");
+    				alert("비밀번호를 다시 입력해주세요");
     				$('#RePassword').focus();
     				return false;
     			} else if(ckps != ckreps) {
-    				alert("Password가 다릅니다")
-    				return false;
-    			} else if(ckps.search(/\s/) != -1) {
-    				alert("Password를 공백없이 입력해주세요");
+    				alert("비밀번호가 서로 다릅니다")
+    				$('#Password').val("");
+    				$('#RePassword').val("");
     				$('#Password').focus();
     				return false;
-    			} /*  else if(!(psRegex.ckps)){
-    	            alert("비밀번호는 숫자, 영문, 특수문자(!@$%^&*?_~ 만 허용) 조합으로 8~20자리를 사용해야 합니다.")	
-    	            return false; 
-    			} */
+    			} else if(ckps.search(/\s/) != -1) {
+    				alert("비밀번호를 공백없이 입력해주세요");
+    				$('#Password').val("");
+    				$('#RePassword').val("");
+    				$('#Password').focus();
+    				return false;
+    			} else if(!(psRegex.test(ckps))){
+            alert("비밀번호는 숫자, 영문, 특수문자(!@$%^&*?_~ 만 허용) 조합으로 8~20자리를 사용해야 합니다.")	
+            $('#Password').val("");
+    				$('#RePassword').val("");
+    				$('#Password').focus();
+            return false; 
+    			} 
     		
     	 	//alert("회원가입이 완료되었습니다");
     		$("#insertForm").submit();
