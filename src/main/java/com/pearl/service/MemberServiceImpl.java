@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pearl.domain.MemberVO;
-import com.pearl.domain.PictureVO;
 import com.pearl.mapper.MemberMapper;
 import com.pearl.mapper.PictureMapper;
 
@@ -57,5 +56,21 @@ public class MemberServiceImpl implements MemberService {
 		vo.setProfile(picMapper.getProfile(vo.getMemNum()));
 		return vo;
 	}
+
+	@Override
+	public MemberVO getting(MemberVO vo) {
+		return mapper.getting(vo.getMemName());
+	}
+
+	@Override
+	public boolean checkName(String memName) {
+		if(mapper.get(memName)==null) {
+			return true;
+		}
+		return false;
+	}
+
+
+
 
 }

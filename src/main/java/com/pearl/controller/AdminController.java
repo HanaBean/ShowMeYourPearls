@@ -18,7 +18,6 @@ import com.pearl.domain.AdminPaymentVO;
 import com.pearl.domain.BoardVO;
 import com.pearl.domain.MemberVO;
 import com.pearl.domain.SearchVO;
-import com.pearl.paging.Criteria;
 import com.pearl.service.AdminService;
 import com.pearl.service.MemberService;
 
@@ -81,16 +80,23 @@ public class AdminController {
 	   }
 
 	   @RequestMapping("/member/profile")
-	   public ModelAndView profile(Model model, Long memNum) {
+	   public ModelAndView profile(MemberVO vo, Long memNum) {
 		ModelAndView mv = new ModelAndView("admin/profile");
 		mv.addObject("vo", memberService.getProfile(memNum));
-		
+		 
 		return mv;
 	}
-	
-	@RequestMapping("/member/profileModify")
+	   
+	  @PostMapping("/adminupdate") 
+	  	public String adminupdayeForm(MemberVO vo, Long memNum) {
+		memberService.update(vo); 
+		return "redirect:/admin/member/profile";
+		} 
+	  
+
+	@PostMapping("/profile")
 	public ModelAndView profileModify(Model model, Long memNum) {
-		ModelAndView mv = new ModelAndView("admin/profileModify");
+		ModelAndView mv = new ModelAndView("admin/profile");
 		mv.addObject("vo", memberService.getProfile(memNum));
 		
 		return mv;
@@ -124,6 +130,8 @@ public class AdminController {
 			mv.setViewName("redirect:/admin/adminmem");
 		}
 		return mv;
+		
+		
 	}
 
 	

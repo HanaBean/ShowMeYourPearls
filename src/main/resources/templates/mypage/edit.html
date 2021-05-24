@@ -200,12 +200,14 @@
 		
 			
 		 $( document ).ready( function() {
-		  	/*<![CDATA[*/
+		  	
+			 /*<![CDATA[*/
     		var result = /*[[${result}]]*/ 
     	/*]]*/
-    	if(result=="joinFail"){
-    		alert("이미 존재하는 닉네임입니다.");
-    	}
+	    	if(result=="joinFail"){
+	    	    alert("이미 존재하는 닉네임입니다.");
+	    	}	    			
+    		
 		  	$("#edit_btn").click(function(e){
 		    		e.preventDefault();
 		    		editsomething();
@@ -226,7 +228,6 @@
 	    				alert("닉네임은 특수문자를 포함 할 수 없습니다."); 
 	    				$('#memName').focus();
 	    				return false;
-	    			}	    			
 	    			 var regExp = /^[0-9]*$/;
 		    		 var cknumber = $('#PhoneNumber').val();	 
 		    			 if(cknumber=="") {
