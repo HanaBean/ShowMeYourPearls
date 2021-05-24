@@ -14,6 +14,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pearl.domain.CustomUser;
 import com.pearl.domain.FundVO;
+import com.pearl.domain.GalleryVO;
 import com.pearl.domain.MemberVO;
 import com.pearl.domain.PayDTO;
 import com.pearl.domain.PictureVO;
@@ -43,9 +45,9 @@ public class FundController {
 	private PayService Pservice;
 	
 	@RequestMapping("/fundList")
-	public ModelAndView list() {
+	public ModelAndView list(@ModelAttribute("vo") FundVO vo) {
 		ModelAndView mv = new ModelAndView("/fund/fundList");
-		List<FundVO> fund = service.getList();
+		List<FundVO> fund = service.getList(vo);
 		mv.addObject("list", fund);
 		return mv;
 	}
