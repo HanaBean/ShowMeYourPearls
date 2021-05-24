@@ -117,18 +117,14 @@
 
 	<script th:inline="javascript">
     
-	 $( document ).ready( function() {
-	    	$("#join_btn").click(function(e){
-	    		e.preventDefault();
-	    		checkAll();
-	    	});
-    $( document ).ready( function() {
+	$( document ).ready( function() {
     	/*<![CDATA[*/
     		var result = /*[[${result}]]*/ 
+	    	if(result=="joinFail"){
+	    		alert("이미 가입된 이메일입니다.");
+	    	}
     	/*]]*/
-    	if(result=="joinFail"){
-    		alert("이미 가입된 이메일입니다.");
-    	}
+    	
     	$("#join_btn").click(function(e){
     		e.preventDefault();
     		checkAll();
