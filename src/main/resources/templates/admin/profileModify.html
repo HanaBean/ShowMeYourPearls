@@ -81,12 +81,9 @@
 					<hr>
 					<div class="col-md-12">
 						<div class="form-group" >
-							<a href="/admin/member"><span class="fa fa-chevron-left"></span></a>
+							<a th:href="@{/admin/member/profile(memNum=${vo.memNum})}"><span class="fa fa-chevron-left"></span></a>
 							<input type="button" id="btnModify" value="수정하기"
 								class="btn btn-primary py-3 px-4" style="width: 20%; float: right; margin: 5px;">
-							<!-- <input type="submit" id="btnDelete" value="삭제하기"
-								class="btn btn-danger py-3 px-4"
-								style="width: 20%; float: right; margin: 5px;"> -->
 						</div>
 					</div>
 				</div>
@@ -100,9 +97,12 @@
 
 	
 	  $( document ).ready( function() { 
-		  /*	 $("#btnModify").on('click', function() {  // 클래스값이 delete인 엘리먼트가 눌리면?
-			 window.location.href='/admin/member/delete?memNum=' + "@{vo.memNum}";
-		    }); */
+		  /*<![CDATA[*/
+			 var memNum = [[${vo.memNum}]];
+		 /*]]*/
+		 	 $("#btnModify").on('click', function() {  // 클래스값이 delete인 엘리먼트가 눌리면?
+			 window.location.href='/admin/modifyForm/delete?memNum=' + "@{vo.memNum}";
+		    }); 
 		 
 		  
 		 $("#btnModify").click(function(e){

@@ -115,6 +115,13 @@ public class AdminController {
 		return mv;
 	}
 	
+	@PostMapping("/modifyForm/delete")
+	public ModelAndView modifyForm( Long memNum[]) { 
+		ModelAndView mv = new ModelAndView("redirect:/admin/member");
+		adminService.memberDelete(memNum);
+		return mv;
+	}
+	
 	@RequestMapping("/member/delete")
 	public ModelAndView delete(Model model, Long memNum[]) { 
 		ModelAndView mv = new ModelAndView("redirect:/admin/member");
