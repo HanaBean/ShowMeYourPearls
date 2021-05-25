@@ -137,18 +137,7 @@
 	<!-- .section -->
 
 	<script>
-	$('input[type=submit]').click(function(e){
-		e.preventDefault();
-		var items = $("#itemList");
-		console.log($('input[name=itemList]').val());
-		itemList.forEach(function(element,i) {
-			console.log(itemList[i].productName + ", "
-					+ itemList[i].productPrice);
-		});
-		items.val(itemList);
-		console.log($('input[name=itemList]').val());
-		$('#writeForm').submit();
-	})
+	var countItem = 0;
 		var count = 0;
 		var itemList = [];
 		function addItem() {
@@ -177,12 +166,14 @@
 			productName.val("");
 			productPrice.val("");
 			count++;
+			countItem++;
 			
 		}
 
 		function deleteItem(cnt) {
 			var id = '#register-item' + cnt;
 			$(id).remove();
+			countItem--;
 		}
 		
 		$(".custom-file-input").change(function() {
@@ -212,7 +203,8 @@
 	  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 	});
 		
-		$("#writeForm").on("click",function(){
+		$("input[type=submit]").on("click",function(){
+			event.preventDefault();
 			var title = $("#fundTitle").val();
 			var intro = $("#fundIntro").val();
 			var file = $("#customFile").val();
@@ -225,16 +217,16 @@
 				alert("제목을 입력하세요.");
 				$("#fundTitle").focus();
 				return false;
+			}else if(file==""||file==null){
+				alert("사진을 첨부하세요.");
+				$("#customFile").focus();
+				return false;
 			}else if(intro==""){
 				alert("내용을 입력하세요.");
 				$("#fundIntro").focus();
 				return false;
-			}else if(file==""){
-				alert("사진을 첨부하세요.");
-				$("#customFile").focus();
-				return false;
-			}else if(money==""){
-				alert("목표 금액을 입력하세요.");
+			}else if(money==""||isNaN(money)){
+				alert("금액을 숫자로 입력하세요.");
 				$("#fundMoney").focus();
 				return false;
 			}else if(dday==""){
@@ -249,10 +241,23 @@
 				alert("모금 마감날짜를 입력하세요.");
 				$("#fundEndDate").focus();
 				return false;
-			}else{
-				return true;
+			}else if(countItem==0){
+				alert("펀딩 상품을 등록하세요.");
+				return false;
 			}
-		})
+// 		})
+// 		$('input[type=submit]').click(function(e){
+// 		e.preventDefault();
+		var items = $("#itemList");
+		console.log($('input[name=itemList]').val());
+		itemList.forEach(function(element,i) {
+			console.log(itemList[i].productName + ", "
+					+ itemList[i].productPrice);
+		});
+		items.val(itemList);
+		console.log($('input[name=itemList]').val());
+		$('#writeForm').submit();
+	})
 	</script>
 	<footer th:replace="fragments/footer :: footer"></footer>
 </body>

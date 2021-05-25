@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pearl.domain.FundVO;
+import com.pearl.domain.AdminFundVO;
 import com.pearl.domain.GalleryVO;
 import com.pearl.service.MainService;
 
@@ -40,7 +40,7 @@ public class HomeController {
 	public ModelAndView main(@ModelAttribute("vo") GalleryVO vo, Model model) {
 		ModelAndView mv = new ModelAndView("main");
 		List<GalleryVO> gallery = mainservice.list(vo);
-		List<FundVO> fund = mainservice.fundlist();
+		List<AdminFundVO> fund = mainservice.fundlist();
 		mv.addObject("list", gallery);
 		mv.addObject("fund", fund);
 		return mv;

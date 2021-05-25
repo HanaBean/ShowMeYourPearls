@@ -77,15 +77,18 @@ public class FundController {
 	@GetMapping("/modify")
 	public ModelAndView modify(Long fundNum,String memEmail) {
 		ModelAndView mv = new ModelAndView("/fund/fundUpdate");
-		FundVO update = service.get(fundNum);
-		mv.addObject("update", update);
+		FundVO detail = service.get(fundNum);
+		MemberVO artist = service.artist(detail.getMemNum());
+		mv.addObject("detail", detail);
+		mv.addObject("artist", artist);
+		mv.addObject("rewardList", detail.getRwvo());
 		return mv;
 	}
 	
 	@PreAuthorize("principal.username == #memEmail")
 	@PostMapping("/modify")
 	public ModelAndView modify(FundVO vo,String memEmail) {
-		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ vo.getFundNum());
+		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ vo.getFundNum());		
 		service.update(vo);		
 		return mv;
 	}

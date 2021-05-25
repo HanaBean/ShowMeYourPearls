@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,9 @@ import com.pearl.service.AdminService;
 import com.pearl.service.MemberService;
 
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("/admin/*")
 public class AdminController {
@@ -80,33 +83,35 @@ public class AdminController {
 	   }
 
 	   @RequestMapping("/member/profile")
-	   public ModelAndView profile(MemberVO vo, Long memNum) {
+	   public ModelAndView profile(Long memNum) {
 		ModelAndView mv = new ModelAndView("admin/profile");
-		mv.addObject("vo", memberService.getProfile(memNum));
-		 
+		MemberVO vo = memberService.getProfile(memNum);
+		vo.setMemPass("");
+		mv.addObject("vo", vo);
 		return mv;
 	}
 	   
-	  @PostMapping("/adminupdate") 
-	  	public String adminupdayeForm(MemberVO vo, Long memNum) {
-		memberService.update(vo); 
-		return "redirect:/admin/member/profile";
-		} 
+	 // @PostMapping("/adminupdate") 
+	 //  public String adminupdayeForm(MemberVO vo) {
+	//	memberService.update(vo); 
+	//	return "redirect:/admin/member/profile";
+	//	} 
 	  
 
-	@PostMapping("/profile")
-	public ModelAndView profileModify(Model model, Long memNum) {
-		ModelAndView mv = new ModelAndView("admin/profile");
-		mv.addObject("vo", memberService.getProfile(memNum));
+	@GetMapping("/profileModify")
+	public ModelAndView profileModify(Long memNum) {
+		ModelAndView mv = new ModelAndView("admin/profileModify");
+		MemberVO vo = memberService.getProfile(memNum);
+		vo.setMemPass("");
+		mv.addObject("vo", vo);
 		
 		return mv;
 	}
 	
 	@PostMapping("/member/profileModify")
-	public ModelAndView profileModifySend(MemberVO vo, Long memNum) {
-		ModelAndView mv = new ModelAndView("redirect:/admin/member/profile?memNum=" + memNum);
+	public ModelAndView profileModifySend(MemberVO vo) {
+		ModelAndView mv = new ModelAndView("redirect:/admin/member/profile?memNum=" + vo.getMemNum());
 		memberService.update(vo);
-		
 		return mv;
 	}
 	
@@ -130,8 +135,6 @@ public class AdminController {
 			mv.setViewName("redirect:/admin/adminmem");
 		}
 		return mv;
-		
-		
 	}
 
 	

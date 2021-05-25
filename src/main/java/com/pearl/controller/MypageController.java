@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +29,7 @@ import com.pearl.domain.GalleryVO;
 import com.pearl.domain.MemberVO;
 import com.pearl.domain.PictureVO;
 import com.pearl.domain.SubscribeVO;
+import com.pearl.service.AdminService;
 import com.pearl.service.EmotionService;
 import com.pearl.service.MemberService;
 import com.pearl.service.MyPageService;
@@ -52,6 +53,16 @@ public class MypageController {
 
 	@Setter(onMethod_ = @Autowired)
 	private EmotionService emotion;
+
+	
+	
+	@RequestMapping("/mypage/delete")
+	public ModelAndView adminmem(Long memNum){
+		ModelAndView mv = new ModelAndView("redirect:/");
+		mypageservice.editdelete(memNum);
+		return mv;
+	}
+	
 	
 	@RequestMapping("/mypage")
 	public ModelAndView my(@AuthenticationPrincipal CustomUser customUser, Long memNum) {
@@ -111,21 +122,20 @@ public class MypageController {
 	
 	@PreAuthorize("principal.username == #vo.memEmail")
 	@PostMapping("/mypage/editsend")
-	 public String Editsend(MemberVO vo,@RequestParam("file") MultipartFile file) {
-		 if(file.getSize()>0) vo.setProfile(uploadPicture(file));
-		 user.updateUser(vo); 
-		 return "redirect:edit";
+	 public String Editsend(MemberVO vo,@RequestParam("file") MultipartFile file,RedirectAttributes rttr) {
+		String ninkname = vo.getMemName(); 
+		 if(!service.checkName(ninkname)) {
+			  rttr.addFlashAttribute("result","EditFail"); 
+		  }else { 
+			  log.info("VO2>>>>>"+vo);
+			  if(file.getSize()>0) vo.setProfile(uploadPicture(file));
+			  user.updateUser(vo); 
+		  }
+		 return "redirect:/mypage/edit"; 
+		 
 	}
 	
-
-	/*
-	 * @RequestMapping("/mypage/editsend") public String appointment2(MemberVO vo,
-	 * RedirectAttributes rttr) { log.info("VO1>>>>>"+vo); String ninkname =
-	 * vo.getMemName(); if(!user.nickNameCheck(ninkname)) {
-	 * rttr.addFlashAttribute("result","joinFail"); }else { log.info("VO2>>>>>"+vo);
-	 * 
-	 * } return "redirect:/mypage/edit"; }
-	 */
+	 
 	
 	
 	@PreAuthorize("isAuthenticated()")
