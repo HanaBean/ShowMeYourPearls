@@ -122,7 +122,9 @@
     		var result = /*[[${result}]]*/ 
 	    	if(result=="joinFail"){
 	    		alert("이미 가입된 이메일입니다.");
-	    	}
+	    	}else if(result=="joinSuccess"){
+					alert("가입을 환영합니다.");
+				}
     	/*]]*/
     	
     	$("#join_btn").click(function(e){

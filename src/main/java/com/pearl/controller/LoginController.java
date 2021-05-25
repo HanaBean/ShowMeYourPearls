@@ -33,6 +33,7 @@ public class LoginController {
 		if(!user.emailCheck(email)) {
 			rttr.addFlashAttribute("result","joinFail");
 		}else {
+			rttr.addFlashAttribute("result","joinSuccess");
 			log.info("VO2>>>>>"+vo);
 			user.joinUser(vo);
 		}

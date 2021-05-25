@@ -94,6 +94,13 @@
 					$('#Category').html(str);
 					$('#CateP').append(str2);
 					$('#CateH').html('Funding Update');
+				}else if(url[4].split('?')[0]=='getPay'){
+					var str = '<a href="/fund/fundList">Funding<i class="ion-ios-arrow-forward"></i></a>';
+					var str2 = '<span>Payment<i class="ion-ios-arrow-forward"></i></span></p>';
+					$('#Category').attr("class","mr-2");
+					$('#Category').html(str);
+					$('#CateP').append(str2);
+					$('#CateH').html('Funding Payment');
 				}
 			}else if(url[3]=='mypage') {
 					$('#Category').html('MyPage');
