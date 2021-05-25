@@ -160,6 +160,11 @@
 										class="btn btn-primary py-3 px-4">
 								</div>
 							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<input type="button" id="remove_btn" value="탈퇴하기" style="color:red;" class="btn py-3 ">
+								</div>
+							</div>
 						</div>
 					</form>
 				</div>
@@ -170,7 +175,24 @@
 
 	<footer th:replace="fragments/footer :: footer"> </footer>
 	<script th:inline="javascript">
-			
+	 $( document ).ready( function() {   
+		 /*<![CDATA[*/
+		 var memNum = [[${meminfo.memNum}]];
+		 /*]]*/
+		 $("#remove_btn").click(function(e){
+	 			e.preventDefault();
+		    	removebtn();  
+		 });
+		 
+		 function removebtn () {
+			if(confirm("정말 탈퇴 하시겠습니까?") == true){
+				alert("탈퇴 되었습니다");
+				window.location.href='/mypage/delete?memNum='+memNum; 
+			}else {
+				return;
+			}
+		 }
+	 	});
 		$(".custom-file-input").change(function() {
 			var file = $(this)[0].files;
 			var fileName = $(this).val();
@@ -200,13 +222,12 @@
 		
 			
 		 $( document ).ready( function() {
-		  	
-			 /*<![CDATA[*/
-    		var result = /*[[${result}]]*/ 
-    	/*]]*/
-	    	if(result=="joinFail"){
-	    	    alert("이미 존재하는 닉네임입니다.");
-	    	}	    			
+		 /*<![CDATA[*/
+			var result = /*[[${result}]]*/ 
+		/*]]*/
+			if(result=="EditFail"){
+				   alert("이미 존재하는 닉네임입니다.");
+				}	    			
     		
 		  	$("#edit_btn").click(function(e){
 		    		e.preventDefault();
@@ -228,6 +249,7 @@
 	    				alert("닉네임은 특수문자를 포함 할 수 없습니다."); 
 	    				$('#memName').focus();
 	    				return false;
+	    			}		
 	    			 var regExp = /^[0-9]*$/;
 		    		 var cknumber = $('#PhoneNumber').val();	 
 		    			 if(cknumber=="") {

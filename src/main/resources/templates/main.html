@@ -41,7 +41,7 @@
     		<div class="row">
     			<div class="col-md-4" th:each="f : ${fund}">
 	          <div class="block-7">
-	          	<img th:src="@{/display/pricing-1.jpg}" class="img" >
+	          	<!-- <img th:src="@{/display/pricing-1.jpg}" class="img" > -->
 	            <div class="text-center p-4" >
 	          
                  <img th:src="@{'/display?fileName='+${f.picPath}+'/'+${f.picUuid}+'_'+${f.picName}+'.'+${f.picTail}}" alt="" class="img-fluid" name="image"

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pearl.domain.BoardVO;
 import com.pearl.domain.GalleryVO;
 import com.pearl.domain.MemberVO;
 import com.pearl.domain.MyPageVO;
@@ -65,5 +64,10 @@ public class MyPageServiceImpl implements MyPageService{
 			gal.setPicture(pic);
 		}
 		return list;
+	}
+
+	@Override
+	public Long editdelete(Long memNum) {
+		return mapper.editdelete(memNum);
 	}
 }

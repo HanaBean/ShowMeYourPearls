@@ -15,4 +15,7 @@ public class AdminFundVO  extends CommonDTO{
 	private int fundMoney;
 	private String fundTitle;
 	private String fundIntro;
+	private int picNum;
+	private String picUuid, picPath, picName, picTail, picClass;
+	private Long postNum;
 }

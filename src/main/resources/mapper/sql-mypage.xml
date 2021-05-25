@@ -38,4 +38,28 @@
 		
 	</select>
       
+     <delete id="editdelete" >
+     	delete from member where memnum=#{memNum}
+     </delete>
+      
+      
+
   </mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

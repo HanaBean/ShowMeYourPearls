@@ -14,6 +14,7 @@ public interface MyPageService {
 	List<MyPageVO> myfundList(Long memNum);
 	int subscribe(SubscribeVO subscribe);
 	int unsubscribe(SubscribeVO subscribe);
+	Long editdelete(Long memNum);
 	List<SubscribeVO> subList(Long memNum);
 	List<MemberVO> mySubList(Long memNum);
 	List<GalleryVO> myGallery(Long memNum);
