@@ -19,20 +19,16 @@
 					<div class="social-media">
 						<p class="mb-0 d-flex">
 							<a sec:authorize="isAnonymous()" href="/login"
-								class="d-flex align-items-center justify-content-center" 
-								id="navLogin"><span>Login</span></a>
+								class="d-flex align-items-center justify-content-center nav-header"><span>Login</span></a>
 							<span sec:authorize="isAuthenticated()" 
-								class="d-flex align-items-center justify-content-center" 
+								class="d-flex align-items-center justify-content-center nav-header" 
 								sec:authentication="principal.member.memName"></span> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 							<a sec:authorize="isAuthenticated()" href="/logout"
-								class="d-flex align-items-center justify-content-center" 
-								id="navLogin"><span>Logout</span></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+								class="d-flex align-items-center justify-content-center nav-header"><span>Logout</span></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 							<a sec:authorize="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')" href="/mypage"
-								class="d-flex align-items-center justify-content-center" 
-								id="navLogin"><span>My</span></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+								class="d-flex align-items-center justify-content-center nav-header"><span>My</span></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 							<a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin/member"
-								class="d-flex align-items-center justify-content-center" 
-								id="navLogin"><span>Admin</span></a>
+								class="d-flex align-items-center justify-content-center nav-header"><span>Admin</span></a>
 						</p>
 					</div>
 				</div>
@@ -68,11 +64,7 @@
 			sessionStorage.setItem('nav',$(this).attr('id'));
 		});
 		
-		$('#navHome').click(function(){
-			sessionStorage.setItem('nav','');
-		});
-		
-		$('#navLogin').click(function(){
+		$('.nav-header').click(function(){
 			sessionStorage.setItem('nav','');
 		});
 		
