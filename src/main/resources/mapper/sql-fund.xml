@@ -36,8 +36,7 @@ where f.fundnum=#{fundnum}
 	
 	<update id="update">
 		update Fund set 
-		fundstartdate=#{fundStartDate},fundenddate=#{fundEndDate},
-		fundmoney=#{fundMoney},funddday=#{fundDday},fundtitle=#{fundTitle} ,fundintro=#{fundIntro} 
+		fundtitle=#{fundTitle} ,fundintro=#{fundIntro} 
 		where FundNum=#{fundNum}
 	</update>
 	
