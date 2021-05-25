@@ -115,7 +115,7 @@
 						<a th:href="|@{get}${vo.makeQueryString(vo.currentPage)}&&fundNum=${f.fundNum}|">
 							<span class="excerpt d-block" th:text="${f.fundTitle}" style="font-size:28px;"></span></a>
 							<span class="price">
-								<span th:text="${f.fundMoney}" style="font-size:24px;"></span> <sub>won</sub></span>
+								<span th:text="${#numbers.formatInteger(f.fundMoney,3,'COMMA')}" style="font-size:24px;"></span> <sub>won</sub></span>
 
 							<ul class="pricing-text mb-5">
 								<li><label>모금 시작일  : </label><span th:text="${#dates.format(f.fundStartDate,'yyyy-MM-dd')}"></span></li>
