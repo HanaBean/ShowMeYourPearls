@@ -137,18 +137,7 @@
 	<!-- .section -->
 
 	<script>
-	$('input[type=submit]').click(function(e){
-		e.preventDefault();
-		var items = $("#itemList");
-		console.log($('input[name=itemList]').val());
-		itemList.forEach(function(element,i) {
-			console.log(itemList[i].productName + ", "
-					+ itemList[i].productPrice);
-		});
-		items.val(itemList);
-		console.log($('input[name=itemList]').val());
-		$('#writeForm').submit();
-	})
+	
 		var count = 0;
 		var itemList = [];
 		function addItem() {
@@ -213,6 +202,7 @@
 	});
 		
 		$("input[type=submit]").on("click",function(){
+			event.preventDefault();
 			var title = $("#fundTitle").val();
 			var intro = $("#fundIntro").val();
 			var file = $("#customFile").val();
@@ -252,7 +242,19 @@
 			}else{
 				return true;
 			}
-		})
+// 		})
+// 		$('input[type=submit]').click(function(e){
+// 		e.preventDefault();
+		var items = $("#itemList");
+		console.log($('input[name=itemList]').val());
+		itemList.forEach(function(element,i) {
+			console.log(itemList[i].productName + ", "
+					+ itemList[i].productPrice);
+		});
+		items.val(itemList);
+		console.log($('input[name=itemList]').val());
+		$('#writeForm').submit();
+	})
 	</script>
 	<footer th:replace="fragments/footer :: footer"></footer>
 </body>
