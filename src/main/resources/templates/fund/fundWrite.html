@@ -212,7 +212,7 @@
 	  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 	});
 		
-		$("#writeForm").on("click",function(){
+		$("input[type=submit]").on("click",function(){
 			var title = $("#fundTitle").val();
 			var intro = $("#fundIntro").val();
 			var file = $("#customFile").val();
