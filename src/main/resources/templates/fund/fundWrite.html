@@ -39,13 +39,13 @@
 					<div class="col-lg-4 sidebar pl-lg-5 ftco-animate">
 						<div class="sidebar-box">
 							<div class="form-group">
-								<input type="text" class="form-control"
+								<input type="number" class="form-control"
 									placeholder="Target Amount" id="fundMoney" name="fundMoney">
 							</div>
 							<div>
 								<span>전시일자 <input type="text"
 									class="form-control appointment_date" placeholder="Fund_Day"
-									name="fundDday" id="fundDday">
+									name="fundDday" id="fundDday" readonly>
 								</span>
 							</div>
 						</div>
@@ -56,10 +56,10 @@
 										<input type="text" placeholder="Start Date"
 											name="fundStartDate" id="fundStartDate"
 											class="form-control appointment_date"
-											style="width: 160px; position: relative; left: 15px;">
+											style="width: 160px; position: relative; left: 15px;" readonly>
 										<input type="text" placeholder="End Date" name="fundEndDate"
 											id="fundEndDate" class="form-control appointment_date"
-											style="width: 160px; position: relative; right: 0px;">
+											style="width: 160px; position: relative; right: 0px;" readonly>
 									</div></li>
 								<li>
 									<div>
@@ -126,17 +126,31 @@
 			var productName = $("#productName");
 			var productPrice = $("#productPrice");
 			var item = productName.val();
-			var price = productPrice.val()*1;
-
+			var price = productPrice.val();
+			var regExp = /^[0-9]*$/;
+			if(item.trim()==''||item==null){
+				alert("상품명을 입력해 주십시오.");
+				productName.focus();
+				return;
+			}else if(price.trim()==''||price==null){
+				alert("금액을 입력해 주십시오.");
+				productPrice.focus();
+				return;
+			}else if(!regExp.test(price.trim())){
+				alert("금액은 숫자로만 입력가능합니다");
+				productPrice.val('');
+				productPrice.focus();
+				return;
+			}
 			$("#attach-item")
 					.prepend(
 							'<div id="register-item'+count+'"><li id="item-form" style="float: left; width:80%;">'
 									+ '<input type="text" id="item-name" name="rwvo['+count+'].rwrdName"'
 									+ 'style="width: 50%;float: left;margin:0 10px 0 0;" readonly '
-									+ 'value="'+item+'">'
+									+ 'value="'+item.trim()+'">'
 									+ '<input type="number" id="item-price'+count+'" name="rwvo['+count+'].rwrdPrice"'
 									+ ' style="float: left;width: 40%;" readonly '
-									+ 'value='+price+'>'
+									+ 'value='+price.trim()+'>'
 									+ '</li><div class="tagcloud" style="float:left; width:20%;">'
 									+ '<a class="tag-cloud-link" onclick="deleteItem('
 									+ count + ')">delete</a></div></div>');
@@ -209,6 +223,12 @@
 				return false;
 			}else if(money==""||isNaN(money)){
 				alert("금액을 숫자로 입력하세요.");
+				$("#fundMoney").val('');
+				$("#fundMoney").focus();
+				return false;
+			}else if(money>2000000000){
+				alert("목표금액이 너무 큽니다.");
+				$("#fundMoney").val('');
 				$("#fundMoney").focus();
 				return false;
 			}else if(dday==""){
@@ -219,12 +239,29 @@
 				alert("모금 시작날짜를 입력하세요.");
 				$("#fundStartDate").focus();
 				return false;
+			}else if(sday>dday){
+				alert("펀딩 날짜 이후는 선택할수 없습니다.");
+				$("#fundStartDate").val('');
+				$("#fundStartDate").focus();
+				return false;
 			}else if(eday==""){
 				alert("모금 마감날짜를 입력하세요.");
 				$("#fundEndDate").focus();
 				return false;
+			}else if(eday>dday){
+				alert("펀딩 날짜 이후는 선택할수 없습니다.");
+				$("#fundEndDate").val('');
+				$("#fundEndDate").focus();
+				return false;
+			}else if(sday>eday){
+				alert("시작일자가 종료일자 이후로 선택되었습니다.");
+				$("#fundEndDate").val('');
+				$("#fundStartDate").val('');
+				$("#fundStartDate").focus();
+				return false;
 			}else if(countItem==0){
 				alert("펀딩 상품을 등록하세요.");
+				$('#productName').focus();
 				return false;
 			}
 // 		})

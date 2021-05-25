@@ -170,11 +170,14 @@
     	}
     	
     	 function checkAll() {
-					var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+				var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+    			var psRegex = /^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/
+				var specialCheck = /[~!@#$%^&*()_+|<>?:{}]/;
+    			var regExp = /^[0-9]*$/;
+    			
     			var ckemail = $('#e-mail').val();
     			var ckname = $('#NickName').val();	 
     			var cknumber = $('#PhoneNumber').val();	 
-    			var psRegex = /^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/
     			var ckps = $('#Password').val();	 
     			var ckreps = $('#RePassword').val();	
     			
@@ -190,10 +193,24 @@
     				alert("닉네임을 입력해주세요");
     				$('#NickName').focus();
     				return false;
+    			} else if(ckname.search(/\s/) != -1) {
+    				alert("닉네임을 공백없이 입력해주세요");
+    				$('#NickName').focus();
+    				$('#NickName').val('');
+    				return false;
+    			} else if (specialCheck.test(ckname)) {
+    				alert("닉네임에 특수문자는 포함 할 수 없습니다."); 
+    				$('#memName').focus();
+    				return false;
     			}else if(cknumber=="") {
     				alert("연락처를 입력해주세요");
     				$('#PhoneNumber').focus();
     				return false;
+    			}else if( !regExp.test(cknumber)) {
+	   			    alert("-를 제외한 숫자만 입력해주세요");
+	   			    $('#PhoneNumber').val('');
+	   			    $('#PhoneNumber').focus();
+	   				return false;  
     			}else if(ckps=="") {
     				alert("비밀번호를 입력해주세요");
     				$('#Password').focus();
@@ -220,26 +237,18 @@
 // 		    				$('#RePassword').val("");
 // 		    				$('#Password').focus();
 // 		            return false; 
-    			} 
+    			}
     		
     	 	//alert("회원가입이 완료되었습니다");
     		$("#insertForm").submit();
     	 }
 
-   });	
-
-    	
-	
-
- 
+   });
  	
 </script>
 
-
-
-	<footer th:replace="fragments/footer :: footer"> </footer>
+<footer th:replace="fragments/footer :: footer"> </footer>
 
 </body>
-
 
 </html>

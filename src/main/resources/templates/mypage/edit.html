@@ -241,7 +241,8 @@
 		    				$('#PhoneNumber').focus();
 		    				return false;
 		    			}   else if( !regExp.test(cknumber)) {
-		    			     alert("숫자만 입력가능합니다.");
+		    			     alert("-를 제외한 숫자만 입력해주세요");
+		    			     $('#PhoneNumber').val('');
 		    			     $('#PhoneNumber').focus();
 		    				return false;  
 		    			}  
@@ -266,7 +267,7 @@
 				    	$('#memAccount').focus();
 				    	return false;
 				    } if( !regExp.test(ckaccount)) {
-				    	alert("숫자만 입력가능합니다.");
+				    	alert("-를 제외한 숫자만 입력해주세요");
 				    	$('#memAccount').focus();
 				    	return;
 				    } 

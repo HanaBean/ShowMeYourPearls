@@ -37,7 +37,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr align="center" bgcolor="white" th:each="r : ${reward}">
+								<tr align="center" bgcolor="white" th:each="r : ${reward}" th:if="${r.rwrdName} ne null">
 									<th th:text="${r.rwrdName}"></th>
 									<td th:text="${r.rwrdCnt}"></td>
 									<td th:text="${r.rwrdPrice*r.rwrdCnt+'원'}"></td>

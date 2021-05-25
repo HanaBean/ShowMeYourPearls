@@ -12,7 +12,7 @@ public interface MemberMapper {
 	List<MemberVO> list();
 	MemberVO getProfile(Long memNum);
 	MemberVO get(String memEmail);
-	MemberVO getting(String memName);
+	MemberVO getByName(String memName);
 	int insert(MemberVO vo);
 	int update(MemberVO vo);
 	int updateLevel(MemberVO vo);

@@ -58,13 +58,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberVO getting(MemberVO vo) {
-		return mapper.getting(vo.getMemName());
-	}
-
-	@Override
 	public boolean checkName(String memName) {
-		if(mapper.get(memName)==null) {
+		if(mapper.getByName(memName)==null) {
 			return true;
 		}
 		return false;

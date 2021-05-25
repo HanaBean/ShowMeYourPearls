@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<section class="hero-wrap hero-wrap-2" th:style="'background-image: url('+@{/images/pearl.jpg}+');'" data-stellar-background-ratio="0.5">
+<section class="hero-wrap hero-wrap-2" th:style="'background-image: url('+@{/images/jinjur.png}+');'" data-stellar-background-ratio="0.5">
   <div class="overlay"></div>
   <div class="container">
     <div class="row no-gutters slider-text align-items-end">
@@ -18,7 +18,7 @@
 		$(document).ready(function() {
 			var url = document.location.href.split('/');
 			if(url[3]=='gallery') {
-				if(url[4]=='list'){
+				if(url[4]=='list'||url[4]=='list#'){
 					$('#Category').html('Gallery');
 					$('#CateH').html('Gallery');
 				}else if(url[4].split('?')[0]=='get'){
@@ -44,7 +44,7 @@
 					$('#CateH').html('Gallery Modify');
 				}
 			}else if(url[3]=='notice') {
-				if(url[4]=='list'){
+				if(url[4]=='list'||url[4]=='list#'){
 					$('#Category').html('Notice');
 					$('#CateH').html('Notice');
 				}else if(url[4].split('?')[0]=='read'){
@@ -70,7 +70,7 @@
 					$('#CateH').html('Notice Update');
 				}
 			}else if(url[3]=='fund') {
-				if(url[4]=='fundList'){
+				if(url[4]=='fundList'||url[4]=='fundList#'){
 					$('#Category').html('Funding');
 					$('#CateH').html('Funding');
 				}else if(url[4].split('?')[0]=='get'){
@@ -102,10 +102,12 @@
 					$('#CateP').append(str2);
 					$('#CateH').html('Funding Payment');
 				}
-			}else if(url[3]=='mypage') {
+			}else if(url[3]=='mypage'||url[3].split('?')[0]=='mypage') {
+				if(url[4]==null&&url[3].split('?')[0]=='mypage'){
+					console.log(url[3].split('?')[0]);
 					$('#Category').html('MyPage');
 					$('#CateH').html('MyPage');
-				if(url[4].split('?')[0]=='edit'){
+				}else if(url[4].split('?')[0]=='edit'){
 					var str = '<a href="/mypage">MyPage<i class="ion-ios-arrow-forward"></i></a>';
 					var str2 = '<span>Edit<i class="ion-ios-arrow-forward"></i></span></p>';
 					$('#Category').attr("class","mr-2");

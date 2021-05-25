@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,11 +57,12 @@ public class MypageController {
 	private EmotionService emotion;
 
 	
-	
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("/mypage/delete")
-	public ModelAndView adminmem(Long memNum){
+	public ModelAndView adminmem(Long memNum, HttpSession session){
 		ModelAndView mv = new ModelAndView("redirect:/");
 		mypageservice.editdelete(memNum);
+		session.invalidate();
 		return mv;
 	}
 	
@@ -122,7 +125,8 @@ public class MypageController {
 	
 	@PreAuthorize("principal.username == #vo.memEmail")
 	@PostMapping("/mypage/editsend")
-	 public String Editsend(MemberVO vo,@RequestParam("file") MultipartFile file,RedirectAttributes rttr) {
+	 public String Editsend(MemberVO vo,@RequestParam("file") MultipartFile file,
+			 RedirectAttributes rttr, @AuthenticationPrincipal CustomUser customUser) {
 		String ninkname = vo.getMemName(); 
 		 if(!service.checkName(ninkname)) {
 			  rttr.addFlashAttribute("result","EditFail"); 
@@ -130,9 +134,9 @@ public class MypageController {
 			  log.info("VO2>>>>>"+vo);
 			  if(file.getSize()>0) vo.setProfile(uploadPicture(file));
 			  user.updateUser(vo); 
+			  customUser.getMember().setMemName(ninkname);
 		  }
 		 return "redirect:/mypage/edit"; 
-		 
 	}
 	
 	 
