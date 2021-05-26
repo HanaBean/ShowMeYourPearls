@@ -82,14 +82,22 @@ public class FundServiceImpl implements FundService {
 
 	@Override
 	public FundVO getPay(FundVO vo) {
-		vo.setPic(picMapper.getPicF(vo.getFundNum()));
-//		List<RewardVO> rwrd = rwMapper.getListReward(vo.getFundNum());
+		Long fundNum = vo.getFundNum();
+		vo.setPic(picMapper.getPicF(fundNum));
 		List<RewardVO> fundRwrd = vo.getRwvo();
 		for(int i=0;i<fundRwrd.size();i++) {
 			String name = fundRwrd.get(i).getRwrdName();
 			if(name!=null) {
+				RewardVO rwvo = new RewardVO();
+				String rwrdName = name.substring(0,name.lastIndexOf("("));
+				log.info("rwrdName>>>>"+rwrdName+"//fundNum>>>"+fundNum);
 				String price = name.substring(name.lastIndexOf("(")+1, name.lastIndexOf("원"));
 				fundRwrd.get(i).setRwrdPrice(Integer.parseInt(price));
+				rwvo.setRwrdName(rwrdName);
+				rwvo.setFundNum(fundNum);
+				int rwrdNum = rwMapper.getRewardNum(rwvo);
+				log.info("rwrdNum>>>>"+rwrdNum);
+				fundRwrd.get(i).setRwrdNum(rwrdNum);
 			}
 		}
 //		for(int i=0;i<fundRwrd.size();i++) {

@@ -50,8 +50,9 @@
 							<span>추가 후원금 : </span><input type="number" value="0" id="payDona" name="payDona"> <input type="button"
 							value="Donation" onclick="sponsor()">
 					</div>
-					<div>
-						
+					<div th:each="r,i : ${reward}" th:if="${r.rwrdName} ne null">
+									<input type="hidden" th:value="${r.rwrdNum}" th:name="|item[${i.index}].rwrdNum|">
+									<input type="hidden" th:value="${r.rwrdCnt}" th:name="${'item['+i.index+'].rwrdCount'}">
 					</div>
 					<div class="col-md-6">
 						<div style="margin: 20px;"><span style="font-size:25px;"> 결제 금액&nbsp;&nbsp;&nbsp;: </span>
@@ -79,7 +80,7 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="label" for="name">Receiver</label> <input
-														type="text" class="form-control" id="name"
+														type="text" class="form-control" id="receiver"
 														placeholder="Name">
 												</div>
 											</div>
@@ -100,7 +101,7 @@
 												<div class="form-group">
 													<label class="label" for="subject">Contact</label> <input
 														type="text" class="form-control"
-														placeholder="Contact Number">
+														placeholder="Contact Number" id="contactNumber">
 												</div>
 											</div>
 											<div class="col-md-12">
@@ -126,22 +127,23 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="label">Card Number</label> <input
-														type="number" class="form-control" name="payCardNum"
-														placeholder="16 Digit Card Number">
+														type="text" class="form-control" name="payCardNum"
+														placeholder="16 Digit Card Number" id="cardNum"
+														maxlength="16">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="label">CVC</label> <input type="number"
-														class="form-control" name="payCvc" id="text"
-														placeholder="3 DIGIT">
+													<label class="label">CVC</label> <input type="text"
+														class="form-control" name="payCvc" id="cardCvc"
+														placeholder="3 DIGIT" maxlength="3">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="label">Valid Date</label> <input
-														type="number" class="form-control" name="payCardExpire"
-														id="text" placeholder="MMYY">
+														type="text" class="form-control" name="payCardExpire"
+														id="cardExpire" placeholder="MMYY" maxlength="4">
 												</div>
 											</div>
 
@@ -153,7 +155,7 @@
 							</div>
 							<div class="contact-wrap w-100 p-md-5 p-4">
 								<input type="submit" class="btn btn-primary" value="Payment"
-									form="contactForm"> <input type="button"
+									form="contactForm" id="paySubmit"> <input type="button"
 									class="btn btn-secondary" value="Cancel"> <input
 									type="hidden" name="memNum" th:value="${artist.memNum}">
 								<input type="hidden" name="fundNum" th:value="${fund.fundNum}">
@@ -221,6 +223,64 @@
 						}
 					}).open();
 		}
+		
+		$('#paySubmit').click(function(){
+			event.preventDefault();
+			var regExp = /^[0-9]*$/;
+			if($('#receiver').val()==''){
+				alert('받으시는 분의 성함을 입력해주세요.');
+				$('#receiver').focus();
+				return;
+			}else if($('#zipCode').val()==''){
+				alert('우편번호를 선택해주세요.');
+				findZip();
+				return;
+			}else if($('#address').val()==''){
+				alert('받으시는 분의 주소를 입력해주세요.');
+				$('#address').focus();
+				return;
+			}else if($('#address2').val()==''){
+				alert('받으시는 분의 주소를 입력해주세요.');
+				$('#address2').focus();
+				return;
+			}else if($('#contactNumber').val()==''){
+				alert('연락받으실 번호를 입력해주세요.');
+				$('#contactNumber').focus();
+				return;
+			}else if(!regExp.test($('#contactNumber').val())){
+				alert('-를 제외한 숫자만 입력해주세요.');
+				$('#contactNumber').focus();
+				return;
+			}else if($('#cardNum').val()==''){
+				alert('결제하실 카드 번호를 입력해주세요.');
+				$('#cardNum').focus();
+				return;
+			}else if(!regExp.test($('#cardNum').val())){
+				alert('-를 제외한 숫자만 입력해주세요.');
+				$('#cardNum').focus();
+				return;
+			}else if($('#cardCvc').val()==''){
+				alert('결제하실 카드의 cvc 세자리를 입력해주세요.');
+				$('#cardCvc').focus();
+				return;
+			}else if(!regExp.test($('#cardCvc').val())){
+				alert('숫자만 입력가능합니다.');
+				$('#cardCvc').val('');
+				$('#cardCvc').focus();
+				return;
+			}else if($('#cardExpire').val()==''){
+				alert('결제하실 카드의 유효기간을 입력해주세요.');
+				$('#cardExpire').focus();
+				return;
+			}else if(!regExp.test($('#cardExpire').val())){
+				alert('/를 제외한 숫자만 입력해주세요.');
+				$('#cardExpire').val('');
+				$('#cardExpire').focus();
+				return;
+			}
+			$('#contactForm').submit();
+		});
+		
 	</script>
 	<footer th:replace="fragments/footer :: footer"></footer>
 

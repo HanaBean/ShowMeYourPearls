@@ -14,4 +14,8 @@
 	<select id="getListReward" resultType="com.pearl.domain.RewardVO">
 			select * from reward where fundnum=#{fundNum}
 	</select>
+	
+	<select id="getRewardNum" resultType="int">
+		select rwrdNum from reward where rwrdname =#{rwrdName} and fundNum = #{fundNum}
+	</select>
 </mapper>

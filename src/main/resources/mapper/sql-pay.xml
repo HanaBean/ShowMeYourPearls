@@ -15,4 +15,8 @@
 		values(#{payNum},sysdate,#{fundNum},#{memNum},
 			#{payCardNum},#{payCvc},#{payCardExpire},#{payDona},#{payTotal},#{payAddress})
 	</insert>
+	
+	<insert id="insertItem">
+		insert into item values(item_seq.nextval,#{rwrdNum},#{rwrdCount},#{payNum})
+	</insert>
 </mapper>

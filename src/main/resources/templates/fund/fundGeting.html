@@ -117,6 +117,7 @@
 						<div class="row">
 							<input type="submit" id="funding" form="itemSubmit"
 								style="margin-right: 5px; "
+								th:if="${#authentication.name}!=${artist.memEmail}"
 								value="Attend Funding" class="btn btn-info d-block px-2 py-3">
 							<input type="button" id="update" value="Update"
 								style="margin-right: 5px;" 
@@ -142,6 +143,7 @@
 		var total = 0;
 		var basic = 1;
 
+		
 		function selectItem() {
 			var item = $("#comboItem option:selected").text();
 			var choice = $("#comboItem option:selected").val();
@@ -250,6 +252,15 @@
 			$('#tPrice').val(total);
 		}
 
+		$('#funding').click(function(){
+			event.preventDefault();
+			if(total<=0){
+				alert('상품을 먼저 선택해주세요.');
+				return;
+			}
+			$('#itemSubmit').submit();
+		});
+		
 		function deleteFund() {
 			$('#itemSubmit').attr("action","/fund/delete").submit();
 		}
