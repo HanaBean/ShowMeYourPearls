@@ -6,7 +6,7 @@
 
 	<select id="getList" resultType="com.pearl.domain.FundVO">
 			select * from 
-			(select /*+INDEX_DESC(f fund_pk)*/ rownum rn, f.*, m.memname from fund f, member m 
+			(select row_number() over(order by fundnum desc) rn, f.*, m.memname from fund f, member m 
 				where f.memnum=m.memnum and fundnum>0
 			<include refid="sql-search.searchFund" />		
 			) where rn between #{pagiInfo.firstRecordIndex}+1 and #{pagiInfo.lastRecordIndex}
