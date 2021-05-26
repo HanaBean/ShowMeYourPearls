@@ -12,12 +12,16 @@
 	text-overflow: ellipsis;
 	word-wrap: break-word;
 	display: -webkit-box;
-	-webkit-line-clamp: 2; /* ellipsis line */
+	-webkit-line-clamp: 5; /* ellipsis line */
 	-webkit-box-orient: vertical;
 	/* webkit 엔진을 사용하지 않는 브라우저를 위한 속성. */
 	/* height = line-height * line = 1.2em * 3 = 3.6em  */
 	line-height: 1.2em;
-	height: 3.6em; 
+	height: 6.9em; 
+}
+
+.finfo{
+	width: 500px;
 }
 
 </style>
@@ -30,7 +34,7 @@
 					<div class="block-7">
 						<div class="text-center p-4">
 							<table class="styled-table" align="center"
-								style="width: 100%">
+								style="width: 100%; table-layout:fixed;">
 								<thead style="color: black;">
 									<th>펀딩 번호</th>
 									<th>펀딩 제목</th>
@@ -38,7 +42,7 @@
 									<th>펀딩 기간</th>
 									<th>목표 금액</th>
 									<th>결제한 금액</th>
-									<th>펀딩 내용</th>
+									<th class="finfo">펀딩 내용</th>
 								</thead>
 								<tbody>
 									<tr th:each="d : ${donaList }">

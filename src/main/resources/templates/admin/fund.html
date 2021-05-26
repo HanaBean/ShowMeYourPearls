@@ -25,6 +25,10 @@ li {
 	height: 8em; 
 }
 
+.finfo{
+	width: 170px;
+}
+
 </style>
 
 <body>
@@ -94,7 +98,7 @@ li {
 									<th>펀딩 기간</th>
 									<th>목표 금액</th>
 									<th>현재 금액</th>
-									<th>비고</th>
+									<th class="finfo">펀딩 내용</th>
 								</thead>
 								<tbody>
 									<tr th:each="f : ${list }">

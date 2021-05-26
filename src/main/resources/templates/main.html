@@ -25,6 +25,7 @@
 	height: 3.6em; 
 }
 
+
 </style>
 <body>
    <header th:replace="fragments/header :: header"> </header>
@@ -97,7 +98,7 @@
                   <div><span th:text="${#dates.format(l.boardDate, 'yyyy-MM-dd')}"></span></div>
                    <div><span th:text="${l.memName}" class="lname"></span><label class="llabel">&nbsp작가님</label></div> 
                 </div>
-                <h3 class="heading"><span th:text="${l.boardTitle}"></span></h3>
+                <h3 class="heading"><span th:text="${l.boardTitle}" ></span></h3>
                  <a th:href="@{gallery/get(boardNum=${l.boardNum})}"class="btn btn-primary d-block px-2 py-3">Get Started</a>
                </div>
             </div>
