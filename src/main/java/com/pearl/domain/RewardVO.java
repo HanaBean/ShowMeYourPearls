@@ -9,7 +9,4 @@ public class RewardVO {
 	private String rwrdName;
 	private Long fundNum;
 	private int rwrdNum, rwrdPrice, rwrdCnt;
-	
-	private List<RewardVO> rwvo;
-	
 }

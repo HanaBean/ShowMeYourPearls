@@ -12,6 +12,10 @@
 		select * from member where memEmail=#{memEmail}
 	</select>
 	
+	<select id="getByName" resultType="com.pearl.domain.MemberVO">
+		select * from member where memName=#{memName}
+	</select>
+	
 	<select id="getProfile" parameterType="Long" resultType="com.pearl.domain.MemberVO">
 		select * from member where memNum=#{memNum}
 	</select>

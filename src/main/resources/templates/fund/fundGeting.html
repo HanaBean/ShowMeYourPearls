@@ -84,7 +84,7 @@
 									</div></li>
 								<div>
 									<select id="comboItem" name="comboItem" onchange="selectItem()">
-										<option value="상품선택">========= 상품 선택 =========</option>
+										<option value="nothing">========= 상품 선택 =========</option>
 										<option th:each="reward : ${rewardList}"
 											th:text="${reward.rwrdName + '(' + reward.rwrdPrice + '원)' } "></option>
 									</select>
@@ -144,6 +144,9 @@
 
 		function selectItem() {
 			var item = $("#comboItem option:selected").text();
+			var choice = $("#comboItem option:selected").val();
+			console.log("selected : "+choice);
+			if(choice=='nothing') return;
 			$("#attach-item")
 					.prepend(
 							'<li id="select-item'+count+'"><div class="row" style="position: relative; left: 20px">'

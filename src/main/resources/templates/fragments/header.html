@@ -10,25 +10,25 @@
 			<div class="row">
 				<div class="col-md-6 d-flex align-items-center">
 					<p class="mb-0 phone pl-md-2">
-						<a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span>
-							+119</a> <a href="#"><span class="fa fa-paper-plane mr-1"></span>
-							youremail@email.com</a>
+						<a class="mr-2"><span class="fa fa-phone mr-1"></span>
+							+119</a> <a><span class="fa fa-paper-plane mr-1"></span>
+							4yourpearl@email.com</a>
 					</p>
 				</div>
 				<div class="col-md-6 d-flex justify-content-md-end">
 					<div class="social-media">
-						<p class="mb-0 d-flex">
-							<a sec:authorize="isAnonymous()" href="/login"
-								class="d-flex align-items-center justify-content-center nav-header"><span>Login</span></a>
+						<p class="mb-0 d-flex" style="padding-bottom:5px;">
 							<span sec:authorize="isAuthenticated()" 
 								class="d-flex align-items-center justify-content-center nav-header" 
-								sec:authentication="principal.member.memName"></span> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-							<a sec:authorize="isAuthenticated()" href="/logout"
-								class="d-flex align-items-center justify-content-center nav-header"><span>Logout</span></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+								th:text="${#authentication.principal.member.memName+'님'}"></span>
 							<a sec:authorize="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')" href="/mypage"
-								class="d-flex align-items-center justify-content-center nav-header"><span>My</span></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+								class="d-flex align-items-center justify-content-center nav-header" style="margin-left:20px;"><span>My</span></a>
 							<a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin/member"
-								class="d-flex align-items-center justify-content-center nav-header"><span>Admin</span></a>
+								class="d-flex align-items-center justify-content-center nav-header" style="margin-left:20px;"><span>Admin</span></a>
+							<a sec:authorize="isAnonymous()" href="/login"
+								class="d-flex align-items-center justify-content-center nav-header" style="margin-left:20px;"><span>Login</span></a>
+							<a sec:authorize="isAuthenticated()" href="/logout"
+								class="d-flex align-items-center justify-content-center nav-header" style="margin-left:20px;"><span>Logout</span></a>
 						</p>
 					</div>
 				</div>

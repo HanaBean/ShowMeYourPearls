@@ -27,17 +27,12 @@ th {
   }
 
 td {
-      border-bottom: 1px solid #444444;
-    padding: 10px;
+        border-bottom: 1px solid #444444;
+    	padding: 10px;
   }
 
 .subname {
 	width:400px;
-}
-
-h5 {
-	font-size : 3em;
-	font-weight: bold;
 }
 
 </style>
@@ -52,10 +47,10 @@ h5 {
     <nav th:replace="mypage/common :: nav"></nav>
 			<div class="overlay"></div>
     	<div class="container">
-    		<div class="row" id="row2">
+    		<div class="row">
     			<div class="row d-md-flex justify-content-center">
     				<div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ">
-    				<h5 style="margin-bottom:30px;">구독 정보</h5>
+    				<h5 style="font-size:3em;font-weight: bold;margin-bottom:30px;">구독 정보</h5>
     				<input type="hidden" th:value="${#authentication.principal.member.memNum}" id="userNum">
    				<table class="sub-table" >
 							<thead>

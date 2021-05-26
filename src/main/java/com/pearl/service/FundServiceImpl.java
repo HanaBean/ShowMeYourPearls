@@ -87,8 +87,10 @@ public class FundServiceImpl implements FundService {
 		List<RewardVO> fundRwrd = vo.getRwvo();
 		for(int i=0;i<fundRwrd.size();i++) {
 			String name = fundRwrd.get(i).getRwrdName();
-			String price = name.substring(name.lastIndexOf("(")+1, name.lastIndexOf("원"));
-			fundRwrd.get(i).setRwrdPrice(Integer.parseInt(price));
+			if(name!=null) {
+				String price = name.substring(name.lastIndexOf("(")+1, name.lastIndexOf("원"));
+				fundRwrd.get(i).setRwrdPrice(Integer.parseInt(price));
+			}
 		}
 //		for(int i=0;i<fundRwrd.size();i++) {
 //			for(int j=0;j<rwrd.size();j++) {
@@ -108,8 +110,10 @@ public class FundServiceImpl implements FundService {
 		List<RewardVO> rwrdList = vo.getRwvo();
 		for(int i=0;i<rwrdList.size();i++) { 
 			RewardVO rwrd = rwrdList.get(i);
-			rwrd.setFundNum(vo.getFundNum()); 
-			rwMapper.insertReward(rwrd); 
+			if(rwrd.getRwrdName()!=null&&rwrd.getRwrdPrice()>0) {
+				rwrd.setFundNum(vo.getFundNum()); 
+				rwMapper.insertReward(rwrd); 
+			}
 		}
 		
 
