@@ -199,6 +199,16 @@
 	  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 	});
 		
+		function dateCheck(date1,date2){
+			var dateS = new Date(date1);
+			var dateF = new Date(date2);
+			console.log("date1:"+dateS+"\ndate2:"+dateF);
+			if(dateS.getTime()>dateF.getTime()){
+				console.log("false");
+				return false;
+			}else return true;
+		}
+		
 		$("input[type=submit]").on("click",function(){
 			event.preventDefault();
 			var title = $("#fundTitle").val();
@@ -239,7 +249,7 @@
 				alert("모금 시작날짜를 입력하세요.");
 				$("#fundStartDate").focus();
 				return false;
-			}else if(sday>dday){
+			}else if(!dateCheck(sday,dday)){
 				alert("펀딩 날짜 이후는 선택할수 없습니다.");
 				$("#fundStartDate").val('');
 				$("#fundStartDate").focus();
@@ -248,15 +258,14 @@
 				alert("모금 마감날짜를 입력하세요.");
 				$("#fundEndDate").focus();
 				return false;
-			}else if(eday>dday){
+			}else if(!dateCheck(eday,dday)){
 				alert("펀딩 날짜 이후는 선택할수 없습니다.");
 				$("#fundEndDate").val('');
 				$("#fundEndDate").focus();
 				return false;
-			}else if(sday>eday){
+			}else if(!dateCheck(sday,eday)){
 				alert("시작일자가 종료일자 이후로 선택되었습니다.");
 				$("#fundEndDate").val('');
-				$("#fundStartDate").val('');
 				$("#fundStartDate").focus();
 				return false;
 			}else if(countItem==0){
