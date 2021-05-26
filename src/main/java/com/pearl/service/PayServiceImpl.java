@@ -1,8 +1,11 @@
 package com.pearl.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pearl.domain.ItemDTO;
 import com.pearl.domain.PayDTO;
 import com.pearl.mapper.PayMapper;
 
@@ -22,6 +25,12 @@ public class PayServiceImpl implements PayService{
 	@Override
 	public void insert(PayDTO dto) {
 		mapper.insert(dto);
+		List<ItemDTO> itemList = dto.getItem();
+		for(int i=0;i<itemList.size();i++) {
+			ItemDTO item = itemList.get(i);
+			item.setPayNum(dto.getPayNum());
+			mapper.insertItem(item);
+		}
 	}
 
 	@Override
