@@ -4,7 +4,22 @@
 </head>
 <body>
 	<header th:replace="fragments/header :: header"> </header>
+<style>
 
+.bcontent{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 3; /* ellipsis line */
+	-webkit-box-orient: vertical;
+	/* webkit 엔진을 사용하지 않는 브라우저를 위한 속성. */
+	/* height = line-height * line = 1.2em * 3 = 3.6em  */
+	line-height: 1.2em;
+	height: 3.6em; 
+}
+
+</style>
 	<section th:replace="/fragments/section.html::section"></section>
 
 	<section class="ftco-section bg-light">
@@ -26,7 +41,7 @@
 					</div>
 					<br>
 					<hr>
-					<p align="left">[[${b.boardContent }]]</p>
+					<p align="left" class="bcontent">[[${b.boardContent }]]</p>
 					<a th:href="@{/notice/read(boardNum=${b.boardNum })}"
 						class="btn-custom d-flex align-items-center justify-content-center"><span
 						class="fa fa-chevron-right"></span><i class="sr-only">Read
