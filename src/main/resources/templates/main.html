@@ -12,6 +12,19 @@
    text-align: right;
 }
 
+.fintro{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 3; /* ellipsis line */
+	-webkit-box-orient: vertical;
+	/* webkit 엔진을 사용하지 않는 브라우저를 위한 속성. */
+	/* height = line-height * line = 1.2em * 3 = 3.6em  */
+	line-height: 1.2em;
+	height: 3.6em; 
+}
+
 </style>
 <body>
    <header th:replace="fragments/header :: header"> </header>
@@ -52,7 +65,7 @@
                     <label><&nbsp&nbsp</label><span th:text="${f.fundTitle}"></span><label>&nbsp></label><br><br>
                   
                   <!-- <span th:text="${a.count}"></span> -->
-                  <span th:text="${f.fundIntro}"></span><br><br>
+                  <span th:text="${f.fundIntro}" class="fintro"></span><br><br>
                   <label>펀딩기간 :&nbsp&nbsp</label><span th:text="${#dates.format(f.fundStartDate, 'yyyy-MM-dd')}"></span><span>~</span>
                   <span th:text="${#dates.format(f.fundEndDate, 'yyyy-MM-dd')}"></span><br><br>
                     <span th:text="${f.memName}" class="fname"></span> <label>&nbsp작가님</label> <br><br>
