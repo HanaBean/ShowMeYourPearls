@@ -10,7 +10,23 @@ li {
 .fundname{
 	width:100px;
 }
+
+
+.fintro{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 6; /* ellipsis line */
+	-webkit-box-orient: vertical;
+	/* webkit 엔진을 사용하지 않는 브라우저를 위한 속성. */
+	/* height = line-height * line = 1.2em * 3 = 3.6em  */
+	line-height: 1.2em;
+	height: 8em; 
+}
+
 </style>
+
 <body>
 	<header th:replace="fragments/header :: header"> </header>
 
@@ -69,7 +85,7 @@ li {
 									style="float: left; width: 15%;">삭제하기</button>
 							</div>
 							<table class="styled-table" align="center"
-								style="width: 100%">
+								style="width: 100%;  table-layout:fixed;">
 								<thead style="color: black;">
 									<th><input type="checkbox" name="cbAll" value="cbAll"></th>
 									<th>펀딩 번호</th>
@@ -91,7 +107,8 @@ li {
 										<td th:text="${f.fundMoney}">현재 금액</td>
 										<!-- <td th:text="${#numbers.formatDecimal(f.fundMoney, 0, 'COMMA', 0, 'POINT')}"></td> -->
 										<td>[[${f.nowtotal}]]</td>
-										<td>[[${f.fundIntro}]]</td>
+										<td th:text="${f.fundIntro}" class="fintro"></td>
+									<!-- 	<td class="fintro">[[${f.fundIntro}]]</td> -->
 									</tr>
 								</tbody>
 							</table>
