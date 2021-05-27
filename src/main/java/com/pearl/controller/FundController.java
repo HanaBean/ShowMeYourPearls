@@ -127,9 +127,11 @@ public class FundController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/pay")
-	public ModelAndView fundPay(PayDTO dto, String Address, String Address2) {
+	public ModelAndView fundPay(PayDTO dto, String Address, String Address2,
+			@AuthenticationPrincipal CustomUser customUser) {
 		ModelAndView mv = new ModelAndView("redirect:/fund/get?fundNum="+ dto.getFundNum());
 		dto.setPayAddress(Address +" "+Address2);
+		dto.setMemNum(customUser.getMember().getMemNum());
 		log.info(">>>>>dto :"+dto);
 		Pservice.insert(dto);
 		return mv;
