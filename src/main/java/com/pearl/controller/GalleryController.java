@@ -88,7 +88,7 @@ public class GalleryController {
 			}
 		}
 		mv.addObject("gallery", list);
-		//mv.addObject("funding", );
+		mv.addObject("funding", funding);
 		return mv;
 	}
 	

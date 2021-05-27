@@ -147,10 +147,10 @@
 					alert("e-mail을 입력해주세요");	 
 					$('#memId').focus();
 					return false;
-//     		} else if(!(reg_email.test(ckemail))){
-// 					alert("유효하지 않은 이메일 양식입니다.  ex)abc@gmail.com");
-// 					$('#e-mail').focus();
-// 					return false;
+     		} else if(!(reg_email.test(ckemail))){
+					alert("유효하지 않은 이메일 양식입니다.  ex)abc@gmail.com");
+ 					$('#e-mail').focus();
+ 					return false;
     		}else if(ckps=="") {
 					alert("비밀번호를 입력해주세요");
 					$('#memPw').focus();
@@ -160,11 +160,11 @@
 					$('#memPw').val("");
 					$('#memPw').focus();
 					return false;
-// 				} else if(!(psRegex.test(ckps))){
-// 	        alert("비밀번호는 숫자, 영문, 특수문자(!@$%^&*?_~ 만 허용) 조합으로 8~20자리를 사용해야 합니다.")	
-// 	        $('#memPw').val("");
-// 	        $('#memPw').focus();
-// 	        return false; 
+ 				} else if(!(psRegex.test(ckps))){
+ 	        alert("비밀번호는 숫자, 영문, 특수문자(!@$%^&*?_~ 만 허용) 조합으로 8~20자리를 사용해야 합니다.")	
+ 	        $('#memPw').val("");
+ 	        $('#memPw').focus();
+ 	        return false; 
 				} 
     		$("#login").submit();
     	}
@@ -185,10 +185,10 @@
     				alert("e-mail을 입력해주세요");	 
     				$('#e-mail').focus();
     				return false;
-//     			} else if(!(reg_email.test(ckemail))){
-//     				alert("유호하지 않은 이메일 양식입니다.  ex)abc@gmail.com");
-//     				$('#e-mail').focus();
-//     				return false;
+     			} else if(!(reg_email.test(ckemail))){
+     				alert("유호하지 않은 이메일 양식입니다.  ex)abc@gmail.com");
+     				$('#e-mail').focus();
+     				return false;
     			} else if(ckname=="") {
     				alert("닉네임을 입력해주세요");
     				$('#NickName').focus();
@@ -231,12 +231,12 @@
     				$('#RePassword').val("");
     				$('#Password').focus();
     				return false;
-//     			} else if(!(psRegex.test(ckps))){
-// 		            alert("비밀번호는 숫자, 영문, 특수문자(!@$%^&*?_~ 만 허용) 조합으로 8~20자리를 사용해야 합니다.")	
-// 		            $('#Password').val("");
-// 		    				$('#RePassword').val("");
-// 		    				$('#Password').focus();
-// 		            return false; 
+     			} else if(!(psRegex.test(ckps))){
+ 		            alert("비밀번호는 숫자, 영문, 특수문자(!@$%^&*?_~ 만 허용) 조합으로 8~20자리를 사용해야 합니다.")	
+ 		            $('#Password').val("");
+ 		    				$('#RePassword').val("");
+ 		    				$('#Password').focus();
+ 		            return false; 
     			}
     		
     	 	//alert("회원가입이 완료되었습니다");
