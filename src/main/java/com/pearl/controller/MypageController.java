@@ -127,14 +127,16 @@ public class MypageController {
 	@PostMapping("/mypage/editsend")
 	 public String Editsend(MemberVO vo,@RequestParam("file") MultipartFile file,
 			 RedirectAttributes rttr, @AuthenticationPrincipal CustomUser customUser) {
-		String ninkname = vo.getMemName(); 
-		 if(!service.checkName(ninkname)) {
+		
+		String nickname = vo.getMemName();
+		 if(!customUser.getMember().getMemName().equals(nickname)&&
+			  !service.checkName(nickname)) {
 			  rttr.addFlashAttribute("result","EditFail"); 
 		  }else { 
 			  log.info("VO2>>>>>"+vo);
 			  if(file.getSize()>0) vo.setProfile(uploadPicture(file));
 			  user.updateUser(vo); 
-			  customUser.getMember().setMemName(ninkname);
+			  customUser.getMember().setMemName(nickname);
 		  }
 		 return "redirect:/mypage/edit"; 
 	}

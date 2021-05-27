@@ -31,7 +31,7 @@
 	<update id="update">
 		update member
 		<trim prefix="set" suffixOverrides=",">
-			<if test="memName != null">memname=#{memName},</if>
+			<if test="memName != null and memName !=''">memname=#{memName},</if>
 			<if test="memPass != null and memPass != ''">mempass=#{memPass},</if>
 			<if test="memPhone != null">memphone=#{memPhone},</if>
 			<if test="memBank != null and memBank != '' and memAccount != null and memAccount != ''">
