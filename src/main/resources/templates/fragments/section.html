@@ -18,7 +18,7 @@
 		$(document).ready(function() {
 			var url = document.location.href.split('/');
 			if(url[3]=='gallery') {
-				if(url[4]=='list'||url[4]=='list#'){
+				if(url[4]=='list'||url[4]=='list#'||url[4].split('?')[0]=='list'){
 					$('#Category').html('Gallery');
 					$('#CateH').html('Gallery');
 				}else if(url[4].split('?')[0]=='get'){
@@ -44,7 +44,7 @@
 					$('#CateH').html('Gallery Modify');
 				}
 			}else if(url[3]=='notice') {
-				if(url[4]=='list'||url[4]=='list#'){
+				if(url[4]=='list'||url[4]=='list#'||url[4].split('?')[0]=='list'){
 					$('#Category').html('Notice');
 					$('#CateH').html('Notice');
 				}else if(url[4].split('?')[0]=='read'){
@@ -70,7 +70,7 @@
 					$('#CateH').html('Notice Update');
 				}
 			}else if(url[3]=='fund') {
-				if(url[4]=='fundList'||url[4]=='fundList#'){
+				if(url[4]=='fundList'||url[4]=='fundList#'||url[4].split('?')[0]=='fundList'){
 					$('#Category').html('Funding');
 					$('#CateH').html('Funding');
 				}else if(url[4].split('?')[0]=='get'){
